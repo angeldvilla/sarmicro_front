@@ -1,18 +1,14 @@
-import $ from "jquery"
-import { useEffect } from "react";
-export const App = () => {
-useEffect(() => {
-  alert($("#input").val())
-})
-  return(
-      <>
-      <div>
-        <h1>React App.</h1>
-      </div>
-      <div>
-        <input name="input" id="input" value="jQuery with ReactJS"/>
-      </div>
-      </>
-     )
-  }
-export default App
+import React from "react";
+import { Routes, Route } from "react-router";
+
+/* VIEWS */
+import Login from "./views/Login/Login";
+const App = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Login />}/>
+    </Routes>
+  );
+};
+
+export default App;
