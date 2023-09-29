@@ -12,7 +12,7 @@ export const InputUserName = () => {
         id="input-with-sx"
         label="Nombre de usuario"
         variant="outlined"
-        sx={{ display: "flex", alignItems: "center", outlineColor: "yellow" }}
+        color="warning"
       />
       <AccountCircle sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -26,6 +26,7 @@ export const InputPassword = () => {
         id="input-with-sx"
         label="Contraseña"
         variant="outlined"
+        color="warning"
       />
       <VisibilityIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
