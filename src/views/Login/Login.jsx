@@ -29,13 +29,13 @@ const Login = () => {
       <h1>Bienvenido a SarMicros!</h1>
 
       <InputUserName 
-      name={userData}
+      name="username"
       value={userData.username}
       onChange={handleChange}
       />
       
       <InputPassword 
-       name={userData}
+       name="password"
        value={userData.password}
        onChange={handleChange}
       /> 
