@@ -42,7 +42,6 @@ export const InputPassword = ({ name, value, onChange }) => {
         color="warning"
       />
       <span
-        className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2"
         onClick={togglePasswordVisibility}
       >
       {showPassword ? (

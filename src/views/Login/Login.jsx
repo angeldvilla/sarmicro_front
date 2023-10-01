@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import {InputUserName, InputPassword} from "../../components/Inputs/inputs";
+import styles from "./login.module.css";
+import { InputUserName, InputPassword } from "../../components/Inputs/inputs";
 import ButtonLogin from "../../components/Buttons/buttons";
+import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -17,65 +19,40 @@ const Login = () => {
   };
 
   return (
-    <form
-      style={{
-        justifyContent: "center",
-        textAlign: "center",
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <h1>Bienvenido a SarMicros!</h1>
+    <div className={styles.loginContainer}>
+      <div className={styles.formContainer}>
+        <div className={styles.leftColumn}>
+          <img
+            alt="sarmicro"
+            src={sarmicroLogo}
+            style={{ maxWidth: "100%", height: "15em", marginRight: 80 }}
+          ></img>
+        </div>
+        <div className={styles.rightColumn}>
+          <form className={styles.form}>
+            <h1>Bienvenido a SarMicros!</h1>
 
-      <InputUserName 
-      name="username"
-      value={userData.username}
-      onChange={handleChange}
-      />
-      
-      <InputPassword 
-       name="password"
-       value={userData.password}
-       onChange={handleChange}
-      /> 
+            <InputUserName
+              name="username"
+              value={userData.username}
+              onChange={handleChange}
+            />
 
-      <ButtonLogin />
-    </form>
+            <InputPassword
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+            />
+
+            <span style={{marginTop: "1.2em"}}>¿No tienes una cuenta?</span>
+            <a href="/register">Regístrate</a>
+
+            <ButtonLogin />
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default Login;
-
-
-
-
-
-/* -------------------- */
- /* <label htmlFor="username" style={{ marginTop: "0.7em" }}>
-        USERNAME:
-      </label>
-
-      <input
-        style={{ marginTop: "0.7em" }}
-        autoComplete="off"
-        type="text"
-        name="username"
-        value={userData.username}
-        onChange={handleChange}
-        placeholder="example"
-      />
-
-      <label htmlFor="password" style={{ marginTop: "1em" }}>
-        PASSWORD:
-      </label>
-
-      <input
-        style={{ marginTop: "0.7em" }}
-        autoComplete="off"
-        type="password"
-        name="password"
-        value={userData.password}
-        onChange={handleChange}
-        placeholder="********"
-      /> */
