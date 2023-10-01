@@ -1,7 +1,7 @@
 .loginContainer {
   display: flex;
   height: 100vh;
-  background-image: url("https://www.generixgroup.com/sites/default/files/2020-10/transporte-retail-tms.png");
+  background-image: url("https://www.hiberus.com/sites/default/files/styles/content_full/public/2019-10/04.%20Logistica%20y%20transporte_0.jpg?itok=PfO9oVD-");
   background-size: cover;
   background-position: center;
 }
@@ -9,24 +9,11 @@
 .formContainer {
   flex: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.596);
   padding: 20px;
-}
-
-.leftColumn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .form {
@@ -36,5 +23,14 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 3.5em;
+  width: 35em;
+  padding: 2.2em;
+  position: relative;
+}
+
+.backButton{
+  align-self: flex-start;
+  position: relative;
+  left: 0;
+  right: 0;
 }

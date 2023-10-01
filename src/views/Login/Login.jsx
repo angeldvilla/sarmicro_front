@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./login.module.css";
 import { InputUserName, InputPassword } from "../../components/Inputs/inputs";
-import ButtonLogin from "../../components/Buttons/buttons";
+import { ButtonLogin } from "../../components/Buttons/buttons";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 
 const Login = () => {
@@ -42,10 +42,11 @@ const Login = () => {
               name="password"
               value={userData.password}
               onChange={handleChange}
+              autoComplete="current-password"
             />
 
-            <span style={{marginTop: "1.2em"}}>¿No tienes una cuenta?</span>
-            <a href="/register">Regístrate</a>
+            <span style={{marginTop: "3.2em"}}>¿No tienes una cuenta?</span>
+            <a href="/sign-up">Regístrate</a>
 
             <ButtonLogin />
           </form>
