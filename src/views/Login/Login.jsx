@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {InputUserName, InputPassword} from "../../components/Inputs/inputs";
 import ButtonLogin from "../../components/Buttons/buttons";
 
 const Login = () => {
-/*   const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState({
     username: "",
     password: "",
   });
@@ -14,7 +14,7 @@ const Login = () => {
       ...userData,
       [name]: value,
     });
-  }; */
+  };
 
   return (
     <form
@@ -28,9 +28,17 @@ const Login = () => {
     >
       <h1>Bienvenido a SarMicros!</h1>
 
-      <InputUserName />
+      <InputUserName 
+      name={userData}
+      value={userData.username}
+      onChange={handleChange}
+      />
       
-      <InputPassword /> 
+      <InputPassword 
+       name={userData}
+       value={userData.password}
+       onChange={handleChange}
+      /> 
 
       <ButtonLogin />
     </form>
