@@ -45,8 +45,10 @@ const Login = () => {
               autoComplete="current-password"
             />
 
-            <span style={{marginTop: "3.2em"}}>¿No tienes una cuenta?</span>
-            <a href="/sign-up">Regístrate</a>
+            <span style={{ marginTop: "3.2em" }}>¿No tienes una cuenta?</span>
+            <a href="/registrarse" style={{ color: "blue" }}>
+              Regístrate
+            </a>
 
             <ButtonLogin />
           </form>

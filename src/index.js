@@ -16,20 +16,16 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals(); */
 
-
-import React from 'react'
-import { createRoot }from 'react-dom/client'
-import './index.css'
-import App from './App'
-import { BrowserRouter } from 'react-router-dom'
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import "./index.css";
 /* import { Provider } from 'react-redux'
-import store from './redux/store' */
+import store from './redux/store'  */
 
-
-createRoot(document.getElementById('root'))
-
-.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
-)
+createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

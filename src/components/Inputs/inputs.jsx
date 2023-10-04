@@ -1,18 +1,40 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import HailIcon from '@mui/icons-material/Hail';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import HailIcon from "@mui/icons-material/Hail";
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { makeStyles } from '@mui/styles';
 
+
+const useStyles = makeStyles({
+  root: {
+    '& .MuiInput-underline:before': {
+      borderBottomColor: 'orange',
+    },
+    '& .MuiInput-underline:hover:before': {
+      borderBottomColor: 'orange', 
+    },
+  },
+});
 
 export const InputName = ({ name, value, onChange }) => {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", marginTop: "1em" }}>
+      <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginTop: "1em",
+        "& > :not(style)": { m: 1 },
+      }}
+    >
       <TextField
         id="input-with-sx"
         label="Nombre"
@@ -27,10 +49,19 @@ export const InputName = ({ name, value, onChange }) => {
   );
 };
 
-
 export const InputLastName = ({ name, value, onChange }) => {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", marginTop: "1em" }}>
+      <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginTop: "1em",
+        "& > :not(style)": { m: 1 },
+      }}
+    >
       <TextField
         id="input-with-sx"
         label="Apellido"
@@ -47,7 +78,17 @@ export const InputLastName = ({ name, value, onChange }) => {
 
 export const InputCellPhone = ({ name, value, onChange }) => {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", marginTop: "1em" }}>
+      <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginTop: "1em",
+        "& > :not(style)": { m: 1 },
+      }}
+    >
       <TextField
         id="input-with-sx"
         label="Telefono"
@@ -62,11 +103,19 @@ export const InputCellPhone = ({ name, value, onChange }) => {
   );
 };
 
-
-
 export const InputEmail = ({ name, value, onChange }) => {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", marginTop: "1em" }}>
+      <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginTop: "1em",
+        "& > :not(style)": { m: 1 },
+      }}
+    >
       <TextField
         id="input-with-sx"
         label="Correo Electronico"
@@ -81,10 +130,21 @@ export const InputEmail = ({ name, value, onChange }) => {
   );
 };
 
-
 export const InputUserName = ({ name, value, onChange }) => {
+  const classes = useStyles();
+
   return (
-    <Box sx={{ display: "flex", alignItems: "center", marginTop: "1em" }}>
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginTop: "1em",
+        "& > :not(style)": { m: 1 },
+      }}
+    >
       <TextField
         id="input-with-sx"
         label="Nombre de usuario"
@@ -93,6 +153,7 @@ export const InputUserName = ({ name, value, onChange }) => {
         value={value}
         onChange={onChange}
         color="warning"
+        className={classes.root}
       />
       <AccountCircle sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -107,9 +168,19 @@ export const InputPassword = ({ name, value, onChange }) => {
   };
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", marginTop: "1em" }}>
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginTop: "1em",
+        "& > :not(style)": { m: 1 },
+      }}
+    >
       <TextField
-        id="outlined-password-input" /* input-with-sx  */
+        id="outlined-password-input"
         label="Contraseña"
         variant="standard"
         type={showPassword ? "text" : "password"}
@@ -119,14 +190,12 @@ export const InputPassword = ({ name, value, onChange }) => {
         color="warning"
         autoComplete="current-password"
       />
-      <span
-        onClick={togglePasswordVisibility}
-      >
-      {showPassword ? (
-        <VisibilityIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
-      ) : (
-        <VisibilityOffIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
-      )}
+      <span onClick={togglePasswordVisibility}>
+        {showPassword ? (
+          <VisibilityIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
+        ) : (
+          <VisibilityOffIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
+        )}
       </span>
     </Box>
   );
@@ -140,9 +209,19 @@ export const InputConfirmPassword = ({ name, value, onChange }) => {
   };
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", marginTop: "1em" }}>
+      <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        marginTop: "1em",
+        "& > :not(style)": { m: 1 },
+      }}
+    >
       <TextField
-        id="outlined-password-input" /* input-with-sx  */
+        id="outlined-password-input"
         label="Confirmar Contraseña"
         variant="standard"
         type={showPassword ? "text" : "password"}
@@ -152,14 +231,12 @@ export const InputConfirmPassword = ({ name, value, onChange }) => {
         color="warning"
         autoComplete="current-password"
       />
-      <span
-        onClick={togglePasswordVisibility}
-      >
-      {showPassword ? (
-        <VisibilityIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
-      ) : (
-        <VisibilityOffIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
-      )}
+      <span onClick={togglePasswordVisibility}>
+        {showPassword ? (
+          <VisibilityIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
+        ) : (
+          <VisibilityOffIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
+        )}
       </span>
     </Box>
   );
