@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 export const ButtonLogin = () => {
   return (
     <Button
-      style={{ marginTop: "3em", backgroundColor: "orange", color: "white" }}
+      style={{ marginTop: "3em", backgroundColor: "green", color: "white" }}
       variant="contained"
     >
       Ingresar
@@ -14,7 +14,7 @@ export const ButtonLogin = () => {
 export const ButtonRegister = () => {
   return (
     <Button
-      style={{ marginTop: "3em", backgroundColor: "orange", color: "white" }}
+      style={{ marginTop: "3em", backgroundColor: "#0089bef8", color: "white" }}
       variant="contained"
     >
       Registrarme

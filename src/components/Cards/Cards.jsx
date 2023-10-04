@@ -12,16 +12,15 @@ export const CardPayments = () => {
         <CardMedia
           component="img"
           height="140"
-          image="https://v4.mui.com/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image="https://img.freepik.com/vector-gratis/iconos-polizas-seguros_603843-478.jpg?w=2000"
+          alt="Valor de Polizas"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Valor de Polizas
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          Esta tarjeta muestra información relacionada con los valores de las polizas.
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -36,16 +35,19 @@ export const CardPolicy = () => {
         <CardMedia
           component="img"
           height="140"
-          image="https://v4.mui.com/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image="https://us.123rf.com/450wm/vladwel/vladwel1606/vladwel160600267/59051081-cesta-de-la-compra-la-pila-de-dinero-escudo-ilustraci%C3%B3n-el-concepto-de-protecci%C3%B3n-de-pagos-de.jpg?ver=6"
+          
+          /*https://img.freepik.com/vector-premium/concepto-ganancia-billetera-dinero-pago-linea-ilustracion-vectorial-plana-banner-pagina-destino_128772-915.jpg
+           
+          https://www.autopista.es/uploads/s1/57/92/67/2/5eec6d370de69406553493f3-que-seguro-de-coche-elegir-tipos-de-polizas-ventajas-e-inconvenientes.jpeg */
+          alt="Pago de Polizas"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Pago de Polizas
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          Esta tarjeta muestra información relacionada con los respectivos pagos de las polizas.
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -60,16 +62,16 @@ export const CardVehicles = () => {
         <CardMedia
           component="img"
           height="140"
-          image="https://v4.mui.com/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image="https://img.freepik.com/vector-premium/diseno-zona-aparcamiento-o-parque_24877-34208.jpg"
+          /* https://img.freepik.com/vector-gratis/estacionamiento-isometrico-coloreado_1284-25255.jpg?w=2000 */
+          alt="Parque Automotor"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Parque Automotor
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          Esta tarjeta muestra información relacionada con el parque automotor y los vehiculos.
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -84,16 +86,15 @@ export const CashBox = () => {
         <CardMedia
           component="img"
           height="140"
-          image="https://v4.mui.com/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image="https://img.freepik.com/vector-premium/caja-registradora-dinero-adentro_18591-21798.jpg"
+          alt="Cuadre de Caja"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Cuadre de Caja
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          Esta tarjeta muestra información relacionada con el cuadre de caja.
           </Typography>
         </CardContent>
       </CardActionArea>

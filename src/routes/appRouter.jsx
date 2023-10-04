@@ -14,9 +14,9 @@ const RoutesApp = () => {
 
       {/* RUTAS PROTEGIDAS */}
       <Route>
-        <Route path="/home/*" element={<Home />} />
-       {/*  <Route path="pago_polizas" element={<Payments />} />
-        <Route path="valor_poliza" element={<Policy />} />
+        <Route path="/inicio/*" element={<Home />} />
+       {/* <Route path="valor-poliza" element={<Policy />} />
+         <Route path="pago-polizas" element={<Payments />} />
         <Route path="vehiculos" element={<Vehicles />} /> */}
       </Route>
 

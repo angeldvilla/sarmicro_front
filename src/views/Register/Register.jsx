@@ -54,7 +54,7 @@ const Register = () => {
           />
 
           <InputLastName
-            name="lastname"
+            name="lastName"
             value={userData.lastName}
             onChange={handleChange}
           />

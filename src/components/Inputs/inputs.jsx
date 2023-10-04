@@ -29,7 +29,7 @@ export const InputName = ({ name, value, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        color="warning"
+        color="primary"
       />
       <HailIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -56,7 +56,7 @@ export const InputLastName = ({ name, value, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        color="warning"
+        color="primary"
       />
       <AccessibilityNewIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -83,7 +83,7 @@ export const InputCellPhone = ({ name, value, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        color="warning"
+        color="primary"
       />
       <PhoneAndroidIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -110,7 +110,7 @@ export const InputEmail = ({ name, value, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        color="warning"
+        color="primary"
       />
       <EmailIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -137,7 +137,7 @@ export const InputUserName = ({ name, value, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        color="warning"
+        color="primary"
       />
       <AccountCircle sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -171,7 +171,7 @@ export const InputPassword = ({ name, value, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        color="warning"
+        color="primary"
       />
       <span onClick={togglePasswordVisibility}>
         {showPassword ? (
@@ -211,7 +211,7 @@ export const InputConfirmPassword = ({ name, value, onChange }) => {
         name={name}
         value={value}
         onChange={onChange}
-        color="warning"
+        color="primary"
       />
       <span onClick={togglePasswordVisibility}>
         {showPassword ? (

@@ -1,25 +1,36 @@
-import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import PaidIcon from '@mui/icons-material/Paid';
+import PolicyIcon from '@mui/icons-material/Policy';
+/* import PaymentsIcon from '@mui/icons-material/Payments'; */
+import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
+import SavingsIcon from '@mui/icons-material/Savings';
+import LogoutIcon from "@mui/icons-material/Logout";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
-/* import AdbIcon from '@mui/icons-material/Adb'; */
 
-const pages = ['Valor Poliza', 'Pago Poliza', 'Vehiculos', 'Cuadre de Caja'];
-const settings = ['Cerrar Sesión'];
+const pages = ["Valor Poliza", "Pago Poliza", "Vehiculos", "Caja"];
+const paths = ["valor-poliza", "pago-polizas", "vehiculos", "caja"];
+const icons = [<PolicyIcon/>, <PaidIcon/>, <LocalTaxiIcon/>, <SavingsIcon/>];
 
-const NavBar = ()  => {
+const settings = ["Cerrar Sesión"];
+
+const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,35 +47,15 @@ const NavBar = ()  => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    navigate("/");
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <img
-            alt="sarmicro"
-            src={sarmicroLogo}
-            style={{ maxWidth: "90px", height: "auto", marginRight: 10 }}
-          />
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            SARMICRO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -79,83 +70,80 @@ const NavBar = ()  => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+              {pages.map((page, index) => (
+                <NavLink to={`/${paths[index]}`}>
+                  <MenuItem key={page}>
+                  <ListItemIcon>{icons[index]}</ListItemIcon>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                </NavLink>
               ))}
             </Menu>
           </Box>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map((page, index) => (
+              <NavLink to={`/${paths[index]}`}>
+                <Button
+                  key={page}
+                  sx={{ 
+                    my: 3, 
+                    color: "white", 
+                    display: "flex",
+                    alignItems: "center",
+                    justifyItems: "center",
+                    marginLeft: 2
+                  }}
+                  >
+                  {/* <ListItemIcon>{icons[index]}</ListItemIcon> */}
+                  <ListItemIcon style={{ color: "rgb(202, 221, 92)" }}>{icons[index]}</ListItemIcon>
+                  <span style={{marginRight: 55, alignItems: "center", textAlign: "center"}}>{page}</span>
+                </Button>
+              </NavLink>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Logo Avatar" src={sarmicroLogo} style={{width: "65px", height: "auto"}} />
+            </IconButton>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting} onClick={handleLogout}>
+                  <Typography textAlign="center">
+                    <LogoutIcon
+                      style={{ marginRight: 5, fontSize: "medium" }}
+                    />
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -164,5 +152,5 @@ const NavBar = ()  => {
       </Container>
     </AppBar>
   );
-}
+};
 export default NavBar;
