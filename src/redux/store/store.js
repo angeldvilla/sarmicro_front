@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from '../reducers/reducer';
+import rootReducer from '../reducer/reducer';
 /* ------------------------------------------------------------- */ 
 
 // Esta línea es para conectar con la extensión del navegador => REDUX DEVTOOLS 

@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styles from "./login.module.css";
 import { InputUserName, InputPassword } from "../../components/Inputs/inputs";
 import { ButtonLogin } from "../../components/Buttons/buttons";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
+import { authLogin } from "../../redux/actions/actions";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -18,6 +24,17 @@ const Login = () => {
     });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const loginUser = {
+      username: userData.username,
+      password: userData.password,
+    };
+    dispatch(authLogin(loginUser));
+    navigate("/home");
+  };
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.formContainer}>
@@ -29,7 +46,7 @@ const Login = () => {
           ></img>
         </div>
         <div className={styles.rightColumn}>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <h1>Bienvenido a SarMicros!</h1>
 
             <InputUserName
@@ -42,7 +59,6 @@ const Login = () => {
               name="password"
               value={userData.password}
               onChange={handleChange}
-              autoComplete="current-password"
             />
 
             <span style={{ marginTop: "3.2em" }}>¿No tienes una cuenta?</span>
