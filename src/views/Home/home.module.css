@@ -1,0 +1,9 @@
+.cardContainerStyle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 15px;
+  }

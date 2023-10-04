@@ -43,7 +43,7 @@ const Login = () => {
             alt="sarmicro"
             src={sarmicroLogo}
             style={{ maxWidth: "100%", height: "15em", marginRight: 80 }}
-          ></img>
+          />
         </div>
         <div className={styles.rightColumn}>
           <form className={styles.form} onSubmit={handleSubmit}>
