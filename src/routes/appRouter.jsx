@@ -8,11 +8,9 @@ import Register from "../views/Register/Register.jsx";
 const RoutesApp = () => {
   return (
     <Routes>
-      <Route path="/" element={<Login />}>
-      <Route path="/registrarse" element={<Register />} />  
-      </Route>     
+      <Route path="/" element={<Login />} />
+      <Route path="/registrarse" element={<Register />} />     
       
-
     </Routes>
   );
 }
