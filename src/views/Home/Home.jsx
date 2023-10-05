@@ -7,6 +7,7 @@ import {
 } from "../../components/Cards/Cards";
 import NavBar from "../../components/NavBar/NavBar";
 import styles from "./home.module.css";
+
 const Home = () => {
   return (
     <>
@@ -21,13 +22,21 @@ const Home = () => {
       </div>
 
       <div className={styles.cardContainerStyle}>
-        <CardPayments />
+        <div className={styles.cardStyle}>
+          <CardPayments />
+        </div>
 
-        <CardPolicy />
+        <div className={styles.cardStyle}>
+          <CardPolicy />
+        </div>
 
-        <CardVehicles />
+        <div className={styles.cardStyle}>
+          <CardVehicles />
+        </div>
 
-        <CashBox />
+        <div className={styles.cardStyle}>
+          <CashBox />
+        </div>
       </div>
     </>
   );

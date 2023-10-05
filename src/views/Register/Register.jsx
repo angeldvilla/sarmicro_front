@@ -8,7 +8,7 @@ import {
   InputCellPhone,
   InputEmail,
   InputName,
-  InputLastName,
+  InputDocument,
 } from "../../components/Inputs/inputs";
 import { ButtonRegister } from "../../components/Buttons/buttons";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -20,7 +20,7 @@ const Register = () => {
     confirmPassword: "",
     email: "",
     name: "",
-    lastName: "",
+    document: "",
     cellphone: "",
   });
 
@@ -36,14 +36,17 @@ const Register = () => {
 
   const backFunction = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <div className={styles.loginContainer}>
       <div className={styles.formContainer}>
         <form className={styles.form}>
           <div className={styles.backButton}>
-            <ArrowBackIcon onClick={backFunction}/>
+            <ArrowBackIcon
+              onClick={backFunction}
+              style={{ cursor: "pointer" }}
+            />
           </div>
           <h1>Registra tus datos!</h1>
 
@@ -53,9 +56,9 @@ const Register = () => {
             onChange={handleChange}
           />
 
-          <InputLastName
-            name="lastName"
-            value={userData.lastName}
+          <InputDocument
+            name="document"
+            value={userData.document}
             onChange={handleChange}
           />
 

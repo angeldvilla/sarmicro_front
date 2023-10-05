@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import HailIcon from "@mui/icons-material/Hail";
-import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import BadgeIcon from "@mui/icons-material/Badge";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
@@ -11,7 +11,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export const InputName = ({ name, value, onChange }) => {
   return (
-      <Box
+    <Box
       component="form"
       noValidate
       autoComplete="off"
@@ -19,12 +19,11 @@ export const InputName = ({ name, value, onChange }) => {
         display: "flex",
         alignItems: "center",
         marginTop: "1em",
-        "& > :not(style)": { m: 1 },
       }}
     >
       <TextField
         id="input-with-sx"
-        label="Nombre"
+        label="Nombre Completo"
         variant="standard"
         name={name}
         value={value}
@@ -36,9 +35,9 @@ export const InputName = ({ name, value, onChange }) => {
   );
 };
 
-export const InputLastName = ({ name, value, onChange }) => {
+export const InputDocument = ({ name, value, onChange }) => {
   return (
-      <Box
+    <Box
       component="form"
       noValidate
       autoComplete="off"
@@ -46,26 +45,25 @@ export const InputLastName = ({ name, value, onChange }) => {
         display: "flex",
         alignItems: "center",
         marginTop: "1em",
-        "& > :not(style)": { m: 1 },
       }}
     >
       <TextField
         id="input-with-sx"
-        label="Apellido"
+        label="Cedula de Ciudadania"
         variant="standard"
         name={name}
         value={value}
         onChange={onChange}
         color="primary"
       />
-      <AccessibilityNewIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
+      <BadgeIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
   );
 };
 
 export const InputCellPhone = ({ name, value, onChange }) => {
   return (
-      <Box
+    <Box
       component="form"
       noValidate
       autoComplete="off"
@@ -73,7 +71,6 @@ export const InputCellPhone = ({ name, value, onChange }) => {
         display: "flex",
         alignItems: "center",
         marginTop: "1em",
-        "& > :not(style)": { m: 1 },
       }}
     >
       <TextField
@@ -92,7 +89,7 @@ export const InputCellPhone = ({ name, value, onChange }) => {
 
 export const InputEmail = ({ name, value, onChange }) => {
   return (
-      <Box
+    <Box
       component="form"
       noValidate
       autoComplete="off"
@@ -100,7 +97,6 @@ export const InputEmail = ({ name, value, onChange }) => {
         display: "flex",
         alignItems: "center",
         marginTop: "1em",
-        "& > :not(style)": { m: 1 },
       }}
     >
       <TextField
@@ -127,7 +123,6 @@ export const InputUserName = ({ name, value, onChange }) => {
         display: "flex",
         alignItems: "center",
         marginTop: "1em",
-        "& > :not(style)": { m: 1 },
       }}
     >
       <TextField
@@ -160,7 +155,6 @@ export const InputPassword = ({ name, value, onChange }) => {
         display: "flex",
         alignItems: "center",
         marginTop: "1em",
-        "& > :not(style)": { m: 1 },
       }}
     >
       <TextField
@@ -192,7 +186,7 @@ export const InputConfirmPassword = ({ name, value, onChange }) => {
   };
 
   return (
-      <Box
+    <Box
       component="form"
       noValidate
       autoComplete="off"
@@ -200,7 +194,6 @@ export const InputConfirmPassword = ({ name, value, onChange }) => {
         display: "flex",
         alignItems: "center",
         marginTop: "1em",
-        "& > :not(style)": { m: 1 },
       }}
     >
       <TextField
