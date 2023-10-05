@@ -1,0 +1,111 @@
+/* PARA BOTON DE INICIO DE SESIÒN */
+.botonLogin {
+  z-index: 1;
+  background-color: green;
+  border-radius: 8px;
+}
+
+.botonLogin:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  background: green;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.botonLogin:hover {
+  color: white;
+  transform: scale(1.05);
+  transition: 0.8s;
+}
+
+.botonLogin:hover:after {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+.botonLogin:active {
+  top: 2px;
+}
+
+/* PARA BOTON DE REGISTRO */
+.boton {
+  z-index: 1;
+  background-color: #003cbef8;
+  border-radius: 8px;
+}
+
+.boton:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  background: #003cbef8;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.boton:hover {
+  color: white;
+  transform: scale(1.05);
+  transition: 0.8s;
+}
+
+.boton:hover:after {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+.boton:active {
+  top: 2px;
+}
+
+
+/* PARA BOTON DE CERRAR SESIÓN */
+.botonLogout {
+  z-index: 1;
+  background-color: red;
+  border-radius: 8px;
+}
+
+.botonLogout:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  background: red;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.botonLogout:hover {
+  color: white;
+  transform: scale(1.05);
+  transition: 0.8s;
+}
+
+.botonLogout:hover:after {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+.botonLogout:active {
+  top: 2px;
+}

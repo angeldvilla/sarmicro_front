@@ -47,7 +47,7 @@ const Login = () => {
         </div>
         <div className={styles.rightColumn}>
           <form className={styles.form} onSubmit={handleSubmit}>
-            <h1>Bienvenido a SarMicros!</h1>
+            <h1 style={{textAlign: "center", marginBottom: "0.6em", marginTop: "0.6em", fontSize: "1.8em"}}>Bienvenido a SarMicros!</h1>
 
             <InputUserName
               name="username"

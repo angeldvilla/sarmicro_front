@@ -10,6 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import LogoutIcon from "@mui/icons-material/Logout";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
+import styles from "../Buttons/styleButton.module.css";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function NavBar() {
           <Box sx={{ marginLeft: "auto", display: { xs: "flex", md: "none" } }}>
             <Tooltip title="Cerrar Sesión">
               <LogoutIcon
-                style={{ fontSize: "large" }}
+                style={{ fontSize: "large", cursor: "pointer", }}
                 onClick={handleLogout}
               />
             </Tooltip>
@@ -49,12 +50,18 @@ function NavBar() {
               style={{
                 textAlign: "center",
                 cursor: "pointer",
-                backgroundColor: "black",
+                backgroundColor: "#000000",
+                color: "white",
+                borderRadius: "8px",
+                padding: "8px 20px",
+                fontSize: "0.75em",
+                display: { xs: "none", md: "flex", marginLeft: "auto" },
               }}
+              className={styles.botonLogout}
               onClick={handleLogout}
             >
               Cerrar Sesión
-              <LogoutIcon style={{ marginLeft: 10, fontSize: "large" }} />
+              <LogoutIcon style={{ marginLeft: 10, fontSize: "large"}} />
             </Typography>
           </Box>
         </Toolbar>
