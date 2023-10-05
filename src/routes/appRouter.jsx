@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router";
 import Home from "../views/Home/Home.jsx";
 import Login from "../views/Login/Login.jsx";
 import Register from "../views/Register/Register.jsx";
+import TablePayment from "../components/TablePayment/TablePayment.jsx";
 
 const RoutesApp = () => {
   return (
@@ -13,14 +14,11 @@ const RoutesApp = () => {
       <Route path="/registrarse" element={<Register />} />
 
       {/* RUTAS PROTEGIDAS */}
-      <Route>
-        <Route path="/inicio/*" element={<Home />} />
-       {/* <Route path="valor-poliza" element={<Policy />} />
-         <Route path="pago-polizas" element={<Payments />} />
-        <Route path="vehiculos" element={<Vehicles />} /> */}
-      </Route>
-
-
+        <Route path="/inicio" element={<Home />} />
+        <Route path="valor-poliza" element={<TablePayment />} />
+         <Route path="pago-polizas" element={<TablePayment />} />
+        <Route path="vehiculos" element={<TablePayment />} />
+         {/* RUTAS PROTEGIDAS */}
     </Routes>
   );
 };

@@ -15,7 +15,7 @@ import styles from "./card.module.css";
 const paths = ["valor-poliza", "pago-polizas", "vehiculos", "caja"];
 export const CardPayments = () => {
   return (
-    <NavLink to={paths[0]}>
+    <NavLink to={`/${paths[0]}`}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
@@ -52,7 +52,7 @@ export const CardPayments = () => {
 
 export const CardPolicy = () => {
   return (
-    <NavLink to={paths[1]}>
+    <NavLink to={`/${paths[1]}`}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
@@ -91,7 +91,7 @@ export const CardPolicy = () => {
 
 export const CardVehicles = () => {
   return (
-    <NavLink to={paths[2]}>
+    <NavLink to={`/${paths[2]}`}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
@@ -129,7 +129,7 @@ export const CardVehicles = () => {
 
 export const CashBox = () => {
   return (
-    <NavLink to={paths[3]}>
+    <NavLink to={`/${paths[3]}`}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
