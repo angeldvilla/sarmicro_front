@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -22,16 +22,18 @@ function NavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Avatar
-            alt="Logo Avatar"
-            src={sarmicroLogo}
-            style={{ width: "75px", height: "auto" }}
-          />
+          <NavLink to="/inicio">
+            <Avatar
+              alt="Logo Avatar"
+              src={sarmicroLogo}
+              style={{ width: "75px", height: "auto" }}
+            />
+          </NavLink>
 
           <Box sx={{ marginLeft: "auto", display: { xs: "flex", md: "none" } }}>
             <Tooltip title="Cerrar Sesión">
               <LogoutIcon
-                style={{ fontSize: "large", cursor: "pointer", }}
+                style={{ fontSize: "large", cursor: "pointer" }}
                 onClick={handleLogout}
               />
             </Tooltip>
@@ -61,7 +63,7 @@ function NavBar() {
               onClick={handleLogout}
             >
               Cerrar Sesión
-              <LogoutIcon style={{ marginLeft: 10, fontSize: "large"}} />
+              <LogoutIcon style={{ marginLeft: 10, fontSize: "large" }} />
             </Typography>
           </Box>
         </Toolbar>
