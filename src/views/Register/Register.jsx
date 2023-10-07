@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./register.module.css";
 import {
-  InputUserName,
   InputPassword,
   InputConfirmPassword,
   InputCellPhone,
@@ -35,11 +34,11 @@ const Register = () => {
   const navigate = useNavigate();
 
   const backFunction = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   return (
-    <div className={styles.loginContainer}>
+    <div className={styles.registerContainer}>
       <div className={styles.formContainer}>
         <form className={styles.form}>
           <div className={styles.backButton}>
@@ -71,12 +70,6 @@ const Register = () => {
           <InputEmail
             name="email"
             value={userData.email}
-            onChange={handleChange}
-          />
-
-          <InputUserName
-            name="username"
-            value={userData.username}
             onChange={handleChange}
           />
 

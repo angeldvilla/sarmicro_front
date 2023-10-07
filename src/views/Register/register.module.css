@@ -1,4 +1,4 @@
-.loginContainer {
+.registerContainer {
   display: flex;
   height: 100vh;
   background-image: url("https://www.hiberus.com/sites/default/files/styles/content_full/public/2019-10/04.%20Logistica%20y%20transporte_0.jpg?itok=PfO9oVD-");
@@ -26,6 +26,7 @@
   width: 34.2em;
   padding: 1.2em;
   position: relative;
+  border-radius: 8px;
 }
 
 .backButton{

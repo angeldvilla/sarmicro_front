@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import HailIcon from "@mui/icons-material/Hail";
 import BadgeIcon from "@mui/icons-material/Badge";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -49,7 +48,7 @@ export const InputDocument = ({ name, value, onChange }) => {
     >
       <TextField
         id="input-with-sx"
-        label="Cedula de Ciudadania"
+        label="Cédula de Ciudadania"
         variant="standard"
         name={name}
         value={value}
@@ -75,7 +74,7 @@ export const InputCellPhone = ({ name, value, onChange }) => {
     >
       <TextField
         id="input-with-sx"
-        label="Telefono"
+        label="Teléfono"
         variant="standard"
         name={name}
         value={value}
@@ -101,7 +100,7 @@ export const InputEmail = ({ name, value, onChange }) => {
     >
       <TextField
         id="input-with-sx"
-        label="Correo Electronico"
+        label="Correo Electrónico"
         variant="standard"
         name={name}
         value={value}
@@ -109,32 +108,6 @@ export const InputEmail = ({ name, value, onChange }) => {
         color="primary"
       />
       <EmailIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
-    </Box>
-  );
-};
-
-export const InputUserName = ({ name, value, onChange }) => {
-  return (
-    <Box
-      component="form"
-      noValidate
-      autoComplete="off"
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        marginTop: "1em",
-      }}
-    >
-      <TextField
-        id="input-with-sx"
-        label="Nombre de usuario"
-        variant="standard"
-        name={name}
-        value={value}
-        onChange={onChange}
-        color="primary"
-      />
-      <AccountCircle sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
   );
 };

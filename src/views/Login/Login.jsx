@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styles from "./login.module.css";
-import { InputUserName, InputPassword } from "../../components/Inputs/inputs";
+import { InputEmail, InputPassword } from "../../components/Inputs/inputs";
 import { ButtonLogin } from "../../components/Buttons/buttons";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import { authLogin } from "../../redux/actions/actions";
@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -28,7 +28,7 @@ const Login = () => {
     event.preventDefault();
 
     const loginUser = {
-      username: userData.username,
+      email: userData.username,
       password: userData.password,
     };
     dispatch(authLogin(loginUser));
@@ -49,9 +49,9 @@ const Login = () => {
           <form className={styles.form} onSubmit={handleSubmit}>
             <h1 style={{textAlign: "center", marginBottom: "0.6em", marginTop: "0.6em", fontSize: "1.8em"}}>Bienvenido a SarMicros!</h1>
 
-            <InputUserName
-              name="username"
-              value={userData.username}
+            <InputEmail
+              name="email"
+              value={userData.email}
               onChange={handleChange}
             />
 
