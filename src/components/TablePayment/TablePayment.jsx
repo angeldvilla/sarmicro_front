@@ -122,7 +122,7 @@ const TablePayment = () => {
   return (
     <>
       <NavBar />
-      {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <MUIDataTable
           title={
             <>
@@ -142,7 +142,7 @@ const TablePayment = () => {
           columns={columns}
           options={options}
         ></MUIDataTable>
-      {/* </div> */}
+      </div>
     </>
   );
 };
