@@ -47,7 +47,7 @@ const Register = () => {
               style={{ cursor: "pointer" }}
             />
           </div>
-          <h1 style={{textAlign: "center", marginBottom: "0.6em", marginTop: "0.4em", fontSize: "1.5em"}}>Registra tus datos!</h1>
+          <h1 style={{textAlign: "center", marginBottom: "0.6em", marginTop: "0.4em", fontSize: "1.5em"}}>Registra tus datos</h1>
 
           <InputName
             name="name"
