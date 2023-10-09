@@ -8,7 +8,41 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
+import ModalEdit from "../Modales/ModalEdit";
 const TablePayment = () => {
+  const [data, setData] = useState([]);
+  const [rowEdit, setRowEdit] = useState(null);
+  const [openForm, setOpenForm] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const getPolizas = async () => {
+    try {
+      const response = await axios.get(
+        "https://poliza.transargelia.com.co/public/api/poliza"
+      );
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
+
+  useEffect(() => {
+    getPolizas();
+  }, []);
+
+  const handleOpen = () => {
+    setOpenForm(true);
+  };
+
+  const handleCreate = async (data) => {
+    setOpenForm(false);
+    await axios.post(
+      "https://poliza.transargelia.com.co/public/api/poliza",
+      data
+    );
+    getPolizas();
+  };
   const handleDelete = async (id) => {
     try {
       await axios.delete(
@@ -18,6 +52,19 @@ const TablePayment = () => {
     } catch (error) {
       console.error("Error al eliminar el registro:", error);
     }
+  };
+
+  const handleUpdate = (rowData) => {
+    setRowEdit(rowData);
+    setOpenEdit(true);
+  };
+  const handleEdit = async (data) => {
+    setOpenForm(false);
+    await axios.put(
+      "https://poliza.transargelia.com.co/public/api/poliza",
+      data
+    );
+    getPolizas();
   };
 
   /* TABLE DESIGN */
@@ -98,7 +145,7 @@ const TablePayment = () => {
               <IconButton
                 aria-label="Editar"
                 style={{ color: "#0054b4" }}
-                /* onClick={() => handleEdit(tableMeta.rowData[0])} */
+                onClick={() => handleUpdate(tableMeta.rowData)}
               >
                 <EditIcon />
               </IconButton>
@@ -115,7 +162,6 @@ const TablePayment = () => {
       },
     },
   ];
-  const [data, setData] = useState([]);
 
   const options = {
     filterType: "checkbox",
@@ -146,58 +192,28 @@ const TablePayment = () => {
     },
   };
   /* ----------------- */
-  const getPolizas = async () => {
-    try {
-      const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/poliza"
-      );
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
-
-  useEffect(() => {
-    getPolizas();
-  }, []);
-
-  const [openForm, setOpenForm] = useState(false);
-
-  const handleOpen = () => {
-    setOpenForm(true);
-  };
-
-  const handleCreate = async (data) => {
-    setOpenForm(false);
-    await axios.post(
-      "https://poliza.transargelia.com.co/public/api/poliza",
-      data
-    );
-    getPolizas();
-  };
 
   return (
-    <div>
+    <>
       <NavBar />
       <div
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "10%",
+          marginTop: "5%",
         }}
       >
         <MUIDataTable
-          title={"Valores de Polizas"}
+          title={"Pagos de Polizas"}
           data={data}
           columns={columns}
           options={{
             ...options,
             customToolbar: () => {
               return (
-                <Tooltip title="Crear Valor de Poliza">
+                <Tooltip title="Crear Pago de Poliza">
                   <IconButton
-                    aria-label="Crear"
+                    aria-label="Crear Pago de Poliza"
                     onClick={handleOpen}
                     color="primary"
                   >
@@ -225,8 +241,14 @@ const TablePayment = () => {
           handleClose={() => setOpenForm(false)}
           handleCreate={handleCreate}
         />
+        <ModalEdit
+          open={openEdit}
+          handleClose={() => setOpenEdit(false)}
+          handleEdit={handleEdit}
+          rowEdit={rowEdit}
+        />
       </div>
-    </div>
+    </>
   );
 };
 

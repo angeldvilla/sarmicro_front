@@ -223,19 +223,12 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
   };
 
   const [newPoliza, setNewPoliza] = useState(initialStatePoliza);
-  console.log(newPoliza);
   const [clients, setClients] = useState([]);
 
   const handleCreatePoliza = () => {
     handleCreate(newPoliza);
     setNewPoliza(initialStatePoliza);
   };
-
-/*   const handleChange = (setter) => (e) =>
-    setter((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    })); */
 
   useEffect(() => {
     const getClients = async () => {
@@ -277,7 +270,7 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               variant="h6"
               component="div"
             >
-              Crear Valor de Póliza
+              Crear Pago de Póliza
             </Typography>
             <Button autoFocus color="inherit" onClick={handleCreatePoliza}>
               Guardar
@@ -301,6 +294,23 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               }
             />
           </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Monto Total"
+              margin="none"
+              name="MontoTotal"
+              value={newPoliza.monto_total}
+              placeholder="Ingrese Monto Total de la póliza"
+              onChange={(e) =>
+                setNewPoliza((prevState) => ({
+                  ...prevState,
+                  monto_total: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -330,22 +340,7 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               }
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Monto Total"
-              margin="none"
-              name="MontoTotal"
-              value={newPoliza.monto_total}
-              placeholder="Ingrese Monto Total de la póliza"
-              onChange={(e) =>
-                setNewPoliza((prevState) => ({
-                  ...prevState,
-                  monto_total: e.target.value,
-                }))
-              }
-            />
-          </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -366,6 +361,9 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
             <FormControl fullWidth>
               <InputLabel>Tipo de Cuotas</InputLabel>
               <Select
+                label="Tipo de Cuotas"
+                variant="outlined"
+                InputLabelProps={{ shrink: true }}
                 value={newPoliza.dias_cuota}
                 onChange={(e) =>
                   setNewPoliza((prevState) => ({
@@ -388,6 +386,9 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
             <FormControl fullWidth>
               <InputLabel>Nombre Cliente</InputLabel>
               <Select
+                label="Nombre Cliente"
+                variant="outlined"
+                InputLabelProps={{ shrink: true }}
                 value={newPoliza.cliente_id}
                 onChange={(e) =>
                   setNewPoliza((prevState) => ({

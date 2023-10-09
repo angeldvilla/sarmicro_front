@@ -11,6 +11,10 @@ import PolicyIcon from "@mui/icons-material/Policy";
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
 import SavingsIcon from "@mui/icons-material/Savings"; */
 import styles from "./card.module.css";
+import valorPoliza from "../../assets/images/valorPolizas.avif";
+import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
+import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
+import cuadreCaja from "../../assets/images/cuadreCaja.avif";
 
 const paths = ["valor-poliza", "pago-polizas", "vehiculos", "caja"];
 export const CardPayments = () => {
@@ -22,7 +26,7 @@ export const CardPayments = () => {
             className={styles.cardImage}
             component="img"
             height="140"
-            image="https://img.freepik.com/vector-gratis/seguro-proteccion-contra-perdidas-economicas-gestion-riesgos-seguro-salud-vida-propiedad-ingresos_335657-839.jpg"
+            image={valorPoliza}
             /* https://img.freepik.com/vector-gratis/iconos-polizas-seguros_603843-478.jpg?w=2000 */
             alt="Valor de Polizas"
           />
@@ -59,7 +63,7 @@ export const CardPolicy = () => {
             className={styles.cardImage}
             component="img"
             height="140"
-            image="https://us.123rf.com/450wm/vladwel/vladwel1606/vladwel160600267/59051081-cesta-de-la-compra-la-pila-de-dinero-escudo-ilustraci%C3%B3n-el-concepto-de-protecci%C3%B3n-de-pagos-de.jpg?ver=6"
+            image={pagoPolizas}
             /*https://img.freepik.com/vector-premium/concepto-ganancia-billetera-dinero-pago-linea-ilustracion-vectorial-plana-banner-pagina-destino_128772-915.jpg
            
           https://www.autopista.es/uploads/s1/57/92/67/2/5eec6d370de69406553493f3-que-seguro-de-coche-elegir-tipos-de-polizas-ventajas-e-inconvenientes.jpeg */
@@ -98,7 +102,7 @@ export const CardVehicles = () => {
             className={styles.cardImage}
             component="img"
             height="140"
-            image="https://us.123rf.com/450wm/petrovv/petrovv1708/petrovv170800011/83541598-aparcamiento-de-taxi-vista-desde-el-techo-representaci%C3%B3n-3d.jpg?ver=6"
+            image={parqueAutomotor}
             /* https://img.freepik.com/vector-premium/diseno-zona-aparcamiento-o-parque_24877-34208.jpg
            https://img.freepik.com/vector-gratis/estacionamiento-isometrico-coloreado_1284-25255.jpg?w=2000 */
             alt="Parque Automotor"
@@ -136,7 +140,7 @@ export const CashBox = () => {
             className={styles.cardImage}
             component="img"
             height="140"
-            image="https://img.freepik.com/vector-premium/caja-registradora-dinero-adentro_18591-21798.jpg"
+            image={cuadreCaja}
             alt="Cuadre de Caja"
           />
           <CardContent>

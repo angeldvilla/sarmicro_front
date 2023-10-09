@@ -1,7 +1,7 @@
 .registerContainer {
   display: flex;
   height: 100vh;
-  background-image: url("https://www.hiberus.com/sites/default/files/styles/content_full/public/2019-10/04.%20Logistica%20y%20transporte_0.jpg?itok=PfO9oVD-");
+  background-image: url("../../assets/images/registerBackground.jpg");
   background-size: cover;
   background-position: center;
 }

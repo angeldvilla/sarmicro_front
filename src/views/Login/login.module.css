@@ -1,7 +1,7 @@
 .loginContainer {
   display: flex;
   height: 100vh;
-  background-image: url("https://www.generixgroup.com/sites/default/files/2020-10/transporte-retail-tms.png");
+  background-image: url("../../assets/images/loginBackground.png");
   background-size: cover;
   background-position: center;
 }

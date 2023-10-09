@@ -7,7 +7,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-blue-background-fluid-marble-shading-simple-marble-background-image_40786.jpg");
+  background-image: url("./assets/images/homeBackground.jpg");
   backdrop-filter: blur(5px);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
