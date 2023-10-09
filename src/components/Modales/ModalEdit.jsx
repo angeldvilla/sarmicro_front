@@ -25,12 +25,12 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
 
   const handleEditPoliza = () => {
     const data = {
-      numero_poliza: editedRow.NumPoliza,
-      fecha_inicio: editedRow.FechaIni,
-      fecha_fin: editedRow.FechaFin,
-      monto_total: editedRow.MontoTotal,
-      numero_cuotas: editedRow.NumCuotas,
-      dias_cuota: editedRow.TipCuotas,
+      numero_poliza: editedRow.numero_poliza,
+      fecha_inicio: editedRow.fecha_inicio,
+      fecha_fin: editedRow.fecha_fin,
+      monto_total: editedRow.monto_total,
+      numero_cuotas: editedRow.numero_cuotas,
+      dias_cuota: editedRow.dias_cuota,
       cliente_id: editedRow.client_id,
     };
     handleEdit(data);
@@ -209,12 +209,14 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
                 value={editedRow ? editedRow.client_id : ""}
                 onChange={(e) => {
                   const selectedClientId = e.target.value;
-                  const selectedClient = clients.find((client) => client.id === selectedClientId);
+                  const selectedClient = clients.find(
+                    (client) => client.id === selectedClientId
+                  );
                   setEditedRow({
                     ...editedRow,
                     cliente_id: selectedClientId,
                     // Establecer el nombre del cliente en el estado
-                    nombre_cliente: selectedClient ? selectedClient.nombre : ""
+                    nombre_cliente: selectedClient ? selectedClient.nombre : "",
                   });
                 }}
               >
