@@ -20,19 +20,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
-  const today = new Date().toISOString().split("T")[0];
   const [editedRow, setEditedRow] = useState(rowEdit);
   const [clients, setClients] = useState([]);
 
   const handleEditPoliza = () => {
     const data = {
-      numero_poliza: editedRow.numero_poliza,
-      fecha_inicio: today,
-      fecha_fin: editedRow.fecha_fin,
-      monto_total: editedRow.monto_total,
-      numero_cuotas: editedRow.numero_cuotas,
-      dias_cuota: editedRow.dias_cuota,
-      cliente_id: editedRow.cliente_id,
+      numero_poliza: editedRow.NumPoliza,
+      fecha_inicio: editedRow.FechaIni,
+      fecha_fin: editedRow.FechaFin,
+      monto_total: editedRow.MontoTotal,
+      numero_cuotas: editedRow.NumCuotas,
+      dias_cuota: editedRow.TipCuotas,
+      cliente_id: editedRow.client_id,
     };
     handleEdit(data);
   };
@@ -52,8 +51,8 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
 
   useEffect(() => {
     if (rowEdit) {
-        setEditedRow(rowEdit);
-      }
+      setEditedRow(rowEdit);
+    }
 
     getClients();
   }, [open, rowEdit]);
@@ -98,10 +97,10 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               value={editedRow ? editedRow.numero_poliza : ""}
               placeholder="Ingrese número de póliza"
               onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
+                setEditedRow({
+                  ...editedRow,
                   numero_poliza: e.target.value,
-                }))
+                })
               }
             />
           </Grid>
@@ -114,10 +113,10 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               value={editedRow ? editedRow.monto_total : ""}
               placeholder="Ingrese Monto Total de la póliza"
               onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
+                setEditedRow({
+                  ...editedRow,
                   monto_total: e.target.value,
-                }))
+                })
               }
             />
           </Grid>
@@ -126,28 +125,33 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
             <TextField
               fullWidth
               label="Fecha de Inicio"
-              name={"FechaIni"}
+              name="FechaIni"
               margin="none"
               type="date"
-              disabled
               InputLabelProps={{ shrink: true }}
               value={editedRow ? editedRow.fecha_inicio : ""}
+              onChange={(e) =>
+                setEditedRow({
+                  ...editedRow,
+                  fecha_inicio: e.target.value,
+                })
+              }
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
               label="Fecha de Fin"
-              name={"FechaFin"}
+              name="FechaFin"
               margin="none"
               type="date"
               InputLabelProps={{ shrink: true }}
               value={editedRow ? editedRow.fecha_fin : ""}
               onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
+                setEditedRow({
+                  ...editedRow,
                   fecha_fin: e.target.value,
-                }))
+                })
               }
             />
           </Grid>
@@ -161,10 +165,10 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               value={editedRow ? editedRow.numero_cuotas : ""}
               placeholder="Ingrese número de cuotas"
               onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
+                setEditedRow({
+                  ...editedRow,
                   numero_cuotas: e.target.value,
-                }))
+                })
               }
             />
           </Grid>
@@ -173,23 +177,24 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               <InputLabel>Tipo de Cuotas</InputLabel>
               <Select
                 label="Tipo de Cuotas"
+                name="TipCuotas"
                 variant="outlined"
                 InputLabelProps={{ shrink: true }}
                 value={editedRow ? editedRow.dias_cuota : ""}
                 onChange={(e) =>
-                  setEditedRow((prevState) => ({
-                    ...prevState,
+                  setEditedRow({
+                    ...editedRow,
                     dias_cuota: e.target.value,
-                  }))
+                  })
                 }
               >
                 <MenuItem value="">
                   <em>Ninguno</em>
                 </MenuItem>
-                <MenuItem value={7}>Semanal</MenuItem>
-                <MenuItem value={15}>Quincenal</MenuItem>
-                <MenuItem value={31}>Mensual</MenuItem>
-                <MenuItem value={180}>Semestral</MenuItem>
+                <MenuItem value="Semanal">Semanal</MenuItem>
+                <MenuItem value="Quincenal">Quincenal</MenuItem>
+                <MenuItem value="Mensual">Mensual</MenuItem>
+                <MenuItem value="Semestral">Semestral</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -198,15 +203,20 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               <InputLabel>Nombre Cliente</InputLabel>
               <Select
                 label="Nombre Cliente"
+                name="NomCliente"
                 variant="outlined"
                 InputLabelProps={{ shrink: true }}
-                value={editedRow ? editedRow.cliente_id : ""}
-                onChange={(e) =>
-                  setEditedRow((prevState) => ({
-                    ...prevState,
-                    cliente_id: e.target.value,
-                  }))
-                }
+                value={editedRow ? editedRow.client_id : ""}
+                onChange={(e) => {
+                  const selectedClientId = e.target.value;
+                  const selectedClient = clients.find((client) => client.id === selectedClientId);
+                  setEditedRow({
+                    ...editedRow,
+                    cliente_id: selectedClientId,
+                    // Establecer el nombre del cliente en el estado
+                    nombre_cliente: selectedClient ? selectedClient.nombre : ""
+                  });
+                }}
               >
                 <MenuItem value="">
                   <em>Ninguno</em>

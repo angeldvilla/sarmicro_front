@@ -51,25 +51,28 @@ const TablePayment = () => {
     );
     getPolizas();
   };
-  const handleDelete = async (id) => {
+  const handleDelete = async (rowId) => {
+    const deleteRow = data.find((row) => row.id === rowId);
     try {
       await axios.delete(
-        `https://poliza.transargelia.com.co/public/api/poliza/${id}`
+        `https://poliza.transargelia.com.co/public/api/poliza/${deleteRow}`
       );
       getPolizas();
     } catch (error) {
       console.error("Error al eliminar el registro:", error);
+      alert(error);
     }
   };
 
-  const handleUpdate = (rowData) => {
-    setRowEdit(rowData);
+  const handleUpdate = (rowId) => {
+    const updatedRow = data.find((row) => row.id === rowId);
+    setRowEdit(updatedRow);
     setOpenEdit(true);
   };
   const handleEdit = async (data) => {
     setOpenForm(false);
     await axios.put(
-      "https://poliza.transargelia.com.co/public/api/poliza",
+      `https://poliza.transargelia.com.co/public/api/poliza/${rowEdit.id}`,
       data
     );
     getPolizas();
@@ -148,19 +151,20 @@ const TablePayment = () => {
         filter: false,
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
+          const rowId = tableMeta.rowData[0];
           return (
             <>
               <IconButton
                 aria-label="Editar"
                 style={{ color: "#0054b4" }}
-                onClick={() => handleUpdate(tableMeta.rowData)}
+                onClick={() => handleUpdate(rowId)}
               >
                 <EditIcon />
               </IconButton>
               <IconButton
                 aria-label="Borrar"
                 style={{ color: "#dd0000" }}
-                onClick={() => handleDelete(tableMeta.rowData[0])}
+                onClick={() => handleDelete(rowId)}
               >
                 <DeleteIcon />
               </IconButton>
@@ -179,6 +183,7 @@ const TablePayment = () => {
     download: false,
     print: false,
     pagination: true,
+    viewColumns: false,
     textLabels: {
       body: {
         noMatch: "No se encontraron registros",
@@ -204,17 +209,17 @@ const TablePayment = () => {
   return (
     <>
       <NavBar />
-          <div
-            style={{
-              alignSelf: "flex-start",
-              position: "absolute",
-              marginTop: 40,
-              left: 50,
-              right: 0,
-            }}
-          >
-            <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-          </div>
+      <div
+        style={{
+          alignSelf: "flex-start",
+          position: "absolute",
+          marginTop: 40,
+          left: 50,
+          right: 0,
+        }}
+      >
+        <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
+      </div>
       <div
         style={{
           display: "flex",
