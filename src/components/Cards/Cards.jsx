@@ -50,12 +50,12 @@ export const CardPayments = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <NavLink to={`/${paths[0]}`}>
+        <a href={`/${paths[0]}`}>
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <PolicyIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography>
-        </NavLink>
+        </a>
       </div>
     </div>
   );
@@ -97,7 +97,7 @@ export const CardPolicy = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <NavLink to={`/${paths[0]}`}>
+        <NavLink to={`/${paths[1]}`}>
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <PaidIcon style={{ marginLeft: 10, fontSize: "large" }} />
@@ -143,7 +143,7 @@ export const CardVehicles = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <NavLink to={`/${paths[0]}`}>
+        <NavLink to={`/${paths[2]}`}>
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <LocalTaxiIcon style={{ marginLeft: 10, fontSize: "large" }} />
@@ -187,12 +187,12 @@ export const CashBox = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <NavLink to={`/${paths[0]}`}>
+        <a href={`/${paths[3]}`}>
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <SavingsIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography>
-        </NavLink>
+        </a>
       </div>
     </div>
   );
