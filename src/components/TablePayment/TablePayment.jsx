@@ -1,19 +1,27 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MUIDataTable from "mui-datatables";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
 import ModalEdit from "../Modales/ModalEdit";
+
 const TablePayment = () => {
   const [data, setData] = useState([]);
   const [rowEdit, setRowEdit] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+
+  const navigate = useNavigate();
+  const backFunction = () => {
+    navigate(-1);
+  };
 
   const getPolizas = async () => {
     try {
@@ -164,7 +172,7 @@ const TablePayment = () => {
   ];
 
   const options = {
-    filterType: "checkbox",
+    filterType: "dropdown",
     responsive: "vertical",
     selectableRows: "none",
     search: true,
@@ -196,6 +204,17 @@ const TablePayment = () => {
   return (
     <>
       <NavBar />
+          <div
+            style={{
+              alignSelf: "flex-start",
+              position: "absolute",
+              marginTop: 40,
+              left: 50,
+              right: 0,
+            }}
+          >
+            <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
+          </div>
       <div
         style={{
           display: "flex",

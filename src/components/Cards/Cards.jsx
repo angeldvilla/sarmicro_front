@@ -5,11 +5,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-/* import ListItemIcon from "@mui/material/ListItemIcon";
 import PaidIcon from "@mui/icons-material/Paid";
 import PolicyIcon from "@mui/icons-material/Policy";
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
-import SavingsIcon from "@mui/icons-material/Savings"; */
+import SavingsIcon from "@mui/icons-material/Savings";
 import styles from "./card.module.css";
 import valorPoliza from "../../assets/images/valorPolizas.avif";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
@@ -19,7 +18,7 @@ import cuadreCaja from "../../assets/images/cuadreCaja.avif";
 const paths = ["valor-poliza", "pago-polizas", "vehiculos", "caja"];
 export const CardPayments = () => {
   return (
-    <NavLink to={`/${paths[0]}`}>
+    <div className={styles.cardContainer}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
@@ -50,13 +49,21 @@ export const CardPayments = () => {
           </CardContent>
         </CardActionArea>
       </Card>
-    </NavLink>
+      <div className={styles.overlay}>
+        <NavLink to={`/${paths[0]}`}>
+          <Typography className={styles.overlayButton}>
+            Ver Detalles
+            <PolicyIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </Typography>
+        </NavLink>
+      </div>
+    </div>
   );
 };
 
 export const CardPolicy = () => {
   return (
-    <NavLink to={`/${paths[1]}`}>
+    <div className={styles.cardContainer}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
@@ -89,13 +96,21 @@ export const CardPolicy = () => {
           </CardContent>
         </CardActionArea>
       </Card>
-    </NavLink>
+      <div className={styles.overlay}>
+        <NavLink to={`/${paths[0]}`}>
+          <Typography className={styles.overlayButton}>
+            Ver Detalles
+            <PaidIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </Typography>
+        </NavLink>
+      </div>
+    </div>
   );
 };
 
 export const CardVehicles = () => {
   return (
-    <NavLink to={`/${paths[2]}`}>
+    <div className={styles.cardContainer}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
@@ -127,13 +142,21 @@ export const CardVehicles = () => {
           </CardContent>
         </CardActionArea>
       </Card>
-    </NavLink>
+      <div className={styles.overlay}>
+        <NavLink to={`/${paths[0]}`}>
+          <Typography className={styles.overlayButton}>
+            Ver Detalles
+            <LocalTaxiIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </Typography>
+        </NavLink>
+      </div>
+    </div>
   );
 };
 
 export const CashBox = () => {
   return (
-    <NavLink to={`/${paths[3]}`}>
+    <div className={styles.cardContainer}>
       <Card style={{ borderRadius: "1.2em" }}>
         <CardActionArea>
           <CardMedia
@@ -163,6 +186,14 @@ export const CashBox = () => {
           </CardContent>
         </CardActionArea>
       </Card>
-    </NavLink>
+      <div className={styles.overlay}>
+        <NavLink to={`/${paths[0]}`}>
+          <Typography className={styles.overlayButton}>
+            Ver Detalles
+            <SavingsIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </Typography>
+        </NavLink>
+      </div>
+    </div>
   );
 };

@@ -76,7 +76,7 @@
 /* PARA BOTON DE CERRAR SESIÓN */
 .botonLogout {
   z-index: 1;
-  background-color: red;
+  position: relative;
   border-radius: 8px;
 }
 
@@ -87,7 +87,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  direction: rtl;
+  direction:rtl; 
   z-index: -1;
   background: red;
   transition: all 0.3s ease;
@@ -101,8 +101,8 @@
 }
 
 .botonLogout:hover:after {
-  left: 0;
-  right: auto;
+  left: auto;
+  right: 0;
   width: 100%;
 }
 
