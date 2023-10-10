@@ -29,10 +29,10 @@ const TableValues = () => {
     navigate(-1);
   };
 
-  const getPolizas = async () => {
+  const getCuotas = async () => {
     try {
       const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/poliza"
+        "https://poliza.transargelia.com.co/public/api/cuota"
       );
       setData(response.data);
     } catch (error) {
@@ -41,9 +41,9 @@ const TableValues = () => {
     }
   };
 
-/*   useEffect(() => {
-    getPolizas();
-  }, []); */
+  useEffect(() => {
+    getCuotas();
+  }, []);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -53,10 +53,10 @@ const TableValues = () => {
     setOpenForm(false);
     try {
       await axios.post(
-        "https://poliza.transargelia.com.co/public/api/poliza",
+        "https://poliza.transargelia.com.co/public/api/cuota",
         data
       );
-      getPolizas();
+      getCuotas();
     } catch (error) {
       console.log(error);
       alert(error);
@@ -67,9 +67,9 @@ const TableValues = () => {
     const deleteRow = data.find((row) => row.id === rowId);
     try {
       await axios.delete(
-        `https://poliza.transargelia.com.co/public/api/poliza/${deleteRow}`
+        `https://poliza.transargelia.com.co/public/api/cuota/${deleteRow}`
       );
-      getPolizas();
+      getCuotas();
     } catch (error) {
       console.error("Error al eliminar el registro:", error);
       alert(error);
@@ -77,7 +77,7 @@ const TableValues = () => {
   };
 
   const handleConfirmDelete = (rowId) => {
-    /*     const deleteRow = data.find((row) => row.id === rowId);
+    /* const deleteRow = data.find((row) => row.id === rowId);
     setRowEdit(deleteRow); */
     setOpenDelete(true);
   };
@@ -91,10 +91,10 @@ const TableValues = () => {
   const handleEdit = async (data) => {
     setOpenForm(false);
     await axios.put(
-      `https://poliza.transargelia.com.co/public/api/poliza/${rowEdit.id}`,
+      `https://poliza.transargelia.com.co/public/api/cuota/${rowEdit.id}`,
       data
     );
-    getPolizas();
+    getCuotas();
   };
 
   /* TABLE DESIGN */
@@ -113,21 +113,8 @@ const TableValues = () => {
       ),
     },
     {
-      name: "numero_poliza",
-      label: "#Poliza",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-/*     {
-      name: "fecha_inicio",
-      label: "Fecha Inicio",
+      name: "monto",
+      label: "Monto",
       options: {
         filter: true,
         sort: true,
@@ -139,34 +126,8 @@ const TableValues = () => {
       ),
     },
     {
-      name: "fecha_fin",
-      label: "Fecha Fin",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    }, */
-    {
-      name: "monto_total",
-      label: "Monto Total",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-/*     {
-      name: "numero_cuotas",
-      label: "# Cuotas",
+      name: "pagada",
+      label: "Pagada",
       options: {
         filter: true,
         sort: true,
@@ -178,8 +139,8 @@ const TableValues = () => {
       ),
     },
     {
-      name: "dias_cuota",
-      label: "Tipo Cuotas",
+      name: "poliza_id",
+      label: "ID Poliza",
       options: {
         filter: true,
         sort: true,
@@ -189,10 +150,23 @@ const TableValues = () => {
           <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
         </th>
       ),
-    }, */
+    },
     {
-      name: "cliente_id",
-      label: "Nombre Cliente",
+      name: "fecha_vencimiento",
+      label: "Fecha Vencimiento",
+      options: {
+        filter: true,
+        sort: true,
+      },
+      customHeadRender: (columnMeta) => (
+        <th>
+          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
+        </th>
+      ),
+    },
+    {
+      name: "created_at",
+      label: "Fecha Creación",
       options: {
         filter: true,
         sort: true,
