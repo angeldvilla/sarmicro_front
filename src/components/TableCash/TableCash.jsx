@@ -29,10 +29,10 @@ const TableCash = () => {
     navigate(-1);
   };
 
-  const getPolizas = async () => {
+  const getPagos = async () => {
     try {
       const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/cuota"
+        "https://poliza.transargelia.com.co/public/api/pago"
       );
       setData(response.data);
     } catch (error) {
@@ -41,9 +41,9 @@ const TableCash = () => {
     }
   };
 
- /*  useEffect(() => {
-    getPolizas();
-  }, []); */
+  useEffect(() => {
+    getPagos();
+  }, []);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -53,10 +53,10 @@ const TableCash = () => {
     setOpenForm(false);
     try {
       await axios.post(
-        "https://poliza.transargelia.com.co/public/api/cuota",
+        "https://poliza.transargelia.com.co/public/api/pago",
         data
       );
-      getPolizas();
+      getPagos();
     } catch (error) {
       console.log(error);
       alert(error);
@@ -67,9 +67,9 @@ const TableCash = () => {
     const deleteRow = data.find((row) => row.id === rowId);
     try {
       await axios.delete(
-        `https://poliza.transargelia.com.co/public/api/cuota/${deleteRow}`
+        `https://poliza.transargelia.com.co/public/api/pago/${deleteRow}`
       );
-      getPolizas();
+      getPagos();
     } catch (error) {
       console.error("Error al eliminar el registro:", error);
       alert(error);
@@ -77,7 +77,7 @@ const TableCash = () => {
   };
 
   const handleConfirmDelete = (rowId) => {
-    /*     const deleteRow = data.find((row) => row.id === rowId);
+    /* const deleteRow = data.find((row) => row.id === rowId);
     setRowEdit(deleteRow); */
     setOpenDelete(true);
   };
@@ -91,10 +91,10 @@ const TableCash = () => {
   const handleEdit = async (data) => {
     setOpenForm(false);
     await axios.put(
-      `https://poliza.transargelia.com.co/public/api/cuota/${rowEdit.id}`,
+      `https://poliza.transargelia.com.co/public/api/pago/${rowEdit.id}`,
       data
     );
-    getPolizas();
+    getPagos();
   };
 
   /* TABLE DESIGN */
@@ -113,21 +113,8 @@ const TableCash = () => {
       ),
     },
     {
-      name: "numero_poliza",
-      label: "#Poliza",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-  /*   {
-      name: "fecha_inicio",
-      label: "Fecha Inicio",
+      name: "cuota_id",
+      label: "#Pago",
       options: {
         filter: true,
         sort: true,
@@ -139,34 +126,8 @@ const TableCash = () => {
       ),
     },
     {
-      name: "fecha_fin",
-      label: "Fecha Fin",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    }, */
-    {
-      name: "monto_total",
-      label: "Monto Total",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
- /*    {
-      name: "numero_cuotas",
-      label: "# Cuotas",
+      name: "fecha_pago",
+      label: "Fecha Pago",
       options: {
         filter: true,
         sort: true,
@@ -178,8 +139,8 @@ const TableCash = () => {
       ),
     },
     {
-      name: "dias_cuota",
-      label: "Tipo Cuotas",
+      name: "created_at",
+      label: "Fecha Creación",
       options: {
         filter: true,
         sort: true,
@@ -190,19 +151,6 @@ const TableCash = () => {
         </th>
       ),
     },
-    {
-      name: "cliente_id",
-      label: "Nombre Cliente",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    }, */
     {
       name: "Acciones",
       label: "Acciones",
