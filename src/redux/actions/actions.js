@@ -87,12 +87,10 @@ export const getUsers = () => {
     const usersPath = `${ENDPOINT}${USERS_URL}`;
     try {
       const { data } = await axios.get(usersPath);
-      if (data && data.status === 200) {
-        return dispatch({
-          type: GET_USERS,
-          payload: data,
-        });
-      }
+      return dispatch({
+        type: GET_USERS,
+        payload: data,
+      });
     } catch (error) {
       console.log(error);
       toast.error("No hay datos de usuarios");
@@ -105,13 +103,10 @@ export const getClientes = () => {
     const clientesPath = `${ENDPOINT}${CLIENTES_URL}`;
     try {
       const { data } = await axios.get(clientesPath);
-
-      if (data && data.status === 200) {
-        return dispatch({
-          type: GET_CLIENTES,
-          payload: data,
-        });
-      }
+      return dispatch({
+        type: GET_CLIENTES,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       alert(error.message);
