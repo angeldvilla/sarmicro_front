@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,11 +12,17 @@ import Tooltip from "@mui/material/Tooltip";
 import LogoutIcon from "@mui/icons-material/Logout";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import styles from "../Buttons/styleButton.module.css";
+import { logoutUser } from "../../redux/actions/actions";
+import { Toaster } from "sonner";
 
 function NavBar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.userData);
+
   const handleLogout = () => {
-    navigate("/");
+    dispatch(logoutUser(navigate));
   };
 
   return (
@@ -65,6 +72,7 @@ function NavBar() {
               Cerrar Sesión
               <LogoutIcon style={{ marginLeft: 10, fontSize: "large" }} />
             </Typography>
+            <Toaster richColors />
           </Box>
         </Toolbar>
       </Container>

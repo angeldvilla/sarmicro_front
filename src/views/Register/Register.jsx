@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styles from "./register.module.css";
 import {
   InputPassword,
@@ -11,16 +12,17 @@ import {
 } from "../../components/Inputs/inputs";
 import { ButtonRegister } from "../../components/Buttons/buttons";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { registerUser } from "../../redux/actions/actions";
+import { Toaster, toast } from "sonner";
 
 const Register = () => {
   const [userData, setUserData] = useState({
-    username: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
     name: "",
     document: "",
     cellphone: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (event) => {
@@ -32,6 +34,32 @@ const Register = () => {
   };
 
   const navigate = useNavigate();
+  const dispatch = useDispatch;
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+
+    if (
+      !userData.name ||
+      !userData.password ||
+      !userData.confirmPassword ||
+      !userData.email ||
+      !userData.document ||
+      !userData.cellphone
+    ) {
+      toast.error("Complete todos los campos para crear su cuenta");
+    } else {
+      const userRegistered = {
+        name: userData.name,
+        document: userData.document,
+        cellphone: userData.cellphone,
+        email: userData.email,
+        password: userData.password,
+        confirmPassword: userData.confirmPassword,
+      };
+      dispatch(registerUser(userRegistered, navigate));
+    }
+  };
 
   const backFunction = () => {
     navigate("/");
@@ -47,7 +75,16 @@ const Register = () => {
               style={{ cursor: "pointer" }}
             />
           </div>
-          <h1 style={{textAlign: "center", marginBottom: "0.6em", marginTop: "0.4em", fontSize: "1.5em"}}>Registra tus datos</h1>
+          <h1
+            style={{
+              textAlign: "center",
+              marginBottom: "0.6em",
+              marginTop: "0.4em",
+              fontSize: "1.5em",
+            }}
+          >
+            Registra tus datos
+          </h1>
 
           <InputName
             name="name"
@@ -85,7 +122,8 @@ const Register = () => {
             onChange={handleChange}
           />
 
-          <ButtonRegister />
+          <ButtonRegister handleRegister={handleRegister} />
+          <Toaster position="top-right" richColors />
         </form>
       </div>
     </div>

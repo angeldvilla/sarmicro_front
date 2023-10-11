@@ -6,8 +6,6 @@ import {
   LOGOUT_URL,
   USERS_URL,
   CLIENTES_URL,
-  CUOTAS_URL,
-  PAGOS_URL,
 } from "./path.js";
 import {
   POST_LOGIN,
@@ -15,28 +13,24 @@ import {
   LOGOUT,
   GET_USERS,
   GET_CLIENTES,
-  GET_CUOTAS,
-  GET_PAGOS,
 } from "./actionTypes.js";
 import { toast } from "sonner";
-import "react-toastify/dist/ReactToastify.css";
 
 export const authLogin = (userData, navigate) => {
   return async (dispatch) => {
     const loginPath = `${ENDPOINT}${LOGIN_URL}`;
     try {
       const { data } = await axios.post(loginPath, userData);
+      console.log(data);
 
-      if (data && data.status === 200) {
-        return dispatch({
-          type: POST_LOGIN,
-          payload: data,
-        });
-      }
       toast.success("Ingreso correctamente!");
       setTimeout(() => {
         navigate("/inicio");
       }, 1500);
+      return dispatch({
+        type: POST_LOGIN,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Ups, intente de nuevo!");
@@ -44,18 +38,20 @@ export const authLogin = (userData, navigate) => {
   };
 };
 
-export const registerUser = (userData) => {
+export const registerUser = (userData, navigate) => {
   return async (dispatch) => {
     const registerPath = `${ENDPOINT}${REGISTER_URL}`;
     try {
       const { data } = await axios.post(registerPath, userData);
 
-      if (data && data.status === 200) {
-        return dispatch({
-          type: POST_REGISTER,
-          payload: data,
-        });
-      }
+      toast.success("Cuenta creada!, inicia sesión!");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+      return dispatch({
+        type: POST_REGISTER,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -63,21 +59,43 @@ export const registerUser = (userData) => {
   };
 };
 
-export const logoutUser = () => {
+export const logoutUser = (navigate) => {
   return async (dispatch) => {
-    const logoutPath = `${ENDPOINT}${LOGOUT_URL}`;
+    /*  const logoutPath = `${ENDPOINT}${LOGOUT_URL}`; */
     try {
-      const { data } = await axios.post(logoutPath);
+      /*  const { data } = await axios.get(logoutPath);
 
       if (data && data.status === 200) {
         return dispatch({
           type: LOGOUT,
           payload: data,
         });
-      }
+      } */
+      toast.success("Hasta pronto!");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      toast.error("Error al cerrar sesión");
+    }
+  };
+};
+
+export const getUsers = () => {
+  return async (dispatch) => {
+    const usersPath = `${ENDPOINT}${USERS_URL}`;
+    try {
+      const { data } = await axios.get(usersPath);
+      if (data && data.status === 200) {
+        return dispatch({
+          type: GET_USERS,
+          payload: data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("No hay datos de usuarios");
     }
   };
 };
