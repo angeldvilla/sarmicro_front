@@ -12,10 +12,15 @@ import TableCash from "../components/TableCash/TableCash.jsx";
 const RoutesApp = () => {
   return (
     <Routes>
+      {/* Ruta de inicio de sesión, muestra el componente Login */}
       <Route index element={<Login />} />
+
+      {/* Ruta para registrarse, muestra el componente Register */}
       <Route path="/registrarse" element={<Register />} />
 
       {/* RUTAS PROTEGIDAS */}
+      {/* Las siguientes rutas están protegidas y requieren autenticación.
+         Para ello, utilizan el componente RoutesProtected que controla si el usuario está autenticado. Si lo está, muestra el componente correspondiente; de lo contrario, redirige al usuario a la página de inicio de sesión. */}
       <Route
         path="/inicio"
         element={

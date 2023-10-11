@@ -16,6 +16,8 @@ import { registerUser } from "../../redux/actions/actions";
 import { Toaster, toast } from "sonner";
 
 const Register = () => {
+
+   // Usamos un estado local para almacenar los datos que ingresa el usuario
   const [userData, setUserData] = useState({
     name: "",
     document: "",
@@ -25,6 +27,7 @@ const Register = () => {
     confirmPassword: "",
   });
 
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({
@@ -36,6 +39,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Función que maneja el envío del registro
   const handleRegister = (event) => {
     event.preventDefault();
 
@@ -47,8 +51,10 @@ const Register = () => {
       !userData.document ||
       !userData.cellphone
     ) {
+      // Muestra una notificación de error si faltan campos
       toast.error("Complete todos los campos para crear su cuenta");
     } else {
+      // Prepara los datos de registro y los envía al servidor a través de Redux
       const userRegistered = {
         name: userData.name,
         cedula: userData.document,

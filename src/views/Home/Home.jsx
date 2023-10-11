@@ -18,10 +18,14 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        <NavBar />
+        <NavBar />{" "}
+        {/* Renderizamos el NavBar de la App , donde muestra Logo y boton de cerrar sesion */}
       </div>
 
+      {/* Usamos un contendor para la vista de las cards  */}
       <div className={styles.cardContainerStyle}>
+
+        {/* Renderizamos las cards */}
         <div className={styles.cardStyle}>
           <div className={styles.scaleUpBottom}>
             <CardPayments />

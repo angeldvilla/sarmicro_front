@@ -12,11 +12,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Usamos un estado local para almacenar los datos del usuario
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({
@@ -25,11 +27,14 @@ const Login = () => {
     });
   };
 
+  // Función que maneja el envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!userData.email || !userData.password) {
+      // Muestra una notificación de error si faltan campos
       toast.error("Complete los campos, por favor!");
     } else {
+      // Prepara los datos de inicio de sesión y los envía al servidor a través de Redux
       const loginUser = {
         email: userData.email,
         password: userData.password,
@@ -84,7 +89,10 @@ const Login = () => {
               Regístrate
             </a>
 
+            {/* Componente ButtonLogin para el botón de inicio de sesión */}
             <ButtonLogin handleLogin={handleSubmit} />
+
+            {/* Componente Toaster para mostrar notificaciones en la parte superior */}
             <Toaster position="top-center" richColors />
           </form>
         </div>

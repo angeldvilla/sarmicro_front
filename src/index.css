@@ -16,6 +16,8 @@ code {
     monospace;
 }
 
+
+/* Estilos para el scrollBar */
 ::-webkit-scrollbar {
   width: 12px;
 }
