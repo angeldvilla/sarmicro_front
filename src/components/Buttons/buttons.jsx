@@ -1,22 +1,24 @@
 import Button from "@mui/material/Button";
 import styles from "./styleButton.module.css";
-export const ButtonLogin = () => {
+export const ButtonLogin = ({ handleLogin }) => {
   return (
-    <Button
-      style={{ 
+    <button
+      style={{
+        position: "relative",
         marginTop: "3.5em",
-        marginBottom: "0.7em", 
-        backgroundColor: "gray", 
+        marginBottom: "0.7em",
+        backgroundColor: "gray",
         color: "white",
         borderRadius: "8px",
-        padding: "8px 20px",
+        padding: "10px 20px",
         fontSize: "0.9em",
       }}
       className={styles.botonLogin}
+      onClick={handleLogin}
       /* variant="contained" */
     >
-      Ingresar
-    </Button>
+      INGRESAR
+    </button>
   );
 };
 

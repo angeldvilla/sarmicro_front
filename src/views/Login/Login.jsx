@@ -6,6 +6,7 @@ import { InputEmail, InputPassword } from "../../components/Inputs/inputs";
 import { ButtonLogin } from "../../components/Buttons/buttons";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import { authLogin } from "../../redux/actions/actions";
+import { Toaster, toast } from "sonner";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,13 +27,15 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const loginUser = {
-      email: userData.username,
-      password: userData.password,
-    };
-    dispatch(authLogin(loginUser));
-    navigate("/home");
+    if (!userData.email || !userData.password) {
+      toast.error("Complete los campos, por favor!");
+    } else {
+      const loginUser = {
+        email: userData.email,
+        password: userData.password,
+      };
+      dispatch(authLogin(loginUser, navigate));
+    }
   };
 
   return (
@@ -47,18 +50,33 @@ const Login = () => {
         </div>
         <div className={styles.rightColumn}>
           <form className={styles.form} onSubmit={handleSubmit}>
-            <h1 style={{textAlign: "center", marginBottom: "0.6em", marginTop: "0.6em", fontSize: "1.8em"}}>Bienvenido a SarMicros</h1>
+            <h1
+              style={{
+                textAlign: "center",
+                marginBottom: "0.6em",
+                marginTop: "0.6em",
+                fontSize: "1.8em",
+              }}
+            >
+              Bienvenido a SarMicros
+            </h1>
 
             <InputEmail
               name="email"
               value={userData.email}
               onChange={handleChange}
+              inputProps={{
+                autoComplete: "off",
+              }}
             />
 
             <InputPassword
               name="password"
               value={userData.password}
               onChange={handleChange}
+              inputProps={{
+                autoComplete: "new-password",
+              }}
             />
 
             <span style={{ marginTop: "3.2em" }}>¿No tienes una cuenta?</span>
@@ -66,7 +84,8 @@ const Login = () => {
               Regístrate
             </a>
 
-            <ButtonLogin />
+            <ButtonLogin handleLogin={handleSubmit} />
+            <Toaster position="top-center" richColors />
           </form>
         </div>
       </div>

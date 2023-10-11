@@ -18,8 +18,10 @@ import {
   GET_CUOTAS,
   GET_PAGOS,
 } from "./actionTypes.js";
+import { toast } from "sonner";
+import "react-toastify/dist/ReactToastify.css";
 
-export const authLogin = (userData) => {
+export const authLogin = (userData, navigate) => {
   return async (dispatch) => {
     const loginPath = `${ENDPOINT}${LOGIN_URL}`;
     try {
@@ -31,9 +33,13 @@ export const authLogin = (userData) => {
           payload: data,
         });
       }
+      toast.success("Ingreso correctamente!");
+      setTimeout(() => {
+        navigate("/inicio");
+      }, 1500);
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      toast.error("Ups, intente de nuevo!");
     }
   };
 };
@@ -57,7 +63,6 @@ export const registerUser = (userData) => {
   };
 };
 
-
 export const logoutUser = () => {
   return async (dispatch) => {
     const logoutPath = `${ENDPOINT}${LOGOUT_URL}`;
@@ -76,7 +81,6 @@ export const logoutUser = () => {
     }
   };
 };
-
 
 export const getClientes = () => {
   return async (dispatch) => {

@@ -23,19 +23,27 @@ const Home = () => {
 
       <div className={styles.cardContainerStyle}>
         <div className={styles.cardStyle}>
-          <CardPayments />
+          <div className={styles.scaleUpBottom}>
+            <CardPayments />
+          </div>
         </div>
 
         <div className={styles.cardStyle}>
-          <CardPolicy />
+          <div className={styles.scaleUpBottom2}>
+            <CardPolicy />
+          </div>
         </div>
 
         <div className={styles.cardStyle}>
-          <CardVehicles />
+          <div className={styles.scaleUpBottom3}>
+            <CardVehicles />
+          </div>
         </div>
 
         <div className={styles.cardStyle}>
-          <CashBox />
+          <div className={styles.scaleUpBottom4}>
+            <CashBox />
+          </div>
         </div>
       </div>
     </>

@@ -15,7 +15,6 @@ import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
 import cuadreCaja from "../../assets/images/cuadreCaja.avif";
 
-const paths = ["valor-poliza", "pago-polizas", "vehiculos", "caja"];
 export const CardPayments = () => {
   return (
     <div className={styles.cardContainer}>
@@ -50,12 +49,12 @@ export const CardPayments = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <a href={`/${paths[0]}`}>
+        <NavLink to="/valor-poliza">
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <PolicyIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography>
-        </a>
+        </NavLink>
       </div>
     </div>
   );
@@ -97,7 +96,7 @@ export const CardPolicy = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <NavLink to={`/${paths[1]}`}>
+        <NavLink to="/pago-polizas">
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <PaidIcon style={{ marginLeft: 10, fontSize: "large" }} />
@@ -143,7 +142,7 @@ export const CardVehicles = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <NavLink to={`/${paths[2]}`}>
+        <NavLink to="/vehiculos">
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <LocalTaxiIcon style={{ marginLeft: 10, fontSize: "large" }} />
@@ -187,7 +186,7 @@ export const CashBox = () => {
         </CardActionArea>
       </Card>
       <div className={styles.overlay}>
-        <a href={`/${paths[3]}`}>
+        <a href="/caja">
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <SavingsIcon style={{ marginLeft: 10, fontSize: "large" }} />

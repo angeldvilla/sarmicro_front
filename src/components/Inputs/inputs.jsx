@@ -11,9 +11,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 export const InputName = ({ name, value, onChange }) => {
   return (
     <Box
-      component="form"
       noValidate
-      autoComplete="off"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -28,6 +26,7 @@ export const InputName = ({ name, value, onChange }) => {
         value={value}
         onChange={onChange}
         color="primary"
+        autoComplete="off"
       />
       <HailIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -37,9 +36,7 @@ export const InputName = ({ name, value, onChange }) => {
 export const InputDocument = ({ name, value, onChange }) => {
   return (
     <Box
-      component="form"
       noValidate
-      autoComplete="off"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -54,6 +51,7 @@ export const InputDocument = ({ name, value, onChange }) => {
         value={value}
         onChange={onChange}
         color="primary"
+        autoComplete="off"
       />
       <BadgeIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -63,9 +61,7 @@ export const InputDocument = ({ name, value, onChange }) => {
 export const InputCellPhone = ({ name, value, onChange }) => {
   return (
     <Box
-      component="form"
       noValidate
-      autoComplete="off"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -80,6 +76,7 @@ export const InputCellPhone = ({ name, value, onChange }) => {
         value={value}
         onChange={onChange}
         color="primary"
+        autoComplete="off"
       />
       <PhoneAndroidIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -89,9 +86,7 @@ export const InputCellPhone = ({ name, value, onChange }) => {
 export const InputEmail = ({ name, value, onChange }) => {
   return (
     <Box
-      component="form"
       noValidate
-      autoComplete="off"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -106,6 +101,7 @@ export const InputEmail = ({ name, value, onChange }) => {
         value={value}
         onChange={onChange}
         color="primary"
+        autoComplete="off"
       />
       <EmailIcon sx={{ color: "action.active", ml: 1, my: 0.5 }} />
     </Box>
@@ -121,9 +117,7 @@ export const InputPassword = ({ name, value, onChange }) => {
 
   return (
     <Box
-      component="form"
       noValidate
-      autoComplete="off"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -139,6 +133,9 @@ export const InputPassword = ({ name, value, onChange }) => {
         value={value}
         onChange={onChange}
         color="primary"
+        inputProps={{
+          autoComplete: "new-password",
+        }}
       />
       <span onClick={togglePasswordVisibility}>
         {showPassword ? (
@@ -160,9 +157,7 @@ export const InputConfirmPassword = ({ name, value, onChange }) => {
 
   return (
     <Box
-      component="form"
       noValidate
-      autoComplete="off"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -178,6 +173,9 @@ export const InputConfirmPassword = ({ name, value, onChange }) => {
         value={value}
         onChange={onChange}
         color="primary"
+        inputProps={{
+          autoComplete: "new-password",
+        }}
       />
       <span onClick={togglePasswordVisibility}>
         {showPassword ? (
