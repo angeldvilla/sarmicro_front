@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
 import RoutesProtected from "./routesProtected.jsx";
 import Home from "../views/Home/Home.jsx";
 import Login from "../views/Login/Login.jsx";
@@ -10,13 +11,19 @@ import TableVehicles from "../components/TableVehicles/TableVehicles.jsx";
 import TableCash from "../components/TableCash/TableCash.jsx";
 
 const RoutesApp = () => {
+  //verificamos si el usuario ya esta logueado
+  const userAuth = useSelector((state) => state?.auth?.authUser.access_token);
+
   return (
     <Routes>
       {/* Ruta de inicio de sesión, muestra el componente Login */}
-      <Route index element={<Login />} />
+      <Route index element={userAuth ? <Navigate to="/inicio" /> : <Login />} />
 
       {/* Ruta para registrarse, muestra el componente Register */}
-      <Route path="/registrarse" element={<Register />} />
+      <Route
+        path="/registrarse"
+        element={userAuth ? <Navigate to="/inicio" /> : <Register />}
+      />
 
       {/* RUTAS PROTEGIDAS */}
       {/* Las siguientes rutas están protegidas y requieren autenticación.

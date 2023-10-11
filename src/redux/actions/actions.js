@@ -24,8 +24,8 @@ export const authLogin = (userData, navigate) => {
       const { data } = await axios.post(loginPath, userData);
 
       // Mostrar un mensaje de éxito y redirigir al usuario a la página de inicio
-      toast.success("Ingreso correctamente!");
       setTimeout(() => {
+        toast.success("Ingreso correctamente!");
         navigate("/inicio");
       }, 1500);
       return dispatch({
@@ -70,7 +70,7 @@ export const logoutUser = (unAuthenticated, navigate) => {
     try {
       /* await axios.post(logoutPath, unAuthenticated); */
 
-       // Realizar el proceso de cierre de sesión
+      // Realizar el proceso de cierre de sesión
       setTimeout(() => {
         toast.success("Cerraste sesión, hasta pronto!");
         navigate("/");

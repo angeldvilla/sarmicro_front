@@ -77,7 +77,7 @@ function NavBar() {
               Cerrar Sesión
               <LogoutIcon style={{ marginLeft: 10, fontSize: "large" }} />
             </Typography>
-            <Toaster richColors />
+            <Toaster position="top-right" richColors />
           </Box>
         </Toolbar>
       </Container>
