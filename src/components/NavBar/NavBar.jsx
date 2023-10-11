@@ -19,10 +19,15 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.auth.userData);
+  /* const user = useSelector((state) => state.auth.userData); */
+  const NotLogged = useSelector((state) => state?.auth?.authUser);
 
   const handleLogout = () => {
-    dispatch(logoutUser(navigate));
+    const unAuthenticated = {
+      access_token: NotLogged.access_token,
+      tipo_token: NotLogged.tipo_token,
+    };
+    dispatch(logoutUser(unAuthenticated, navigate));
   };
 
   return (

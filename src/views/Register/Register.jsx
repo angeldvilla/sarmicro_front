@@ -34,7 +34,7 @@ const Register = () => {
   };
 
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -51,11 +51,11 @@ const Register = () => {
     } else {
       const userRegistered = {
         name: userData.name,
-        document: userData.document,
-        cellphone: userData.cellphone,
+        cedula: userData.document,
+        telefono: userData.cellphone,
         email: userData.email,
         password: userData.password,
-        confirmPassword: userData.confirmPassword,
+        password_confirmation: userData.confirmPassword,
       };
       dispatch(registerUser(userRegistered, navigate));
     }

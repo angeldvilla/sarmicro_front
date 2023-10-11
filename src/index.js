@@ -5,14 +5,14 @@ import App from "./App";
 import "./index.css";
 import styles from "./background.module.css";
 import { Provider } from "react-redux";
-import store from "./redux/store/store";
+import { store } from "./redux/store/store";
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <BrowserRouter>
+  <BrowserRouter>
+    <Provider store={store}>
       <div className={styles.background}>
         <App />
       </div>
-    </BrowserRouter>
-  </Provider>
+    </Provider>
+  </BrowserRouter>
 );

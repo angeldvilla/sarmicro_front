@@ -21,7 +21,6 @@ export const authLogin = (userData, navigate) => {
     const loginPath = `${ENDPOINT}${LOGIN_URL}`;
     try {
       const { data } = await axios.post(loginPath, userData);
-      console.log(data);
 
       toast.success("Ingreso correctamente!");
       setTimeout(() => {
@@ -32,8 +31,7 @@ export const authLogin = (userData, navigate) => {
         payload: data,
       });
     } catch (error) {
-      console.error(error);
-      toast.error("Ups, intente de nuevo!");
+      toast.error(`${error.response.data.mensaje}, intente de nuevo!`);
     }
   };
 };
@@ -54,27 +52,24 @@ export const registerUser = (userData, navigate) => {
       });
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      toast.error(`${error.response.data.mensaje}, intente de nuevo!`);
     }
   };
 };
 
-export const logoutUser = (navigate) => {
+export const logoutUser = (unAuthenticated, navigate) => {
   return async (dispatch) => {
-    /*  const logoutPath = `${ENDPOINT}${LOGOUT_URL}`; */
+    /* const logoutPath = `${ENDPOINT}${LOGOUT_URL}`; */
     try {
-      /*  const { data } = await axios.get(logoutPath);
-
-      if (data && data.status === 200) {
-        return dispatch({
-          type: LOGOUT,
-          payload: data,
-        });
-      } */
-      toast.success("Hasta pronto!");
+      /* await axios.post(logoutPath, unAuthenticated); */
       setTimeout(() => {
+        toast.success("Cerraste sesión, hasta pronto!");
         navigate("/");
       }, 1500);
+
+      return dispatch({
+        type: LOGOUT,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Error al cerrar sesión");
@@ -109,7 +104,7 @@ export const getClientes = () => {
       });
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      toast.error("No hay datos de clientes");
     }
   };
 };
