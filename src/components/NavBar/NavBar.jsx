@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import LogoutIcon from "@mui/icons-material/Logout";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import styles from "../Buttons/styleButton.module.css";
-import { logoutUser } from "../../redux/actions/actions";
+import { logoutUser } from "../../redux/actions/actionsAuth";
 import { Toaster } from "sonner";
 
 function NavBar() {

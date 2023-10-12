@@ -5,7 +5,7 @@ import styles from "./login.module.css";
 import { InputEmail, InputPassword } from "../../components/Inputs/inputs";
 import { ButtonLogin } from "../../components/Buttons/buttons";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
-import { authLogin } from "../../redux/actions/actions";
+import { authLogin } from "../../redux/actions/actionsAuth";
 import { Toaster, toast } from "sonner";
 
 const Login = () => {

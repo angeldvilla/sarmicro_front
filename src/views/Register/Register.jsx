@@ -12,7 +12,7 @@ import {
 } from "../../components/Inputs/inputs";
 import { ButtonRegister } from "../../components/Buttons/buttons";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { registerUser } from "../../redux/actions/actions";
+import { registerUser } from "../../redux/actions/actionsAuth";
 import { Toaster, toast } from "sonner";
 
 const Register = () => {
