@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import MUIDataTable from "mui-datatables";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -16,10 +16,11 @@ import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
 import ModalEdit from "../Modales/ModalEdit";
+import { getVehiculos } from "../../redux/actions/actionsVehicles";
 
 const TableVehicles = () => {
-  const [data, setData] = useState([]);
-  const [rowEdit, setRowEdit] = useState(null);
+  const data = useSelector((state) => state?.vehicles?.vechiculosData);
+  /* const [rowEdit, setRowEdit] = useState(null); */
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -29,21 +30,11 @@ const TableVehicles = () => {
     navigate(-1);
   };
 
-  const getPolizas = async () => {
-    try {
-      const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/poliza"
-      );
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
+  const dispatch = useDispatch();
 
-  /* useEffect(() => {
-    getPolizas();
-  }, []); */
+  useEffect(() => {
+    dispatch(getVehiculos());
+  }, [dispatch]);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -51,158 +42,147 @@ const TableVehicles = () => {
 
   const handleCreate = async (data) => {
     setOpenForm(false);
-    try {
-      await axios.post(
-        "https://poliza.transargelia.com.co/public/api/poliza",
-        data
-      );
-      getPolizas();
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
-  const handleDelete = async (rowId) => {
-    setOpenDelete(false);
-    const deleteRow = data.find((row) => row.id === rowId);
-    try {
-      await axios.delete(
-        `https://poliza.transargelia.com.co/public/api/poliza/${deleteRow}`
-      );
-      getPolizas();
-    } catch (error) {
-      console.error("Error al eliminar el registro:", error);
-      alert(error);
-    }
-  };
-
-  const handleConfirmDelete = (rowId) => {
-    /*     const deleteRow = data.find((row) => row.id === rowId);
-    setRowEdit(deleteRow); */
-    setOpenDelete(true);
-  };
-
-  const handleUpdate = (rowId) => {
-    const updatedRow = data.find((row) => row.id === rowId);
-    setRowEdit(updatedRow);
-    setOpenEdit(true);
-  };
-
-  const handleEdit = async (data) => {
-    setOpenForm(false);
-    await axios.put(
-      `https://poliza.transargelia.com.co/public/api/poliza/${rowEdit.id}`,
-      data
-    );
-    getPolizas();
+    /* dispatch(createVechicle(data)); */
   };
 
   /* TABLE DESIGN */
   const columns = [
     {
-      name: "id",
-      label: "ID",
+      name: "id_movil",
+      label: "ID Movil",
       options: {
         filter: true,
         sort: true,
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
     },
     {
-      name: "vehiculo",
-      label: "#Vehiculo",
+      name: "id_marca",
+      label: "ID Marca",
       options: {
         filter: true,
         sort: true,
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    /* {
-      name: "fecha_inicio",
-      label: "Fecha Inicio",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
     },
     {
-      name: "fecha_fin",
-      label: "Fecha Fin",
+      name: "id_propietario",
+      label: "Propietario",
       options: {
         filter: true,
         sort: true,
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
     },
     {
-      name: "monto_total",
+      name: "modelo",
+      label: "Modelo",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "placa",
       label: "Monto Total",
       options: {
         filter: true,
         sort: true,
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
     },
     {
-      name: "numero_cuotas",
-      label: "# Cuotas",
+      name: "clase",
+      label: "Clase",
       options: {
         filter: true,
         sort: true,
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
     },
     {
-      name: "dias_cuota",
-      label: "Tipo Cuotas",
+      name: "color",
+      label: "Color",
       options: {
         filter: true,
         sort: true,
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
     },
     {
-      name: "cliente_id",
-      label: "Nombre Cliente",
+      name: "grupo",
+      label: "Grupo",
       options: {
         filter: true,
         sort: true,
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    }, */
+    },
+    {
+      name: "motor",
+      label: "Motor",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "poliza",
+      label: "Poliza",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "poliza_paz",
+      label: "Poliza Paz",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "propio",
+      label: "Propio",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "referencia",
+      label: "Referencia",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "rtu_paz",
+      label: "RTU Paz",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "segurida_social_paz",
+      label: "Seguridad Social",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "serie",
+      label: "Serie",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: "tipo",
+      label: "Tipo",
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
     {
       name: "Acciones",
       label: "Acciones",
@@ -213,29 +193,39 @@ const TableVehicles = () => {
           const rowId = tableMeta.rowData[0];
           return (
             <>
-              <IconButton
-                aria-label="Editar"
-                style={{ color: "#0054b4" }}
-                onClick={() => handleUpdate(rowId)}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                aria-label="Borrar"
-                style={{ color: "#dd0000" }}
-                onClick={() => handleConfirmDelete(rowId)}
-              >
-                <DeleteIcon />
-              </IconButton>
+              <Tooltip title="Crear Vehiculo">
+                <IconButton
+                  aria-label="Crear Vehiculo"
+                  onClick={() => handleOpen(rowId)}
+                  color="primary"
+                >
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Editar">
+                <IconButton
+                  aria-label="Editar"
+                  style={{ color: "#0054b4" }}
+                  /* onClick={() => handleUpdate(rowId)} */
+                >
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Borrar">
+                <IconButton
+                  aria-label="Borrar"
+                  style={{ color: "#dd0000" }}
+                  /* onClick={() => handleConfirmDelete(rowId)} */
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </>
           );
         },
       },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
     },
   ];
 
@@ -276,9 +266,9 @@ const TableVehicles = () => {
       <div
         style={{
           alignSelf: "flex-start",
-          position: "absolute",
-          marginTop: 40,
-          left: 50,
+          position: "relative",
+          marginTop: 15,
+          marginLeft: 20,
           right: 0,
         }}
       >
@@ -286,34 +276,30 @@ const TableVehicles = () => {
       </div>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "5%",
+          position: "relative",
+          width: "80%",
+          height: "500px",
+          overflowX: "auto",
         }}
       >
-        <MUIDataTable
-          title={"Vehiculos"}
-          data={data}
-          columns={columns}
-          options={{
-            ...options,
-            customToolbar: () => {
-              return (
-                <Tooltip title="Crear Matricula de Vehículo">
-                  <IconButton
-                    aria-label="Crear Matricula de Vehículo"
-                    onClick={handleOpen}
-                    color="primary"
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              );
-            },
-            rowsPerPage: 5,
-            rowsPerPageOptions: [5, 10, 20],
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "1%",
           }}
-        ></MUIDataTable>
+        >
+          <MUIDataTable
+            title={"Vehiculos"}
+            data={data}
+            columns={columns}
+            options={{
+              ...options,
+              rowsPerPage: 20,
+              rowsPerPageOptions: [20, 40, 60],
+            }}
+          ></MUIDataTable>
+        </div>
       </div>
       <div
         style={{
@@ -328,15 +314,13 @@ const TableVehicles = () => {
           <DialogTitle>Eliminar Vehiculo</DialogTitle>
           <DialogContent>
             ¿Estás seguro de eliminar este vehiculo
-            <span style={{ fontWeight: "bold" }}> {data.numero_poliza} </span>?
+            <span style={{ fontWeight: "bold" }}> {data.clase} </span>?
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenDelete(false)} color="primary">
               No
             </Button>
-            <Button onClick={handleDelete} color="error">
-              Sí
-            </Button>
+            <Button /* onClick={handleDelete} */ color="error">Sí</Button>
           </DialogActions>
         </Dialog>
         <ModalCreate
@@ -347,8 +331,8 @@ const TableVehicles = () => {
         <ModalEdit
           open={openEdit}
           handleClose={() => setOpenEdit(false)}
-          handleEdit={handleEdit}
-          rowEdit={rowEdit}
+          /* handleEdit={handleEdit} */
+          /* rowEdit={rowEdit} */
         />
       </div>
     </>
