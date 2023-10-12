@@ -16,6 +16,7 @@ import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
 import ModalEdit from "../Modales/ModalEdit";
+import Box from "@mui/material/Box";
 import { getVehiculos } from "../../redux/actions/actionsVehicles";
 
 const TableVehicles = () => {
@@ -261,7 +262,7 @@ const TableVehicles = () => {
   /* ----------------- */
 
   return (
-    <>
+    <div>
       <NavBar />
       <div
         style={{
@@ -274,33 +275,54 @@ const TableVehicles = () => {
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
       </div>
-      <div
+      {/*  <div
         style={{
           position: "relative",
-          width: "80%",
+          width: "150%",
           height: "500px",
           overflowX: "auto",
         }}
-      >
-        <div
+      > */}
+      {/*   <div
           style={{
+            marginTop: "1%",
             display: "flex",
             justifyContent: "center",
-            marginTop: "1%",
           }}
-        >
-          <MUIDataTable
-            title={"Vehiculos"}
-            data={data}
-            columns={columns}
-            options={{
-              ...options,
-              rowsPerPage: 20,
-              rowsPerPageOptions: [20, 40, 60],
-            }}
-          ></MUIDataTable>
-        </div>
-      </div>
+        > */}
+      {/*  <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "80%",
+          height: "600px",
+          overflow: "auto",
+        }}
+      > */}
+      <Box
+        sx={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "row",
+          height: "600px",
+          width: "99%",
+          overflow: "auto",
+        }}
+      >
+        <MUIDataTable
+          title={"Vehiculos"}
+          data={data}
+          columns={columns}
+          options={{
+            ...options,
+            rowsPerPage: 20,
+            rowsPerPageOptions: [20, 40, 60],
+          }}
+        ></MUIDataTable>
+      </Box>
+      {/* </div> */}
       <div
         style={{
           display: "flex",
@@ -335,7 +357,7 @@ const TableVehicles = () => {
           /* rowEdit={rowEdit} */
         />
       </div>
-    </>
+    </div>
   );
 };
 

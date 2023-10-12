@@ -30,9 +30,15 @@ const Login = () => {
   // Función que maneja el envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!userData.email || !userData.password) {
+    if (!userData.email && !userData.password) {
       // Muestra una notificación de error si faltan campos
-      toast.error("Complete los campos, por favor!");
+      toast.error("Complete los campos, por favor");
+    } else if (!userData.email) {
+      // Muestra una notificación de error si no ingresa email
+      toast.error("Ingrese su correo, por favor");
+    } else if (!userData.password) {
+      // Muestra una notificación de error si no ingresa password
+      toast.error("Ingrese su contraseña, por favor");
     } else {
       // Prepara los datos de inicio de sesión y los envía al servidor a través de Redux
       const loginUser = {
