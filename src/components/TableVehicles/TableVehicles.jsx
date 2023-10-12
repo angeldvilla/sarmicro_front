@@ -275,32 +275,6 @@ const TableVehicles = () => {
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
       </div>
-      {/*  <div
-        style={{
-          position: "relative",
-          width: "150%",
-          height: "500px",
-          overflowX: "auto",
-        }}
-      > */}
-      {/*   <div
-          style={{
-            marginTop: "1%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        > */}
-      {/*  <div
-        style={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "80%",
-          height: "600px",
-          overflow: "auto",
-        }}
-      > */}
       <Box
         sx={{
           position: "relative",
@@ -309,28 +283,37 @@ const TableVehicles = () => {
           height: "600px",
           width: "99%",
           overflow: "auto",
+          marginTop: "2%",
         }}
       >
-        <MUIDataTable
-          title={"Vehiculos"}
-          data={data}
-          columns={columns}
-          options={{
-            ...options,
-            rowsPerPage: 20,
-            rowsPerPageOptions: [20, 40, 60],
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "1%",
           }}
-        ></MUIDataTable>
+        >
+          <MUIDataTable
+            title={"Vehiculos"}
+            data={data}
+            columns={columns}
+            options={{
+              ...options,
+              rowsPerPage: 20,
+              rowsPerPageOptions: [20, 40, 60],
+            }}
+          ></MUIDataTable>
+        </div>
       </Box>
-      {/* </div> */}
       <div
-        style={{
+      /* style={{
           display: "flex",
           justifyContent: "center",
           maxWidth: "100%",
           marginTop: "100%",
           marginBottom: "100%",
-        }}
+        }} */
       >
         <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
           <DialogTitle>Eliminar Vehiculo</DialogTitle>
