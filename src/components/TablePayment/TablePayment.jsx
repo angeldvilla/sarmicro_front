@@ -14,8 +14,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
-import ModalCreate from "../Modales/ModalCreate";
-import ModalEdit from "../Modales/ModalEdit";
+import ModalCreate from "../Modals/ModalCreate";
+import ModalEdit from "../Modals/ModalEdit";
 import Switch from "@mui/material/Switch";
 
 import {
@@ -98,7 +98,7 @@ const TablePayment = () => {
       row.estado === "0" ? (
         <span style={{ color: "red" }}>Pago Inactivo</span>
       ) : (
-        row.estado
+        <span style={{ color: "green" }}>{row.estado}</span>
       ),
   }));
 

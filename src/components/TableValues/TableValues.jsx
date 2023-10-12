@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import MUIDataTable from "mui-datatables";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -14,36 +14,29 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
-import ModalCreate from "../Modales/ModalCreate";
-import ModalEdit from "../Modales/ModalEdit";
+import ModalCreateValue from "../Modals/ModalValorPoliza/ModalCreateValue";
+import ModalEdit from "../Modals/ModalEdit";
+import {
+  createValorPoliza,
+  getValoresPolizas,
+} from "../../redux/actions/actionsValues";
 
 const TableValues = () => {
-  const [data, setData] = useState([]);
-  const [rowEdit, setRowEdit] = useState(null);
+  const data = useSelector((state) => state?.values?.valuesData);
+  /* const [rowEdit, setRowEdit] = useState(null); */
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const backFunction = () => {
     navigate(-1);
   };
 
-  const getCuotas = async () => {
-    try {
-      const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/cuota"
-      );
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
-
   useEffect(() => {
-    getCuotas();
-  }, []);
+    dispatch(getValoresPolizas());
+  }, [dispatch]);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -51,18 +44,9 @@ const TableValues = () => {
 
   const handleCreate = async (data) => {
     setOpenForm(false);
-    try {
-      await axios.post(
-        "https://poliza.transargelia.com.co/public/api/cuota",
-        data
-      );
-      getCuotas();
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
+    dispatch(createValorPoliza(data));
   };
-  const handleDelete = async (rowId) => {
+  /*  const handleDelete = async (rowId) => {
     setOpenDelete(false);
     const deleteRow = data.find((row) => row.id === rowId);
     try {
@@ -74,15 +58,15 @@ const TableValues = () => {
       console.error("Error al eliminar el registro:", error);
       alert(error);
     }
-  };
+  }; */
 
-  const handleConfirmDelete = (rowId) => {
-    /* const deleteRow = data.find((row) => row.id === rowId);
-    setRowEdit(deleteRow); */
+  /*const handleConfirmDelete = (rowId) => {
+     const deleteRow = data.find((row) => row.id === rowId);
+    setRowEdit(deleteRow); 
     setOpenDelete(true);
-  };
+  }; */
 
-  const handleUpdate = (rowId) => {
+  /*  const handleUpdate = (rowId) => {
     const updatedRow = data.find((row) => row.id === rowId);
     setRowEdit(updatedRow);
     setOpenEdit(true);
@@ -95,9 +79,20 @@ const TableValues = () => {
       data
     );
     getCuotas();
-  };
+  }; */
 
   /* TABLE DESIGN */
+
+  const modifiedData = data.map((row) => ({
+    ...row,
+    created_at:
+      row.created_at === null ? (
+        <span style={{ color: "red" }}>No hay fecha de creación</span>
+      ) : (
+        <span style={{ color: "green" }}>{row.created_at}</span>
+      ),
+  }));
+
   const columns = [
     {
       name: "id",
@@ -113,8 +108,8 @@ const TableValues = () => {
       ),
     },
     {
-      name: "monto",
-      label: "Monto",
+      name: "tipo_poliza",
+      label: "Tipo Poliza",
       options: {
         filter: true,
         sort: true,
@@ -126,8 +121,8 @@ const TableValues = () => {
       ),
     },
     {
-      name: "pagada",
-      label: "Pagada",
+      name: "vehiculo_grupo",
+      label: "Grupo Vehiculo",
       options: {
         filter: true,
         sort: true,
@@ -139,8 +134,8 @@ const TableValues = () => {
       ),
     },
     {
-      name: "poliza_id",
-      label: "ID Poliza",
+      name: "valor_poliza",
+      label: "Valor Poliza",
       options: {
         filter: true,
         sort: true,
@@ -152,8 +147,8 @@ const TableValues = () => {
       ),
     },
     {
-      name: "fecha_vencimiento",
-      label: "Fecha Vencimiento",
+      name: "cuota_inicial",
+      label: "Cuota Inicial",
       options: {
         filter: true,
         sort: true,
@@ -178,29 +173,46 @@ const TableValues = () => {
       ),
     },
     {
+      name: "updated_at",
+      label: "Fecha Actualización",
+      options: {
+        filter: true,
+        sort: true,
+      },
+      customHeadRender: (columnMeta) => (
+        <th>
+          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
+        </th>
+      ),
+    },
+    {
       name: "Acciones",
       label: "Acciones",
       options: {
         filter: false,
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
-          const rowId = tableMeta.rowData[0];
+          /* const rowId = tableMeta.rowData[0]; */
           return (
             <>
-              <IconButton
-                aria-label="Editar"
-                style={{ color: "#0054b4" }}
-                onClick={() => handleUpdate(rowId)}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                aria-label="Borrar"
-                style={{ color: "#dd0000" }}
-                onClick={() => handleConfirmDelete(rowId)}
-              >
-                <DeleteIcon />
-              </IconButton>
+              <Tooltip title="Editar">
+                <IconButton
+                  aria-label="Editar"
+                  style={{ color: "#0054b4" }}
+                  /* onClick={() => handleUpdate(rowId)} */
+                >
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Borrar">
+                <IconButton
+                  aria-label="Borrar"
+                  style={{ color: "#dd0000" }}
+                  /* onClick={() => handleConfirmDelete(rowId)} */
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </>
           );
         },
@@ -267,7 +279,7 @@ const TableValues = () => {
       >
         <MUIDataTable
           title={"Valores de Polizas"}
-          data={data}
+          data={modifiedData}
           columns={columns}
           options={{
             ...options,
@@ -302,18 +314,16 @@ const TableValues = () => {
           <DialogTitle>Eliminar Valor De Poliza</DialogTitle>
           <DialogContent>
             ¿Estás seguro de eliminar este valor de poliza
-            <span style={{ fontWeight: "bold" }}> {data.numero_poliza} </span>?
+            <span style={{ fontWeight: "bold" }}> {data.tipo_poliza} </span>?
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenDelete(false)} color="primary">
               No
             </Button>
-            <Button onClick={handleDelete} color="error">
-              Sí
-            </Button>
+            <Button /* onClick={handleDelete} */ color="error">Sí</Button>
           </DialogActions>
         </Dialog>
-        <ModalCreate
+        <ModalCreateValue
           open={openForm}
           handleClose={() => setOpenForm(false)}
           handleCreate={handleCreate}
@@ -321,8 +331,8 @@ const TableValues = () => {
         <ModalEdit
           open={openEdit}
           handleClose={() => setOpenEdit(false)}
-          handleEdit={handleEdit}
-          rowEdit={rowEdit}
+          /* handleEdit={handleEdit}
+          rowEdit={rowEdit} */
         />
       </div>
     </>
