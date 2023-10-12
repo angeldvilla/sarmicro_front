@@ -189,34 +189,9 @@ export default function ModalCreate({
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={editedRow ? editedRow?.cliente_id : ""}
+              value={editedRow ? editedRow?.cliente_id.charAt(0).toUpperCase() + editedRow?.cliente_id.slice(1).toLowerCase() : ""}
               disabled
             />
-            {/* <FormControl fullWidth>
-              <InputLabel>Nombre Cliente</InputLabel>
-              <Select
-                label="Nombre Cliente"
-                variant="outlined"
-                value={editedRow.cliente_id}
-                onChange={(e) =>
-                  setEditedRow((prevState) => ({
-                    ...prevState,
-                    cliente_id: e.target.value,
-                  }))
-                }
-              >
-                <MenuItem value="">
-                  <em>Ninguno</em>
-                </MenuItem>
-                {clientesData &&
-                  clientesData.map((client) => (
-                    <MenuItem key={client.id} value={client.id}>
-                      {client.nombre.charAt(0).toUpperCase() +
-                        client.nombre.slice(1)}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl> */}
           </Grid>
         </Grid>
       </Dialog>

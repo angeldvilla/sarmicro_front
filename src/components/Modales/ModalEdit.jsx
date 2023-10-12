@@ -168,7 +168,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={editedRow ? editedRow?.cliente_id : ""}
+              value={editedRow ? editedRow?.cliente_id.charAt(0).toUpperCase() + editedRow?.cliente_id.slice(1).toLowerCase() : ""}
               disabled
             />
           </Grid>
