@@ -81,3 +81,17 @@ export const updatePoliza = (polizaData, id) => {
     }
   };
 };
+
+export const deletePoliza = (id) => {
+  return async (dispatch) => {
+    const polizaPath = `${ENDPOINT}${POLIZAS_URL}/${id}`;
+    try {
+      await axios.delete(polizaPath, id);
+      toast.success("Pago eliminado correctamente");
+      dispatch(getPolizas());
+    } catch (error) {
+      console.log(error);
+      toast.error("No se pudo borrar este pago de poliza");
+    }
+  };
+};

@@ -16,9 +16,11 @@ import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
 import ModalEdit from "../Modales/ModalEdit";
+import Switch from "@mui/material/Switch";
 
 import {
   createPoliza,
+  deletePoliza,
   getPolizas,
   updatePoliza,
 } from "../../redux/actions/actionsPayments";
@@ -58,30 +60,21 @@ const TablePayment = () => {
     setOpenEdit(true);
   };
 
-  const handleEdit = async (data) => {
+  const handleEdit = async (data, rowId) => {
     setOpenForm(false);
-    dispatch(updatePoliza(data, rowEdit.id));
+    dispatch(updatePoliza(data, rowId));
   };
 
-  /* const handleDelete = async (rowId) => {
-    setOpenDelete(false);
+  const handleConfirmDelete = (rowId) => {
     const deleteRow = data.find((row) => row.id === rowId);
-    try {
-      await axios.delete(
-        `https://poliza.transargelia.com.co/public/api/poliza/${deleteRow}`
-      );
-      getPolizas();
-    } catch (error) {
-      console.error("Error al eliminar el registro:", error);
-      alert(error);
-    }
-  }; */
-
-  /*  const handleConfirmDelete = (rowId) => {
-       const deleteRow = data.find((row) => row.id === rowId);
-    setRowEdit(deleteRow); 
+    setRowEdit(deleteRow);
     setOpenDelete(true);
-  };*/
+  };
+
+  const handleDelete = async (rowId) => {
+    setOpenDelete(false);
+    dispatch(deletePoliza(rowId));
+  };
 
   /* TABLE DESIGN */
   const modifiedData = data.map((row) => ({
@@ -99,7 +92,8 @@ const TablePayment = () => {
         row.dias_cuota
       ),
     cliente_id:
-      row.cliente_id.charAt(0).toUpperCase() + row.cliente_id.slice(1).toLowerCase(),
+      row.cliente_id.charAt(0).toUpperCase() +
+      row.cliente_id.slice(1).toLowerCase(),
     estado:
       row.estado === "0" ? (
         <span style={{ color: "red" }}>Pago Inactivo</span>
@@ -227,6 +221,16 @@ const TablePayment = () => {
       options: {
         filter: true,
         sort: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          /* const rowId = tableMeta.rowData[0]; */
+          return (
+            <Switch
+              checked={value === "1"}
+              /*  onChange={() => handleTogglePago(rowId, value === "0")} */
+              name="pago-activo"
+            />
+          );
+        },
       },
       customHeadRender: (columnMeta) => (
         <th>
@@ -268,7 +272,7 @@ const TablePayment = () => {
                 <IconButton
                   aria-label="Borrar"
                   style={{ color: "#dd0000" }}
-                  /* onClick={() => handleConfirmDelete(rowId)} */
+                  onClick={() => handleConfirmDelete(rowId)}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -367,7 +371,9 @@ const TablePayment = () => {
             <Button onClick={() => setOpenDelete(false)} color="primary">
               No
             </Button>
-            <Button /* onClick={handleDelete} */ color="error">Sí</Button>
+            <Button onClick={handleDelete} color="error">
+              Sí
+            </Button>
           </DialogActions>
         </Dialog>
         <ModalCreate

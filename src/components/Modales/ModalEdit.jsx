@@ -33,7 +33,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
       dias_cuota: editedRow.dias_cuota,
       cliente_id: editedRow.client_id,
     };
-    handleEdit(data);
+    handleEdit(data, rowEdit.id);
   };
 
   return (
