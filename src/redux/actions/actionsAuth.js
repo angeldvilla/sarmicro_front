@@ -1,19 +1,6 @@
 import axios from "axios";
-import {
-  ENDPOINT,
-  LOGIN_URL,
-  REGISTER_URL,
-  LOGOUT_URL,
-  USERS_URL,
-  CLIENTES_URL,
-} from "./path.js";
-import {
-  POST_LOGIN,
-  POST_REGISTER,
-  LOGOUT,
-  GET_USERS,
-  GET_CLIENTES,
-} from "./actionTypes.js";
+import { ENDPOINT, LOGIN_URL, REGISTER_URL, USERS_URL } from "./path.js";
+import { POST_LOGIN, POST_REGISTER, LOGOUT, GET_USERS } from "./actionTypes.js";
 import { toast } from "sonner";
 
 // Acción para autenticar al usuario y redirigirlo a la página de inicio
@@ -99,23 +86,6 @@ export const getUsers = () => {
     } catch (error) {
       console.log(error);
       toast.error("No hay datos de usuarios");
-    }
-  };
-};
-
-// Acción para obtener datos de clientes
-export const getClientes = () => {
-  return async (dispatch) => {
-    const clientesPath = `${ENDPOINT}${CLIENTES_URL}`;
-    try {
-      const { data } = await axios.get(clientesPath);
-      return dispatch({
-        type: GET_CLIENTES,
-        payload: data,
-      });
-    } catch (error) {
-      console.error(error);
-      toast.error("No hay datos de clientes");
     }
   };
 };

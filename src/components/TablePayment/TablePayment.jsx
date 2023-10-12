@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import MUIDataTable from "mui-datatables";
 import Dialog from "@mui/material/Dialog";
@@ -16,34 +17,25 @@ import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
 import ModalEdit from "../Modales/ModalEdit";
+import { getPolizas } from "../../redux/actions/actionsPayments";
 
 const TablePayment = () => {
-  const [data, setData] = useState([]);
-  const [rowEdit, setRowEdit] = useState(null);
+  const data = useSelector((state) => state?.payments?.polizasData);
+
+  /* const [rowEdit, setRowEdit] = useState(null); */
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const backFunction = () => {
     navigate(-1);
   };
 
-  const getPolizas = async () => {
-    try {
-      const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/poliza"
-      );
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
-
   useEffect(() => {
-    getPolizas();
-  }, []);
+    dispatch(getPolizas());
+  }, [dispatch]);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -62,7 +54,7 @@ const TablePayment = () => {
       alert(error);
     }
   };
-  const handleDelete = async (rowId) => {
+  /* const handleDelete = async (rowId) => {
     setOpenDelete(false);
     const deleteRow = data.find((row) => row.id === rowId);
     try {
@@ -74,28 +66,28 @@ const TablePayment = () => {
       console.error("Error al eliminar el registro:", error);
       alert(error);
     }
-  };
+  }; */
 
-  const handleConfirmDelete = (rowId) => {
-    /*     const deleteRow = data.find((row) => row.id === rowId);
-    setRowEdit(deleteRow); */
+  /*  const handleConfirmDelete = (rowId) => {
+       const deleteRow = data.find((row) => row.id === rowId);
+    setRowEdit(deleteRow); 
     setOpenDelete(true);
-  };
+  };*/
 
-  const handleUpdate = (rowId) => {
+/*   const handleUpdate = (rowId) => {
     const updatedRow = data.find((row) => row.id === rowId);
     setRowEdit(updatedRow);
     setOpenEdit(true);
-  };
+  }; */
 
-  const handleEdit = async (data) => {
+  /* const handleEdit = async (data) => {
     setOpenForm(false);
     await axios.put(
       `https://poliza.transargelia.com.co/public/api/poliza/${rowEdit.id}`,
       data
     );
     getPolizas();
-  };
+  }; */
 
   /* TABLE DESIGN */
   const columns = [
@@ -210,20 +202,20 @@ const TablePayment = () => {
         filter: false,
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
-          const rowId = tableMeta.rowData[0];
+          /* const rowId = tableMeta.rowData[0]; */
           return (
             <>
               <IconButton
                 aria-label="Editar"
                 style={{ color: "#0054b4" }}
-                onClick={() => handleUpdate(rowId)}
+                /* onClick={() => handleUpdate(rowId)} */
               >
                 <EditIcon />
               </IconButton>
               <IconButton
                 aria-label="Borrar"
                 style={{ color: "#dd0000" }}
-                onClick={() => handleConfirmDelete(rowId)}
+                /* onClick={() => handleConfirmDelete(rowId)} */
               >
                 <DeleteIcon />
               </IconButton>
@@ -334,7 +326,7 @@ const TablePayment = () => {
             <Button onClick={() => setOpenDelete(false)} color="primary">
               No
             </Button>
-            <Button onClick={handleDelete} color="error">
+            <Button /* onClick={handleDelete} */ color="error">
               Sí
             </Button>
           </DialogActions>
@@ -347,8 +339,8 @@ const TablePayment = () => {
         <ModalEdit
           open={openEdit}
           handleClose={() => setOpenEdit(false)}
-          handleEdit={handleEdit}
-          rowEdit={rowEdit}
+          /* handleEdit={handleEdit}
+          rowEdit={rowEdit} */
         />
       </div>
     </>

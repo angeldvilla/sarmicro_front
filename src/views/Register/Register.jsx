@@ -16,8 +16,7 @@ import { registerUser } from "../../redux/actions/actionsAuth";
 import { Toaster, toast } from "sonner";
 
 const Register = () => {
-
-   // Usamos un estado local para almacenar los datos que ingresa el usuario
+  // Usamos un estado local para almacenar los datos que ingresa el usuario
   const [userData, setUserData] = useState({
     name: "",
     document: "",
