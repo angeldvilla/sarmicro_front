@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Grid from "@mui/material/Grid";
@@ -10,18 +9,19 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
+  useEffect(() => {
+    if (rowEdit) {
+      setEditedRow(rowEdit);
+    }
+  }, [open, rowEdit]);
+
   const [editedRow, setEditedRow] = useState(rowEdit);
-  const [clients, setClients] = useState([]);
 
   const handleEditPoliza = () => {
     const data = {
@@ -35,27 +35,6 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
     };
     handleEdit(data);
   };
-
-  const getClients = async () => {
-    try {
-      const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/clientes"
-      );
-      console.log(response.data);
-      setClients(response.data);
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
-
-  useEffect(() => {
-    if (rowEdit) {
-      setEditedRow(rowEdit);
-    }
-
-    getClients();
-  }, [open, rowEdit]);
 
   return (
     <div>
@@ -94,14 +73,15 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Número de Póliza"
               margin="none"
               name="NumPoliza"
-              value={editedRow ? editedRow.numero_poliza : ""}
+              value={editedRow ? editedRow?.numero_poliza : ""}
               placeholder="Ingrese número de póliza"
-              onChange={(e) =>
+              disabled
+              /*  onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
                   numero_poliza: e.target.value,
                 })
-              }
+              } */
             />
           </Grid>
           <Grid item xs={6}>
@@ -110,14 +90,15 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Monto Total"
               margin="none"
               name="MontoTotal"
-              value={editedRow ? editedRow.monto_total : ""}
+              value={editedRow ? editedRow?.monto_total : ""}
               placeholder="Ingrese Monto Total de la póliza"
-              onChange={(e) =>
+              disabled
+              /* onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
                   monto_total: e.target.value,
                 })
-              }
+              } */
             />
           </Grid>
 
@@ -128,8 +109,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               name="FechaIni"
               margin="none"
               type="date"
-              InputLabelProps={{ shrink: true }}
-              value={editedRow ? editedRow.fecha_inicio : ""}
+              value={editedRow ? editedRow?.fecha_inicio : ""}
               onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
@@ -145,8 +125,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               name="FechaFin"
               margin="none"
               type="date"
-              InputLabelProps={{ shrink: true }}
-              value={editedRow ? editedRow.fecha_fin : ""}
+              value={editedRow ? editedRow?.fecha_fin : ""}
               onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
@@ -162,74 +141,36 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Número de Cuotas"
               margin="none"
               name="NumCuotas"
-              value={editedRow ? editedRow.numero_cuotas : ""}
+              value={editedRow ? editedRow?.numero_cuotas : ""}
               placeholder="Ingrese número de cuotas"
-              onChange={(e) =>
+              disabled
+              /* onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
                   numero_cuotas: e.target.value,
                 })
-              }
+              } */
             />
           </Grid>
           <Grid item xs={6}>
-            <FormControl fullWidth>
-              <InputLabel>Tipo de Cuotas</InputLabel>
-              <Select
-                label="Tipo de Cuotas"
-                name="TipCuotas"
-                variant="outlined"
-                InputLabelProps={{ shrink: true }}
-                value={editedRow ? editedRow.dias_cuota : ""}
-                onChange={(e) =>
-                  setEditedRow({
-                    ...editedRow,
-                    dias_cuota: e.target.value,
-                  })
-                }
-              >
-                <MenuItem value="">
-                  <em>Ninguno</em>
-                </MenuItem>
-                <MenuItem value="Semanal">Semanal</MenuItem>
-                <MenuItem value="Quincenal">Quincenal</MenuItem>
-                <MenuItem value="Mensual">Mensual</MenuItem>
-                <MenuItem value="Semestral">Semestral</MenuItem>
-              </Select>
-            </FormControl>
+            <TextField
+              fullWidth
+              label="Tipo de Cuotas"
+              name="TipCuotas"
+              variant="outlined"
+              value={editedRow ? editedRow?.dias_cuota : ""}
+              disabled
+            />
           </Grid>
           <Grid item xs={6}>
-            <FormControl fullWidth>
-              <InputLabel>Nombre Cliente</InputLabel>
-              <Select
-                label="Nombre Cliente"
-                name="NomCliente"
-                variant="outlined"
-                InputLabelProps={{ shrink: true }}
-                value={editedRow ? editedRow.client_id : ""}
-                onChange={(e) => {
-                  const selectedClientId = e.target.value;
-                  const selectedClient = clients.find(
-                    (client) => client.id === selectedClientId
-                  );
-                  setEditedRow({
-                    ...editedRow,
-                    cliente_id: selectedClientId,
-                    // Establecer el nombre del cliente en el estado
-                    nombre_cliente: selectedClient ? selectedClient.nombre : "",
-                  });
-                }}
-              >
-                <MenuItem value="">
-                  <em>Ninguno</em>
-                </MenuItem>
-                {clients.map((client) => (
-                  <MenuItem key={client.id} value={client.id}>
-                    {client.nombre}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <TextField
+              fullWidth
+              label="Nombre Cliente"
+              name="NomCliente"
+              variant="outlined"
+              value={editedRow ? editedRow?.cliente_id : ""}
+              disabled
+            />
           </Grid>
         </Grid>
       </Dialog>

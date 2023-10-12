@@ -2,6 +2,7 @@ import {
   GET_CLIENTES,
   GET_POLIZAS,
   CREATE_POLIZA,
+  UPDATE_POLIZA,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -28,6 +29,12 @@ export default function PaymentsReducer(state = initialState, action) {
         ...state,
         polizasData: action.payload,
       };
+    
+    case UPDATE_POLIZA:
+      return {
+        ...state,
+        polizasData: action.payload,
+      }
 
     default:
       return {

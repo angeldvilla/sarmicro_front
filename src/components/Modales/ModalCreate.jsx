@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Grid from "@mui/material/Grid";
@@ -14,36 +13,37 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { getClientes } from "../../redux/actions/actionsPayments";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ModalCreate({ open, handleClose, handleCreate }) {
-  const dispatch = useDispatch();
-
+export default function ModalCreate({
+  open,
+  handleClose,
+  handleCreate,
+  rowEdit,
+}) {
   useEffect(() => {
-    dispatch(getClientes());
-  }, [dispatch]);
+    if (rowEdit) {
+      setEditedRow(rowEdit);
+    }
+  }, [open, rowEdit]);
 
-  const today = new Date().toISOString().split("T")[0];
-  const initialStatePoliza = {
-    numero_poliza: "",
-    fecha_inicio: today,
-    fecha_fin: "",
-    monto_total: "",
-    numero_cuotas: "",
-    dias_cuota: "",
-    cliente_id: "",
-  };
-
-  const clientesData = useSelector((state) => state?.payments?.clientesData);
-  const [newPoliza, setNewPoliza] = useState(initialStatePoliza);
+  const [editedRow, setEditedRow] = useState(rowEdit);
 
   const handleCreatePoliza = () => {
-    handleCreate(newPoliza);
-    setNewPoliza(initialStatePoliza);
+    const today = new Date().toISOString().split("T")[0];
+    const dataPoliza = {
+      numero_poliza: editedRow.numero_poliza,
+      fecha_inicio: today,
+      fecha_fin: editedRow.fecha_fin,
+      monto_total: editedRow.monto_total,
+      numero_cuotas: editedRow.numero_cuotas,
+      dias_cuota: editedRow.dias_cuota,
+      cliente_id: editedRow.client_id,
+    };
+    handleCreate(dataPoliza);
   };
 
   return (
@@ -83,14 +83,15 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               label="Número de Póliza"
               margin="none"
               name="NumPoliza"
-              value={newPoliza.numero_poliza}
+              value={editedRow ? editedRow?.numero_poliza : ""}
               placeholder="Ingrese número de póliza"
               onChange={(e) =>
-                setNewPoliza((prevState) => ({
+                setEditedRow((prevState) => ({
                   ...prevState,
                   numero_poliza: e.target.value,
                 }))
               }
+              disabled
             />
           </Grid>
           <Grid item xs={6}>
@@ -99,14 +100,15 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               label="Monto Total"
               margin="none"
               name="MontoTotal"
-              value={newPoliza.monto_total}
+              value={editedRow ? editedRow?.monto_total : ""}
               placeholder="Ingrese Monto Total de la póliza"
               onChange={(e) =>
-                setNewPoliza((prevState) => ({
+                setEditedRow((prevState) => ({
                   ...prevState,
                   monto_total: e.target.value,
                 }))
               }
+              disabled
             />
           </Grid>
 
@@ -117,9 +119,9 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               name={"FechaIni"}
               margin="none"
               type="date"
-              disabled
               InputLabelProps={{ shrink: true }}
-              value={newPoliza.fecha_inicio}
+              disabled
+              value={editedRow ? editedRow?.fecha_inicio : ""}
             />
           </Grid>
           <Grid item xs={6}>
@@ -130,13 +132,14 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               margin="none"
               type="date"
               InputLabelProps={{ shrink: true }}
-              value={newPoliza.fecha_fin}
+              value={editedRow ? editedRow?.fecha_fin : ""}
               onChange={(e) =>
-                setNewPoliza((prevState) => ({
+                setEditedRow((prevState) => ({
                   ...prevState,
                   fecha_fin: e.target.value,
                 }))
               }
+              disabled
             />
           </Grid>
 
@@ -146,10 +149,10 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               label="Número de Cuotas"
               margin="none"
               name="NumCuotas"
-              value={newPoliza.numero_cuotas}
+              value={editedRow ? editedRow?.numero_cuotas : ""}
               placeholder="Ingrese número de cuotas"
               onChange={(e) =>
-                setNewPoliza((prevState) => ({
+                setEditedRow((prevState) => ({
                   ...prevState,
                   numero_cuotas: e.target.value,
                 }))
@@ -162,10 +165,9 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
               <Select
                 label="Tipo de Cuotas"
                 variant="outlined"
-                InputLabelProps={{ shrink: true }}
-                value={newPoliza.dias_cuota}
+                value={editedRow ? editedRow?.dias_cuota : ""}
                 onChange={(e) =>
-                  setNewPoliza((prevState) => ({
+                  setEditedRow((prevState) => ({
                     ...prevState,
                     dias_cuota: e.target.value,
                   }))
@@ -182,15 +184,22 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <FormControl fullWidth>
+            <TextField
+              fullWidth
+              label="Nombre Cliente"
+              name="NomCliente"
+              variant="outlined"
+              value={editedRow ? editedRow?.cliente_id : ""}
+              disabled
+            />
+            {/* <FormControl fullWidth>
               <InputLabel>Nombre Cliente</InputLabel>
               <Select
                 label="Nombre Cliente"
                 variant="outlined"
-                InputLabelProps={{ shrink: true }}
-                value={newPoliza.cliente_id}
+                value={editedRow.cliente_id}
                 onChange={(e) =>
-                  setNewPoliza((prevState) => ({
+                  setEditedRow((prevState) => ({
                     ...prevState,
                     cliente_id: e.target.value,
                   }))
@@ -202,11 +211,12 @@ export default function ModalCreate({ open, handleClose, handleCreate }) {
                 {clientesData &&
                   clientesData.map((client) => (
                     <MenuItem key={client.id} value={client.id}>
-                      {client.nombre}
+                      {client.nombre.charAt(0).toUpperCase() +
+                        client.nombre.slice(1)}
                     </MenuItem>
                   ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
           </Grid>
         </Grid>
       </Dialog>

@@ -16,12 +16,17 @@ import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
 import ModalEdit from "../Modales/ModalEdit";
-import { createPoliza, getPolizas } from "../../redux/actions/actionsPayments";
+
+import {
+  createPoliza,
+  getPolizas,
+  updatePoliza,
+} from "../../redux/actions/actionsPayments";
 
 const TablePayment = () => {
   const data = useSelector((state) => state?.payments?.polizasData);
 
-  /* const [rowEdit, setRowEdit] = useState(null); */
+  const [rowEdit, setRowEdit] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -36,13 +41,26 @@ const TablePayment = () => {
     dispatch(getPolizas());
   }, [dispatch]);
 
-  const handleOpen = () => {
+  const handleOpen = (rowId) => {
+    const newPoliza = data.find((row) => row.id === rowId);
+    setRowEdit(newPoliza);
     setOpenForm(true);
   };
 
   const handleCreate = async (polizaData) => {
     setOpenForm(false);
     dispatch(createPoliza(polizaData));
+  };
+
+  const handleUpdate = (rowId) => {
+    const updatedRow = data.find((row) => row.id === rowId);
+    setRowEdit(updatedRow);
+    setOpenEdit(true);
+  };
+
+  const handleEdit = async (data) => {
+    setOpenForm(false);
+    dispatch(updatePoliza(data, rowEdit.id));
   };
 
   /* const handleDelete = async (rowId) => {
@@ -65,22 +83,31 @@ const TablePayment = () => {
     setOpenDelete(true);
   };*/
 
-  /*   const handleUpdate = (rowId) => {
-    const updatedRow = data.find((row) => row.id === rowId);
-    setRowEdit(updatedRow);
-    setOpenEdit(true);
-  }; */
-
-  /* const handleEdit = async (data) => {
-    setOpenForm(false);
-    await axios.put(
-      `https://poliza.transargelia.com.co/public/api/poliza/${rowEdit.id}`,
-      data
-    );
-    getPolizas();
-  }; */
-
   /* TABLE DESIGN */
+  const modifiedData = data.map((row) => ({
+    ...row,
+    numero_cuotas:
+      row.numero_cuotas === "0" ? (
+        <span style={{ color: "red" }}>0</span>
+      ) : (
+        row.numero_cuotas
+      ),
+    dias_cuota:
+      row.dias_cuota === "" ? (
+        <span style={{ color: "red" }}>Definir tipo de cuotas</span>
+      ) : (
+        row.dias_cuota
+      ),
+    cliente_id:
+      row.cliente_id.charAt(0).toUpperCase() + row.cliente_id.slice(1).toLowerCase(),
+    estado:
+      row.estado === "0" ? (
+        <span style={{ color: "red" }}>Pago Inactivo</span>
+      ) : (
+        row.estado
+      ),
+  }));
+
   const columns = [
     {
       name: "id",
@@ -182,6 +209,27 @@ const TablePayment = () => {
       },
       customHeadRender: (columnMeta) => (
         <th>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            {columnMeta.label}
+          </div>
+        </th>
+      ),
+    },
+    {
+      name: "estado",
+      label: "Estado",
+      options: {
+        filter: true,
+        sort: true,
+      },
+      customHeadRender: (columnMeta) => (
+        <th>
           <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
         </th>
       ),
@@ -193,23 +241,38 @@ const TablePayment = () => {
         filter: false,
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
-          /* const rowId = tableMeta.rowData[0]; */
+          const rowId = tableMeta.rowData[0];
           return (
             <>
-              <IconButton
-                aria-label="Editar"
-                style={{ color: "#0054b4" }}
-                /* onClick={() => handleUpdate(rowId)} */
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                aria-label="Borrar"
-                style={{ color: "#dd0000" }}
-                /* onClick={() => handleConfirmDelete(rowId)} */
-              >
-                <DeleteIcon />
-              </IconButton>
+              <Tooltip title="Crear Pago de Poliza">
+                <IconButton
+                  aria-label="Crear Pago de Poliza"
+                  onClick={() => handleOpen(rowId)}
+                  color="primary"
+                >
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Editar">
+                <IconButton
+                  aria-label="Editar"
+                  style={{ color: "#0054b4" }}
+                  onClick={() => handleUpdate(rowId)}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Borrar">
+                <IconButton
+                  aria-label="Borrar"
+                  style={{ color: "#dd0000" }}
+                  /* onClick={() => handleConfirmDelete(rowId)} */
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </>
           );
         },
@@ -259,9 +322,9 @@ const TablePayment = () => {
       <div
         style={{
           alignSelf: "flex-start",
-          position: "absolute",
-          marginTop: 40,
-          left: 50,
+          position: "relative",
+          marginTop: 15,
+          marginLeft: 20,
           right: 0,
         }}
       >
@@ -271,28 +334,15 @@ const TablePayment = () => {
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "5%",
+          marginTop: "1%",
         }}
       >
         <MUIDataTable
           title={"Pagos de Polizas"}
-          data={data}
+          data={modifiedData}
           columns={columns}
           options={{
             ...options,
-            customToolbar: () => {
-              return (
-                <Tooltip title="Crear Pago de Poliza">
-                  <IconButton
-                    aria-label="Crear Pago de Poliza"
-                    onClick={handleOpen}
-                    color="primary"
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              );
-            },
             rowsPerPage: 5,
             rowsPerPageOptions: [5, 10, 20],
           }}
@@ -324,12 +374,13 @@ const TablePayment = () => {
           open={openForm}
           handleClose={() => setOpenForm(false)}
           handleCreate={handleCreate}
+          rowEdit={rowEdit}
         />
         <ModalEdit
           open={openEdit}
           handleClose={() => setOpenEdit(false)}
-          /* handleEdit={handleEdit}
-          rowEdit={rowEdit} */
+          handleEdit={handleEdit}
+          rowEdit={rowEdit}
         />
       </div>
     </>
