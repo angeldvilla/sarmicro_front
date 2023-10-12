@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import MUIDataTable from "mui-datatables";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -17,7 +16,7 @@ import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modales/ModalCreate";
 import ModalEdit from "../Modales/ModalEdit";
-import { getPolizas } from "../../redux/actions/actionsPayments";
+import { createPoliza, getPolizas } from "../../redux/actions/actionsPayments";
 
 const TablePayment = () => {
   const data = useSelector((state) => state?.payments?.polizasData);
@@ -41,19 +40,11 @@ const TablePayment = () => {
     setOpenForm(true);
   };
 
-  const handleCreate = async (data) => {
+  const handleCreate = async (polizaData) => {
     setOpenForm(false);
-    try {
-      await axios.post(
-        "https://poliza.transargelia.com.co/public/api/poliza",
-        data
-      );
-      getPolizas();
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
+    dispatch(createPoliza(polizaData));
   };
+
   /* const handleDelete = async (rowId) => {
     setOpenDelete(false);
     const deleteRow = data.find((row) => row.id === rowId);
@@ -74,7 +65,7 @@ const TablePayment = () => {
     setOpenDelete(true);
   };*/
 
-/*   const handleUpdate = (rowId) => {
+  /*   const handleUpdate = (rowId) => {
     const updatedRow = data.find((row) => row.id === rowId);
     setRowEdit(updatedRow);
     setOpenEdit(true);
@@ -326,9 +317,7 @@ const TablePayment = () => {
             <Button onClick={() => setOpenDelete(false)} color="primary">
               No
             </Button>
-            <Button /* onClick={handleDelete} */ color="error">
-              Sí
-            </Button>
+            <Button /* onClick={handleDelete} */ color="error">Sí</Button>
           </DialogActions>
         </Dialog>
         <ModalCreate

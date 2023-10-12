@@ -1,8 +1,12 @@
-import { GET_CLIENTES, GET_POLIZAS } from "../actions/actionTypes";
+import {
+  GET_CLIENTES,
+  GET_POLIZAS,
+  CREATE_POLIZA,
+} from "../actions/actionTypes";
 
 const initialState = {
-    clientesData: {},
-    polizasData: {},
+  clientesData: [],
+  polizasData: [],
 };
 
 export default function PaymentsReducer(state = initialState, action) {
@@ -12,12 +16,18 @@ export default function PaymentsReducer(state = initialState, action) {
         ...state,
         clientesData: action.payload,
       };
-    
+
     case GET_POLIZAS:
-        return {
-          ...state,
-          polizasData: action.payload,
-        }
+      return {
+        ...state,
+        polizasData: action.payload,
+      };
+
+    case CREATE_POLIZA:
+      return {
+        ...state,
+        polizasData: action.payload,
+      };
 
     default:
       return {

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ENDPOINT, CLIENTES_URL } from "./path.js";
-import { GET_CLIENTES, GET_POLIZAS } from "./actionTypes.js";
+import { ENDPOINT, CLIENTES_URL, POLIZAS_URL } from "./path.js";
+import { CREATE_POLIZA, GET_CLIENTES, GET_POLIZAS } from "./actionTypes.js";
 import { toast } from "sonner";
 
 // Acción para obtener datos de clientes
@@ -23,7 +23,7 @@ export const getClientes = () => {
 //Acción para crear obtener datos de polizas
 export const getPolizas = () => {
   return async (dispatch) => {
-    const polizasPath = `${ENDPOINT}${CLIENTES_URL}`;
+    const polizasPath = `${ENDPOINT}${POLIZAS_URL}`;
     try {
       const { data } = await axios.get(polizasPath);
       return dispatch({
@@ -36,3 +36,23 @@ export const getPolizas = () => {
     }
   };
 };
+
+export const createPoliza = (polizaData) => {
+  return async (dispatch) => {
+    const polizaPath = `${ENDPOINT}${POLIZAS_URL}`;
+    try {
+      const { data } = await axios.post(polizaPath, polizaData);
+      toast.success("Pago de poliza creado con exito");
+      if(data) {
+        return dispatch({
+          type: CREATE_POLIZA,
+          payload: data,
+        })
+      }
+      dispatch(getPolizas());
+    } catch (error) {
+      console.error(error);
+      toast.error("No se pudo crear el pago de poliza, intentar de nuevo");
+    }
+  }
+}
