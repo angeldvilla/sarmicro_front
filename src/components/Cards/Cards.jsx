@@ -12,10 +12,11 @@ import SavingsIcon from "@mui/icons-material/Savings";
 import styles from "./card.module.css";
 import valorPoliza from "../../assets/images/valorPolizas.jpg";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
+import cuotasPolizas from "../../assets/images/cuotas.jpg";
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
 import cuadreCaja from "../../assets/images/cuadreCaja.jpg";
 
-export const CardPayments = () => {
+export const CardPolicy = () => {
   return (
     <div className={styles.cardContainer}>
       <Card style={{ borderRadius: "1.2em" }}>
@@ -60,7 +61,7 @@ export const CardPayments = () => {
   );
 };
 
-export const CardPolicy = () => {
+export const CardPayments = () => {
   return (
     <div className={styles.cardContainer}>
       <Card style={{ borderRadius: "1.2em" }}>
@@ -100,6 +101,51 @@ export const CardPolicy = () => {
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <PaidIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </Typography>
+        </NavLink>
+      </div>
+    </div>
+  );
+};
+
+export const CardCuotas = () => {
+  return (
+    <div className={styles.cardContainer}>
+      <Card style={{ borderRadius: "1.2em" }}>
+        <CardActionArea>
+          <CardMedia
+            className={styles.cardImage}
+            component="img"
+            height="140"
+            image={cuotasPolizas}
+            /* https://img.freepik.com/vector-gratis/iconos-polizas-seguros_603843-478.jpg?w=2000 */
+            alt="Cuotas"
+          />
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              className={styles.cardText}
+            >
+              Cuotas
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              className={styles.cardText}
+            >
+              Esta tarjeta muestra información relacionada con las cuotas
+              registradas de las polizas.
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <div className={styles.overlay}>
+        <NavLink to="/cuotas">
+          <Typography className={styles.overlayButton}>
+            Ver Detalles
+            <PolicyIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography>
         </NavLink>
       </div>

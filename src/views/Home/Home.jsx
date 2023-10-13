@@ -1,7 +1,8 @@
 import React from "react";
 import {
-  CardPayments,
   CardPolicy,
+  CardPayments,
+  CardCuotas,
   CardVehicles,
   CashBox,
 } from "../../components/Cards/Cards";
@@ -24,23 +25,22 @@ const Home = () => {
 
       {/* Usamos un contendor para la vista de las cards  */}
       <div className={styles.cardContainerStyle}>
-
         {/* Renderizamos las cards */}
         <div className={styles.cardStyle}>
           <div className={styles.scaleUpBottom}>
-            <CardPayments />
-          </div>
-        </div>
-
-        <div className={styles.cardStyle}>
-          <div className={styles.scaleUpBottom2}>
             <CardPolicy />
           </div>
         </div>
 
         <div className={styles.cardStyle}>
+          <div className={styles.scaleUpBottom2}>
+            <CardPayments />
+          </div>
+        </div>
+
+        <div className={styles.cardStyle}>
           <div className={styles.scaleUpBottom3}>
-            <CardVehicles />
+            <CardCuotas />
           </div>
         </div>
 
@@ -49,6 +49,11 @@ const Home = () => {
             <CashBox />
           </div>
         </div>
+          <div className={styles.cardStyle}>
+            <div className={styles.scaleUpBottom5}>
+              <CardVehicles />
+            </div>
+          </div>
       </div>
     </>
   );
