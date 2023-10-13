@@ -10,10 +10,10 @@ import PolicyIcon from "@mui/icons-material/Policy";
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
 import SavingsIcon from "@mui/icons-material/Savings";
 import styles from "./card.module.css";
-import valorPoliza from "../../assets/images/valorPolizas.avif";
+import valorPoliza from "../../assets/images/valorPolizas.jpg";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
-import cuadreCaja from "../../assets/images/cuadreCaja.avif";
+import cuadreCaja from "../../assets/images/cuadreCaja.jpg";
 
 export const CardPayments = () => {
   return (
