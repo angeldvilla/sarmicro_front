@@ -300,8 +300,8 @@ const TableVehicles = () => {
             columns={columns}
             options={{
               ...options,
-              rowsPerPage: 20,
-              rowsPerPageOptions: [20, 40, 60],
+              rowsPerPage: 5,
+              rowsPerPageOptions: [10, 20, 50],
             }}
           ></MUIDataTable>
         </div>

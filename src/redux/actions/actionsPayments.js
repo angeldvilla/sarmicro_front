@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ENDPOINT, CLIENTES_URL, POLIZAS_URL } from "./path.js";
+import { ENDPOINT, CLIENTES_URL, POLIZAS_URL, CUOTAS_URL } from "./path.js";
 import {
   CREATE_POLIZA,
   GET_CLIENTES,
@@ -44,7 +44,7 @@ export const getPolizas = () => {
 
 export const createPoliza = (polizaData) => {
   return async (dispatch) => {
-    const polizaPath = `${ENDPOINT}${POLIZAS_URL}`;
+    const polizaPath = `${ENDPOINT}${CUOTAS_URL}`;
     try {
       const { data } = await axios.post(polizaPath, polizaData);
       toast.success("Pago de poliza creado con exito");

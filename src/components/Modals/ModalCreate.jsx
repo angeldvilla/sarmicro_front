@@ -35,13 +35,14 @@ export default function ModalCreate({
   const handleCreatePoliza = () => {
     const today = new Date().toISOString().split("T")[0];
     const dataPoliza = {
+      id: editedRow.id,
       numero_poliza: editedRow.numero_poliza,
       fecha_inicio: today,
       fecha_fin: editedRow.fecha_fin,
       monto_total: editedRow.monto_total,
       numero_cuotas: editedRow.numero_cuotas,
       dias_cuota: editedRow.dias_cuota,
-      cliente_id: editedRow.client_id,
+      estado: 1,
     };
     handleCreate(dataPoliza);
   };
@@ -186,10 +187,35 @@ export default function ModalCreate({
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Cedula Propietario"
+              name="CedulaPropietario"
+              variant="outlined"
+              value={editedRow ? editedRow?.cedula : ""}
+              disabled
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={editedRow ? editedRow?.cliente_id.charAt(0).toUpperCase() + editedRow?.cliente_id.slice(1).toLowerCase() : ""}
+              value={
+                editedRow
+                  ? editedRow?.cliente_id.charAt(0).toUpperCase() +
+                    editedRow?.cliente_id.slice(1).toLowerCase()
+                  : ""
+              }
+              disabled
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="ID Vehiculo"
+              name="IdVehiculo"
+              variant="outlined"
+              value={editedRow ? editedRow?.id_vehiculo : ""}
               disabled
             />
           </Grid>

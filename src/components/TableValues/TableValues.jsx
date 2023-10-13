@@ -91,6 +91,12 @@ const TableValues = () => {
       ) : (
         <span style={{ color: "green" }}>{row.created_at}</span>
       ),
+      updated_at:
+      row.updated_at === null ? (
+        <span style={{ color: "red" }}>No hay fecha de creación</span>
+      ) : (
+        <span style={{ color: "green" }}>{row.updated_at}</span>
+      ),
   }));
 
   const columns = [

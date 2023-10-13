@@ -10,20 +10,19 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+/* import DeleteIcon from "@mui/icons-material/Delete"; */
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreate from "../Modals/ModalCreate";
 import ModalEdit from "../Modals/ModalEdit";
-import Switch from "@mui/material/Switch";
-
 import {
   createPoliza,
-  deletePoliza,
+  /* deletePoliza, */
   getPolizas,
   updatePoliza,
 } from "../../redux/actions/actionsPayments";
+import { Toaster, toast } from "sonner";
 
 const TablePayment = () => {
   const data = useSelector((state) => state?.payments?.polizasData);
@@ -46,7 +45,13 @@ const TablePayment = () => {
   const handleOpen = (rowId) => {
     const newPoliza = data.find((row) => row.id === rowId);
     setRowEdit(newPoliza);
-    setOpenForm(true);
+    console.log(newPoliza);
+    if (newPoliza.dias_cuota !== "" && newPoliza.numero_cuotas !== "0") {
+      toast.error("Cuotas ya registradas");
+      setOpenForm(false);
+    } else {
+      setOpenForm(true);
+    }
   };
 
   const handleCreate = async (polizaData) => {
@@ -61,11 +66,11 @@ const TablePayment = () => {
   };
 
   const handleEdit = async (data, rowId) => {
-    setOpenForm(false);
+    setOpenEdit(false);
     dispatch(updatePoliza(data, rowId));
   };
 
-  const handleConfirmDelete = (rowId) => {
+  /*   const handleConfirmDelete = (rowId) => {
     const deleteRow = data.find((row) => row.id === rowId);
     setRowEdit(deleteRow);
     setOpenDelete(true);
@@ -74,7 +79,7 @@ const TablePayment = () => {
   const handleDelete = async (rowId) => {
     setOpenDelete(false);
     dispatch(deletePoliza(rowId));
-  };
+  }; */
 
   /* TABLE DESIGN */
   const modifiedData = data.map((row) => ({
@@ -91,14 +96,11 @@ const TablePayment = () => {
       ) : (
         row.dias_cuota
       ),
-    cliente_id:
-      row.cliente_id.charAt(0).toUpperCase() +
-      row.cliente_id.slice(1).toLowerCase(),
     estado:
-      row.estado === "0" ? (
-        <span style={{ color: "red" }}>Pago Inactivo</span>
+      row.estado === "1" ? (
+        <span style={{ color: "green" }}>Activo</span>
       ) : (
-        <span style={{ color: "green" }}>{row.estado}</span>
+        <span style={{ color: "red" }}>Inactivo</span>
       ),
   }));
 
@@ -195,8 +197,42 @@ const TablePayment = () => {
       ),
     },
     {
+      name: "cedula",
+      label: "Cedula Propietario",
+      options: {
+        filter: true,
+        sort: true,
+      },
+      customHeadRender: (columnMeta) => (
+        <th>
+          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
+        </th>
+      ),
+    },
+    {
       name: "cliente_id",
       label: "Nombre Cliente",
+      options: {
+        filter: true,
+        sort: true,
+      },
+      customHeadRender: (columnMeta) => (
+        <th>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            {columnMeta.label}
+          </div>
+        </th>
+      ),
+    },
+    {
+      name: "id_vehiculo",
+      label: "ID Vehiculo",
       options: {
         filter: true,
         sort: true,
@@ -221,25 +257,23 @@ const TablePayment = () => {
       options: {
         filter: true,
         sort: true,
-        customBodyRender: (value, tableMeta, updateValue) => {
-          /* const rowId = tableMeta.rowData[0]; */
-          return (
-            <Switch
-              checked={value === "1"}
-              /*  onChange={() => handleTogglePago(rowId, value === "0")} */
-              name="pago-activo"
-            />
-          );
-        },
       },
       customHeadRender: (columnMeta) => (
         <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            {columnMeta.label}
+          </div>
         </th>
       ),
     },
     {
-      name: "Acciones",
+      name: "acciones",
       label: "Acciones",
       options: {
         filter: false,
@@ -268,7 +302,7 @@ const TablePayment = () => {
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="Borrar">
+              {/* <Tooltip title="Borrar">
                 <IconButton
                   aria-label="Borrar"
                   style={{ color: "#dd0000" }}
@@ -276,7 +310,7 @@ const TablePayment = () => {
                 >
                   <DeleteIcon />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
             </>
           );
         },
@@ -348,10 +382,11 @@ const TablePayment = () => {
           options={{
             ...options,
             rowsPerPage: 5,
-            rowsPerPageOptions: [5, 10, 20],
+            rowsPerPageOptions: [5, 50, 100],
           }}
         ></MUIDataTable>
       </div>
+      <Toaster richColors position="top-right" />
       <div
         style={{
           display: "flex",
@@ -364,16 +399,13 @@ const TablePayment = () => {
         <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
           <DialogTitle>Eliminar Pago De Poliza</DialogTitle>
           <DialogContent>
-            ¿Estás seguro de eliminar este pago de poliza
-            <span style={{ fontWeight: "bold" }}> {data.numero_poliza} </span>?
+            ¿Estás seguro de eliminar este pago de poliza?
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenDelete(false)} color="primary">
               No
             </Button>
-            <Button onClick={handleDelete} color="error">
-              Sí
-            </Button>
+            <Button /* onClick={handleDelete} */ color="error">Sí</Button>
           </DialogActions>
         </Dialog>
         <ModalCreate
