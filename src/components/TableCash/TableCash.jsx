@@ -14,8 +14,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
-import ModalCreate from "../Modals/ModalCreate";
-import ModalEdit from "../Modals/ModalEdit";
+import ModalCreate from "../Modals/ModalPayments/ModalCreate";
+import ModalEdit from "../Modals/ModalPayments/ModalEdit";
 
 const TableCash = () => {
   const [data, setData] = useState([]);

@@ -2,6 +2,7 @@ import {
   CREATE_VALOR_POLIZA,
   GET_VALOR_POLIZA,
   LOGOUT,
+  UPDATE_VALOR_POLIZA,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -17,10 +18,17 @@ export default function ValuesReducer(state = initialState, action) {
       };
 
     case CREATE_VALOR_POLIZA:
-      const updatedValues = [...state.valuesData, action.payload];
+      const newValue = [...state.valuesData, action.payload];
       return {
         ...state,
-        valuesData: updatedValues,
+        valuesData: newValue,
+      };
+
+      case UPDATE_VALOR_POLIZA:
+      const updatedValue = [...state.valuesData, action.payload];
+      return {
+        ...state,
+        valuesData: updatedValue,
       };
 
     case LOGOUT:

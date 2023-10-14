@@ -15,18 +15,21 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreateValue from "../Modals/ModalValorPoliza/ModalCreateValue";
-import ModalEdit from "../Modals/ModalEdit";
+import ModalEditValue from "../Modals/ModalValorPoliza/ModalEditValue";
 import {
   createValorPoliza,
   getValoresPolizas,
+  updateValorPoliza,
+  deleteValorPoliza,
 } from "../../redux/actions/actionsValues";
 import { esES } from "@mui/x-data-grid";
 
 const DataGridValues = ({ rows, columns }) => {
-  /* const [rowEdit, setRowEdit] = useState(null); */
+  const [rowEdit, setRowEdit] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,40 +49,60 @@ const DataGridValues = ({ rows, columns }) => {
     setOpenForm(false);
     dispatch(createValorPoliza(data));
   };
-  /*  const handleDelete = async (rowId) => {
-    setOpenDelete(false);
-    const deleteRow = data.find((row) => row.id === rowId);
-    try {
-      await axios.delete(
-        `https://poliza.transargelia.com.co/public/api/cuota/${deleteRow}`
-      );
-      getCuotas();
-    } catch (error) {
-      console.error("Error al eliminar el registro:", error);
-      alert(error);
-    }
-  }; */
 
-  /*const handleConfirmDelete = (rowId) => {
-     const deleteRow = data.find((row) => row.id === rowId);
-    setRowEdit(deleteRow); 
-    setOpenDelete(true);
-  }; */
-
-  /*  const handleUpdate = (rowId) => {
-    const updatedRow = data.find((row) => row.id === rowId);
-    setRowEdit(updatedRow);
+  const CustomHeaderButton = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <GridToolbar showQuickFilter="true" />
+        <div
+          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
+        >
+          <Tooltip title="Crear Valor de Poliza">
+            <IconButton
+              aria-label="Crear Valor de Poliza"
+              onClick={handleOpen}
+              color="primary"
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </div>
+    );
+  };
+  const handleUpdate = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+    setRowEdit(selectedRow);
     setOpenEdit(true);
   };
 
-  const handleEdit = async (data) => {
-    setOpenForm(false);
-    await axios.put(
-      `https://poliza.transargelia.com.co/public/api/cuota/${rowEdit.id}`,
-      data
-    );
-    getCuotas();
-  }; */
+  const handleEdit = async (data, rowId) => {
+    setOpenEdit(false);
+    dispatch(updateValorPoliza(data, rowId));
+  };
+
+  const handleConfirmDelete = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+
+    if (selectedRow) {
+      setDeleteId(selectedRow.id);
+      setOpenDelete(true);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (deleteId !== null) {
+      dispatch(deleteValorPoliza(deleteId));
+    }
+    setOpenDelete(false);
+  };
 
   const actionsColumn = {
     field: "actions",
@@ -93,20 +116,11 @@ const DataGridValues = ({ rows, columns }) => {
           width: "100%",
         }}
       >
-        <Tooltip title="Crear Valor de Poliza">
-          <IconButton
-            aria-label="Crear Valor de Poliza"
-            onClick={() => handleOpen(params.id)}
-            color="primary"
-          >
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Editar">
           <IconButton
             aria-label="Editar"
             style={{ color: "#0054b4" }}
-            /* onClick={() => handleUpdate(params.id)} */
+            onClick={() => handleUpdate(params.id)}
           >
             <EditIcon />
           </IconButton>
@@ -115,7 +129,7 @@ const DataGridValues = ({ rows, columns }) => {
           <IconButton
             aria-label="Borrar"
             style={{ color: "#dd0000" }}
-            /* onClick={() => handleConfirmDelete(params.id)} */
+            onClick={() => handleConfirmDelete(params.id)}
           >
             <DeleteIcon />
           </IconButton>
@@ -157,17 +171,12 @@ const DataGridValues = ({ rows, columns }) => {
           pageSizeOptions={[10, 25, 50, 100]}
           disableColumnSelector
           disableDensitySelector
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
+          slots={{ toolbar: CustomHeaderButton }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
             marginTop: "20px",
-            marginBottom: "25px"
+            marginBottom: "25px",
           }}
         />
       </div>
@@ -180,7 +189,9 @@ const DataGridValues = ({ rows, columns }) => {
           <Button onClick={() => setOpenDelete(false)} color="primary">
             No
           </Button>
-          <Button /* onClick={handleDelete} */ color="error">Sí</Button>
+          <Button onClick={handleDelete} color="error">
+            Sí
+          </Button>
         </DialogActions>
       </Dialog>
       <ModalCreateValue
@@ -188,11 +199,11 @@ const DataGridValues = ({ rows, columns }) => {
         handleClose={() => setOpenForm(false)}
         handleCreate={handleCreate}
       />
-      <ModalEdit
+      <ModalEditValue
         open={openEdit}
         handleClose={() => setOpenEdit(false)}
-        /* handleEdit={handleEdit}
-          rowEdit={rowEdit} */
+        handleEdit={handleEdit}
+        rowEdit={rowEdit}
       />
     </div>
   );
