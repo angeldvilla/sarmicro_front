@@ -191,7 +191,7 @@ const DataGridVehicles = ({ rows, columns }) => {
           alignItems: "center",
           width: "98%",
           height: "500px",
-          marginLeft: 20,
+          marginLeft: 15,
         }}
       >
         <DataGrid
