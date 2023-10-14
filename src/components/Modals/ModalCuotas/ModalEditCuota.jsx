@@ -39,7 +39,7 @@ export default function ModalEditCuota({
       monto: Number(editedRow.monto),
       fecha_vencimiento: editedRow.fecha_vencimiento,
       pagada: editedRow.pagada,
-      estado: Number(editedRow.estado),
+      estado: 1,
       created_at: today,
       updated_at: null,
     };
