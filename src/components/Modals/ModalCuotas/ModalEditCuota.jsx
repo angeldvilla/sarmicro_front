@@ -34,8 +34,8 @@ export default function ModalEditCuota({
   const handleEditCuota = () => {
     const today = new Date().toISOString().split("T")[0];
     const data = {
-      poliza_id: editedRow.poliza_id,
-      monto: editedRow.monto,
+      poliza_id: Number(editedRow.poliza_id),
+      monto: Number(editedRow.monto),
       fecha_vencimiento: editedRow.fecha_vencimiento,
       pagada: editedRow.pagada,
       created_at: today,
@@ -81,6 +81,7 @@ export default function ModalEditCuota({
               label="ID Poliza"
               margin="none"
               name="IdPoliza"
+              type="number"
               value={editedRow ? editedRow?.poliza_id : ""}
               placeholder="Ingrese el ID de la Poliza"
               onChange={(e) =>
