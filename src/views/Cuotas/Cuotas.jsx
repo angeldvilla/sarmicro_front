@@ -10,16 +10,9 @@ const Cuotas = () => {
       field: "fecha_vencimiento",
       sort: "desc",
     },
-  ];
+  ];  
 
   const columns = [
-    /*    {
-        field: "nombreCompleto",
-        headerName: "Nombre Completo",
-        width: 250,
-        valueGetter: (params) =>
-          `${params?.row?.nombre} ${params?.row?.apellido}`,
-      }, */
     {
       field: "poliza_id",
       headerName: "ID Poliza",
