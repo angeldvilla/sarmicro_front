@@ -167,6 +167,7 @@ const DataGridValues = ({ rows, columns }) => {
             backgroundColor: "#ffffffcc",
             color: "black",
             marginTop: "20px",
+            marginBottom: "25px"
           }}
         />
       </div>

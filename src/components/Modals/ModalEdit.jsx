@@ -32,6 +32,8 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
       monto_total: editedRow.monto_total,
       numero_cuotas: editedRow.numero_cuotas,
       dias_cuota: editedRow.dias_cuota,
+      cedula: editedRow.cedula,
+      cliente_id: editedRow.cliente_id,
       estado: 1,
     };
     handleEdit(data, rowEdit.id);
@@ -179,12 +181,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={
-                editedRow
-                  ? editedRow?.cliente_id.charAt(0).toUpperCase() +
-                    editedRow?.cliente_id.slice(1).toLowerCase()
-                  : ""
-              }
+              value={editedRow ? editedRow?.cliente_id : ""}
               disabled
             />
           </Grid>

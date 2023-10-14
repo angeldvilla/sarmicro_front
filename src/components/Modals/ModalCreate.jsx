@@ -200,12 +200,7 @@ export default function ModalCreate({
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={
-                editedRow
-                  ? editedRow?.cliente_id.charAt(0).toUpperCase() +
-                    editedRow?.cliente_id.slice(1).toLowerCase()
-                  : ""
-              }
+              value={editedRow ? editedRow?.cliente_id : ""}
               disabled
             />
           </Grid>
