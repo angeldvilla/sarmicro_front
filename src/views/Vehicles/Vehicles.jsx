@@ -17,6 +17,7 @@ const Vehicles = () => {
     id: index, // Usamos el índice como ID único, pero puedes usar una lógica diferente
   }));
 
+
   const columns = [
     {
       field: "id_movil",
@@ -56,7 +57,7 @@ const Vehicles = () => {
     {
       field: "pago_hasta",
       headerName: "Pago Hasta",
-      width: 90,
+      width: 100,
     },
     {
       field: "grupo",

@@ -109,3 +109,42 @@
 .botonLogout:active {
   top: 2px;
 }
+
+
+
+/* PARA BOTON DE REGISTRO DE POLIZAS EN PARQUE AUTOMOTOR */
+.botonRegisterPolizas {
+  z-index: 1;
+  position: relative;
+  border-radius: 8px;
+}
+
+.botonRegisterPolizas:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction:rtl; 
+  z-index: -1;
+  background: rgb(247, 223, 11);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.botonRegisterPolizas:hover {
+  color: white;
+  transform: scale(1.05);
+  transition: 0.8s;
+}
+
+.botonRegisterPolizas:hover:after {
+  left: auto;
+  right: 0;
+  width: 100%;
+}
+
+.botonRegisterPolizas:active {
+  top: 2px;
+}

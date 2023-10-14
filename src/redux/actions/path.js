@@ -12,3 +12,5 @@ export const VALOR_POLIZA_URL = "/valor_poliza"; /* -> RUTA PARA CONSULTAR LOS V
 export const CUOTAS_URL = "/cuota"
 export const PAGOS_URL = "/pago"; /* -> RUTA PARA CONSULTAR LOS PAGOS ACTIVOS (CRUD) */
 export const VEHICULOS_URL = "/vehiculo"; /* -> RUTA PARA CONSULTAR LOS VEHICULOS ACTIVOS (CRUD) */
+
+export const REGISTER_ALL_POLIZAS = "/registerPolizas"; /* -> RUTA PARA REGISTRAR TODAS LAS POLIZAS DEL PARQUE AUTOMOTORO */

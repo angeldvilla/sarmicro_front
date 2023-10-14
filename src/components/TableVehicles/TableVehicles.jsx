@@ -14,17 +14,27 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
-import ModalCreate from "../Modals/ModalCreate";
-import ModalEdit from "../Modals/ModalEdit";
-import { getVehiculos } from "../../redux/actions/actionsVehicles";
+import Typography from "@mui/material/Typography";
+import ModalCreateVehicle from "../Modals/ModalVehicles/ModalCreateVehicle";
+import ModalEditVehicle from "../Modals/ModalVehicles/ModalEditVehicle";
+import {
+  getVehiculos,
+  createVehicle,
+  updateVehicle,
+  deleteVehicle,
+  registerAllPolizas,
+} from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster } from "sonner";
+import styles from "../Buttons/styleButton.module.css";
 
 const DataGridVehicles = ({ rows, columns }) => {
-  /* const [rowEdit, setRowEdit] = useState(null); */
+  const [rowEdit, setRowEdit] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
   const navigate = useNavigate();
   const backFunction = () => {
@@ -43,7 +53,88 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   const handleCreate = async (data) => {
     setOpenForm(false);
-    /* dispatch(createVechicle(data)); */
+    dispatch(createVehicle(data));
+  };
+
+  const CustomHeaderButton = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <GridToolbar showQuickFilter="true" />
+        <div
+          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
+        >
+          <Tooltip title="Crear Vehiculo">
+            <IconButton
+              aria-label="Crear Vehiculo"
+              onClick={handleOpen}
+              color="primary"
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#d4d4d4",
+              color: "black",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.75em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            className={styles.botonRegisterPolizas}
+            onClick={confirmRegisterPolizas}
+          >
+            Registrar Polizas
+          </Typography>
+        </div>
+      </div>
+    );
+  };
+
+  const confirmRegisterPolizas = () => {
+    setOpenRegisterPolizas(true);
+  };
+
+  const registerPolizas = () => {
+    setOpenRegisterPolizas(false);
+    dispatch(registerAllPolizas());
+  };
+
+  const handleUpdate = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+    setRowEdit(selectedRow);
+    setOpenEdit(true);
+  };
+
+  const handleEdit = async (data, rowId) => {
+    setOpenEdit(false);
+    dispatch(updateVehicle(data, rowId));
+  };
+
+  const handleConfirmDelete = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+
+    if (selectedRow) {
+      setDeleteId(selectedRow.id);
+      setOpenDelete(true);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (deleteId !== null) {
+      dispatch(deleteVehicle(deleteId));
+    }
+    setOpenDelete(false);
   };
 
   const actionsColumn = {
@@ -58,20 +149,11 @@ const DataGridVehicles = ({ rows, columns }) => {
           width: "100%",
         }}
       >
-        <Tooltip title="Crear Vehículo">
-          <IconButton
-            aria-label="Crear Vehículo"
-            onClick={() => handleOpen(params.id)}
-            color="primary"
-          >
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Editar">
           <IconButton
             aria-label="Editar"
             style={{ color: "#0054b4" }}
-            /* onClick={() => handleUpdate(params.id)} */
+            onClick={() => handleUpdate(params.id)}
           >
             <EditIcon />
           </IconButton>
@@ -80,7 +162,7 @@ const DataGridVehicles = ({ rows, columns }) => {
           <IconButton
             aria-label="Borrar"
             style={{ color: "#dd0000" }}
-            /* onClick={() => handleConfirmDelete(params.id)} */
+            onClick={() => handleConfirmDelete(params.id)}
           >
             <DeleteIcon />
           </IconButton>
@@ -124,12 +206,7 @@ const DataGridVehicles = ({ rows, columns }) => {
           pageSizeOptions={[10, 25, 50, 100]}
           disableColumnSelector
           disableDensitySelector
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
+          slots={{ toolbar: CustomHeaderButton }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
@@ -145,19 +222,38 @@ const DataGridVehicles = ({ rows, columns }) => {
           <Button onClick={() => setOpenDelete(false)} color="primary">
             No
           </Button>
-          <Button /* onClick={handleDelete} */ color="error">Sí</Button>
+          <Button onClick={handleDelete} color="error">
+            Sí
+          </Button>
         </DialogActions>
       </Dialog>
-      <ModalCreate
+      <Dialog
+        open={openRegisterPolizas}
+        onClose={() => setOpenRegisterPolizas(false)}
+      >
+        <DialogTitle>Registro de Todas las Polizas</DialogTitle>
+        <DialogContent>
+          ¿Estás seguro de registrar todas las polizas del parque automotor?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenRegisterPolizas(false)} color="primary">
+            No
+          </Button>
+          <Button onClick={registerPolizas} color="error">
+            Sí
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ModalCreateVehicle
         open={openForm}
         handleClose={() => setOpenForm(false)}
         handleCreate={handleCreate}
       />
-      <ModalEdit
+      <ModalEditVehicle
         open={openEdit}
         handleClose={() => setOpenEdit(false)}
-        /* handleEdit={handleEdit} */
-        /* rowEdit={rowEdit} */
+        handleEdit={handleEdit}
+        rowEdit={rowEdit}
       />
     </div>
   );
