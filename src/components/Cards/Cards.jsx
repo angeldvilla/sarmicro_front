@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import PaidIcon from "@mui/icons-material/Paid";
 import PolicyIcon from "@mui/icons-material/Policy";
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
 import SavingsIcon from "@mui/icons-material/Savings";
 import styles from "./card.module.css";
@@ -145,7 +146,7 @@ export const CardCuotas = () => {
         <NavLink to="/cuotas">
           <Typography className={styles.overlayButton}>
             Ver Detalles
-            <PolicyIcon style={{ marginLeft: 10, fontSize: "large" }} />
+            <RequestQuoteIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography>
         </NavLink>
       </div>
