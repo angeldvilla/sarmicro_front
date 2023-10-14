@@ -1,32 +1,109 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-/* import Dialog from "@mui/material/Dialog";
+import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button"; */
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
-import { getCuotas } from "../../redux/actions/actionsCuotas.js";
+import Tooltip from "@mui/material/Tooltip";
+import ModalCreateCuota from "../Modals/ModalCuotas/ModalCreateCuota";
+import ModalEditCuota from "../Modals/ModalCuotas/ModalEditCuota";
+import {
+  getCuotas,
+  createCuota,
+  updateCuota,
+  deleteCuota,
+} from "../../redux/actions/actionsCuotas.js";
 import { esES } from "@mui/x-data-grid";
 
 const DataGridCuotas = ({ rows, columns }) => {
+  const [rowEdit, setRowEdit] = useState(null);
+  const [openForm, setOpenForm] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const backFunction = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(getCuotas());
   }, [dispatch]);
 
-  const backFunction = () => {
-    navigate(-1);
+  const handleOpen = () => {
+    setOpenForm(true);
+  };
+
+  const handleCreate = async (data) => {
+    setOpenForm(false);
+    dispatch(createCuota(data));
+  };
+
+  const CustomHeaderButton = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <GridToolbar showQuickFilter="true" />
+        <div
+          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
+        >
+          <Tooltip title="Crear Cuota">
+            <IconButton
+              aria-label="Crear Cuota"
+              onClick={handleOpen}
+              color="primary"
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </div>
+    );
+  };
+
+  const handleUpdate = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+    setRowEdit(selectedRow);
+    setOpenEdit(true);
+  };
+
+  const handleEdit = async (data, rowId) => {
+    setOpenEdit(false);
+    dispatch(updateCuota(data, rowId));
+  };
+
+  const handleConfirmDelete = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+
+    if (selectedRow) {
+      setDeleteId(selectedRow.id);
+      setOpenDelete(true);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (deleteId !== null) {
+      dispatch(deleteCuota(deleteId));
+    }
+    setOpenDelete(false);
   };
 
   const actionsColumn = {
@@ -41,20 +118,11 @@ const DataGridCuotas = ({ rows, columns }) => {
           width: "100%",
         }}
       >
-        <Tooltip title="Crear Valor de Poliza">
-          <IconButton
-            aria-label="Crear Valor de Poliza"
-            /* onClick={() => handleOpen(params.id)} */
-            color="primary"
-          >
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Editar">
           <IconButton
             aria-label="Editar"
             style={{ color: "#0054b4" }}
-            /* onClick={() => handleUpdate(params.id)} */
+            onClick={() => handleUpdate(params.id)}
           >
             <EditIcon />
           </IconButton>
@@ -63,7 +131,7 @@ const DataGridCuotas = ({ rows, columns }) => {
           <IconButton
             aria-label="Borrar"
             style={{ color: "#dd0000" }}
-            /* onClick={() => handleConfirmDelete(params.id)} */
+            onClick={() => handleConfirmDelete(params.id)}
           >
             <DeleteIcon />
           </IconButton>
@@ -105,44 +173,38 @@ const DataGridCuotas = ({ rows, columns }) => {
           pageSizeOptions={[10, 25, 50, 100]}
           disableColumnSelector
           disableDensitySelector
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
+          slots={{ toolbar: CustomHeaderButton }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
             marginTop: "20px",
-            marginBottom: "25px"
+            marginBottom: "25px",
           }}
         />
       </div>
-
-      {/* <CreateModalEmployee
-        open={openEmployee}
-        handleClose={() => setOpenEmployee(false)}
-        handleSave={handleSaveEmployee}
-      />
-       <Dialog
-        open={deleteDialogOpen}
-        onClose={() => setDeleteDialogOpen(false)}
-      >
-        <DialogTitle>Eliminar Usuario</DialogTitle>
-        <DialogContent>
-          ¿Estás seguro de que quieres eliminar al usuario
-          <span style={{ fontWeight: "bold" }}> {nameUser} </span>?
-        </DialogContent>
+      <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
+        <DialogTitle>Eliminar Cuota</DialogTitle>
+        <DialogContent>¿Estás seguro de eliminar esta cuota?</DialogContent>
         <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
+          <Button onClick={() => setOpenDelete(false)} color="primary">
             No
           </Button>
-          <Button onClick={confirmDelete} color="primary">
+          <Button onClick={handleDelete} color="error">
             Sí
           </Button>
         </DialogActions>
-      </Dialog> */}
+      </Dialog>
+      <ModalCreateCuota
+        open={openForm}
+        handleClose={() => setOpenForm(false)}
+        handleCreate={handleCreate}
+      />
+      <ModalEditCuota
+        open={openEdit}
+        handleClose={() => setOpenEdit(false)}
+        handleEdit={handleEdit}
+        rowEdit={rowEdit}
+      />
     </div>
   );
 };
