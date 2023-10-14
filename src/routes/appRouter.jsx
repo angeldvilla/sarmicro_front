@@ -5,11 +5,11 @@ import RoutesProtected from "./routesProtected.jsx";
 import Home from "../views/Home/Home.jsx";
 import Login from "../views/Login/Login.jsx";
 import Register from "../views/Register/Register.jsx";
-import TableVehicles from "../components/TableVehicles/TableVehicles.jsx";
 import TableCash from "../components/TableCash/TableCash.jsx";
 import Values from "../views/Values/Values.jsx";
 import Payments from "../views/Payments/Payments.jsx";
 import Cuotas from "../views/Cuotas/Cuotas.jsx";
+import Vehicles from "../views/Vehicles/Vehicles.jsx";
 
 const RoutesApp = () => {
   //verificamos si el usuario ya esta logueado
@@ -65,7 +65,7 @@ const RoutesApp = () => {
         path="/vehiculos"
         element={
           <RoutesProtected>
-            <TableVehicles />
+            <Vehicles />
           </RoutesProtected>
         }
       />
