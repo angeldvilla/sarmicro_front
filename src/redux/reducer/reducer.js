@@ -4,6 +4,7 @@ import PaymentsReducer from "./Paymentsreducer";
 import ValuesReducer from "./Valuesreducer";
 import VehiclesReducer from "./Vehiclesreducer";
 import CuotasReducer from "./Cuotasreducer";
+import CashBoxReducer from "./CashBoxreducer";
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   values: ValuesReducer,
   cuotas: CuotasReducer,
   vehicles: VehiclesReducer,
+  cash: CashBoxReducer,
 });
 
 export default rootReducer;

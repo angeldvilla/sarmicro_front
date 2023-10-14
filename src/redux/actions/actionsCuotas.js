@@ -3,7 +3,7 @@ import { ENDPOINT, CUOTAS_URL } from "./path.js";
 import { GET_CUOTAS, UPDATE_CUOTA } from "./actionTypes.js";
 import { toast } from "sonner";
 
-// Acción para obtener datos de vehiculos
+// Acción para obtener datos de cuotas
 export const getCuotas = () => {
   return async (dispatch) => {
     const cuotasPath = `${ENDPOINT}${CUOTAS_URL}`;
@@ -46,7 +46,7 @@ export const updateCuota = (cuotaData, id) => {
   return async (dispatch) => {
     const cuotasPath = `${ENDPOINT}${CUOTAS_URL}/${id}`;
     try {
-      const { data } = await axios.get(cuotasPath, cuotaData);
+      const { data } = await axios.put(cuotasPath, cuotaData);
       toast.success("Cuota se edito correctamente");
       if (data) {
         return dispatch({

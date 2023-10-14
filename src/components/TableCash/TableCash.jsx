@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import MUIDataTable from "mui-datatables";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -14,36 +14,33 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
-import ModalCreate from "../Modals/ModalPayments/ModalCreate";
-import ModalEdit from "../Modals/ModalPayments/ModalEdit";
+import ModalCreatePago from "../Modals/ModalPagos/ModalCreatePago";
+import ModalEditCuota from "../Modals/ModalCuotas/ModalEditCuota";
+import {
+  getPagos,
+  createPago,
+  updatePago,
+  deletePago,
+} from "../../redux/actions/actionsCashBox";
+import { esES } from "@mui/x-data-grid";
 
-const TableCash = () => {
-  const [data, setData] = useState([]);
+const DataGridCash = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const backFunction = () => {
     navigate(-1);
   };
 
-  const getPagos = async () => {
-    try {
-      const response = await axios.get(
-        "https://poliza.transargelia.com.co/public/api/pago"
-      );
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
-
   useEffect(() => {
-    getPagos();
-  }, []);
+    dispatch(getPagos());
+  }, [dispatch]);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -51,182 +48,107 @@ const TableCash = () => {
 
   const handleCreate = async (data) => {
     setOpenForm(false);
-    try {
-      await axios.post(
-        "https://poliza.transargelia.com.co/public/api/pago",
-        data
-      );
-      getPagos();
-    } catch (error) {
-      console.log(error);
-      alert(error);
-    }
-  };
-  const handleDelete = async (rowId) => {
-    setOpenDelete(false);
-    const deleteRow = data.find((row) => row.id === rowId);
-    try {
-      await axios.delete(
-        `https://poliza.transargelia.com.co/public/api/pago/${deleteRow}`
-      );
-      getPagos();
-    } catch (error) {
-      console.error("Error al eliminar el registro:", error);
-      alert(error);
-    }
+    dispatch(createPago(data));
   };
 
-  const handleConfirmDelete = (rowId) => {
-    /* const deleteRow = data.find((row) => row.id === rowId);
-    setRowEdit(deleteRow); */
-    setOpenDelete(true);
+  const CustomHeaderButton = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <GridToolbar showQuickFilter="true" />
+        <div
+          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
+        >
+          <Tooltip title="Crear Pago">
+            <IconButton
+              aria-label="Crear Pago"
+              onClick={handleOpen}
+              color="primary"
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </div>
+    );
   };
 
   const handleUpdate = (rowId) => {
-    const updatedRow = data.find((row) => row.id === rowId);
-    setRowEdit(updatedRow);
+    const selectedRow = rows.find((row) => row.id === rowId);
+    setRowEdit(selectedRow);
     setOpenEdit(true);
   };
 
-  const handleEdit = async (data) => {
-    setOpenForm(false);
-    await axios.put(
-      `https://poliza.transargelia.com.co/public/api/pago/${rowEdit.id}`,
-      data
-    );
-    getPagos();
+  const handleEdit = async (data, rowId) => {
+    setOpenEdit(false);
+    dispatch(updatePago(data, rowId));
   };
 
-  /* TABLE DESIGN */
-  const columns = [
-    {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "cuota_id",
-      label: "#Pago",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "fecha_pago",
-      label: "Fecha Pago",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "created_at",
-      label: "Fecha Creación",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "Acciones",
-      label: "Acciones",
-      options: {
-        filter: false,
-        sort: false,
-        customBodyRender: (value, tableMeta, updateValue) => {
-          const rowId = tableMeta.rowData[0];
-          return (
-            <>
-              <IconButton
-                aria-label="Editar"
-                style={{ color: "#0054b4" }}
-                onClick={() => handleUpdate(rowId)}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                aria-label="Borrar"
-                style={{ color: "#dd0000" }}
-                onClick={() => handleConfirmDelete(rowId)}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </>
-          );
-        },
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-  ];
+  const handleConfirmDelete = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
 
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    selectableRows: "none",
-    search: true,
-    download: false,
-    print: false,
-    pagination: true,
-    viewColumns: false,
-    textLabels: {
-      body: {
-        noMatch: "No se encontraron registros",
-        toolTip: "Ordenar",
-      },
-      pagination: {
-        next: "Siguiente",
-        previous: "Anterior",
-        rowsPerPage: "Filas por página:",
-        displayRows: "de",
-      },
-      toolbar: {
-        search: "Buscar",
-        downloadCsv: "Descargar CSV",
-        print: "Imprimir",
-        viewColumns: "Ver Columnas",
-        filterTable: "Filtrar Tabla",
-      },
-    },
+    if (selectedRow) {
+      setDeleteId(selectedRow.id);
+      setOpenDelete(true);
+    }
   };
-  /* ----------------- */
+
+  const handleDelete = async () => {
+    if (deleteId !== null) {
+      dispatch(deletePago(deleteId));
+    }
+    setOpenDelete(false);
+  };
+
+  const actionsColumn = {
+    field: "actions",
+    headerName: "Acciones",
+    width: 130,
+    renderCell: (params) => (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "100%",
+        }}
+      >
+        <Tooltip title="Editar">
+          <IconButton
+            aria-label="Editar"
+            style={{ color: "#0054b4" }}
+            onClick={() => handleUpdate(params.id)}
+          >
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Borrar">
+          <IconButton
+            aria-label="Borrar"
+            style={{ color: "#dd0000" }}
+            onClick={() => handleConfirmDelete(params.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
+    ),
+  };
 
   return (
-    <>
+    <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
       <NavBar />
       <div
         style={{
           alignSelf: "flex-start",
-          position: "absolute",
-          marginTop: 40,
-          left: 50,
+          position: "relative",
+          marginTop: 20,
+          marginLeft: 20,
           right: 0,
         }}
       >
@@ -235,72 +157,56 @@ const TableCash = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
-          marginTop: "5%",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <MUIDataTable
-          title={"Cuadre de Caja"}
-          data={data}
-          columns={columns}
-          options={{
-            ...options,
-            customToolbar: () => {
-              return (
-                <Tooltip title="Crear Registro de Poliza">
-                  <IconButton
-                    aria-label="Crear Registro de Poliza"
-                    onClick={handleOpen}
-                    color="primary"
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              );
+        <DataGrid
+          rows={rows}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          columns={[...columns, actionsColumn]}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
             },
-            rowsPerPage: 5,
-            rowsPerPageOptions: [5, 10, 20],
           }}
-        ></MUIDataTable>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          maxWidth: "100%",
-          marginTop: "100%",
-          marginBottom: "100%",
-        }}
-      >
-        <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-          <DialogTitle>Eliminar Registro De Poliza</DialogTitle>
-          <DialogContent>
-            ¿Estás seguro de eliminar este registro de poliza
-            <span style={{ fontWeight: "bold" }}> {data.numero_poliza} </span>?
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpenDelete(false)} color="primary">
-              No
-            </Button>
-            <Button onClick={handleDelete} color="error">
-              Sí
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <ModalCreate
-          open={openForm}
-          handleClose={() => setOpenForm(false)}
-          handleCreate={handleCreate}
-        />
-        <ModalEdit
-          open={openEdit}
-          handleClose={() => setOpenEdit(false)}
-          handleEdit={handleEdit}
-          rowEdit={rowEdit}
+          pageSizeOptions={[10, 25, 50, 100]}
+          disableColumnSelector
+          disableDensitySelector
+          slots={{ toolbar: CustomHeaderButton }}
+          style={{
+            backgroundColor: "#ffffffcc",
+            color: "black",
+            marginTop: "20px",
+            marginBottom: "25px",
+          }}
         />
       </div>
-    </>
+      <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
+        <DialogTitle>Eliminar Pago</DialogTitle>
+        <DialogContent>¿Estás seguro de eliminar este pago?</DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDelete(false)} color="primary">
+            No
+          </Button>
+          <Button onClick={handleDelete} color="error">
+            Sí
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ModalCreatePago
+        open={openForm}
+        handleClose={() => setOpenForm(false)}
+        handleCreate={handleCreate}
+      />
+      <ModalEditCuota
+        open={openEdit}
+        handleClose={() => setOpenEdit(false)}
+        handleEdit={handleEdit}
+        rowEdit={rowEdit}
+      />
+    </div>
   );
 };
 
-export default TableCash;
+export default DataGridCash;
