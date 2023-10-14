@@ -9,6 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button"; */
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -31,7 +32,7 @@ const DataGridCuotas = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 100,
+    width: 130,
     renderCell: (params) => (
       <div
         style={{
@@ -40,6 +41,15 @@ const DataGridCuotas = ({ rows, columns }) => {
           width: "100%",
         }}
       >
+        <Tooltip title="Crear Valor de Poliza">
+          <IconButton
+            aria-label="Crear Valor de Poliza"
+            /* onClick={() => handleOpen(params.id)} */
+            color="primary"
+          >
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Editar">
           <IconButton
             aria-label="Editar"

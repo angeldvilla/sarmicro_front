@@ -5,10 +5,10 @@ import RoutesProtected from "./routesProtected.jsx";
 import Home from "../views/Home/Home.jsx";
 import Login from "../views/Login/Login.jsx";
 import Register from "../views/Register/Register.jsx";
-import TableValues from "../components/TableValues/TableValues.jsx";
 import TablePayment from "../components/TablePayment/TablePayment.jsx";
 import TableVehicles from "../components/TableVehicles/TableVehicles.jsx";
 import TableCash from "../components/TableCash/TableCash.jsx";
+import Values from "../views/Values/Values.jsx";
 import Cuotas from "../views/Cuotas/Cuotas.jsx";
 
 const RoutesApp = () => {
@@ -41,7 +41,7 @@ const RoutesApp = () => {
         path="/valor-poliza"
         element={
           <RoutesProtected>
-            <TableValues />
+            <Values />
           </RoutesProtected>
         }
       />

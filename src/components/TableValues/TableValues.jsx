@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import MUIDataTable from "mui-datatables";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -20,9 +20,9 @@ import {
   createValorPoliza,
   getValoresPolizas,
 } from "../../redux/actions/actionsValues";
+import { esES } from "@mui/x-data-grid";
 
-const TableValues = () => {
-  const data = useSelector((state) => state?.values?.valuesData);
+const DataGridValues = ({ rows, columns }) => {
   /* const [rowEdit, setRowEdit] = useState(null); */
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -81,196 +81,58 @@ const TableValues = () => {
     getCuotas();
   }; */
 
-  /* TABLE DESIGN */
-
-  const modifiedData = data.map((row) => ({
-    ...row,
-    created_at:
-      row.created_at === null ? (
-        <span style={{ color: "red" }}>No hay fecha de creación</span>
-      ) : (
-        <span style={{ color: "green" }}>{row.created_at}</span>
-      ),
-      updated_at:
-      row.updated_at === null ? (
-        <span style={{ color: "red" }}>No hay fecha de creación</span>
-      ) : (
-        <span style={{ color: "green" }}>{row.updated_at}</span>
-      ),
-  }));
-
-  const columns = [
-    {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "tipo_poliza",
-      label: "Tipo Poliza",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "vehiculo_grupo",
-      label: "Grupo Vehiculo",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "valor_poliza",
-      label: "Valor Poliza",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "cuota_inicial",
-      label: "Cuota Inicial",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "created_at",
-      label: "Fecha Creación",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "updated_at",
-      label: "Fecha Actualización",
-      options: {
-        filter: true,
-        sort: true,
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-    {
-      name: "Acciones",
-      label: "Acciones",
-      options: {
-        filter: false,
-        sort: false,
-        customBodyRender: (value, tableMeta, updateValue) => {
-          /* const rowId = tableMeta.rowData[0]; */
-          return (
-            <>
-              <Tooltip title="Editar">
-                <IconButton
-                  aria-label="Editar"
-                  style={{ color: "#0054b4" }}
-                  /* onClick={() => handleUpdate(rowId)} */
-                >
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Borrar">
-                <IconButton
-                  aria-label="Borrar"
-                  style={{ color: "#dd0000" }}
-                  /* onClick={() => handleConfirmDelete(rowId)} */
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            </>
-          );
-        },
-      },
-      customHeadRender: (columnMeta) => (
-        <th>
-          <div style={{ textTransform: "none" }}>{columnMeta.label}</div>
-        </th>
-      ),
-    },
-  ];
-
-  const options = {
-    filterType: "dropdown",
-    responsive: "vertical",
-    selectableRows: "none",
-    search: true,
-    download: false,
-    print: false,
-    pagination: true,
-    viewColumns: false,
-    textLabels: {
-      body: {
-        noMatch: "No se encontraron registros",
-        toolTip: "Ordenar",
-      },
-      pagination: {
-        next: "Siguiente",
-        previous: "Anterior",
-        rowsPerPage: "Filas por página:",
-        displayRows: "de",
-      },
-      toolbar: {
-        search: "Buscar",
-        downloadCsv: "Descargar CSV",
-        print: "Imprimir",
-        viewColumns: "Ver Columnas",
-        filterTable: "Filtrar Tabla",
-      },
-    },
+  const actionsColumn = {
+    field: "actions",
+    headerName: "Acciones",
+    width: 150,
+    renderCell: (params) => (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "100%",
+        }}
+      >
+        <Tooltip title="Crear Valor de Poliza">
+          <IconButton
+            aria-label="Crear Valor de Poliza"
+            onClick={() => handleOpen(params.id)}
+            color="primary"
+          >
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Editar">
+          <IconButton
+            aria-label="Editar"
+            style={{ color: "#0054b4" }}
+            /* onClick={() => handleUpdate(params.id)} */
+          >
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Borrar">
+          <IconButton
+            aria-label="Borrar"
+            style={{ color: "#dd0000" }}
+            /* onClick={() => handleConfirmDelete(params.id)} */
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
+    ),
   };
-  /* ----------------- */
 
   return (
-    <>
+    <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
       <NavBar />
       <div
         style={{
           alignSelf: "flex-start",
-          position: "absolute",
-          marginTop: 40,
-          left: 50,
+          position: "relative",
+          marginTop: 20,
+          marginLeft: 20,
           right: 0,
         }}
       >
@@ -279,70 +141,60 @@ const TableValues = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
-          marginTop: "5%",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <MUIDataTable
-          title={"Valores de Polizas"}
-          data={modifiedData}
-          columns={columns}
-          options={{
-            ...options,
-            customToolbar: () => {
-              return (
-                <Tooltip title="Crear Valor de Poliza">
-                  <IconButton
-                    aria-label="Crear Valor de Poliza"
-                    onClick={handleOpen}
-                    color="primary"
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              );
+        <DataGrid
+          rows={rows}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          columns={[...columns, actionsColumn]}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
             },
-            rowsPerPage: 5,
-            rowsPerPageOptions: [5, 10, 20],
           }}
-        ></MUIDataTable>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          maxWidth: "100%",
-          marginTop: "100%",
-          marginBottom: "100%",
-        }}
-      >
-        <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-          <DialogTitle>Eliminar Valor De Poliza</DialogTitle>
-          <DialogContent>
-            ¿Estás seguro de eliminar este valor de poliza
-            <span style={{ fontWeight: "bold" }}> {data.tipo_poliza} </span>?
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpenDelete(false)} color="primary">
-              No
-            </Button>
-            <Button /* onClick={handleDelete} */ color="error">Sí</Button>
-          </DialogActions>
-        </Dialog>
-        <ModalCreateValue
-          open={openForm}
-          handleClose={() => setOpenForm(false)}
-          handleCreate={handleCreate}
+          pageSizeOptions={[10, 25, 50, 100]}
+          disableColumnSelector
+          disableDensitySelector
+          slots={{ toolbar: GridToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
+          style={{
+            backgroundColor: "#ffffffcc",
+            color: "black",
+            marginTop: "20px",
+          }}
         />
-        <ModalEdit
-          open={openEdit}
-          handleClose={() => setOpenEdit(false)}
-          /* handleEdit={handleEdit}
+      </div>
+      <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
+        <DialogTitle>Eliminar Valor De Poliza</DialogTitle>
+        <DialogContent>
+          ¿Estás seguro de eliminar este valor de poliza?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDelete(false)} color="primary">
+            No
+          </Button>
+          <Button /* onClick={handleDelete} */ color="error">Sí</Button>
+        </DialogActions>
+      </Dialog>
+      <ModalCreateValue
+        open={openForm}
+        handleClose={() => setOpenForm(false)}
+        handleCreate={handleCreate}
+      />
+      <ModalEdit
+        open={openEdit}
+        handleClose={() => setOpenEdit(false)}
+        /* handleEdit={handleEdit}
           rowEdit={rowEdit} */
-        />
-      </div>
-    </>
+      />
+    </div>
   );
 };
 
-export default TableValues;
+export default DataGridValues;

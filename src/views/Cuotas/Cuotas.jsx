@@ -14,19 +14,24 @@ const Cuotas = () => {
 
   const columns = [
     {
+      field: "id",
+      headerName: "ID",
+      width: 20,
+    },
+    {
       field: "poliza_id",
       headerName: "ID Poliza",
-      width: 150,
+      width: 70,
     },
     {
       field: "monto",
       headerName: "Monto",
-      width: 150,
+      width: 100,
     },
     {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
-      width: 150,
+      width: 140,
     },
     {
       field: "pagada",
