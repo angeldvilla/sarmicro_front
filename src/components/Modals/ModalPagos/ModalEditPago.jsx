@@ -13,7 +13,7 @@ import Slide from "@mui/material/Slide";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-export default function ModalEditCuota({
+export default function ModalEditPago({
   open,
   handleClose,
   handleEdit,

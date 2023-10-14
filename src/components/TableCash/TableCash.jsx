@@ -15,7 +15,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import ModalCreatePago from "../Modals/ModalPagos/ModalCreatePago";
-import ModalEditCuota from "../Modals/ModalCuotas/ModalEditCuota";
+import ModalEditPago from "../Modals/ModalPagos/ModalEditPago";
 import {
   getPagos,
   createPago,
@@ -199,7 +199,7 @@ const DataGridCash = ({ rows, columns }) => {
         handleClose={() => setOpenForm(false)}
         handleCreate={handleCreate}
       />
-      <ModalEditCuota
+      <ModalEditPago
         open={openEdit}
         handleClose={() => setOpenEdit(false)}
         handleEdit={handleEdit}
