@@ -31,6 +31,7 @@ export default function ModalEditValue({
   const handleEditValuePoliza = () => {
     const today = new Date().toISOString().split("T")[0];
     const data = {
+      id: editedRow.id,
       tipo_poliza: editedRow.tipo_poliza,
       vehiculo_grupo: editedRow.vehiculo_grupo,
       valor_poliza: editedRow.valor_poliza,

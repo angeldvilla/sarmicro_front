@@ -30,6 +30,7 @@ export default function ModalEditPago({
   const handleEditPago = () => {
     const today = new Date().toISOString().split("T")[0];
     const data = {
+      id: editedRow.id,
       cuota_id: editedRow.cuota_id,
       monto: editedRow.monto,
       fecha_pago: editedRow.fecha_pago,
