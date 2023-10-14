@@ -9,6 +9,7 @@ import TableValues from "../components/TableValues/TableValues.jsx";
 import TablePayment from "../components/TablePayment/TablePayment.jsx";
 import TableVehicles from "../components/TableVehicles/TableVehicles.jsx";
 import TableCash from "../components/TableCash/TableCash.jsx";
+import Cuotas from "../views/Cuotas/Cuotas.jsx";
 
 const RoutesApp = () => {
   //verificamos si el usuario ya esta logueado
@@ -49,6 +50,14 @@ const RoutesApp = () => {
         element={
           <RoutesProtected>
             <TablePayment />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/cuotas"
+        element={
+          <RoutesProtected>
+            <Cuotas />
           </RoutesProtected>
         }
       />

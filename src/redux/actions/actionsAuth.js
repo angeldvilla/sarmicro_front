@@ -14,7 +14,7 @@ export const authLogin = (userData, navigate) => {
       setTimeout(() => {
         toast.success("Ingreso correctamente!");
         navigate("/inicio");
-      }, 1500);
+      }, 1000);
       return dispatch({
         type: POST_LOGIN,
         payload: data,
@@ -37,7 +37,7 @@ export const registerUser = (userData, navigate) => {
       toast.success("Cuenta creada!, inicia sesión!");
       setTimeout(() => {
         navigate("/");
-      }, 1500);
+      }, 1000);
       return dispatch({
         type: POST_REGISTER,
         payload: data,
