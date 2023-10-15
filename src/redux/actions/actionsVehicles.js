@@ -27,7 +27,7 @@ export const getVehiculos = () => {
 
 //Accion para registrar todas las polizas del parque automotor
 export const registerAllPolizas = () => {
-  return async (dispatch) => {
+  return async () => {
     const vechiculosPath = `${ENDPOINT}${REGISTER_ALL_POLIZAS}`;
     try {
       await axios.post(vechiculosPath);
@@ -65,7 +65,7 @@ export const updateVehicle = (vehicleData, id) => {
   return async (dispatch) => {
     const vechiculosPath = `${ENDPOINT}${VEHICULOS_URL}/${id}`;
     try {
-      const { data } = await axios.get(vechiculosPath, vehicleData);
+      const { data } = await axios.put(vechiculosPath, vehicleData);
       toast.success("Vehiculo actualizado correctamente");
       if (data) {
         return dispatch({

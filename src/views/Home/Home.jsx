@@ -7,6 +7,7 @@ import {
   CashBox,
 } from "../../components/Cards/Cards";
 import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 import styles from "./home.module.css";
 
 const Home = () => {
@@ -49,12 +50,13 @@ const Home = () => {
             <CashBox />
           </div>
         </div>
-          <div className={styles.cardStyle}>
-            <div className={styles.scaleUpBottom5}>
-              <CardVehicles />
-            </div>
+        <div className={styles.cardStyle}>
+          <div className={styles.scaleUpBottom5}>
+            <CardVehicles />
           </div>
+        </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateVehicle } from "../../redux/actions/actionsVehicles";
 import DataGridVehicles from "../../components/TableVehicles/TableVehicles";
-import { useSelector } from "react-redux";
+import Switch from "@mui/material/Switch";
 
 const Vehicles = () => {
   const rows = useSelector((state) => state?.vehicles?.vechiculosData);
@@ -14,19 +16,32 @@ const Vehicles = () => {
 
   const rowsWithIds = rows.map((row, index) => ({
     ...row,
-    id: index, // Usamos el índice como ID único, pero puedes usar una lógica diferente
+    id: index, // Usamos el índice como ID único
   }));
 
+  const dispatch = useDispatch();
+
+  const rowIdToIdMovilMap = {};
+  rows.forEach((row, index) => {
+    rowIdToIdMovilMap[index] = row.id_movil;
+  });
+  const handleSwitchChange = (event, rowId) => {
+    const newState = event.target.checked ? "1" : "0";
+    const idMovil = rowIdToIdMovilMap[rowId];
+    const updatedRow = rows.find((row) => row.id_movil === idMovil);
+
+    const updatedVehicle = {
+      ...updatedRow,
+      estado: newState,
+    };
+    console.log(updatedVehicle);
+    dispatch(updateVehicle(updatedVehicle, rowId));
+  };
 
   const columns = [
     {
       field: "id_movil",
       headerName: "ID Movil",
-      width: 70,
-    },
-    {
-      field: "id_marca",
-      headerName: "ID Marca",
       width: 90,
     },
     {
@@ -37,22 +52,17 @@ const Vehicles = () => {
     {
       field: "modelo",
       headerName: "Modelo",
-      width: 80,
+      width: 90,
     },
     {
       field: "placa",
       headerName: "Placa",
-      width: 85,
+      width: 100,
     },
     {
       field: "clase",
       headerName: "Clase",
-      width: 70,
-    },
-    {
-      field: "color",
-      headerName: "Color",
-      width: 160,
+      width: 150,
     },
     {
       field: "pago_hasta",
@@ -62,22 +72,11 @@ const Vehicles = () => {
     {
       field: "grupo",
       headerName: "Grupo",
-      width: 70,
-    },
-    {
-      field: "motor",
-      headerName: "Motor",
-      width: 150,
+      width: 90,
     },
     {
       field: "poliza",
       headerName: "Poliza",
-      width: 70,
-    },
-
-    {
-      field: "poliza_paz",
-      headerName: "Poliza Paz",
       width: 70,
     },
     {
@@ -91,47 +90,37 @@ const Vehicles = () => {
       headerName: "Referencia",
       width: 90,
     },
-
-    {
-      field: "rtu_paz",
-      headerName: "RTU Paz",
-      width: 70,
-    },
-    {
-      field: "segurida_social_paz",
-      headerName: "Seguridad Social",
-      width: 120,
-    },
     {
       field: "serie",
       headerName: "Serie",
-      width: 150,
+      width: 180,
     },
     {
       field: "tipo",
       headerName: "Tipo",
-      width: 150,
+      width: 140,
     },
     {
       field: "estado",
       headerName: "Estado",
       width: 100,
-      renderCell: (params) => {
-        return (
-          <span
-            style={{
-              color: params.value === "1" ? "green" : "red",
-            }}
-          >
-            {params.value === "1" ? "Activo" : "Inactivo"}
-          </span>
-        );
-      },
+      renderCell: (params) => (
+        <Switch
+          checked={params.value === "1"}
+          color={params.value === "1" ? "success" : "error"}
+          onChange={(event) => handleSwitchChange(event, params.row.id)}
+        />
+      ),
     },
   ];
 
   return (
-    <DataGridVehicles rows={rowsWithIds} columns={columns} sortModel={sortModel}  getRowId={(row) => row.id_movil}/>
+    <DataGridVehicles
+      rows={rowsWithIds}
+      columns={columns}
+      sortModel={sortModel}
+      getRowId={(row) => row.id_movil}
+    />
   );
 };
 

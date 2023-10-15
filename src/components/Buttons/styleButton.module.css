@@ -1,6 +1,7 @@
 /* PARA BOTON DE INICIO DE SESIÒN */
 .botonLogin {
   z-index: 1;
+  position: relative;
   background-color: green;
   border-radius: 8px;
 }
@@ -38,6 +39,7 @@
 /* PARA BOTON DE REGISTRO */
 .boton {
   z-index: 1;
+  position: relative;
   background-color: #003cbef8;
   border-radius: 8px;
 }
@@ -128,20 +130,19 @@
   left: 0;
   direction:rtl; 
   z-index: -1;
-  background: rgb(247, 223, 11);
+  background: rgba(231, 208, 1, 0.822);
   transition: all 0.3s ease;
   border-radius: 8px;
 }
 
 .botonRegisterPolizas:hover {
   color: white;
-  transform: scale(1.05);
   transition: 0.8s;
 }
 
 .botonRegisterPolizas:hover:after {
-  left: auto;
-  right: 0;
+  left: 0;
+  right: auto;
   width: 100%;
 }
 

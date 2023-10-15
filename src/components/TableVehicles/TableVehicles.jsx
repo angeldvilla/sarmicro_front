@@ -8,7 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
+/* import AddIcon from "@mui/icons-material/Add"; */
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -70,7 +70,7 @@ const DataGridVehicles = ({ rows, columns }) => {
         <div
           style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
         >
-          <Tooltip title="Crear Vehiculo">
+          {/*  <Tooltip title="Crear Vehiculo">
             <IconButton
               aria-label="Crear Vehiculo"
               onClick={handleOpen}
@@ -78,17 +78,36 @@ const DataGridVehicles = ({ rows, columns }) => {
             >
               <AddIcon />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Typography
             style={{
               textAlign: "center",
               cursor: "pointer",
-              backgroundColor: "#d4d4d4",
-              color: "black",
+              backgroundColor: "#646464b7",
+              color: "white",
+              fontFamily: "Sans-serif",
               fontWeight: "bold",
               borderRadius: "8px",
               padding: "8px 20px",
-              fontSize: "0.75em",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            className={styles.botonLogin}
+            onClick={handleOpen}
+          >
+            Crear Vehiculo
+          </Typography>
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#646464b7",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
             className={styles.botonRegisterPolizas}

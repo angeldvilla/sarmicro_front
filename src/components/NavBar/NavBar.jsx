@@ -14,6 +14,7 @@ import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import styles from "../Buttons/styleButton.module.css";
 import { logoutUser } from "../../redux/actions/actionsAuth";
 import { Toaster } from "sonner";
+import style from "./navBar.module.css";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -42,6 +43,19 @@ function NavBar() {
             />
           </NavLink>
 
+          {/* PARTE RESPONSIVE */}
+          <Box sx={{ marginLeft: "auto", display: { xs: "flex", md: "none" } }}>
+            <div
+              style={{
+                marginLeft: "auto",
+                display: { xs: "flex", md: "none" },
+              }}
+              className={style.scaleWelcome}
+            >
+              <h5>Sistema de Polizas Sarmicro</h5>
+            </div>
+          </Box>
+
           <Box sx={{ marginLeft: "auto", display: { xs: "flex", md: "none" } }}>
             <Tooltip title="Cerrar Sesión">
               <LogoutIcon
@@ -53,6 +67,24 @@ function NavBar() {
               id="menu-appbar"
               sx={{ display: { xs: "block", md: "none" } }}
             ></Menu>
+          </Box>
+          {/* PARTE RESPONSIVE */}
+
+          <Box
+            sx={{
+              marginLeft: "auto",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+          >
+            <div
+              style={{
+                marginLeft: "auto",
+                display: { xs: "flex", md: "none" },
+              }}
+              className={style.scaleWelcome}
+            >
+              <h1>Sistema de Polizas Sarmicro</h1>
+            </div>
           </Box>
           <Box
             sx={{
