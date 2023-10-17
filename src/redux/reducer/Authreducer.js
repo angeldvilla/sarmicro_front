@@ -7,7 +7,6 @@ import {
 
 const initialState = {
   authUser: {},
-  userData: {},
 };
 
 export default function AuthReducer(state = initialState, action) {
@@ -22,7 +21,6 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         authUser: {},
-        userData: {},
       };
 
     case POST_REGISTER:

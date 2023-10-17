@@ -24,7 +24,6 @@ export const getVehiculos = () => {
   };
 };
 
-
 //Accion para registrar todas las polizas del parque automotor
 export const registerAllPolizas = () => {
   return async () => {
@@ -67,13 +66,11 @@ export const updateVehicle = (vehicleData, id) => {
     try {
       const { data } = await axios.put(vechiculosPath, vehicleData);
       toast.success("Vehiculo actualizado correctamente");
-      if (data) {
-        return dispatch({
-          type: UPDATE_VEHICULO,
-          payload: data,
-        });
-      }
       dispatch(getVehiculos());
+      return dispatch({
+        type: UPDATE_VEHICULO,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error(

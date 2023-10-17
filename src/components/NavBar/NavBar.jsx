@@ -20,7 +20,6 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  /* const user = useSelector((state) => state.auth.userData); */
   const NotLogged = useSelector((state) => state?.auth?.authUser);
 
   const handleLogout = () => {
@@ -32,7 +31,7 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: "#055bdd" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <NavLink to="/inicio">

@@ -8,7 +8,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-/* import AddIcon from "@mui/icons-material/Add"; */
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -54,70 +53,6 @@ const DataGridVehicles = ({ rows, columns }) => {
   const handleCreate = async (data) => {
     setOpenForm(false);
     dispatch(createVehicle(data));
-  };
-
-  const CustomHeaderButton = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <GridToolbar showQuickFilter="true" />
-        <div
-          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
-        >
-          {/*  <Tooltip title="Crear Vehiculo">
-            <IconButton
-              aria-label="Crear Vehiculo"
-              onClick={handleOpen}
-              color="primary"
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip> */}
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "#646464b7",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            className={styles.botonLogin}
-            onClick={handleOpen}
-          >
-            Crear Vehiculo
-          </Typography>
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "#646464b7",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            className={styles.botonRegisterPolizas}
-            onClick={confirmRegisterPolizas}
-          >
-            Registrar Polizas
-          </Typography>
-        </div>
-      </div>
-    );
   };
 
   const confirmRegisterPolizas = () => {
@@ -195,14 +130,59 @@ const DataGridVehicles = ({ rows, columns }) => {
       <NavBar />
       <div
         style={{
-          alignSelf: "flex-start",
-          position: "relative",
+          display: "flex",
+          alignItems: "center",
           marginTop: 20,
           marginLeft: 20,
-          right: 0,
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginLeft: "auto",
+            marginRight: "1.5em",
+            gap: "1rem",
+          }}
+        >
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#0ca840ed",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            className={styles.botonLogin}
+            onClick={handleOpen}
+          >
+            Crear Vehiculo
+          </Typography>
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(209, 188, 3, 0.966)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            className={styles.botonRegisterPolizas}
+            onClick={confirmRegisterPolizas}
+          >
+            Registrar Polizas
+          </Typography>
+        </div>
       </div>
       <div
         style={{
@@ -225,7 +205,12 @@ const DataGridVehicles = ({ rows, columns }) => {
           pageSizeOptions={[10, 25, 50, 100]}
           disableColumnSelector
           disableDensitySelector
-          slots={{ toolbar: CustomHeaderButton }}
+          slots={{ toolbar: GridToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",

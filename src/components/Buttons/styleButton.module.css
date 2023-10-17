@@ -74,7 +74,6 @@
   top: 2px;
 }
 
-
 /* PARA BOTON DE CERRAR SESIÓN */
 .botonLogout {
   z-index: 1;
@@ -89,7 +88,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  direction:rtl; 
+  direction: rtl;
   z-index: -1;
   background: red;
   transition: all 0.3s ease;
@@ -112,8 +111,6 @@
   top: 2px;
 }
 
-
-
 /* PARA BOTON DE REGISTRO DE POLIZAS EN PARQUE AUTOMOTOR */
 .botonRegisterPolizas {
   z-index: 1;
@@ -128,15 +125,16 @@
   height: 100%;
   top: 0;
   left: 0;
-  direction:rtl; 
+  direction: rtl;
   z-index: -1;
-  background: rgba(231, 208, 1, 0.822);
+  background: hsl(55, 100%, 34%);
   transition: all 0.3s ease;
   border-radius: 8px;
 }
 
 .botonRegisterPolizas:hover {
   color: white;
+  transform: scale(1.05);
   transition: 0.8s;
 }
 

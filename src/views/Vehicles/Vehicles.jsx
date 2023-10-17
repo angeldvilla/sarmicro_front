@@ -7,13 +7,6 @@ import Switch from "@mui/material/Switch";
 const Vehicles = () => {
   const rows = useSelector((state) => state?.vehicles?.vechiculosData);
 
-  const sortModel = [
-    {
-      field: "id_movil",
-      sort: "desc",
-    },
-  ];
-
   const rowsWithIds = rows.map((row, index) => ({
     ...row,
     id: index, // Usamos el índice como ID único
@@ -25,6 +18,7 @@ const Vehicles = () => {
   rows.forEach((row, index) => {
     rowIdToIdMovilMap[index] = row.id_movil;
   });
+
   const handleSwitchChange = (event, rowId) => {
     const newState = event.target.checked ? "1" : "0";
     const idMovil = rowIdToIdMovilMap[rowId];
@@ -34,7 +28,7 @@ const Vehicles = () => {
       ...updatedRow,
       estado: newState,
     };
-    console.log(updatedVehicle);
+
     dispatch(updateVehicle(updatedVehicle, rowId));
   };
 
@@ -118,7 +112,6 @@ const Vehicles = () => {
     <DataGridVehicles
       rows={rowsWithIds}
       columns={columns}
-      sortModel={sortModel}
       getRowId={(row) => row.id_movil}
     />
   );
