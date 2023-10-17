@@ -6,7 +6,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -14,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import ModalCreate from "../Modals/ModalPayments/ModalCreate";
 import ModalEdit from "../Modals/ModalPayments/ModalEdit";
 import {
@@ -182,17 +182,72 @@ const DataGridPayments = ({ rows, columns }) => {
       </div>
       <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-        <DialogTitle>Eliminar Pago De Poliza</DialogTitle>
-        <DialogContent>
+        <DialogTitle
+          style={{
+            fontFamily: "sans-serif",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Eliminar Pago De Poliza
+        </DialogTitle>
+        <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar este pago de poliza?
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDelete(false)} color="primary">
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(19, 75, 197, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="primary"
+            onClick={() => setOpenDelete(false)}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(2, 59, 182, 0.938)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(19, 75, 197, 0.938)")
+            }
+          >
             No
-          </Button>
-          <Button onClick={handleDelete} color="error">
-            Sí
-          </Button>
+          </Typography>
+
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(197, 31, 19, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="error"
+            onClick={handleDelete}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(187, 12, 0, 0.938)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(197, 31, 19, 0.938)")
+            }
+          >
+            Si
+          </Typography>
         </DialogActions>
       </Dialog>
       <ModalCreate

@@ -6,7 +6,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -220,32 +219,149 @@ const DataGridVehicles = ({ rows, columns }) => {
       </div>
       <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
-        <DialogTitle>Eliminar Vehiculo</DialogTitle>
-        <DialogContent>¿Estás seguro de eliminar este vehiculo?</DialogContent>
+        <DialogTitle
+          style={{
+            fontFamily: "sans-serif",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Eliminar Vehiculo
+        </DialogTitle>
+        <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
+          ¿Estás seguro de eliminar este vehiculo?
+        </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDelete(false)} color="primary">
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(19, 75, 197, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="primary"
+            onClick={() => setOpenDelete(false)}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(2, 59, 182, 0.938)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(19, 75, 197, 0.938)")
+            }
+          >
             No
-          </Button>
-          <Button onClick={handleDelete} color="error">
-            Sí
-          </Button>
+          </Typography>
+
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(197, 31, 19, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="error"
+            onClick={handleDelete}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(187, 12, 0, 0.938)")
+            } // Cambiar el color de fondo en hover
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(197, 31, 19, 0.938)")
+            } // Restaurar el color original
+          >
+            Si
+          </Typography>
         </DialogActions>
       </Dialog>
       <Dialog
         open={openRegisterPolizas}
         onClose={() => setOpenRegisterPolizas(false)}
       >
-        <DialogTitle>Registro de Todas las Polizas</DialogTitle>
-        <DialogContent>
+        <DialogTitle
+          style={{
+            fontFamily: "sans-serif",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Registro de Todas las Polizas
+        </DialogTitle>
+        <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de registrar todas las polizas del parque automotor?
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenRegisterPolizas(false)} color="primary">
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(19, 75, 197, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="primary"
+            onClick={() => setOpenRegisterPolizas(false)}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(2, 59, 182, 0.938)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(19, 75, 197, 0.938)")
+            }
+          >
             No
-          </Button>
-          <Button onClick={registerPolizas} color="error">
+          </Typography>
+          {/*  <Button onClick={() => setOpenRegisterPolizas(false)} color="primary">
+            No
+          </Button> */}
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(197, 31, 19, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="error"
+            onClick={registerPolizas}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(187, 12, 0, 0.938)")
+            } // Cambiar el color de fondo en hover
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(197, 31, 19, 0.938)")
+            } // Restaurar el color original
+          >
+            Si
+          </Typography>
+          {/* <Button onClick={registerPolizas} color="error">
             Sí
-          </Button>
+          </Button> */}
         </DialogActions>
       </Dialog>
       <ModalCreateVehicle
