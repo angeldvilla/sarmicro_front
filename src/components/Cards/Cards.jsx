@@ -10,12 +10,14 @@ import PolicyIcon from "@mui/icons-material/Policy";
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
 import SavingsIcon from "@mui/icons-material/Savings";
+import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import styles from "./card.module.css";
 import valorPoliza from "../../assets/images/valorPolizas.jpg";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
 import cuotasPolizas from "../../assets/images/cuotas.jpg";
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
 import cuadreCaja from "../../assets/images/cuadreCaja.jpg";
+import deleted from "../../assets/images/deleted.png";
 
 export const CardPolicy = () => {
   return (
@@ -237,6 +239,50 @@ export const CashBox = () => {
           <Typography className={styles.overlayButton}>
             Ver Detalles
             <SavingsIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </Typography>
+        </a>
+      </div>
+    </div>
+  );
+};
+
+
+export const DetailPolicy = () => {
+  return (
+    <div className={styles.cardContainer}>
+      <Card style={{ borderRadius: "1.2em" }}>
+        <CardActionArea>
+          <CardMedia
+            className={styles.cardImage}
+            component="img"
+            height="140"
+            image={deleted}
+            alt="Detalle Polizas"
+          />
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              className={styles.cardText}
+            >
+              Detalle Polizas
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              className={styles.cardText}
+            >
+              Esta tarjeta muestra información de la eliminación en cascada de las polizas
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <div className={styles.overlay}>
+        <a href="/detalle-polizas">
+          <Typography className={styles.overlayButton}>
+            Ver Detalles
+            <RestoreFromTrashIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography>
         </a>
       </div>

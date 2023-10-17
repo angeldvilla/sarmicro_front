@@ -5,6 +5,7 @@ import {
   CardCuotas,
   CardVehicles,
   CashBox,
+  DetailPolicy
 } from "../../components/Cards/Cards";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -53,6 +54,11 @@ const Home = () => {
         <div className={styles.cardStyle}>
           <div className={styles.scaleUpBottom5}>
             <CardVehicles />
+          </div>
+        </div>
+        <div className={styles.cardStyle}>
+          <div className={styles.scaleUpBottom5}>
+            <DetailPolicy />
           </div>
         </div>
       </div>
