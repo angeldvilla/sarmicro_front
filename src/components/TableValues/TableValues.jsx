@@ -193,7 +193,7 @@ const DataGridValues = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar este valor de poliza?
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{justifyContent: "center"}}>
           <Typography
             style={{
               textAlign: "center",
@@ -203,7 +203,7 @@ const DataGridValues = ({ rows, columns }) => {
               fontFamily: "Sans-serif",
               fontWeight: "bold",
               borderRadius: "8px",
-              padding: "8px 20px",
+              padding: "5px 15px",
               fontSize: "0.90em",
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
@@ -230,7 +230,7 @@ const DataGridValues = ({ rows, columns }) => {
               fontFamily: "Sans-serif",
               fontWeight: "bold",
               borderRadius: "8px",
-              padding: "8px 20px",
+              padding: "5px 15px",
               fontSize: "0.90em",
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
