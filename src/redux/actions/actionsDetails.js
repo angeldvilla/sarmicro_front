@@ -8,12 +8,10 @@ export const getDetailsPolicys = () => {
     const pathDetails = `${ENDPOINT}${DETAIL_POLICYS_URL}`;
     try {
       const { data } = await axios.get(pathDetails);
-      if (data) {
-        return dispatch({
-          type: GET_DETAIL_POLICYS,
-          payload: data,
-        });
-      }
+      return dispatch({
+        type: GET_DETAIL_POLICYS,
+        payload: data,
+      });
     } catch (error) {
       toast.error("Error al obtener los datos de polizas eliminadas");
     }

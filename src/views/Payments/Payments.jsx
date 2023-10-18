@@ -37,17 +37,6 @@ const Payments = () => {
       field: "monto_total",
       headerName: "Monto Total",
       width: 150,
-      renderCell: (params) => {
-        return (
-          <span
-            style={{
-              color: params.value === "1" ? "green" : "red",
-            }}
-          >
-            {params.value === "1" ? "Pago realizado" : "No se ha pagado"}
-          </span>
-        );
-      },
     },
     {
       field: "numero_cuotas",
@@ -73,10 +62,13 @@ const Payments = () => {
         return (
           <span
             style={{
-              color: params.value === "" || params.value === "0" ? "red" : "green",
+              color:
+                params.value === "" || params.value === "0" ? "red" : "green",
             }}
           >
-            {params.value === "" || params.value === "0" ? "Definir tipo de cuotas" : params.value}
+            {params.value === "" || params.value === "0"
+              ? "Definir tipo de cuotas"
+              : params.value}
           </span>
         );
       },
@@ -89,17 +81,17 @@ const Payments = () => {
     {
       field: "cliente_id",
       headerName: "Nombre Cliente",
-      width: 150,
+      width: 125,
     },
     {
       field: "id_vehiculo",
       headerName: "ID Vehiculo",
-      width: 150,
+      width: 95,
     },
     {
       field: "estado",
       headerName: "Estado",
-      width: 100,
+      width: 90,
       renderCell: (params) => {
         return (
           <span
@@ -114,7 +106,9 @@ const Payments = () => {
     },
   ];
 
-  return <DataGridPayments rows={rows} columns={columns} sortModel={sortModel} />;
+  return (
+    <DataGridPayments rows={rows} columns={columns} sortModel={sortModel} />
+  );
 };
 
 export default Payments;

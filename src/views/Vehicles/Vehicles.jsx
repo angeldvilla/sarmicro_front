@@ -7,22 +7,12 @@ import Switch from "@mui/material/Switch";
 const Vehicles = () => {
   const rows = useSelector((state) => state?.vehicles?.vechiculosData);
 
-  const rowsWithIds = rows.map((row, index) => ({
-    ...row,
-    id: index, // Usamos el índice como ID único
-  }));
-
   const dispatch = useDispatch();
-
-  const rowIdToIdMovilMap = {};
-  rows.forEach((row, index) => {
-    rowIdToIdMovilMap[index] = row.id_movil;
-  });
 
   const handleSwitchChange = (event, rowId) => {
     const newState = event.target.checked ? "1" : "0";
-    const idMovil = rowIdToIdMovilMap[rowId];
-    const updatedRow = rows.find((row) => row.id_movil === idMovil);
+
+    const updatedRow = rows.find((row) => row.id === rowId);
 
     const updatedVehicle = {
       ...updatedRow,
@@ -33,6 +23,11 @@ const Vehicles = () => {
   };
 
   const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      width: 60,
+    },
     {
       field: "id_movil",
       headerName: "ID Movil",
@@ -97,9 +92,10 @@ const Vehicles = () => {
     {
       field: "estado",
       headerName: "Estado",
-      width: 100,
+      width: 70,
       renderCell: (params) => (
         <Switch
+          label={params}
           checked={params.value === "1"}
           color={params.value === "1" ? "success" : "error"}
           onChange={(event) => handleSwitchChange(event, params.row.id)}
@@ -110,7 +106,7 @@ const Vehicles = () => {
 
   return (
     <DataGridVehicles
-      rows={rowsWithIds}
+      rows={rows}
       columns={columns}
       getRowId={(row) => row.id_movil}
     />

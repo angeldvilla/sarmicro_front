@@ -48,13 +48,11 @@ export const createPoliza = (polizaData) => {
     try {
       const { data } = await axios.post(polizaPath, polizaData);
       toast.success("Pago de poliza creado con exito");
-      if (data) {
-        return dispatch({
-          type: CREATE_POLIZA,
-          payload: data,
-        });
-      }
       dispatch(getPolizas());
+      return dispatch({
+        type: CREATE_POLIZA,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error("No se pudo crear el pago de poliza, intentar de nuevo");
@@ -68,13 +66,11 @@ export const updatePoliza = (polizaData, id) => {
     try {
       const { data } = await axios.put(polizaPath, polizaData);
       toast.success("Pago de poliza actualizado correctamente");
-      if (data) {
-        return dispatch({
-          type: UPDATE_POLIZA,
-          payload: data,
-        });
-      }
       dispatch(getPolizas());
+      return dispatch({
+        type: UPDATE_POLIZA,
+        payload: data,
+      });
     } catch (error) {
       console.log(error);
       toast.error("No se pudo actualizar el pago de poliza, intentar de nuevo");

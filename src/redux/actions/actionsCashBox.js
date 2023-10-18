@@ -27,13 +27,11 @@ export const createPago = (pagoData) => {
     try {
       const { data } = await axios.post(pagosPath, pagoData);
       toast.success("Pago creado con exito");
-      if (data) {
-        return dispatch({
-          type: CREATE_PAGO,
-          payload: data,
-        });
-      }
       dispatch(getPagos());
+      return dispatch({
+        type: CREATE_PAGO,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Error al crear el pago, intentar de nuevo");
@@ -48,13 +46,11 @@ export const updatePago = (pagoData, id) => {
     try {
       const { data } = await axios.put(pagosPath, pagoData);
       toast.success("Pago se edito correctamente");
-      if (data) {
-        return dispatch({
-          type: UPDATE_PAGO,
-          payload: data,
-        });
-      }
       dispatch(getPagos());
+      return dispatch({
+        type: UPDATE_PAGO,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Error al editar el pago, intentar de nuevo");

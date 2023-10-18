@@ -27,13 +27,11 @@ export const createCuota = (cuotaData) => {
     try {
       const { data } = await axios.post(cuotasPath, cuotaData);
       toast.success("Cuota creada con exito");
-      if (data) {
-        return dispatch({
-          type: GET_CUOTAS,
-          payload: data,
-        });
-      }
       dispatch(getCuotas());
+      return dispatch({
+        type: GET_CUOTAS,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Error al crear la cuota, intentar de nuevo");
@@ -48,13 +46,11 @@ export const updateCuota = (cuotaData, id) => {
     try {
       const { data } = await axios.put(cuotasPath, cuotaData);
       toast.success("Cuota se edito correctamente");
-      if (data) {
-        return dispatch({
-          type: UPDATE_CUOTA,
-          payload: data,
-        });
-      }
       dispatch(getCuotas());
+      return dispatch({
+        type: UPDATE_CUOTA,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Error al editar la cuota, intentar de nuevo");

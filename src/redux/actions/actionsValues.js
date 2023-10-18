@@ -31,13 +31,11 @@ export const createValorPoliza = (valueData) => {
     try {
       const { data } = await axios.post(valoresPolizasPath, valueData);
       toast.success("Valor de poliza creado con éxito");
-      if (data) {
-        return dispatch({
-          type: CREATE_VALOR_POLIZA,
-          payload: data,
-        });
-      }
       dispatch(getValoresPolizas());
+      return dispatch({
+        type: CREATE_VALOR_POLIZA,
+        payload: data,
+      });
     } catch (error) {
       console.log(error);
       toast.error("Error al crear valor de poliza");
@@ -52,13 +50,11 @@ export const updateValorPoliza = (valueData, id) => {
     try {
       const { data } = await axios.put(valoresPolizasPath, valueData);
       toast.success("Valor de poliza se edito correctamente");
-      if (data) {
-        return dispatch({
-          type: UPDATE_VALOR_POLIZA,
-          payload: data,
-        });
-      }
       dispatch(getValoresPolizas());
+      return dispatch({
+        type: UPDATE_VALOR_POLIZA,
+        payload: data,
+      });
     } catch (error) {
       console.log(error);
       toast.error("Error al editar valor de poliza");

@@ -61,7 +61,7 @@ export const logoutUser = (unAuthenticated, navigate) => {
       setTimeout(() => {
         toast.success("Cerraste sesión, hasta pronto!");
         navigate("/");
-      }, 1500);
+      }, 1200);
 
       return dispatch({
         type: LOGOUT,

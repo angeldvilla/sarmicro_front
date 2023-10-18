@@ -277,11 +277,11 @@ const DataGridVehicles = ({ rows, columns }) => {
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "rgba(187, 12, 0, 0.938)")
-            } // Cambiar el color de fondo en hover
+            }
             onMouseLeave={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "rgba(197, 31, 19, 0.938)")
-            } // Restaurar el color original
+            }
           >
             Si
           </Typography>

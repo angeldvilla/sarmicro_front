@@ -11,11 +11,13 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import InfoIcon from "@mui/icons-material/Info";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import ModalCreate from "../Modals/ModalPayments/ModalCreate";
 import ModalEdit from "../Modals/ModalPayments/ModalEdit";
+import DetailsPayments from "../Details/DetailsPayments/DetailsPayments";
 import {
   createPoliza,
   deletePoliza,
@@ -30,6 +32,8 @@ const DataGridPayments = ({ rows, columns }) => {
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
+  const [viewDetail, setViewDetail] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
   const dispatch = useDispatch();
@@ -75,7 +79,6 @@ const DataGridPayments = ({ rows, columns }) => {
 
   const handleConfirmDelete = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
-    console.log(selectedRow);
 
     if (selectedRow) {
       setDeleteId(selectedRow.id);
@@ -90,10 +93,16 @@ const DataGridPayments = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
+  const handleSeeDetail = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+    setViewDetail(selectedRow);
+    setOpenDetail(true);
+  };
+
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 150,
+    width: 175,
     renderCell: (params) => (
       <div
         style={{
@@ -127,6 +136,15 @@ const DataGridPayments = ({ rows, columns }) => {
             onClick={() => handleConfirmDelete(params.id)}
           >
             <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Detalle">
+          <IconButton
+            aria-label="Detalle"
+            style={{ color: "rgba(209, 188, 3, 0.966)" }}
+            onClick={() => handleSeeDetail(params.id)}
+          >
+            <InfoIcon />
           </IconButton>
         </Tooltip>
       </div>
@@ -261,6 +279,11 @@ const DataGridPayments = ({ rows, columns }) => {
         handleClose={() => setOpenEdit(false)}
         handleEdit={handleEdit}
         rowEdit={rowEdit}
+      />
+      <DetailsPayments 
+      openDetail={openDetail}
+      closeDetail={() => setOpenDetail(false)}
+      rowEdit={viewDetail}
       />
     </div>
   );

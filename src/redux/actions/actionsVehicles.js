@@ -45,13 +45,11 @@ export const createVehicle = (vehicleData) => {
     try {
       const { data } = await axios.post(vechiculosPath, vehicleData);
       toast.success("Vehiculo creado con éxito");
-      if (data) {
-        return dispatch({
-          type: CREATE_VEHICULO,
-          payload: data,
-        });
-      }
       dispatch(getVehiculos());
+      return dispatch({
+        type: CREATE_VEHICULO,
+        payload: data,
+      });
     } catch (error) {
       console.error(error);
       toast.error("No se pudo crear los datos del vehiculo, intentar de nuevo");

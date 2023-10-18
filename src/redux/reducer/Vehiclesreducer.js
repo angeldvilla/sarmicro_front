@@ -25,18 +25,11 @@ export default function VehiclesReducer(state = initialState, action) {
       };
 
     case UPDATE_VEHICULO:
-      const updatedVehicleIndex = state.vechiculosData.findIndex(
-        (vehicle) => vehicle.id_movil === action.payload.id_movil
-      );
-      if (updatedVehicleIndex !== -1) {
-        const updatedData = [...state.vechiculosData];
-        updatedData[updatedVehicleIndex] = action.payload;
-        return {
-          ...state,
-          vechiculosData: updatedData,
-        };
-      }
-      return state; // En caso de que no se encuentre el vehículo, retornamos el estado actual.
+      const updateValue = [...state.vechiculosData, action.payload];
+      return {
+        ...state,
+        vechiculosData: updateValue,
+      };
 
     case LOGOUT:
       return {
