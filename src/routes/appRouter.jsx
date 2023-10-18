@@ -10,6 +10,7 @@ import Payments from "../views/Payments/Payments.jsx";
 import Cuotas from "../views/Cuotas/Cuotas.jsx";
 import CashBox from "../views/CashBox/CashBox.jsx";
 import Vehicles from "../views/Vehicles/Vehicles.jsx";
+import DetailPolicy from "../views/DetailPolicy/DetailPolicy.jsx";
 
 const RoutesApp = () => {
   //verificamos si el usuario ya esta logueado
@@ -74,6 +75,14 @@ const RoutesApp = () => {
         element={
           <RoutesProtected>
             <CashBox />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/detalle-polizas"
+        element={
+          <RoutesProtected>
+            <DetailPolicy />
           </RoutesProtected>
         }
       />

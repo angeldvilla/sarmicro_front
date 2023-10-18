@@ -109,7 +109,7 @@ const DataGridCash = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 130,
+    width: 100,
     renderCell: (params) => (
       <div
         style={{
@@ -145,11 +145,10 @@ const DataGridCash = ({ rows, columns }) => {
       <NavBar />
       <div
         style={{
-          alignSelf: "flex-start",
-          position: "relative",
+          display: "flex",
+          alignItems: "center",
           marginTop: 20,
           marginLeft: 20,
-          right: 0,
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
@@ -157,8 +156,11 @@ const DataGridCash = ({ rows, columns }) => {
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
+          width: "98%",
+          height: "500px",
+          marginTop: 20,
+          marginLeft: 15,
         }}
       >
         <DataGrid

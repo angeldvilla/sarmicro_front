@@ -57,7 +57,7 @@ export default function DetailsPayments({ openDetail, closeDetail, rowEdit }) {
                     Poliza: {editedRow.numero_poliza}
                   </Typography>
 
-                  <Typography style={{ marginBottom: "20px" }}>
+                  <Typography style={{ marginBottom: "12px" }}>
                     Estado:{" "}
                     <Chip
                       label={getStatusText(editedRow.estado)}
