@@ -46,7 +46,7 @@ export default function DetailsPayments({ openDetail, closeDetail, rowEdit }) {
                   </Typography>
 
                   <Typography style={{ marginBottom: "20px" }}>
-                    Cedula:{editedRow.cedula}
+                    Cedula: {editedRow.cedula}
                   </Typography>
 
                   <Typography style={{ marginBottom: "20px" }}>
