@@ -106,7 +106,7 @@ const DataGridCash = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
-  const actionsColumn = {
+/*   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
     width: 100,
@@ -138,7 +138,7 @@ const DataGridCash = ({ rows, columns }) => {
         </Tooltip>
       </div>
     ),
-  };
+  }; */
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
@@ -166,7 +166,7 @@ const DataGridCash = ({ rows, columns }) => {
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={[...columns, actionsColumn]}
+          columns={[...columns]}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },

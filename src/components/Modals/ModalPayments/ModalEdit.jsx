@@ -34,6 +34,8 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
       dias_cuota: editedRow.dias_cuota,
       cedula: editedRow.cedula,
       cliente_id: editedRow.cliente_id,
+      /* porcentaje: editedRow.porcentaje,
+      total_pagar: editedRow.total_pagar, */
       estado: 1,
     };
     handleEdit(data, rowEdit.id);
@@ -108,6 +110,72 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Número de Cuotas"
+              margin="none"
+              name="NumCuotas"
+              value={editedRow ? editedRow?.numero_cuotas : ""}
+              placeholder="Ingrese número de cuotas"
+              disabled
+              /* onChange={(e) =>
+                setEditedRow({
+                  ...editedRow,
+                  numero_cuotas: e.target.value,
+                })
+              } */
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Tipo de Cuotas"
+              name="TipCuotas"
+              variant="outlined"
+              value={editedRow ? editedRow?.dias_cuota : ""}
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Porcentaje de Cuota"
+              margin="none"
+              name="PorcentajeCuota"
+              type="number"
+              value={editedRow ? editedRow?.porcentaje : ""}
+              placeholder="Ingrese el porcentaje de la primera cuota"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  porcentaje: e.target.value,
+                }))
+              }
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Valor Total a Pagar"
+              margin="none"
+              name="TotalPagar"
+              type="number"
+              value={editedRow ? editedRow?.total_pagar : ""}
+              placeholder="Valor total a pagar"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  total_pagar: e.target.value,
+                }))
+              }
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="Fecha de Inicio"
               name="FechaIni"
               margin="none"
@@ -138,33 +206,6 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
             />
           </Grid>
 
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Número de Cuotas"
-              margin="none"
-              name="NumCuotas"
-              value={editedRow ? editedRow?.numero_cuotas : ""}
-              placeholder="Ingrese número de cuotas"
-              disabled
-              /* onChange={(e) =>
-                setEditedRow({
-                  ...editedRow,
-                  numero_cuotas: e.target.value,
-                })
-              } */
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Tipo de Cuotas"
-              name="TipCuotas"
-              variant="outlined"
-              value={editedRow ? editedRow?.dias_cuota : ""}
-              disabled
-            />
-          </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth

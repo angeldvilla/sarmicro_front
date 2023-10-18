@@ -49,9 +49,6 @@ const CashBox = () => {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
       width: 170,
-      renderCell: (params) => {
-        return params.value;
-      },
     },
     {
       field: "pagada",
@@ -66,7 +63,7 @@ const CashBox = () => {
     {
       field: "monto_total",
       headerName: "Monto Total",
-      width: 95,
+      width: 100,
     },
     {
       field: "numero_cuotas",

@@ -42,9 +42,26 @@ export default function ModalCreate({
       monto_total: editedRow.monto_total,
       numero_cuotas: editedRow.numero_cuotas,
       dias_cuota: editedRow.dias_cuota,
+      porcentaje: editedRow.porcentaje,
+      total_pagar: editedRow.total_pagar,
       estado: 1,
     };
     handleCreate(dataPoliza);
+  };
+
+  const valueTotal = (event) => {
+    const porcentaje = event.target.value;
+
+    const total_pagar = parseFloat(editedRow.monto_total * porcentaje) / 100;
+    if (!isNaN(porcentaje)) {
+      setEditedRow((prevState) => {
+        return {
+          ...prevState,
+          porcentaje,
+          total_pagar,
+        };
+      });
+    }
   };
 
   return (
@@ -116,6 +133,77 @@ export default function ModalCreate({
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Número de Cuotas"
+              margin="none"
+              name="NumCuotas"
+              type="number"
+              value={editedRow ? editedRow?.numero_cuotas : ""}
+              InputLabelProps={{ shrink: true }}
+              placeholder="Ingrese número de cuotas"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  numero_cuotas: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Tipo de Cuotas</InputLabel>
+              <Select
+                label="Tipo de Cuotas"
+                variant="outlined"
+                value={editedRow ? editedRow?.dias_cuota : ""}
+                onChange={(e) =>
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    dias_cuota: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value="">
+                  <em>Ninguno</em>
+                </MenuItem>
+                <MenuItem value={7}>Semanal</MenuItem>
+                <MenuItem value={15}>Quincenal</MenuItem>
+                <MenuItem value={31}>Mensual</MenuItem>
+                <MenuItem value={180}>Semestral</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Porcentaje de Cuota"
+              margin="none"
+              name="PorcentajeCuota"
+              type="number"
+              value={editedRow ? editedRow?.porcentaje : ""}
+              placeholder="Ingrese el porcentaje de la primera cuota"
+              onChange={valueTotal}
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Valor Total a Pagar"
+              margin="none"
+              name="TotalPagar"
+              /* type="number" */
+              InputLabelProps={{ shrink: true }}
+              value={editedRow ? editedRow?.total_pagar : ""}
+              placeholder="Valor total a pagar"
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="Fecha de Inicio"
               name={"FechaIni"}
               margin="none"
@@ -144,46 +232,6 @@ export default function ModalCreate({
             />
           </Grid>
 
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Número de Cuotas"
-              margin="none"
-              name="NumCuotas"
-              value={editedRow ? editedRow?.numero_cuotas : ""}
-              placeholder="Ingrese número de cuotas"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  numero_cuotas: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <FormControl fullWidth>
-              <InputLabel>Tipo de Cuotas</InputLabel>
-              <Select
-                label="Tipo de Cuotas"
-                variant="outlined"
-                value={editedRow ? editedRow?.dias_cuota : ""}
-                onChange={(e) =>
-                  setEditedRow((prevState) => ({
-                    ...prevState,
-                    dias_cuota: e.target.value,
-                  }))
-                }
-              >
-                <MenuItem value="">
-                  <em>Ninguno</em>
-                </MenuItem>
-                <MenuItem value={7}>Semanal</MenuItem>
-                <MenuItem value={15}>Quincenal</MenuItem>
-                <MenuItem value={31}>Mensual</MenuItem>
-                <MenuItem value={180}>Semestral</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
