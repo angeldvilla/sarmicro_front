@@ -33,62 +33,62 @@ const CashBox = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 30,
+      width: 120,
     },
     {
       field: "monto",
       headerName: "Monto",
-      width: 95,
+      width: 120,
     },
     {
       field: "fecha_pago",
       headerName: "Fecha Pago",
-      width: 170,
+      width: 150,
     },
     {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
-      width: 170,
+      width: 150,
     },
     {
       field: "pagada",
       headerName: "Pagada",
-      width: 80,
+      width: 120,
     },
     {
       field: "cliente_id",
       headerName: "Cliente ID",
-      width: 85,
+      width: 120,
     },
     {
       field: "monto_total",
       headerName: "Monto Total",
-      width: 100,
+      width: 150,
     },
     {
       field: "numero_cuotas",
       headerName: "Numero Cuotas",
-      width: 125,
+      width: 120,
     },
     {
       field: "dias_cuota",
       headerName: "Dias Cuotas",
-      width: 100,
+      width: 120,
     },
     {
       field: "clase",
       headerName: "Clase Vehículo",
-      width: 150,
+      width: 120,
     },
     {
       field: "grupo",
       headerName: "Grupo",
-      width: 80,
+      width: 120,
     },
     {
       field: "modelo",
       headerName: "Modelo",
-      width: 90,
+      width: 120,
     },
   ];
 
