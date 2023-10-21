@@ -7,10 +7,11 @@ import Login from "../views/Login/Login.jsx";
 import Register from "../views/Register/Register.jsx";
 import Values from "../views/Values/Values.jsx";
 import Payments from "../views/Payments/Payments.jsx";
-import Cuotas from "../views/Cuotas/Cuotas.jsx";
+/* import Cuotas from "../views/Cuotas/Cuotas.jsx"; */
 import CashBox from "../views/CashBox/CashBox.jsx";
 import Vehicles from "../views/Vehicles/Vehicles.jsx";
 import DetailPolicy from "../views/DetailPolicy/DetailPolicy.jsx";
+import Error404 from "../views/Error/Error.jsx";
 
 const RoutesApp = () => {
   //verificamos si el usuario ya esta logueado
@@ -26,6 +27,8 @@ const RoutesApp = () => {
         path="/registrarse"
         element={userAuth ? <Navigate to="/inicio" /> : <Register />}
       />
+
+      <Route path="*" element={<Error404 />} />
 
       {/* RUTAS PROTEGIDAS */}
       {/* Las siguientes rutas están protegidas y requieren autenticación.
@@ -54,14 +57,14 @@ const RoutesApp = () => {
           </RoutesProtected>
         }
       />
-      <Route
+      {/*       <Route
         path="/cuotas"
         element={
           <RoutesProtected>
             <Cuotas />
           </RoutesProtected>
         }
-      />
+      /> */}
       <Route
         path="/vehiculos"
         element={

@@ -188,7 +188,7 @@ const DataGridVehicles = ({ rows, columns }) => {
           display: "flex",
           alignItems: "center",
           width: "98%",
-          height: "500px",
+          /* height: "500px", */
           marginLeft: 15,
         }}
       >
@@ -196,14 +196,15 @@ const DataGridVehicles = ({ rows, columns }) => {
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          initialState={{
+          /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]} */
           disableColumnSelector
           disableDensitySelector
+          disableRowSelectionOnClick
           slots={{ toolbar: GridToolbar }}
           slotProps={{
             toolbar: {
@@ -213,7 +214,8 @@ const DataGridVehicles = ({ rows, columns }) => {
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
-            marginTop: "3%",
+            marginTop: "2%",
+            marginBottom: "5%",
           }}
         />
       </div>
@@ -231,7 +233,7 @@ const DataGridVehicles = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar este vehiculo?
         </DialogContent>
-        <DialogActions style={{justifyContent: "center"}}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Typography
             style={{
               textAlign: "center",

@@ -24,6 +24,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "sonner": "^1.0.3",
+    "tailwindcss-animated": "^1.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

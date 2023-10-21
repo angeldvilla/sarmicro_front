@@ -1,7 +1,7 @@
 /* Estilo para la imagen dentro de la tarjeta */
 .cardImage {
   width: 100%;
-  height: 20rem;
+  height: 350px; /* 20rem */
   padding: 15px;
   border-radius: 1.9em;
 }

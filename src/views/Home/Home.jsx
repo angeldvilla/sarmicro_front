@@ -2,7 +2,7 @@ import React from "react";
 import {
   CardPolicy,
   CardPayments,
-  CardCuotas,
+  /* CardCuotas, */
   CardVehicles,
   CashBox,
   DetailPolicy
@@ -40,11 +40,11 @@ const Home = () => {
           </div>
         </div>
 
-        <div className={styles.cardStyle}>
+       {/*  <div className={styles.cardStyle}>
           <div className={styles.scaleUpBottom3}>
             <CardCuotas />
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.cardStyle}>
           <div className={styles.scaleUpBottom4}>

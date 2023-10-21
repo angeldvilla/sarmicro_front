@@ -21,7 +21,7 @@ const Values = () => {
     {
       field: "tipo_poliza",
       headerName: "Tipo Poliza",
-      width: 190,
+      width: 200,
     },
     {
       field: "vehiculo_grupo",
@@ -31,14 +31,40 @@ const Values = () => {
     {
       field: "valor_poliza",
       headerName: "Valor Poliza",
+      width: 120,
+    },
+    {
+      field: "dias",
+      headerName: "Dias",
       width: 100,
     },
     {
-      field: "cuota_inicial",
-      headerName: "Cuota Inicial",
-      width: 100,
+      field: "vehiculo_grupo_id",
+      headerName: "Grupo Vehiculo",
+      width: 120,
     },
     {
+      field: "cuota_inicial_porcentaje",
+      headerName: "Porcentaje Cuota Inicial",
+      width: 170,
+    },
+    {
+      field: "numero_cuotas",
+      headerName: "Numero Cuotas",
+      width: 120,
+    },
+    {
+      field: "fecha_inicial",
+      headerName: "Fecha Inicial",
+      width: 120,
+    },
+    {
+      field: "fecha_vencimiento",
+      headerName: "Fecha de Vencimiento",
+      width: 170,
+    },
+
+    /*     {
       field: "created_at",
       headerName: "Fecha Creación",
       width: 220,
@@ -71,7 +97,7 @@ const Values = () => {
           </span>
         );
       },
-    },
+    }, */
   ];
 
   return <DataGridValues rows={rows} columns={columns} sortModel={sortModel} />;

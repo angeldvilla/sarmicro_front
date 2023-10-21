@@ -14,13 +14,17 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import ModalCreateValue from "../Modals/ModalValorPoliza/ModalCreateValue";
 import ModalEditValue from "../Modals/ModalValorPoliza/ModalEditValue";
 import {
   createValorPoliza,
   getValoresPolizas,
+  getTipoPolizas,
   updateValorPoliza,
   deleteValorPoliza,
+  getTipoEmpresas,
 } from "../../redux/actions/actionsValues";
 import { esES } from "@mui/x-data-grid";
 
@@ -39,6 +43,8 @@ const DataGridValues = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getValoresPolizas());
+    dispatch(getTipoPolizas());
+    dispatch(getTipoEmpresas());
   }, [dispatch]);
 
   const handleOpen = () => {
@@ -107,7 +113,7 @@ const DataGridValues = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 150,
+    width: 90,
     renderCell: (params) => (
       <div
         style={{
@@ -159,18 +165,39 @@ const DataGridValues = ({ rows, columns }) => {
           alignItems: "center",
         }}
       >
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "18px",
+              marginBottom: "20px",
+              marginTop: "20px",
+              fontFamily: "sans-serif",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              color: "#0080ca",
+              fontSize: "1.2em",
+            }}
+          >
+            Listado de Valores de Polizas
+          </Paper>
+        </Grid>
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          initialState={{
+          /*  initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]} */
+          disableRowSelectionOnClick
           disableColumnSelector
           disableDensitySelector
+          hideFooterPagination
           slots={{ toolbar: CustomHeaderButton }}
           style={{
             backgroundColor: "#ffffffcc",
@@ -193,7 +220,7 @@ const DataGridValues = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar este valor de poliza?
         </DialogContent>
-        <DialogActions style={{justifyContent: "center"}}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Typography
             style={{
               textAlign: "center",

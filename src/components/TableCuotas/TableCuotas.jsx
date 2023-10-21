@@ -7,12 +7,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
+/* import AddIcon from "@mui/icons-material/Add"; */
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import ModalCreateCuota from "../Modals/ModalCuotas/ModalCreateCuota";
 import ModalEditCuota from "../Modals/ModalCuotas/ModalEditCuota";
@@ -23,6 +25,7 @@ import {
   deleteCuota,
 } from "../../redux/actions/actionsCuotas.js";
 import { esES } from "@mui/x-data-grid";
+import style from "../NavBar/navBar.module.css";
 
 const DataGridCuotas = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
@@ -42,16 +45,16 @@ const DataGridCuotas = ({ rows, columns }) => {
     dispatch(getCuotas());
   }, [dispatch]);
 
-  const handleOpen = () => {
+  /* const handleOpen = () => {
     setOpenForm(true);
-  };
+  }; */
 
   const handleCreate = async (data) => {
     setOpenForm(false);
     dispatch(createCuota(data));
   };
 
-  const CustomHeaderButton = () => {
+  /*   const CustomHeaderButton = () => {
     return (
       <div
         style={{
@@ -77,7 +80,7 @@ const DataGridCuotas = ({ rows, columns }) => {
         </div>
       </div>
     );
-  };
+  }; */
 
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
@@ -161,19 +164,45 @@ const DataGridCuotas = ({ rows, columns }) => {
           alignItems: "center",
         }}
       >
+        <div className={style.scaleWelcome}>
+          <Grid item xs={2}>
+            <Paper
+              elevation={3}
+              style={{
+                padding: "18px",
+                marginBottom: "20px",
+                marginTop: "20px",
+                fontFamily: "sans-serif",
+                fontStyle: "italic",
+                fontWeight: "bold",
+                color: "#0080ca",
+                fontSize: "1.2em",
+              }}
+            >
+              Listado de Cuotas
+            </Paper>
+          </Grid>
+        </div>
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          initialState={{
+          /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]} */
           disableColumnSelector
           disableDensitySelector
-          slots={{ toolbar: CustomHeaderButton }}
+          disableRowSelectionOnClick
+          /* hideFooterPagination */
+          slots={{ toolbar: GridToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
@@ -195,7 +224,7 @@ const DataGridCuotas = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar esta cuota?
         </DialogContent>
-        <DialogActions style={{justifyContent: "center"}}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Typography
             style={{
               textAlign: "center",

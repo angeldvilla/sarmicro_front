@@ -62,7 +62,7 @@ export default function ModalCreateCuota({ open, handleClose, handleCreate }) {
               variant="h6"
               component="div"
             >
-              Crear Valor de Póliza
+              Crear Cuota
             </Typography>
             <Button autoFocus color="inherit" onClick={handleCreateCuota}>
               Guardar

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+/* import { useNavigate } from "react-router-dom"; */
 import { useDispatch } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
@@ -10,11 +10,13 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+/*import ArrowBackIcon from "@mui/icons-material/ArrowBack"; */
 import InfoIcon from "@mui/icons-material/Info";
-import NavBar from "../NavBar/NavBar";
+/* import NavBar from "../NavBar/NavBar"; */
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import ModalCreate from "../Modals/ModalPayments/ModalCreate";
 import ModalEdit from "../Modals/ModalPayments/ModalEdit";
 import DetailsPayments from "../Details/DetailsPayments/DetailsPayments";
@@ -37,10 +39,10 @@ const DataGridPayments = ({ rows, columns }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  /*   const navigate = useNavigate();
   const backFunction = () => {
     navigate(-1);
-  };
+  }; */
 
   useEffect(() => {
     dispatch(getPolizas());
@@ -153,7 +155,7 @@ const DataGridPayments = ({ rows, columns }) => {
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
-      <NavBar />
+      {/*       <NavBar />
       <div
         style={{
           alignSelf: "flex-start",
@@ -164,7 +166,7 @@ const DataGridPayments = ({ rows, columns }) => {
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-      </div>
+      </div> */}
       <div
         style={{
           display: "flex",
@@ -172,18 +174,40 @@ const DataGridPayments = ({ rows, columns }) => {
           alignItems: "center",
         }}
       >
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "18px",
+              marginBottom: "20px",
+              marginTop: "20px",
+              fontFamily: "sans-serif",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              color: "#0080ca",
+              fontSize: "1.2em",
+            }}
+          >
+            Listado de Pagos de Polizas
+          </Paper>
+        </Grid>
+
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          initialState={{
+          /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]} */
           disableColumnSelector
           disableDensitySelector
+          disableRowSelectionOnClick
+          /* hideFooterPagination */
           slots={{ toolbar: GridToolbar }}
           slotProps={{
             toolbar: {
@@ -212,7 +236,7 @@ const DataGridPayments = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar este pago de poliza?
         </DialogContent>
-        <DialogActions style={{justifyContent: "center"}}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Typography
             style={{
               textAlign: "center",

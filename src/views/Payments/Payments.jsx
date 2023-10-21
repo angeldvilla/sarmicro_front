@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import DataGridPayments from "../../components/TablePayment/TablePayment.jsx";
+import Cuotas from "../Cuotas/Cuotas.jsx";
 import { useSelector } from "react-redux";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 const Payments = () => {
   const rows = useSelector((state) => state?.payments?.polizasData);
+  const [scrollUp, setScrollUp] = useState(false);
+
+  const handleScrollUp = () => {
+    if (window.scrollY > 500) {
+      setScrollUp(true);
+    } else {
+      setScrollUp(false);
+    }
+  };
+
+  const scrollToUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollUp);
+    return () => window.removeEventListener("scroll", handleScrollUp);
+  }, []);
 
   const sortModel = [
     {
@@ -107,7 +130,33 @@ const Payments = () => {
   ];
 
   return (
-    <DataGridPayments rows={rows} columns={columns} sortModel={sortModel} />
+    <>
+      <Cuotas />
+      <hr
+        style={{
+          borderColor: "#0080ca9e",
+          borderWidth: "2px",
+          margin: "20px 0",
+        }}
+      />
+      <DataGridPayments rows={rows} columns={columns} sortModel={sortModel} />
+      <div>
+        {scrollUp && (
+          <button
+            onClick={scrollToUp}
+            className="fixed bottom-10 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
+          >
+            <ArrowUpwardIcon
+              style={{
+                width: "35px",
+                height: "35px",
+                backgroundColor: "#0080ca",
+              }}
+            />
+          </button>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,16 +33,21 @@ export default function ModalEditValue({
 
   const [editedRow, setEditedRow] = useState(rowEdit);
 
+  const typePolicy = useSelector((state) => state?.values?.typesPolicys);
+  const typeEnterprise = useSelector((state) => state?.values?.typesEnterprise);
+
   const handleEditValuePoliza = () => {
-    const today = new Date().toISOString().split("T")[0];
     const data = {
       id: editedRow.id,
       tipo_poliza: editedRow.tipo_poliza,
       vehiculo_grupo: editedRow.vehiculo_grupo,
       valor_poliza: editedRow.valor_poliza,
-      cuota_inicial: editedRow.cuota_inicial,
-      created_at: today,
-      updated_at: null,
+      dias: editedRow.dias,
+      vehiculo_grupo_id: editedRow.vehiculo_grupo_id,
+      numero_cuotas: editedRow.numero_cuotas,
+      cuota_inicial_porcentaje: editedRow.cuota_inicial_porcentaje,
+      fecha_inicial: editedRow.fecha_inicial,
+      fecha_vencimiento: editedRow.fecha_vencimiento,
     };
     handleEdit(data, rowEdit.id);
   };
@@ -54,9 +64,20 @@ export default function ModalEditValue({
           <Toolbar>
             <IconButton
               edge="start"
-              color="inherit"
+              style={{
+                backgroundColor: "rgba(94, 94, 94, 0.144)",
+                color: "white",
+              }}
               onClick={handleClose}
               aria-label="close"
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(187, 12, 0, 0.938)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(94, 94, 94, 0.144)")
+              }
             >
               <CloseIcon />
             </IconButton>
@@ -67,43 +88,92 @@ export default function ModalEditValue({
             >
               Editar Valor de Poliza
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleEditValuePoliza}>
+            <Button
+              style={{
+                backgroundColor: "rgba(0, 148, 7, 0.795)",
+                color: "white",
+              }}
+              /* autoFocus */
+              onClick={handleEditValuePoliza}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 173, 9, 0.753)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 148, 7, 0.795)")
+              }
+            >
               Guardar
             </Button>
           </Toolbar>
         </AppBar>
         <Grid container spacing={2} sx={{ p: 20 }}>
           <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Tipo de Poliza"
-              margin="none"
-              name="TipoPoliza"
-              value={editedRow ? editedRow?.tipo_poliza : ""}
-              placeholder="Ingrese Tipo de Poliza"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  tipo_poliza: e.target.value,
-                }))
-              }
-            />
+            <FormControl fullWidth>
+              <InputLabel>Tipo de Poliza</InputLabel>
+              <Select
+                label="Tipo de Poliza"
+                variant="outlined"
+                value={editedRow ? editedRow?.tipo_poliza : ""}
+                onChange={(e) =>
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    tipo_poliza: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value="">
+                  <em>Ninguno</em>
+                </MenuItem>
+                {typePolicy &&
+                  typePolicy.map((policy) => (
+                    <MenuItem key={policy.id_tipov} value={policy.tipov}>
+                      {policy.tipov}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
+
           <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Grupo de Vehiculo"
-              margin="none"
-              name="GrupoVehiculo"
-              value={editedRow ? editedRow?.vehiculo_grupo : ""}
-              placeholder="Ingrese el grupo del vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  vehiculo_grupo: e.target.value,
-                }))
-              }
-            />
+            <FormControl fullWidth>
+              <InputLabel>Empresa</InputLabel>
+              <Select
+                label="Empresa"
+                variant="outlined"
+                value={editedRow ? editedRow?.vehiculo_grupo_id : ""}
+                onChange={(e) => {
+                  const selectedVehiculoGrupoId = e.target.value;
+
+                  // Encontrar la empresa correspondiente al vehiculo_grupo_id
+                  const foundEnterprise = typeEnterprise.find(
+                    (enterprise) =>
+                      enterprise.id_empresa === selectedVehiculoGrupoId
+                  );
+
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    /* empresa: foundEnterprise.nombre, */
+                    vehiculo_grupo_id: selectedVehiculoGrupoId,
+                    vehiculo_grupo: foundEnterprise.grupo,
+                  }));
+                }}
+              >
+                <MenuItem value="">
+                  <em>Ninguno</em>
+                </MenuItem>
+                {typeEnterprise &&
+                  typeEnterprise.map((enterprise) => (
+                    <MenuItem
+                      key={enterprise.id_empresa}
+                      value={enterprise.id_empresa}
+                    >
+                      {enterprise.nombre} - {enterprise.grupo}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
@@ -124,18 +194,91 @@ export default function ModalEditValue({
             />
           </Grid>
           <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Tipo de Cuotas (Dias)</InputLabel>
+              <Select
+                label="Tipo de Cuotas (Dias)"
+                variant="outlined"
+                value={editedRow ? editedRow?.dias : ""}
+                onChange={(e) =>
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    dias: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value="">
+                  <em>Ninguno</em>
+                </MenuItem>
+                <MenuItem value={7}>Semanal</MenuItem>
+                <MenuItem value={15}>Quincenal</MenuItem>
+                <MenuItem value={31}>Mensual</MenuItem>
+                <MenuItem value={93}>Trimestral</MenuItem>
+                <MenuItem value={180}>Semestral</MenuItem>
+                <MenuItem value={365}>Anual</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Cuota Inicial"
+              label="Numero de Cuotas"
               margin="none"
-              name="CuotaInicial"
+              name="ValorPoliza"
               type="number"
-              value={editedRow ? editedRow?.cuota_inicial : ""}
-              placeholder="Ingrese el monto de la cuota inicial"
+              value={editedRow ? editedRow?.numero_cuotas : ""}
+              placeholder="Ingrese el numero de cuotas"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  cuota_inicial: e.target.value,
+                  numero_cuotas: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Porcentaje de Cuota"
+              margin="none"
+              name="PorcentajeCuota"
+              type="number"
+              value={editedRow ? editedRow?.cuota_inicial_porcentaje : ""}
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  cuota_inicial_porcentaje: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Fecha Inicial"
+              name={"FechaIni"}
+              margin="none"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              disabled
+              value={editedRow ? editedRow?.fecha_inicial : ""}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Fecha de Vencimiento"
+              name={"FechaFin"}
+              margin="none"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              value={editedRow ? editedRow?.fecha_vencimiento : ""}
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  fecha_vencimiento: e.target.value,
                 }))
               }
             />

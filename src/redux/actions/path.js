@@ -15,3 +15,5 @@ export const VEHICULOS_URL = "/vehiculo"; /* -> RUTA PARA CONSULTAR LOS VEHICULO
 
 export const REGISTER_ALL_POLIZAS = "/registerPolizas"; /* -> RUTA PARA REGISTRAR TODAS LAS POLIZAS DEL PARQUE AUTOMOTORO */
 export const DETAIL_POLICYS_URL = "" /* -> RUTA PARA CONSULTAR LOS DETALLES DE UNA POLIZA ELIMINADA */
+export const TIPO_POLIZA_URL = "/tipov-poliza";
+export const TIPO_EMPRESA_URL = "/tipo-empresa-poliza";
