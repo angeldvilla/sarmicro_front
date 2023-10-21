@@ -1,37 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVehicle } from "../../redux/actions/actionsVehicles";
-import DataGridVehicles from "../../components/TableVehicles/TableVehicles";
-import OffVehicles from "./VehiclesOff";
+import DataGridOffVehicles from "../../components/TableVehicles/OffVehicles";
 import Switch from "@mui/material/Switch";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
-const Vehicles = () => {
+const OffVehicles = () => {
   const rows = useSelector((state) => state?.vehicles?.vechiculosData);
-  const [scrollUp, setScrollUp] = useState(false);
-
-  const handleScrollUp = () => {
-    if (window.scrollY > 500) {
-      setScrollUp(true);
-    } else {
-      setScrollUp(false);
-    }
-  };
-
-  const scrollToUp = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScrollUp);
-    return () => window.removeEventListener("scroll", handleScrollUp);
-  }, []);
 
   const dispatch = useDispatch();
-
   const handleSwitchChange = (event, rowId) => {
     const newState = event.target.checked ? "1" : "0";
 
@@ -126,40 +102,15 @@ const Vehicles = () => {
       ),
     },
   ];
-
   return (
     <>
-      <DataGridVehicles
+      <DataGridOffVehicles
         rows={rows}
         columns={columns}
         getRowId={(row) => row.id_movil}
       />
-      <hr
-        style={{
-          borderColor: "#0080ca9e",
-          borderWidth: "2px",
-          margin: "20px 0",
-        }}
-      />
-      <OffVehicles />
-      <div>
-        {scrollUp && (
-          <button
-            onClick={scrollToUp}
-            className="fixed bottom-10 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
-          >
-            <ArrowUpwardIcon
-              style={{
-                width: "35px",
-                height: "35px",
-                backgroundColor: "#0080ca",
-              }}
-            />
-          </button>
-        )}
-      </div>
     </>
   );
 };
 
-export default Vehicles;
+export default OffVehicles;

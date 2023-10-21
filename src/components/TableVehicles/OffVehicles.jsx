@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+/* import { useNavigate } from "react-router-dom"; */
 import { useDispatch } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
@@ -9,10 +9,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import NavBar from "../NavBar/NavBar";
+/* import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import NavBar from "../NavBar/NavBar"; */
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import ModalCreateVehicle from "../Modals/ModalVehicles/ModalCreateVehicle";
 import ModalEditVehicle from "../Modals/ModalVehicles/ModalEditVehicle";
 import {
@@ -24,9 +26,9 @@ import {
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster } from "sonner";
-import styles from "../Buttons/styleButton.module.css";
+/* import styles from "../Buttons/styleButton.module.css"; */
 
-const DataGridVehicles = ({ rows, columns }) => {
+const DataGridOffVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -34,10 +36,10 @@ const DataGridVehicles = ({ rows, columns }) => {
   const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
-  const navigate = useNavigate();
-  const backFunction = () => {
+  /* const navigate = useNavigate();
+   const backFunction = () => {
     navigate(-1);
-  };
+  }; */
 
   const dispatch = useDispatch();
 
@@ -45,18 +47,18 @@ const DataGridVehicles = ({ rows, columns }) => {
     dispatch(getVehiculos());
   }, [dispatch]);
 
-  const handleOpen = () => {
+  /*  const handleOpen = () => {
     setOpenForm(true);
-  };
+  }; */
 
   const handleCreate = async (data) => {
     setOpenForm(false);
     dispatch(createVehicle(data));
   };
 
-  const confirmRegisterPolizas = () => {
+  /*   const confirmRegisterPolizas = () => {
     setOpenRegisterPolizas(true);
-  };
+  }; */
 
   const registerPolizas = () => {
     setOpenRegisterPolizas(false);
@@ -126,7 +128,7 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
-      <NavBar />
+      {/* <NavBar />
       <div
         style={{
           display: "flex",
@@ -182,16 +184,33 @@ const DataGridVehicles = ({ rows, columns }) => {
             Registrar Polizas
           </Typography>
         </div>
-      </div>
+      </div> */}
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          width: "98%",
-          /* height: "500px", */
-          marginLeft: 15,
         }}
       >
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "18px",
+              marginBottom: "20px",
+              marginTop: "15%",
+              fontFamily: "sans-serif",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              color: "#0080ca",
+              fontSize: "1.2em",
+            }}
+          >
+            Listado de Vehiculos Desvinculados
+          </Paper>
+        </Grid>
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
@@ -215,7 +234,7 @@ const DataGridVehicles = ({ rows, columns }) => {
             backgroundColor: "#ffffffcc",
             color: "black",
             marginTop: "2%",
-            marginBottom: "2%",
+            marginBottom: "5%",
           }}
         />
       </div>
@@ -381,4 +400,4 @@ const DataGridVehicles = ({ rows, columns }) => {
   );
 };
 
-export default DataGridVehicles;
+export default DataGridOffVehicles;
