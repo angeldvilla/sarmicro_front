@@ -1,5 +1,6 @@
 import {
   GET_VEHICULOS,
+  GET_OFF_VEHICULOS,
   CREATE_VEHICULO,
   UPDATE_VEHICULO,
   LOGOUT,
@@ -7,6 +8,7 @@ import {
 
 const initialState = {
   vechiculosData: [],
+  offVehiculos: [],
 };
 
 export default function VehiclesReducer(state = initialState, action) {
@@ -15,6 +17,12 @@ export default function VehiclesReducer(state = initialState, action) {
       return {
         ...state,
         vechiculosData: action.payload,
+      };
+
+    case GET_OFF_VEHICULOS:
+      return {
+        ...state,
+        offVehiculos: action.payload,
       };
 
     case CREATE_VEHICULO:
@@ -35,6 +43,7 @@ export default function VehiclesReducer(state = initialState, action) {
       return {
         ...state,
         vechiculosData: [],
+        offVehiculos: [],
       };
 
     default:

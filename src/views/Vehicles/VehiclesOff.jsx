@@ -1,13 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateVehicle } from "../../redux/actions/actionsVehicles";
+import { /* useDispatch, */ useSelector } from "react-redux";
+/* import { updateVehicle } from "../../redux/actions/actionsVehicles"; */
 import DataGridOffVehicles from "../../components/TableVehicles/OffVehicles";
-import Switch from "@mui/material/Switch";
+/* import Switch from "@mui/material/Switch"; */
 
 const OffVehicles = () => {
   const rows = useSelector((state) => state?.vehicles?.vechiculosData);
 
-  const dispatch = useDispatch();
+  /* const dispatch = useDispatch();
   const handleSwitchChange = (event, rowId) => {
     const newState = event.target.checked ? "1" : "0";
 
@@ -19,7 +19,7 @@ const OffVehicles = () => {
     };
 
     dispatch(updateVehicle(updatedVehicle, rowId));
-  };
+  }; */
 
   const columns = [
     {
@@ -30,65 +30,75 @@ const OffVehicles = () => {
     {
       field: "id_movil",
       headerName: "ID Movil",
-      width: 90,
+      width: 80,
     },
     {
-      field: "id_propietario",
+      field: "propietario",
       headerName: "Propietario",
-      width: 100,
+      width: 90,
     },
     {
       field: "modelo",
       headerName: "Modelo",
-      width: 90,
+      width: 80,
     },
     {
       field: "placa",
       headerName: "Placa",
-      width: 100,
+      width: 90,
     },
     {
       field: "clase",
       headerName: "Clase",
-      width: 150,
+      width: 120,
     },
     {
-      field: "pago_hasta",
-      headerName: "Pago Hasta",
-      width: 100,
+      field: "referencia",
+      headerName: "Referencia",
+      width: 80,
     },
     {
       field: "grupo",
       headerName: "Grupo",
-      width: 90,
+      width: 70,
     },
     {
       field: "poliza",
       headerName: "Poliza",
-      width: 70,
+      width: 60,
     },
     {
-      field: "propio",
-      headerName: "Propio",
-      width: 70,
+      field: "motor",
+      headerName: "Motor",
+      width: 140,
+    },
+    {
+      field: "telefono",
+      headerName: "Telefono",
+      width: 90,
     },
 
     {
       field: "referencia",
       headerName: "Referencia",
-      width: 90,
+      width: 120,
     },
     {
       field: "serie",
       headerName: "Serie",
-      width: 180,
+      width: 175,
     },
-    {
+    /*  {
       field: "tipo",
       headerName: "Tipo",
+      width: 90,
+    }, */
+    {
+      field: "tipov",
+      headerName: "Tipo Vehiculo",
       width: 140,
     },
-    {
+    /*     {
       field: "estado",
       headerName: "Estado",
       width: 70,
@@ -100,7 +110,7 @@ const OffVehicles = () => {
           onChange={(event) => handleSwitchChange(event, params.row.id)}
         />
       ),
-    },
+    }, */
   ];
   return (
     <>

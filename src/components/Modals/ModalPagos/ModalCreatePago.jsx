@@ -72,6 +72,7 @@ export default function ModalCreatePago({ open, handleClose, handleCreate }) {
               style={{
                 backgroundColor: "rgba(0, 148, 7, 0.795)",
                 color: "white",
+                borderRadius: "8px",
               }}
               /* autoFocus */
               onClick={handleCreatePago}

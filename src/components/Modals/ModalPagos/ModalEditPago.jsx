@@ -49,12 +49,23 @@ export default function ModalEditPago({
         TransitionComponent={Transition}
       >
         <AppBar sx={{ position: "relative" }}>
-          <Toolbar>
+        <Toolbar>
             <IconButton
               edge="start"
-              color="inherit"
+              style={{
+                backgroundColor: "rgba(94, 94, 94, 0.144)",
+                color: "white",
+              }}
               onClick={handleClose}
               aria-label="close"
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(187, 12, 0, 0.938)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(94, 94, 94, 0.144)")
+              }
             >
               <CloseIcon />
             </IconButton>
@@ -65,7 +76,23 @@ export default function ModalEditPago({
             >
               Editar Pago
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleEditPago}>
+            <Button
+              style={{
+                backgroundColor: "rgba(0, 148, 7, 0.795)",
+                color: "white",
+                borderRadius: "8px",
+              }}
+              /* autoFocus */
+              onClick={handleEditPago}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 173, 9, 0.753)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 148, 7, 0.795)")
+              }
+            >
               Guardar
             </Button>
           </Toolbar>

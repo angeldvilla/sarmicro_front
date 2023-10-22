@@ -95,7 +95,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 150,
+    width: 75,
     renderCell: (params) => (
       <div
         style={{
@@ -128,63 +128,6 @@ const DataGridOffVehicles = ({ rows, columns }) => {
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
-      {/* <NavBar />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: 20,
-          marginLeft: 20,
-        }}
-      >
-        <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: "auto",
-            marginRight: "1.5em",
-            gap: "1rem",
-          }}
-        >
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "#0ca840ed",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            className={styles.botonLogin}
-            onClick={handleOpen}
-          >
-            Crear Vehiculo
-          </Typography>
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(209, 188, 3, 0.966)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            className={styles.botonRegisterPolizas}
-            onClick={confirmRegisterPolizas}
-          >
-            Registrar Polizas
-          </Typography>
-        </div>
-      </div> */}
       <div
         style={{
           display: "flex",
@@ -199,8 +142,8 @@ const DataGridOffVehicles = ({ rows, columns }) => {
               justifyContent: "center",
               alignItems: "center",
               padding: "18px",
-              marginBottom: "20px",
-              marginTop: "15%",
+              marginBottom: "2%",
+              marginTop: "16%",
               fontFamily: "sans-serif",
               fontStyle: "italic",
               fontWeight: "bold",
@@ -211,32 +154,42 @@ const DataGridOffVehicles = ({ rows, columns }) => {
             Listado de Vehiculos Desvinculados
           </Paper>
         </Grid>
-        <DataGrid
-          rows={rows}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={[...columns, actionsColumn]}
-          /* initialState={{
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            width: "98%",
+            /* height: "500px", */
+            marginLeft: 15,
+          }}
+        >
+          <DataGrid
+            rows={rows}
+            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+            columns={[...columns, actionsColumn]}
+            /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[10, 25, 50, 100]} */
-          disableColumnSelector
-          disableDensitySelector
-          disableRowSelectionOnClick
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-          style={{
-            backgroundColor: "#ffffffcc",
-            color: "black",
-            marginTop: "2%",
-            marginBottom: "5%",
-          }}
-        />
+            disableColumnSelector
+            disableDensitySelector
+            disableRowSelectionOnClick
+            slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+              },
+            }}
+            style={{
+              backgroundColor: "#ffffffcc",
+              color: "black",
+              marginTop: "2%",
+              marginBottom: "5%",
+            }}
+          />
+        </div>
       </div>
       <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>

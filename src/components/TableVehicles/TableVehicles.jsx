@@ -13,6 +13,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import ModalCreateVehicle from "../Modals/ModalVehicles/ModalCreateVehicle";
 import ModalEditVehicle from "../Modals/ModalVehicles/ModalEditVehicle";
 import {
@@ -186,38 +188,65 @@ const DataGridVehicles = ({ rows, columns }) => {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          width: "98%",
-          /* height: "500px", */
-          marginLeft: 15,
         }}
       >
-        <DataGrid
-          rows={rows}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={[...columns, actionsColumn]}
-          /* initialState={{
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "18px",
+              marginBottom: "2%",
+              marginTop: "8%",
+              fontFamily: "sans-serif",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              color: "#0080ca",
+              fontSize: "1.2em",
+            }}
+          >
+            Listado de Vehiculos Vinculados
+          </Paper>
+        </Grid>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            width: "98%",
+            /* height: "500px", */
+            marginLeft: 15,
+          }}
+        >
+          <DataGrid
+            rows={rows}
+            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+            columns={[...columns, actionsColumn]}
+            /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[10, 25, 50, 100]} */
-          disableColumnSelector
-          disableDensitySelector
-          disableRowSelectionOnClick
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-          style={{
-            backgroundColor: "#ffffffcc",
-            color: "black",
-            marginTop: "2%",
-            marginBottom: "2%",
-          }}
-        />
+            disableColumnSelector
+            disableDensitySelector
+            disableRowSelectionOnClick
+            slots={{ toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+              },
+            }}
+            style={{
+              backgroundColor: "#ffffffcc",
+              color: "black",
+              marginTop: "2%",
+              marginBottom: "2%",
+            }}
+          />
+        </div>
       </div>
       <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>

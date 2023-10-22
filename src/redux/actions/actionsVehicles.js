@@ -1,9 +1,15 @@
 import axios from "axios";
-import { ENDPOINT, VEHICULOS_URL, REGISTER_ALL_POLIZAS } from "./path.js";
+import {
+  ENDPOINT,
+  VEHICULOS_URL,
+  REGISTER_ALL_POLIZAS,
+  VEHICULOS_OFF_URL,
+} from "./path.js";
 import {
   GET_VEHICULOS,
   CREATE_VEHICULO,
   UPDATE_VEHICULO,
+  GET_OFF_VEHICULOS,
 } from "./actionTypes.js";
 import { toast } from "sonner";
 
@@ -15,6 +21,23 @@ export const getVehiculos = () => {
       const { data } = await axios.get(vechiculosPath);
       return dispatch({
         type: GET_VEHICULOS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("No hay datos de vehiculos");
+    }
+  };
+};
+
+// Acción para obtener datos de vehiculos desvinculados
+export const getOffVehiculos = () => {
+  return async (dispatch) => {
+    const vechiculosPath = `${ENDPOINT}${VEHICULOS_OFF_URL}`;
+    try {
+      const { data } = await axios.get(vechiculosPath);
+      return dispatch({
+        type: GET_OFF_VEHICULOS,
         payload: data,
       });
     } catch (error) {

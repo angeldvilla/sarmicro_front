@@ -7,7 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-/* import AddIcon from "@mui/icons-material/Add"; */
+import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -45,16 +45,16 @@ const DataGridCuotas = ({ rows, columns }) => {
     dispatch(getCuotas());
   }, [dispatch]);
 
-  /* const handleOpen = () => {
+  const handleOpen = () => {
     setOpenForm(true);
-  }; */
+  };
 
   const handleCreate = async (data) => {
     setOpenForm(false);
     dispatch(createCuota(data));
   };
 
-  /*   const CustomHeaderButton = () => {
+  const CustomHeaderButton = () => {
     return (
       <div
         style={{
@@ -80,7 +80,7 @@ const DataGridCuotas = ({ rows, columns }) => {
         </div>
       </div>
     );
-  }; */
+  };
 
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
@@ -197,12 +197,7 @@ const DataGridCuotas = ({ rows, columns }) => {
           disableDensitySelector
           disableRowSelectionOnClick
           /* hideFooterPagination */
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
+          slots={{ toolbar: CustomHeaderButton }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
