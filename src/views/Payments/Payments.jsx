@@ -91,7 +91,17 @@ const Payments = () => {
           >
             {params.value === "" || params.value === "0"
               ? "Definir tipo de cuotas"
-              : params.value}
+              : params.value === "15"
+              ? "Quincenal"
+              : params.value === "31"
+              ? "Mensual"
+              : params.value === "91"
+              ? "Trimestral"
+              : params.value === "180"
+              ? "Semestral"
+              : params.value === "365"
+              ? "Anual"
+              : ""}
           </span>
         );
       },
@@ -102,9 +112,9 @@ const Payments = () => {
       width: 150,
     },
     {
-      field: "cliente_id",
+      field: "nombre",
       headerName: "Nombre Cliente",
-      width: 125,
+      width: 310,
     },
     {
       field: "id_vehiculo",

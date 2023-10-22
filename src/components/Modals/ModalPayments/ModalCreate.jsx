@@ -42,14 +42,14 @@ export default function ModalCreate({
       monto_total: editedRow.monto_total,
       numero_cuotas: editedRow.numero_cuotas,
       dias_cuota: editedRow.dias_cuota,
-      porcentaje: editedRow.porcentaje,
-      total_pagar: editedRow.total_pagar,
+      /* porcentaje: editedRow.porcentaje, */
+      valor_inicial: editedRow.valor_inicial,
       estado: 1,
     };
     handleCreate(dataPoliza);
   };
 
-  const valueTotal = (event) => {
+  /* const valueTotal = (event) => {
     const porcentaje = event.target.value;
 
     const total_pagar = parseFloat(editedRow.monto_total * porcentaje) / 100;
@@ -62,7 +62,7 @@ export default function ModalCreate({
         };
       });
     }
-  };
+  }; */
 
   return (
     <div>
@@ -196,12 +196,14 @@ export default function ModalCreate({
                 <MenuItem value={7}>Semanal</MenuItem>
                 <MenuItem value={15}>Quincenal</MenuItem>
                 <MenuItem value={31}>Mensual</MenuItem>
+                <MenuItem value={91}>Trimestral</MenuItem>
                 <MenuItem value={180}>Semestral</MenuItem>
+                <MenuItem value={365}>Anual</MenuItem>
               </Select>
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+        {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Porcentaje de Cuota"
@@ -211,19 +213,20 @@ export default function ModalCreate({
               value={editedRow ? editedRow?.porcentaje : ""}
               placeholder="Ingrese el porcentaje de la primera cuota"
               onChange={valueTotal}
+              disabled
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Valor Total a Pagar"
+              label="Valor de la cuota"
               margin="none"
               name="TotalPagar"
               /* type="number" */
               InputLabelProps={{ shrink: true }}
-              value={editedRow ? editedRow?.total_pagar : ""}
-              placeholder="Valor total a pagar"
+              value={editedRow ? editedRow?.valor_inicial : ""}
+              placeholder="Valor de la cuota"
               disabled
             />
           </Grid>
@@ -275,7 +278,7 @@ export default function ModalCreate({
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={editedRow ? editedRow?.cliente_id : ""}
+              value={editedRow ? editedRow?.nombre : ""}
               disabled
             />
           </Grid>

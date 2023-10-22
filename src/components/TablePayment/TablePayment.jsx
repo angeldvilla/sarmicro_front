@@ -52,9 +52,9 @@ const DataGridPayments = ({ rows, columns }) => {
     const selectedRow = rows.find((row) => row.id === rowId);
 
     if (selectedRow) {
-      const { dias_cuota, numero_cuotas } = selectedRow;
+      const { estado } = selectedRow;
 
-      if (dias_cuota !== "" && numero_cuotas !== "0") {
+      if (estado === "1") {
         toast.error("Cuotas ya registradas");
       } else {
         setRowEdit(selectedRow);
@@ -190,7 +190,7 @@ const DataGridPayments = ({ rows, columns }) => {
               fontSize: "1.2em",
             }}
           >
-            Listado de Pagos de Polizas
+            Lista de Cuotas Iniciales Polizas
           </Paper>
         </Grid>
 

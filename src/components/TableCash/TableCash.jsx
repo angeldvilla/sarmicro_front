@@ -11,7 +11,7 @@ import NavBar from "../NavBar/NavBar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import ModalCreatePago from "../Modals/ModalPagos/ModalCreatePago";
+import ModalCash from "../Modals/ModalCash/ModalCash";
 import { getPagos, createPago } from "../../redux/actions/actionsCashBox";
 import { esES } from "@mui/x-data-grid";
 
@@ -170,7 +170,7 @@ const DataGridCash = ({ rows, columns }) => {
           />
         </div>
       </div>
-      <ModalCreatePago
+      <ModalCash
         open={openForm}
         handleClose={() => setOpenForm(false)}
         handleCreate={handleCreate}

@@ -7,6 +7,7 @@ import {
   UPDATE_POLIZA,
 } from "./actionTypes.js";
 import { toast } from "sonner";
+import { getCuotas } from "./actionsCuotas.js";
 
 // Acción para obtener datos de clientes
 export const getClientes = () => {
@@ -49,6 +50,7 @@ export const createPoliza = (polizaData) => {
       const { data } = await axios.post(polizaPath, polizaData);
       toast.success("Pago de poliza creado con exito");
       dispatch(getPolizas());
+      dispatch(getCuotas());
       return dispatch({
         type: CREATE_POLIZA,
         payload: data,

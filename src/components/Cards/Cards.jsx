@@ -159,7 +159,7 @@ export const CardPayments = () => {
 export const CardVehicles = () => {
   return (
     <div className={styles.cardContainer}>
-      <NavLink to="/vehiculos">
+      <a href="/vehiculos">
         <Card style={{ borderRadius: "1.2em" }}>
           <CardActionArea>
             <CardMedia
@@ -197,7 +197,7 @@ export const CardVehicles = () => {
             <LocalTaxiIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography> */}
         </div>
-      </NavLink>
+      </a>
     </div>
   );
 };

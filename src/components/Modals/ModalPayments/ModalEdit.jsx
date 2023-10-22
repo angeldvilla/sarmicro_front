@@ -33,7 +33,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
       numero_cuotas: editedRow.numero_cuotas,
       dias_cuota: editedRow.dias_cuota,
       cedula: editedRow.cedula,
-      cliente_id: editedRow.cliente_id,
+      nombre: editedRow.nombre,
       /* porcentaje: editedRow.porcentaje,
       total_pagar: editedRow.total_pagar, */
       estado: 1,
@@ -157,7 +157,24 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Tipo de Cuotas"
               name="TipCuotas"
               variant="outlined"
-              value={editedRow ? editedRow?.dias_cuota : ""}
+              value={
+                editedRow
+                  ? editedRow?.dias_cuota === "" ||
+                    editedRow?.dias_cuota === "0"
+                    ? "Definir tipo de cuotas"
+                    : editedRow?.dias_cuota === "15"
+                    ? "Quincenal"
+                    : editedRow?.dias_cuota === "31"
+                    ? "Mensual"
+                    : editedRow?.dias_cuota === "91"
+                    ? "Trimestral"
+                    : editedRow?.dias_cuota === "180"
+                    ? "Semestral"
+                    : editedRow?.dias_cuota === "365"
+                    ? "Anual"
+                    : "Ninguno"
+                  : ""
+              }
               disabled
             />
           </Grid>
@@ -249,7 +266,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={editedRow ? editedRow?.cliente_id : ""}
+              value={editedRow ? editedRow?.nombre : ""}
               disabled
             />
           </Grid>

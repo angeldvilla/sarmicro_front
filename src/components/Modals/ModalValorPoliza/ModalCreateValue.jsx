@@ -34,6 +34,7 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
     cuota_inicial_porcentaje: "",
     fecha_inicial: today,
     fecha_vencimiento: "",
+    valor_inicial: 0,
   });
   console.log(newValorPoliza);
   const handleCreateValuePoliza = () => {
@@ -48,9 +49,26 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
       cuota_inicial_porcentaje: newValorPoliza.cuota_inicial_porcentaje,
       fecha_inicial: newValorPoliza.fecha_inicial,
       fecha_vencimiento: newValorPoliza.fecha_vencimiento,
+      valor_inicial: newValorPoliza.valor_inicial,
     };
-    console.log(valuePoliza);
+
     handleCreate(valuePoliza);
+  };
+
+  const valueTotal = (event) => {
+    const cuota_inicial_porcentaje = event.target.value;
+
+    const valor_inicial =
+      parseFloat(newValorPoliza.valor_poliza * cuota_inicial_porcentaje) / 100;
+    if (!isNaN(cuota_inicial_porcentaje)) {
+      setNewValorPoliza((prevState) => {
+        return {
+          ...prevState,
+          cuota_inicial_porcentaje,
+          valor_inicial,
+        };
+      });
+    }
   };
 
   return (
@@ -262,12 +280,25 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
               value={
                 newValorPoliza ? newValorPoliza?.cuota_inicial_porcentaje : ""
               }
-              onChange={(e) =>
+              /*  onChange={(e) =>
                 setNewValorPoliza((prevState) => ({
                   ...prevState,
                   cuota_inicial_porcentaje: e.target.value,
                 }))
-              }
+              } */
+              onChange={valueTotal}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Valor inicial"
+              margin="none"
+              name="TotalPagar"
+              type="number"
+              value={newValorPoliza ? newValorPoliza?.valor_inicial : ""}
+              placeholder="Valor inicial"
+              disabled
             />
           </Grid>
           <Grid item xs={6}>

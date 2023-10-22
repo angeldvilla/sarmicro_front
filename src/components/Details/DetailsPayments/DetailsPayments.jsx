@@ -41,8 +41,8 @@ export default function DetailsPayments({ openDetail, closeDetail, rowEdit }) {
                 >
                   <Typography style={{ marginBottom: "20px" }}>
                     Nombre:{" "}
-                    {editedRow.cliente_id.charAt(0).toUpperCase() +
-                      editedRow.cliente_id.slice(1).toLowerCase()}
+                    {editedRow.nombre.charAt(0).toUpperCase() +
+                      editedRow.nombre.slice(1).toLowerCase()}
                   </Typography>
 
                   <Typography style={{ marginBottom: "20px" }}>

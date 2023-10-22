@@ -45,6 +45,14 @@ const Vehicles = () => {
     dispatch(updateVehicle(updatedVehicle, rowId));
   };
 
+  const sortedRows = [...rows].sort((a, b) => {
+    if (a.clase < b.clase) return -1;
+    if (a.clase > b.clase) return 1;
+    return 0;
+  });
+
+  /* const sortedRows */
+
   const columns = [
     {
       field: "id",
@@ -57,7 +65,7 @@ const Vehicles = () => {
       width: 90,
     },
     {
-      field: "id_propietario",
+      field: "propietario",
       headerName: "Propietario",
       width: 100,
     },
@@ -77,8 +85,8 @@ const Vehicles = () => {
       width: 150,
     },
     {
-      field: "pago_hasta",
-      headerName: "Pago Hasta",
+      field: "motor",
+      headerName: "Motor",
       width: 100,
     },
     {
@@ -89,11 +97,6 @@ const Vehicles = () => {
     {
       field: "poliza",
       headerName: "Poliza",
-      width: 70,
-    },
-    {
-      field: "propio",
-      headerName: "Propio",
       width: 70,
     },
 
@@ -113,6 +116,11 @@ const Vehicles = () => {
       width: 140,
     },
     {
+      field: "tipov",
+      headerName: "Tipo Vehiculo",
+      width: 90,
+    },
+    {
       field: "estado",
       headerName: "Estado",
       width: 70,
@@ -130,7 +138,7 @@ const Vehicles = () => {
   return (
     <>
       <DataGridVehicles
-        rows={rows}
+        rows={sortedRows}
         columns={columns}
         getRowId={(row) => row.id_movil}
       />

@@ -37,6 +37,25 @@ const Values = () => {
       field: "dias",
       headerName: "Dias",
       width: 100,
+      renderCell: (params) => {
+        return (
+          <span>
+            {params.value === "" || params.value === "0"
+              ? "Definir tipo de cuotas"
+              : params.value === "15"
+              ? "Quincenal"
+              : params.value === "31"
+              ? "Mensual"
+              : params.value === "91"
+              ? "Trimestral"
+              : params.value === "180"
+              ? "Semestral"
+              : params.value === "365"
+              ? "Anual"
+              : ""}
+          </span>
+        );
+      },
     },
     {
       field: "vehiculo_grupo_id",

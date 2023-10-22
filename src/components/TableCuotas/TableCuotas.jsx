@@ -7,7 +7,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
+/* import AddIcon from "@mui/icons-material/Add"; */
+import PaidIcon from "@mui/icons-material/Paid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -26,6 +27,7 @@ import {
 } from "../../redux/actions/actionsCuotas.js";
 import { esES } from "@mui/x-data-grid";
 import style from "../NavBar/navBar.module.css";
+import { Toaster, toast } from "sonner";
 
 const DataGridCuotas = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
@@ -45,8 +47,22 @@ const DataGridCuotas = ({ rows, columns }) => {
     dispatch(getCuotas());
   }, [dispatch]);
 
-  const handleOpen = () => {
+  /* const handleOpen = () => {
     setOpenForm(true);
+  }; */
+  const handleOpen = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+
+    if (selectedRow) {
+      const { estado, pagada } = selectedRow;
+
+      if (estado === "1" && pagada === "1") {
+        toast.error("Esta cuota ya fue registrada");
+      } else {
+        setRowEdit(selectedRow);
+        setOpenForm(true);
+      }
+    }
   };
 
   const handleCreate = async (data) => {
@@ -54,7 +70,7 @@ const DataGridCuotas = ({ rows, columns }) => {
     dispatch(createCuota(data));
   };
 
-  const CustomHeaderButton = () => {
+  /* const CustomHeaderButton = () => {
     return (
       <div
         style={{
@@ -80,7 +96,7 @@ const DataGridCuotas = ({ rows, columns }) => {
         </div>
       </div>
     );
-  };
+  }; */
 
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
@@ -121,6 +137,15 @@ const DataGridCuotas = ({ rows, columns }) => {
           width: "100%",
         }}
       >
+        <Tooltip title="Pagar Cuota">
+          <IconButton
+            aria-label="Pagar Cuota"
+            onClick={() => handleOpen(params.id)}
+            color="success"
+          >
+            <PaidIcon />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Editar">
           <IconButton
             aria-label="Editar"
@@ -179,7 +204,7 @@ const DataGridCuotas = ({ rows, columns }) => {
                 fontSize: "1.2em",
               }}
             >
-              Listado de Cuotas
+              Lista de Cuotas
             </Paper>
           </Grid>
         </div>
@@ -197,7 +222,12 @@ const DataGridCuotas = ({ rows, columns }) => {
           disableDensitySelector
           disableRowSelectionOnClick
           /* hideFooterPagination */
-          slots={{ toolbar: CustomHeaderButton }}
+          slots={{ toolbar: GridToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+            },
+          }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
@@ -206,6 +236,7 @@ const DataGridCuotas = ({ rows, columns }) => {
           }}
         />
       </div>
+      <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle
           style={{
