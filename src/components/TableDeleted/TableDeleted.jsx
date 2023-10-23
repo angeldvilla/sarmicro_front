@@ -44,12 +44,12 @@ const DataGridDetailsPolicys = ({ rows, columns }) => {
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={columns}
-          initialState={{
+          /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]} */
           disableColumnSelector
           disableDensitySelector
           slots={{ toolbar: GridToolbar }}

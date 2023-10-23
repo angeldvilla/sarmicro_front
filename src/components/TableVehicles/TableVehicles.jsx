@@ -13,6 +13,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 import ModalCreateVehicle from "../Modals/ModalVehicles/ModalCreateVehicle";
 import ModalEditVehicle from "../Modals/ModalVehicles/ModalEditVehicle";
 import {
@@ -36,7 +39,7 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   const navigate = useNavigate();
   const backFunction = () => {
-    navigate(-1);
+    navigate("/inicio");
   };
 
   const dispatch = useDispatch();
@@ -93,7 +96,7 @@ const DataGridVehicles = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 150,
+    width: 90,
     renderCell: (params) => (
       <div
         style={{
@@ -122,6 +125,28 @@ const DataGridVehicles = ({ rows, columns }) => {
         </Tooltip>
       </div>
     ),
+  };
+
+  const groupedVehicles = {};
+
+  // Se Agrupa los vehículos por tipo
+  rows.forEach((row) => {
+    if (!groupedVehicles[row.tipov]) {
+      groupedVehicles[row.tipov] = [];
+    }
+    groupedVehicles[row.tipov].push(row);
+  });
+
+  const groupedRows = [];
+  for (const tipoVehiculo in groupedVehicles) {
+    groupedRows.push({
+      tipoVehiculo,
+      vehicles: groupedVehicles[tipoVehiculo],
+    });
+  }
+
+  const viewVehiclesOff = () => {
+    window.open("/vehiculos-desvinculados", "_blank");
   };
 
   return (
@@ -181,41 +206,85 @@ const DataGridVehicles = ({ rows, columns }) => {
           >
             Registrar Polizas
           </Typography>
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#a80c0cec",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            className={styles.botonLogout}
+            onClick={viewVehiclesOff}
+          >
+            Vehiculos Desvinculados
+          </Typography>
         </div>
       </div>
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          width: "98%",
-          height: "500px",
-          marginLeft: 15,
         }}
       >
-        <DataGrid
-          rows={rows}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={[...columns, actionsColumn]}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[10, 25, 50, 100]}
-          disableColumnSelector
-          disableDensitySelector
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-          style={{
-            backgroundColor: "#ffffffcc",
-            color: "black",
-            marginTop: "3%",
-          }}
-        />
+        {groupedRows.map((group, index) => (
+          <div key={index}>
+            <Grid item xs={2}>
+              <Paper
+                elevation={3}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "18px",
+                  marginBottom: "2%",
+                  marginTop: "3%",
+                  fontFamily: "sans-serif",
+                  fontStyle: "italic",
+                  fontWeight: "bold",
+                  color: "#0080ca",
+                  fontSize: "1.2em",
+                }}
+              >
+                {group.tipoVehiculo}
+              </Paper>
+            </Grid>
+            <DataGrid
+              rows={group.vehicles}
+              columns={[...columns, actionsColumn]}
+              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+              disableColumnSelector
+              disableDensitySelector
+              disableRowSelectionOnClick
+              slots={{ toolbar: GridToolbar }}
+              slotProps={{
+                toolbar: {
+                  showQuickFilter: true,
+                },
+              }}
+              style={{
+                backgroundColor: "#ffffffcc",
+                color: "black",
+                marginTop: "2%",
+                marginBottom: "2%",
+              }}
+            />
+            {index < groupedRows.length - 1 && (
+              <Divider
+                style={{
+                  borderColor: "#0080ca9e",
+                  borderWidth: "2px",
+                  margin: "20px 0",
+                }}
+              />
+            )}
+          </div>
+        ))}
       </div>
       <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
@@ -231,7 +300,7 @@ const DataGridVehicles = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar este vehiculo?
         </DialogContent>
-        <DialogActions style={{justifyContent: "center"}}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Typography
             style={{
               textAlign: "center",
@@ -303,7 +372,7 @@ const DataGridVehicles = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de registrar todas las polizas del parque automotor?
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Typography
             style={{
               textAlign: "center",
@@ -351,11 +420,11 @@ const DataGridVehicles = ({ rows, columns }) => {
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "rgba(187, 12, 0, 0.938)")
-            } // Cambiar el color de fondo en hover
+            }
             onMouseLeave={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "rgba(197, 31, 19, 0.938)")
-            } // Restaurar el color original
+            }
           >
             Si
           </Typography>

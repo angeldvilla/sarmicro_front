@@ -1,8 +1,15 @@
 import axios from "axios";
 import { toast } from "sonner";
-import { ENDPOINT, VALOR_POLIZA_URL } from "./path.js";
+import {
+  ENDPOINT,
+  TIPO_EMPRESA_URL,
+  TIPO_POLIZA_URL,
+  VALOR_POLIZA_URL,
+} from "./path.js";
 import {
   CREATE_VALOR_POLIZA,
+  GET_TIPO_EMPRESA,
+  GET_TIPO_POLIZAS,
   GET_VALOR_POLIZA,
   UPDATE_VALOR_POLIZA,
 } from "./actionTypes";
@@ -24,6 +31,39 @@ export const getValoresPolizas = () => {
   };
 };
 
+//Acción para traer los tipos de polizas
+export const getTipoPolizas = () => {
+  return async (dispatch) => {
+    const valoresPolizasPath = `${ENDPOINT}${TIPO_POLIZA_URL}`;
+    try {
+      const { data } = await axios.get(valoresPolizasPath);
+      return dispatch({
+        type: GET_TIPO_POLIZAS,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error al obtener valores de polizas");
+    }
+  };
+};
+
+//Accion para traer el tipo de empresa
+export const getTipoEmpresas = () => {
+  return async (dispatch) => {
+    const valoresPolizasPath = `${ENDPOINT}${TIPO_EMPRESA_URL}`;
+    try {
+      const { data } = await axios.get(valoresPolizasPath);
+      return dispatch({
+        type: GET_TIPO_EMPRESA,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error al obtener valores de polizas");
+    }
+  };
+};
 //Accion para crear valor de poliza
 export const createValorPoliza = (valueData) => {
   return async (dispatch) => {

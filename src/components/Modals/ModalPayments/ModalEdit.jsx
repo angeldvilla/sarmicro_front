@@ -33,7 +33,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
       numero_cuotas: editedRow.numero_cuotas,
       dias_cuota: editedRow.dias_cuota,
       cedula: editedRow.cedula,
-      cliente_id: editedRow.cliente_id,
+      nombre: editedRow.nombre,
       /* porcentaje: editedRow.porcentaje,
       total_pagar: editedRow.total_pagar, */
       estado: 1,
@@ -53,9 +53,20 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
           <Toolbar>
             <IconButton
               edge="start"
-              color="inherit"
+              style={{
+                backgroundColor: "rgba(94, 94, 94, 0.144)",
+                color: "white",
+              }}
               onClick={handleClose}
               aria-label="close"
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(187, 12, 0, 0.938)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(94, 94, 94, 0.144)")
+              }
             >
               <CloseIcon />
             </IconButton>
@@ -64,9 +75,25 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               variant="h6"
               component="div"
             >
-              Editar Pago de Póliza
+              Editar Pago de Poliza
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleEditPoliza}>
+            <Button
+              style={{
+                backgroundColor: "rgba(0, 148, 7, 0.795)",
+                color: "white",
+                borderRadius: "8px",
+              }}
+              /* autoFocus */
+              onClick={handleEditPoliza}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 173, 9, 0.753)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 148, 7, 0.795)")
+              }
+            >
               Guardar
             </Button>
           </Toolbar>
@@ -130,7 +157,24 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Tipo de Cuotas"
               name="TipCuotas"
               variant="outlined"
-              value={editedRow ? editedRow?.dias_cuota : ""}
+              value={
+                editedRow
+                  ? editedRow?.dias_cuota === "" ||
+                    editedRow?.dias_cuota === "0"
+                    ? "Definir tipo de cuotas"
+                    : editedRow?.dias_cuota === "15"
+                    ? "Quincenal"
+                    : editedRow?.dias_cuota === "31"
+                    ? "Mensual"
+                    : editedRow?.dias_cuota === "91"
+                    ? "Trimestral"
+                    : editedRow?.dias_cuota === "180"
+                    ? "Semestral"
+                    : editedRow?.dias_cuota === "365"
+                    ? "Anual"
+                    : "Ninguno"
+                  : ""
+              }
               disabled
             />
           </Grid>
@@ -222,7 +266,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               label="Nombre Cliente"
               name="NomCliente"
               variant="outlined"
-              value={editedRow ? editedRow?.cliente_id : ""}
+              value={editedRow ? editedRow?.nombre : ""}
               disabled
             />
           </Grid>

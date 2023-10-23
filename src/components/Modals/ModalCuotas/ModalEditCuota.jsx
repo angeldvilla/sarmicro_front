@@ -34,7 +34,7 @@ export default function ModalEditCuota({
   const handleEditCuota = () => {
     const today = new Date().toISOString().split("T")[0];
     const data = {
-      id: editedRow.id,
+      cuota_id: editedRow.id,
       poliza_id: Number(editedRow.poliza_id),
       monto: Number(editedRow.monto),
       fecha_vencimiento: editedRow.fecha_vencimiento,
@@ -58,9 +58,20 @@ export default function ModalEditCuota({
           <Toolbar>
             <IconButton
               edge="start"
-              color="inherit"
+              style={{
+                backgroundColor: "rgba(94, 94, 94, 0.144)",
+                color: "white",
+              }}
               onClick={handleClose}
               aria-label="close"
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(187, 12, 0, 0.938)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(94, 94, 94, 0.144)")
+              }
             >
               <CloseIcon />
             </IconButton>
@@ -69,9 +80,25 @@ export default function ModalEditCuota({
               variant="h6"
               component="div"
             >
-              Editar Cuota
+              Crear Cuota
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleEditCuota}>
+            <Button
+              style={{
+                backgroundColor: "rgba(0, 148, 7, 0.795)",
+                color: "white",
+                borderRadius: "8px",
+              }}
+              /* autoFocus */
+              onClick={handleEditCuota}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 173, 9, 0.753)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 148, 7, 0.795)")
+              }
+            >
               Guardar
             </Button>
           </Toolbar>
@@ -138,7 +165,7 @@ export default function ModalEditCuota({
                 variant="outlined"
                 value={editedRow ? editedRow?.pagada : ""}
                 onChange={(e) =>
-                    setEditedRow((prevState) => ({
+                  setEditedRow((prevState) => ({
                     ...prevState,
                     pagada: e.target.value,
                   }))

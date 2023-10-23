@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVehicle } from "../../redux/actions/actionsVehicles";
-import DataGridVehicles from "../../components/TableVehicles/TableVehicles";
+import DataGridOffVehicles from "../../components/TableVehicles/OffVehicles";
 import Switch from "@mui/material/Switch";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
-const Vehicles = () => {
-  const rows = useSelector((state) => state?.vehicles?.vechiculosData);
+const OffVehicles = () => {
+  const rows = useSelector((state) => state?.vehicles?.offVehiculos);
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
@@ -30,7 +30,6 @@ const Vehicles = () => {
   }, []);
 
   const dispatch = useDispatch();
-
   const handleSwitchChange = (event, rowId) => {
     const newState = event.target.checked ? "1" : "0";
 
@@ -44,9 +43,6 @@ const Vehicles = () => {
     dispatch(updateVehicle(updatedVehicle, rowId));
   };
 
-  /*  // Obtener todas las clases únicas
-  const uniqueClasses = Array.from(new Set(rows.map((row) => row.tipov))); */
-
   const allRows = rows.map((row) => ({
     ...row,
     columns: [
@@ -58,12 +54,12 @@ const Vehicles = () => {
       {
         field: "id_movil",
         headerName: "ID Movil",
-        width: 90,
+        width: 80,
       },
       {
         field: "propietario",
         headerName: "Propietario",
-        width: 100,
+        width: 90,
       },
       {
         field: "modelo",
@@ -73,28 +69,39 @@ const Vehicles = () => {
       {
         field: "placa",
         headerName: "Placa",
-        width: 100,
+        width: 90,
       },
       {
         field: "clase",
         headerName: "Clase",
-        width: 105,
+        width: 100,
       },
       {
-        field: "motor",
-        headerName: "Motor",
-        width: 100,
+        field: "referencia",
+        headerName: "Referencia",
+        width: 80,
       },
       {
         field: "grupo",
         headerName: "Grupo",
-        width: 90,
+        width: 70,
       },
       {
         field: "poliza",
         headerName: "Poliza",
-        width: 70,
+        width: 60,
       },
+      {
+        field: "motor",
+        headerName: "Motor",
+        width: 120,
+      },
+      {
+        field: "telefono",
+        headerName: "Telefono",
+        width: 90,
+      },
+
       {
         field: "referencia",
         headerName: "Referencia",
@@ -103,22 +110,22 @@ const Vehicles = () => {
       {
         field: "serie",
         headerName: "Serie",
-        width: 180,
+        width: 175,
       },
       {
         field: "tipo",
         headerName: "Tipo",
-        width: 100,
+        width: 90,
       },
       {
         field: "tipov",
         headerName: "Tipo Vehiculo",
-        width: 190,
+        width: 120,
       },
       {
         field: "estado",
         headerName: "Estado",
-        width: 75,
+        width: 70,
         renderCell: (params) => (
           <Switch
             label={params}
@@ -130,10 +137,9 @@ const Vehicles = () => {
       },
     ],
   }));
-
   return (
     <>
-      <DataGridVehicles rows={allRows} columns={allRows[0]?.columns || []} />
+      <DataGridOffVehicles rows={allRows} columns={allRows[0]?.columns || []} />
       <div>
         {scrollUp && (
           <button
@@ -154,4 +160,4 @@ const Vehicles = () => {
   );
 };
 
-export default Vehicles;
+export default OffVehicles;

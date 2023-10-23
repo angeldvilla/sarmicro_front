@@ -16,27 +16,27 @@ const Cuotas = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 20,
+      width: 70,
     },
     {
       field: "poliza_id",
       headerName: "ID Poliza",
-      width: 70,
+      width: 90,
     },
     {
       field: "monto",
       headerName: "Monto",
-      width: 100,
+      width: 230,
     },
     {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
-      width: 140,
+      width: 230,
     },
     {
       field: "pagada",
       headerName: "Pagada",
-      width: 150,
+      width: 230,
       renderCell: (params) => {
         return (
           <span

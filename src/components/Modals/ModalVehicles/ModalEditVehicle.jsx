@@ -28,24 +28,24 @@ export default function ModalEditVehicle({
 
   const [editedRow, setEditedRow] = useState(rowEdit);
 
-  const handleEditPoliza = () => {
+  const handleEditVehiculo = () => {
     const data = {
       id_movil: editedRow.id_movil,
       id_marca: editedRow.id_marca,
-      id_propietario: editedRow.id_propietario,
+      propietario: editedRow.propietario,
       modelo: editedRow.modelo,
       placa: editedRow.placa,
       clase: editedRow.clase,
       color: editedRow.color,
-      pago_hasta: editedRow.pago_hasta,
+     /*  pago_hasta: editedRow.pago_hasta, */
       grupo: editedRow.grupo,
       motor: editedRow.motor,
       poliza: editedRow.poliza,
-      poliza_paz: editedRow.poliza_paz,
-      propio: editedRow.propio,
+     /*  poliza_paz: editedRow.poliza_paz,
+      propio: editedRow.propio, */
       referencia: editedRow.referencia,
-      rtu_paz: editedRow.rtu_paz,
-      segurida_social_paz: editedRow.segurida_social_paz,
+      /* rtu_paz: editedRow.rtu_paz,
+      segurida_social_paz: editedRow.segurida_social_paz, */
       serie: editedRow.serie,
       tipo: editedRow.tipo,
       estado: editedRow.estado,
@@ -65,9 +65,20 @@ export default function ModalEditVehicle({
           <Toolbar>
             <IconButton
               edge="start"
-              color="inherit"
+              style={{
+                backgroundColor: "rgba(94, 94, 94, 0.144)",
+                color: "white",
+              }}
               onClick={handleClose}
               aria-label="close"
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(187, 12, 0, 0.938)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(94, 94, 94, 0.144)")
+              }
             >
               <CloseIcon />
             </IconButton>
@@ -78,7 +89,23 @@ export default function ModalEditVehicle({
             >
               Editar Vehiculo
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleEditPoliza}>
+            <Button
+              style={{
+                backgroundColor: "rgba(0, 148, 7, 0.795)",
+                color: "white",
+                borderRadius: "8px",
+              }}
+              /* autoFocus */
+              onClick={handleEditVehiculo}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 173, 9, 0.753)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  "rgba(0, 148, 7, 0.795)")
+              }
+            >
               Guardar
             </Button>
           </Toolbar>
@@ -122,7 +149,7 @@ export default function ModalEditVehicle({
               label="ID Propietaro"
               margin="none"
               name="IdPropietario"
-              value={editedRow ? editedRow?.id_propietario : ""}
+              value={editedRow ? editedRow?.propietario : ""}
               placeholder="Ingrese el identificador del propietario"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
@@ -196,7 +223,7 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Pago Hasta"
@@ -213,7 +240,7 @@ export default function ModalEditVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -265,7 +292,7 @@ export default function ModalEditVehicle({
             />
           </Grid>
 
-          <Grid item xs={6}>
+        {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Poliza Paz"
@@ -297,7 +324,7 @@ export default function ModalEditVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
@@ -316,7 +343,7 @@ export default function ModalEditVehicle({
             />
           </Grid>
 
-          <Grid item xs={6}>
+         {/*  <Grid item xs={6}>
             <TextField
               fullWidth
               label="RTU Paz"
@@ -348,7 +375,7 @@ export default function ModalEditVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField

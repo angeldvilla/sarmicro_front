@@ -14,7 +14,7 @@ import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash"; */
 import styles from "./card.module.css";
 import valorPoliza from "../../assets/images/valorPolizas.jpg";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
-import cuotasPolizas from "../../assets/images/cuotas.jpg";
+/* import cuotasPolizas from "../../assets/images/cuotas.jpg"; */
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
 import cuadreCaja from "../../assets/images/cuadreCaja.jpg";
 import deleted from "../../assets/images/deleted.png";
@@ -111,7 +111,7 @@ export const CardPayments = () => {
   );
 };
 
-export const CardCuotas = () => {
+/* export const CardCuotas = () => {
   return (
     <div className={styles.cardContainer}>
       <NavLink to="/cuotas">
@@ -122,7 +122,7 @@ export const CardCuotas = () => {
               component="img"
               height="140"
               image={cuotasPolizas}
-              /* https://img.freepik.com/vector-gratis/iconos-polizas-seguros_603843-478.jpg?w=2000 */
+              https://img.freepik.com/vector-gratis/iconos-polizas-seguros_603843-478.jpg?w=2000
               alt="Cuotas"
             />
             <CardContent>
@@ -146,20 +146,20 @@ export const CardCuotas = () => {
           </CardActionArea>
         </Card>
         <div className={styles.overlay}>
-          {/*  <Typography className={styles.overlayButton}>
+           <Typography className={styles.overlayButton}>
             Ver Detalles
             <RequestQuoteIcon style={{ marginLeft: 10, fontSize: "large" }} />
-          </Typography>*/}
+          </Typography>
         </div>
       </NavLink>
     </div>
   );
-};
+}; */
 
 export const CardVehicles = () => {
   return (
     <div className={styles.cardContainer}>
-      <NavLink to="/vehiculos">
+      <a href="/vehiculos">
         <Card style={{ borderRadius: "1.2em" }}>
           <CardActionArea>
             <CardMedia
@@ -197,7 +197,7 @@ export const CardVehicles = () => {
             <LocalTaxiIcon style={{ marginLeft: 10, fontSize: "large" }} />
           </Typography> */}
         </div>
-      </NavLink>
+      </a>
     </div>
   );
 };

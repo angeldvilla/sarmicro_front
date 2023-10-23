@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -16,73 +15,34 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import ModalCreateValue from "../Modals/ModalValorPoliza/ModalCreateValue";
-import ModalEditValue from "../Modals/ModalValorPoliza/ModalEditValue";
+import Divider from "@mui/material/Divider";
+import ModalEditVehicle from "../Modals/ModalVehicles/ModalEditVehicle";
 import {
-  createValorPoliza,
-  getValoresPolizas,
-  getTipoPolizas,
-  updateValorPoliza,
-  deleteValorPoliza,
-  getTipoEmpresas,
-} from "../../redux/actions/actionsValues";
+  getOffVehiculos,
+  updateVehicle,
+  deleteVehicle,
+} from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
+import { Toaster } from "sonner";
 
-const DataGridValues = ({ rows, columns }) => {
+const DataGridOffVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
-  const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+
   const [deleteId, setDeleteId] = useState(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const backFunction = () => {
-    navigate(-1);
+    navigate("/vehiculos");
   };
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getValoresPolizas());
-    dispatch(getTipoPolizas());
-    dispatch(getTipoEmpresas());
+    dispatch(getOffVehiculos());
   }, [dispatch]);
 
-  const handleOpen = () => {
-    setOpenForm(true);
-  };
-
-  const handleCreate = async (data) => {
-    setOpenForm(false);
-    dispatch(createValorPoliza(data));
-  };
-
-  const CustomHeaderButton = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <GridToolbar showQuickFilter="true" />
-        <div
-          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
-        >
-          <Tooltip title="Crear Valor de Poliza">
-            <IconButton
-              aria-label="Crear Valor de Poliza"
-              onClick={handleOpen}
-              color="primary"
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
-        </div>
-      </div>
-    );
-  };
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
     setRowEdit(selectedRow);
@@ -91,7 +51,7 @@ const DataGridValues = ({ rows, columns }) => {
 
   const handleEdit = async (data, rowId) => {
     setOpenEdit(false);
-    dispatch(updateValorPoliza(data, rowId));
+    dispatch(updateVehicle(data, rowId));
   };
 
   const handleConfirmDelete = (rowId) => {
@@ -105,7 +65,7 @@ const DataGridValues = ({ rows, columns }) => {
 
   const handleDelete = async () => {
     if (deleteId !== null) {
-      dispatch(deleteValorPoliza(deleteId));
+      dispatch(deleteVehicle(deleteId));
     }
     setOpenDelete(false);
   };
@@ -113,7 +73,7 @@ const DataGridValues = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 90,
+    width: 80,
     renderCell: (params) => (
       <div
         style={{
@@ -144,16 +104,33 @@ const DataGridValues = ({ rows, columns }) => {
     ),
   };
 
+  const groupedVehicles = {};
+
+  // Se Agrupa los vehículos por tipo
+  rows.forEach((row) => {
+    if (!groupedVehicles[row.tipov]) {
+      groupedVehicles[row.tipov] = [];
+    }
+    groupedVehicles[row.tipov].push(row);
+  });
+
+  const groupedRows = [];
+  for (const tipoVehiculo in groupedVehicles) {
+    groupedRows.push({
+      tipoVehiculo,
+      vehicles: groupedVehicles[tipoVehiculo],
+    });
+  }
+
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
       <NavBar />
       <div
         style={{
-          alignSelf: "flex-start",
-          position: "relative",
+          display: "flex",
+          alignItems: "center",
           marginTop: 20,
           marginLeft: 20,
-          right: 0,
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
@@ -165,48 +142,60 @@ const DataGridValues = ({ rows, columns }) => {
           alignItems: "center",
         }}
       >
-        <Grid item xs={2}>
-          <Paper
-            elevation={3}
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "18px",
-              marginBottom: "20px",
-              marginTop: "20px",
-              fontFamily: "sans-serif",
-              fontStyle: "italic",
-              fontWeight: "bold",
-              color: "#0080ca",
-              fontSize: "1.2em",
-            }}
-          >
-            Listado de Valores de Polizas
-          </Paper>
-        </Grid>
-        <DataGrid
-          rows={rows}
-          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={[...columns, actionsColumn]}
-          /*  initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[10, 25, 50, 100]} */
-          disableRowSelectionOnClick
-          disableColumnSelector
-          disableDensitySelector
-          hideFooterPagination
-          slots={{ toolbar: CustomHeaderButton }}
-          style={{
-            backgroundColor: "#ffffffcc",
-            color: "black",
-            marginTop: "20px",
-            marginBottom: "25px",
-          }}
-        />
+        {groupedRows.map((group, index) => (
+          <div key={index}>
+            <Grid item xs={2}>
+              <Paper
+                elevation={3}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "18px",
+                  marginBottom: "2%",
+                  marginTop: "3%",
+                  fontFamily: "sans-serif",
+                  fontStyle: "italic",
+                  fontWeight: "bold",
+                  color: "#0080ca",
+                  fontSize: "1.2em",
+                }}
+              >
+                {group.tipoVehiculo}
+              </Paper>
+            </Grid>
+            <DataGrid
+              rows={group.vehicles}
+              columns={[...columns, actionsColumn]}
+              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+              disableColumnSelector
+              disableDensitySelector
+              disableRowSelectionOnClick
+              slots={{ toolbar: GridToolbar }}
+              slotProps={{
+                toolbar: {
+                  showQuickFilter: true,
+                },
+              }}
+              style={{
+                backgroundColor: "#ffffffcc",
+                color: "black",
+                marginTop: "2%",
+                marginBottom: "2%",
+              }}
+            />
+            {index < groupedRows.length - 1 && (
+              <Divider
+                style={{
+                  borderColor: "#0080ca9e",
+                  borderWidth: "2px",
+                  margin: "20px 0",
+                }}
+              />
+            )}
+          </div>
+        ))}
       </div>
+      <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle
           style={{
@@ -215,10 +204,10 @@ const DataGridValues = ({ rows, columns }) => {
             fontWeight: "600",
           }}
         >
-          Eliminar Valor De Poliza
+          Eliminar Vehiculo
         </DialogTitle>
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
-          ¿Estás seguro de eliminar este valor de poliza?
+          ¿Estás seguro de eliminar este vehiculo?
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
           <Typography
@@ -276,12 +265,7 @@ const DataGridValues = ({ rows, columns }) => {
           </Typography>
         </DialogActions>
       </Dialog>
-      <ModalCreateValue
-        open={openForm}
-        handleClose={() => setOpenForm(false)}
-        handleCreate={handleCreate}
-      />
-      <ModalEditValue
+      <ModalEditVehicle
         open={openEdit}
         handleClose={() => setOpenEdit(false)}
         handleEdit={handleEdit}
@@ -291,4 +275,4 @@ const DataGridValues = ({ rows, columns }) => {
   );
 };
 
-export default DataGridValues;
+export default DataGridOffVehicles;

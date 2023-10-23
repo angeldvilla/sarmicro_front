@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ENDPOINT, CUOTAS_URL } from "./path.js";
-import { GET_CUOTAS, UPDATE_CUOTA } from "./actionTypes.js";
+import { ENDPOINT, CUOTAS_URL, PAGOS_URL } from "./path.js";
+import { CREATE_CUOTA, GET_CUOTAS, UPDATE_CUOTA } from "./actionTypes.js";
 import { toast } from "sonner";
 
 // Acción para obtener datos de cuotas
@@ -23,18 +23,18 @@ export const getCuotas = () => {
 // Acción para crear cuotas
 export const createCuota = (cuotaData) => {
   return async (dispatch) => {
-    const cuotasPath = `${ENDPOINT}${CUOTAS_URL}`;
+    const cuotasPath = `${ENDPOINT}${PAGOS_URL}`;
     try {
       const { data } = await axios.post(cuotasPath, cuotaData);
-      toast.success("Cuota creada con exito");
+      toast.success("Pago de cuota registrado con exito");
       dispatch(getCuotas());
       return dispatch({
-        type: GET_CUOTAS,
+        type: CREATE_CUOTA,
         payload: data,
       });
     } catch (error) {
       console.error(error);
-      toast.error("Error al crear la cuota, intentar de nuevo");
+      toast.error("Error al registrar el pago de la cuota, intentar de nuevo");
     }
   };
 };

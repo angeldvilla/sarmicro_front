@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+/* import { useNavigate } from "react-router-dom"; */
 import { useDispatch } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
@@ -10,11 +10,14 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import InfoIcon from "@mui/icons-material/Info";
-import NavBar from "../NavBar/NavBar";
+import PrintIcon from "@mui/icons-material/Print";
+/*import ArrowBackIcon from "@mui/icons-material/ArrowBack"; */
+/* import NavBar from "../NavBar/NavBar"; */
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import ModalCreate from "../Modals/ModalPayments/ModalCreate";
 import ModalEdit from "../Modals/ModalPayments/ModalEdit";
 import DetailsPayments from "../Details/DetailsPayments/DetailsPayments";
@@ -37,10 +40,10 @@ const DataGridPayments = ({ rows, columns }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  /*   const navigate = useNavigate();
   const backFunction = () => {
     navigate(-1);
-  };
+  }; */
 
   useEffect(() => {
     dispatch(getPolizas());
@@ -50,9 +53,9 @@ const DataGridPayments = ({ rows, columns }) => {
     const selectedRow = rows.find((row) => row.id === rowId);
 
     if (selectedRow) {
-      const { dias_cuota, numero_cuotas } = selectedRow;
+      const { estado } = selectedRow;
 
-      if (dias_cuota !== "" && numero_cuotas !== "0") {
+      if (estado === "1") {
         toast.error("Cuotas ya registradas");
       } else {
         setRowEdit(selectedRow);
@@ -99,10 +102,21 @@ const DataGridPayments = ({ rows, columns }) => {
     setOpenDetail(true);
   };
 
+  const handlePrint = (rowId) => {
+    const url =
+      "https://poliza.transargelia.com.co/public/api/recibos/cuotasInicial/";
+    const selectedRow = rows.find((row) => row.id === rowId);
+    if (selectedRow.estado === "1") {
+      window.open(`${url}${selectedRow.id}`, "_blank");
+    } else {
+      toast.error("Haga el registro de la cuota para imprimir");
+    }
+  };
+
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 175,
+    width: 189,
     renderCell: (params) => (
       <div
         style={{
@@ -118,6 +132,15 @@ const DataGridPayments = ({ rows, columns }) => {
             color="primary"
           >
             <AddIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Imprimir">
+          <IconButton
+            aria-label="Imprimir"
+            onClick={() => handlePrint(params.id)}
+            color="warning"
+          >
+            <PrintIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="Editar">
@@ -141,9 +164,10 @@ const DataGridPayments = ({ rows, columns }) => {
         <Tooltip title="Detalle">
           <IconButton
             aria-label="Detalle"
-            style={{ color: "rgba(209, 188, 3, 0.966)" }}
+            style={{ color: "rgba(41, 41, 41, 0.966)" }}
             onClick={() => handleSeeDetail(params.id)}
           >
+            {/* rgba(209, 188, 3, 0.966) */}
             <InfoIcon />
           </IconButton>
         </Tooltip>
@@ -153,7 +177,7 @@ const DataGridPayments = ({ rows, columns }) => {
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
-      <NavBar />
+      {/*       <NavBar />
       <div
         style={{
           alignSelf: "flex-start",
@@ -164,7 +188,7 @@ const DataGridPayments = ({ rows, columns }) => {
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-      </div>
+      </div> */}
       <div
         style={{
           display: "flex",
@@ -172,18 +196,40 @@ const DataGridPayments = ({ rows, columns }) => {
           alignItems: "center",
         }}
       >
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "18px",
+              marginBottom: "20px",
+              marginTop: "20px",
+              fontFamily: "sans-serif",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              color: "#0080ca",
+              fontSize: "1.2em",
+            }}
+          >
+            Lista de Cuotas Iniciales Polizas
+          </Paper>
+        </Grid>
+
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          initialState={{
+          /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]} */
           disableColumnSelector
           disableDensitySelector
+          disableRowSelectionOnClick
+          /* hideFooterPagination */
           slots={{ toolbar: GridToolbar }}
           slotProps={{
             toolbar: {
@@ -212,7 +258,7 @@ const DataGridPayments = ({ rows, columns }) => {
         <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
           ¿Estás seguro de eliminar este pago de poliza?
         </DialogContent>
-        <DialogActions style={{justifyContent: "center"}}>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Typography
             style={{
               textAlign: "center",
