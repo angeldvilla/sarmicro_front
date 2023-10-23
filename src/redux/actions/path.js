@@ -13,6 +13,7 @@ export const CUOTAS_URL = "/cuota" /* -> RUTA PARA CONSULTAR LAS CUOTAS ACTIVAS 
 export const PAGOS_URL = "/pago"; /* -> RUTA PARA CONSULTAR LOS PAGOS ACTIVOS (CRUD) */
  export const VEHICULOS_URL = "/vehiculo";  /* -> RUTA PARA CONSULTAR LOS VEHICULOS ACTIVOS (CRUD)  */
 export const PARQUE_AUTOMOTOR_URL = "/parque-automotor"; 
+export const VEHICULOS_URL = "/parque-automotor"; 
 export const VEHICULOS_OFF_URL = "/parque-automotor-desvinculado"
 
 export const REGISTER_ALL_POLIZAS = "/registerPolizas"; /* -> RUTA PARA REGISTRAR TODAS LAS POLIZAS DEL PARQUE AUTOMOTORO */
