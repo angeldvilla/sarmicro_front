@@ -144,7 +144,7 @@ const OffVehicles = () => {
         {scrollUp && (
           <button
             onClick={scrollToUp}
-            className="fixed bottom-10 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
+            className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
           >
             <ArrowUpwardIcon
               style={{

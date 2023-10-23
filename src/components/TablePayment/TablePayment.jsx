@@ -240,7 +240,7 @@ const DataGridPayments = ({ rows, columns }) => {
             backgroundColor: "#ffffffcc",
             color: "black",
             marginTop: "10px",
-            marginBottom: "25px",
+            marginBottom: "5%",
           }}
         />
       </div>

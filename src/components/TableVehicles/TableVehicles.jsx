@@ -26,7 +26,7 @@ import {
   registerAllPolizas,
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 import styles from "../Buttons/styleButton.module.css";
 
 const DataGridVehicles = ({ rows, columns }) => {
@@ -36,6 +36,7 @@ const DataGridVehicles = ({ rows, columns }) => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [polizasRegistradas, setPolizasRegistradas] = useState(false);
 
   const navigate = useNavigate();
   const backFunction = () => {
@@ -61,9 +62,23 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenRegisterPolizas(true);
   };
 
-  const registerPolizas = () => {
+  /* const registerPolizas = () => {
     setOpenRegisterPolizas(false);
     dispatch(registerAllPolizas());
+  }; */
+  const registerPolizas = async () => {
+    if (polizasRegistradas) {
+      return;
+    }
+
+    setOpenRegisterPolizas(false);
+    setPolizasRegistradas(true);
+
+    try {
+      await dispatch(registerAllPolizas());
+    } catch (error) {
+      toast.error("Ya se proceso el registro de todas las polizas");
+    }
   };
 
   const handleUpdate = (rowId) => {
@@ -271,7 +286,7 @@ const DataGridVehicles = ({ rows, columns }) => {
                 backgroundColor: "#ffffffcc",
                 color: "black",
                 marginTop: "2%",
-                marginBottom: "2%",
+                marginBottom: "5%",
               }}
             />
             {index < groupedRows.length - 1 && (

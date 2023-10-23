@@ -166,7 +166,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
                     ? "Quincenal"
                     : editedRow?.dias_cuota === "31"
                     ? "Mensual"
-                    : editedRow?.dias_cuota === "91"
+                    : editedRow?.dias_cuota === "93"
                     ? "Trimestral"
                     : editedRow?.dias_cuota === "180"
                     ? "Semestral"
