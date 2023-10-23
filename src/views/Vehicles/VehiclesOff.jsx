@@ -77,11 +77,6 @@ const OffVehicles = () => {
         width: 100,
       },
       {
-        field: "referencia",
-        headerName: "Referencia",
-        width: 80,
-      },
-      {
         field: "grupo",
         headerName: "Grupo",
         width: 70,
@@ -137,9 +132,11 @@ const OffVehicles = () => {
       },
     ],
   }));
+
   return (
     <>
       <DataGridOffVehicles rows={allRows} columns={allRows[0]?.columns || []} />
+
       <div>
         {scrollUp && (
           <button

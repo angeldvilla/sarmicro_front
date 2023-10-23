@@ -166,6 +166,14 @@ const DataGridOffVehicles = ({ rows, columns }) => {
             <DataGrid
               rows={group.vehicles}
               columns={[...columns, actionsColumn]}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 25 },
+                },
+              }}
+              pageSizeOptions={[25, 50, 100]}
+              loading={group.vehicles.length === 0}
+              virtualization
               localeText={esES.components.MuiDataGrid.defaultProps.localeText}
               disableColumnSelector
               disableDensitySelector

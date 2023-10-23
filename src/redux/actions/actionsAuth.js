@@ -56,8 +56,8 @@ export const logoutUser = (unAuthenticated, navigate) => {
     /* const logoutPath = `${ENDPOINT}${LOGOUT_URL}`; */
     try {
       /* await axios.post(logoutPath, unAuthenticated); */
-      localStorage.removeItem(unAuthenticated);
       window.addEventListener("beforeunload", () => {
+        localStorage.removeItem(unAuthenticated);
         localStorage.clear();
       });
       // Realizar el proceso de cierre de sesión
