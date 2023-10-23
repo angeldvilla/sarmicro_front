@@ -10,8 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-/*import ArrowBackIcon from "@mui/icons-material/ArrowBack"; */
 import InfoIcon from "@mui/icons-material/Info";
+import PrintIcon from "@mui/icons-material/Print";
+/*import ArrowBackIcon from "@mui/icons-material/ArrowBack"; */
 /* import NavBar from "../NavBar/NavBar"; */
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
@@ -101,10 +102,21 @@ const DataGridPayments = ({ rows, columns }) => {
     setOpenDetail(true);
   };
 
+  const handlePrint = (rowId) => {
+    const url =
+      "https://poliza.transargelia.com.co/public/api/recibos/cuotasInicial/";
+    const selectedRow = rows.find((row) => row.id === rowId);
+    if (selectedRow.estado === "1") {
+      window.open(`${url}${selectedRow.id}`, "_blank");
+    } else {
+      toast.error("Haga el registro de la cuota para imprimir");
+    }
+  };
+
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 175,
+    width: 189,
     renderCell: (params) => (
       <div
         style={{
@@ -120,6 +132,15 @@ const DataGridPayments = ({ rows, columns }) => {
             color="primary"
           >
             <AddIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Imprimir">
+          <IconButton
+            aria-label="Imprimir"
+            onClick={() => handlePrint(params.id)}
+            color="warning"
+          >
+            <PrintIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="Editar">
@@ -143,9 +164,10 @@ const DataGridPayments = ({ rows, columns }) => {
         <Tooltip title="Detalle">
           <IconButton
             aria-label="Detalle"
-            style={{ color: "rgba(209, 188, 3, 0.966)" }}
+            style={{ color: "rgba(41, 41, 41, 0.966)" }}
             onClick={() => handleSeeDetail(params.id)}
           >
+            {/* rgba(209, 188, 3, 0.966) */}
             <InfoIcon />
           </IconButton>
         </Tooltip>

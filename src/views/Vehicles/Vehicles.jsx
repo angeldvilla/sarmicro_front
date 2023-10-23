@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVehicle } from "../../redux/actions/actionsVehicles";
 import DataGridVehicles from "../../components/TableVehicles/TableVehicles";
-import OffVehicles from "./VehiclesOff";
 import Switch from "@mui/material/Switch";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
@@ -45,111 +44,96 @@ const Vehicles = () => {
     dispatch(updateVehicle(updatedVehicle, rowId));
   };
 
-  const sortedRows = [...rows].sort((a, b) => {
-    if (a.clase < b.clase) return -1;
-    if (a.clase > b.clase) return 1;
-    return 0;
-  });
+  /*  // Obtener todas las clases únicas
+  const uniqueClasses = Array.from(new Set(rows.map((row) => row.tipov))); */
 
-  /* const sortedRows */
-
-  const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      width: 60,
-    },
-    {
-      field: "id_movil",
-      headerName: "ID Movil",
-      width: 90,
-    },
-    {
-      field: "propietario",
-      headerName: "Propietario",
-      width: 100,
-    },
-    {
-      field: "modelo",
-      headerName: "Modelo",
-      width: 90,
-    },
-    {
-      field: "placa",
-      headerName: "Placa",
-      width: 100,
-    },
-    {
-      field: "clase",
-      headerName: "Clase",
-      width: 150,
-    },
-    {
-      field: "motor",
-      headerName: "Motor",
-      width: 100,
-    },
-    {
-      field: "grupo",
-      headerName: "Grupo",
-      width: 90,
-    },
-    {
-      field: "poliza",
-      headerName: "Poliza",
-      width: 70,
-    },
-
-    {
-      field: "referencia",
-      headerName: "Referencia",
-      width: 90,
-    },
-    {
-      field: "serie",
-      headerName: "Serie",
-      width: 180,
-    },
-    {
-      field: "tipo",
-      headerName: "Tipo",
-      width: 140,
-    },
-    {
-      field: "tipov",
-      headerName: "Tipo Vehiculo",
-      width: 90,
-    },
-    {
-      field: "estado",
-      headerName: "Estado",
-      width: 70,
-      renderCell: (params) => (
-        <Switch
-          label={params}
-          checked={params.value === "1"}
-          color={params.value === "1" ? "success" : "error"}
-          onChange={(event) => handleSwitchChange(event, params.row.id)}
-        />
-      ),
-    },
-  ];
+  const allRows = rows.map((row) => ({
+    ...row,
+    columns: [
+      {
+        field: "id",
+        headerName: "ID",
+        width: 60,
+      },
+      {
+        field: "id_movil",
+        headerName: "ID Movil",
+        width: 90,
+      },
+      {
+        field: "propietario",
+        headerName: "Propietario",
+        width: 100,
+      },
+      {
+        field: "modelo",
+        headerName: "Modelo",
+        width: 70,
+      },
+      {
+        field: "placa",
+        headerName: "Placa",
+        width: 100,
+      },
+      {
+        field: "clase",
+        headerName: "Clase",
+        width: 105,
+      },
+      {
+        field: "motor",
+        headerName: "Motor",
+        width: 100,
+      },
+      {
+        field: "grupo",
+        headerName: "Grupo",
+        width: 90,
+      },
+      {
+        field: "poliza",
+        headerName: "Poliza",
+        width: 70,
+      },
+      {
+        field: "referencia",
+        headerName: "Referencia",
+        width: 105,
+      },
+      {
+        field: "serie",
+        headerName: "Serie",
+        width: 180,
+      },
+      {
+        field: "tipo",
+        headerName: "Tipo",
+        width: 100,
+      },
+      {
+        field: "tipov",
+        headerName: "Tipo Vehiculo",
+        width: 190,
+      },
+      {
+        field: "estado",
+        headerName: "Estado",
+        width: 75,
+        renderCell: (params) => (
+          <Switch
+            label={params}
+            checked={params.value === "1"}
+            color={params.value === "1" ? "success" : "error"}
+            onChange={(event) => handleSwitchChange(event, params.row.id)}
+          />
+        ),
+      },
+    ],
+  }));
 
   return (
     <>
-      <DataGridVehicles
-        rows={sortedRows}
-        columns={columns}
-        getRowId={(row) => row.id_movil}
-      />
-      <hr
-        style={{
-          borderColor: "#0080ca9e",
-          borderWidth: "2px",
-          margin: "20px 0",
-        }}
-      />
-      <OffVehicles />
+      <DataGridVehicles rows={allRows} columns={allRows[0]?.columns || []} />
       <div>
         {scrollUp && (
           <button

@@ -38,7 +38,7 @@ const CashBox = () => {
     {
       field: "monto",
       headerName: "Monto",
-      width: 120,
+      width: 105,
     },
     {
       field: "fecha_pago",
@@ -53,17 +53,17 @@ const CashBox = () => {
     {
       field: "pagada",
       headerName: "Pagada",
-      width: 120,
+      width: 75,
     },
     {
-      field: "cliente_id",
-      headerName: "Cliente ID",
+      field: "nombre",
+      headerName: "Nombre Cliente",
       width: 120,
     },
     {
       field: "monto_total",
       headerName: "Monto Total",
-      width: 150,
+      width: 100,
     },
     {
       field: "numero_cuotas",
@@ -73,7 +73,7 @@ const CashBox = () => {
     {
       field: "dias_cuota",
       headerName: "Dias Cuotas",
-      width: 120,
+      width: 100,
     },
     {
       field: "clase",

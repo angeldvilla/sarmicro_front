@@ -16,12 +16,12 @@ const Cuotas = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 230,
+      width: 70,
     },
     {
       field: "poliza_id",
       headerName: "ID Poliza",
-      width: 230,
+      width: 90,
     },
     {
       field: "monto",

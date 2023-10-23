@@ -10,6 +10,7 @@ import Payments from "../views/Payments/Payments.jsx";
 /* import Cuotas from "../views/Cuotas/Cuotas.jsx"; */
 import CashBox from "../views/CashBox/CashBox.jsx";
 import Vehicles from "../views/Vehicles/Vehicles.jsx";
+import OffVehicles from "../views/Vehicles/VehiclesOff.jsx";
 import DetailPolicy from "../views/DetailPolicy/DetailPolicy.jsx";
 import Error404 from "../views/Error/Error.jsx";
 
@@ -70,6 +71,14 @@ const RoutesApp = () => {
         element={
           <RoutesProtected>
             <Vehicles />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/vehiculos-desvinculados"
+        element={
+          <RoutesProtected>
+            <OffVehicles />
           </RoutesProtected>
         }
       />

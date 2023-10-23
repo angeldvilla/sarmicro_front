@@ -9,6 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 /* import AddIcon from "@mui/icons-material/Add"; */
 import PaidIcon from "@mui/icons-material/Paid";
+import PrintIcon from "@mui/icons-material/Print";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -17,7 +18,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import ModalCreateCuota from "../Modals/ModalCuotas/ModalCreateCuota";
+/* import ModalCreateCuota from "../Modals/ModalCuotas/ModalCreateCuota"; */
 import ModalEditCuota from "../Modals/ModalCuotas/ModalEditCuota";
 import {
   getCuotas,
@@ -31,7 +32,7 @@ import { Toaster, toast } from "sonner";
 
 const DataGridCuotas = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
-  const [openForm, setOpenForm] = useState(false);
+  const [openPaid, setOpenPaid] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -47,11 +48,17 @@ const DataGridCuotas = ({ rows, columns }) => {
     dispatch(getCuotas());
   }, [dispatch]);
 
-  /* const handleOpen = () => {
-    setOpenForm(true);
-  }; */
-  const handleOpen = (rowId) => {
+  const handleConfirmPaid = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
+    console.log(selectedRow);
+
+    const newValueCuota = {
+      ...selectedRow,
+      cuota_id: selectedRow.id,
+      pagada: "1",
+      estado: "1",
+    };
+    console.log(newValueCuota);
 
     if (selectedRow) {
       const { estado, pagada } = selectedRow;
@@ -59,14 +66,14 @@ const DataGridCuotas = ({ rows, columns }) => {
       if (estado === "1" && pagada === "1") {
         toast.error("Esta cuota ya fue registrada");
       } else {
-        setRowEdit(selectedRow);
-        setOpenForm(true);
+        setRowEdit(newValueCuota);
+        setOpenPaid(true);
       }
     }
   };
 
   const handleCreate = async (data) => {
-    setOpenForm(false);
+    setOpenPaid(false);
     dispatch(createCuota(data));
   };
 
@@ -125,10 +132,20 @@ const DataGridCuotas = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
+  const handlePrint = (rowId) => {
+    const url = "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
+    const selectedRow = rows.find((row) => row.id === rowId);
+    if (selectedRow.estado === "1" && selectedRow.pagada === "1") {
+      window.open(`${url}${selectedRow.id}`, "_blank");
+    } else {
+      toast.error("Haga el registro de la cuota para imprimir");
+    }
+  };
+
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 130,
+    width: 160,
     renderCell: (params) => (
       <div
         style={{
@@ -140,10 +157,19 @@ const DataGridCuotas = ({ rows, columns }) => {
         <Tooltip title="Pagar Cuota">
           <IconButton
             aria-label="Pagar Cuota"
-            onClick={() => handleOpen(params.id)}
+            onClick={() => handleConfirmPaid(params.id)}
             color="success"
           >
             <PaidIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Imprimir Cuota">
+          <IconButton
+            aria-label="Imprimir Cuota"
+            onClick={() => handlePrint(params.id)}
+            color="warning"
+          >
+            <PrintIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="Editar">
@@ -306,11 +332,79 @@ const DataGridCuotas = ({ rows, columns }) => {
           </Typography>
         </DialogActions>
       </Dialog>
-      <ModalCreateCuota
-        open={openForm}
-        handleClose={() => setOpenForm(false)}
+      <Dialog open={openPaid} onClose={() => setOpenPaid(false)}>
+        <DialogTitle
+          style={{
+            fontFamily: "sans-serif",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Pagar Cuota
+        </DialogTitle>
+        <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
+          ¿Estás seguro de registrar el pago de esta cuota?
+        </DialogContent>
+        <DialogActions style={{ justifyContent: "center" }}>
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(19, 75, 197, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="primary"
+            onClick={() => setOpenPaid(false)}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(2, 59, 182, 0.938)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(19, 75, 197, 0.938)")
+            }
+          >
+            No
+          </Typography>
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "rgba(197, 31, 19, 0.938)",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            color="error"
+            onClick={() => handleCreate(rowEdit)}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(187, 12, 0, 0.938)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "rgba(197, 31, 19, 0.938)")
+            }
+          >
+            Si
+          </Typography>
+        </DialogActions>
+      </Dialog>
+      {/*  <ModalCreateCuota
+        open={openPaid}
+        handleClose={() => setOpenPaid(false)}
         handleCreate={handleCreate}
-      />
+      /> */}
       <ModalEditCuota
         open={openEdit}
         handleClose={() => setOpenEdit(false)}

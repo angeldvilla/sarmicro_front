@@ -34,7 +34,7 @@ export default function ModalEditCuota({
   const handleEditCuota = () => {
     const today = new Date().toISOString().split("T")[0];
     const data = {
-      id: editedRow.id,
+      cuota_id: editedRow.id,
       poliza_id: Number(editedRow.poliza_id),
       monto: Number(editedRow.monto),
       fecha_vencimiento: editedRow.fecha_vencimiento,

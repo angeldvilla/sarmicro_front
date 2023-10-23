@@ -36,7 +36,6 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
     fecha_vencimiento: "",
     valor_inicial: 0,
   });
-  console.log(newValorPoliza);
   const handleCreateValuePoliza = () => {
     const valuePoliza = {
       tipo_poliza: newValorPoliza.tipo_poliza,
