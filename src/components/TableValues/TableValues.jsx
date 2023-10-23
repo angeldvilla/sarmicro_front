@@ -197,7 +197,6 @@ const DataGridValues = ({ rows, columns }) => {
           disableRowSelectionOnClick
           disableColumnSelector
           disableDensitySelector
-          hideFooterPagination
           slots={{ toolbar: CustomHeaderButton }}
           style={{
             backgroundColor: "#ffffffcc",

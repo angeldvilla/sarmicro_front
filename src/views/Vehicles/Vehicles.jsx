@@ -41,8 +41,6 @@ const Vehicles = () => {
       estado: newState,
     };
 
-    console.log(updatedVehicle);
-
     dispatch(updateVehicle(updatedVehicle, rowId));
   };
 
