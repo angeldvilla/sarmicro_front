@@ -46,7 +46,7 @@ const Values = () => {
               ? "Quincenal"
               : params.value === "31"
               ? "Mensual"
-              : params.value === "91"
+              : params.value === "93"
               ? "Trimestral"
               : params.value === "180"
               ? "Semestral"

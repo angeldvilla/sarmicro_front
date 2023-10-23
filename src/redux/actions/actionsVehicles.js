@@ -4,6 +4,7 @@ import {
   VEHICULOS_URL,
   REGISTER_ALL_POLIZAS,
   VEHICULOS_OFF_URL,
+  PARQUE_AUTOMOTOR_URL
 } from "./path.js";
 import {
   GET_VEHICULOS,
@@ -16,7 +17,7 @@ import { toast } from "sonner";
 // Acción para obtener datos de vehiculos
 export const getVehiculos = () => {
   return async (dispatch) => {
-    const vechiculosPath = `${ENDPOINT}${VEHICULOS_URL}`;
+    const vechiculosPath = `${ENDPOINT}${PARQUE_AUTOMOTOR_URL}`;
     try {
       const { data } = await axios.get(vechiculosPath);
       return dispatch({

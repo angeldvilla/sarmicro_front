@@ -37,9 +37,11 @@ const Vehicles = () => {
     const updatedRow = rows.find((row) => row.id === rowId);
 
     const updatedVehicle = {
-      ...updatedRow,
+      id: rowId,
       estado: newState,
     };
+
+    console.log(updatedVehicle);
 
     dispatch(updateVehicle(updatedVehicle, rowId));
   };
