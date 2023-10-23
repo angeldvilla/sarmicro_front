@@ -32,20 +32,20 @@ export default function ModalEditVehicle({
     const data = {
       id_movil: editedRow.id_movil,
       id_marca: editedRow.id_marca,
-      id_propietario: editedRow.id_propietario,
+      propietario: editedRow.propietario,
       modelo: editedRow.modelo,
       placa: editedRow.placa,
       clase: editedRow.clase,
       color: editedRow.color,
-      pago_hasta: editedRow.pago_hasta,
+     /*  pago_hasta: editedRow.pago_hasta, */
       grupo: editedRow.grupo,
       motor: editedRow.motor,
       poliza: editedRow.poliza,
-      poliza_paz: editedRow.poliza_paz,
-      propio: editedRow.propio,
+     /*  poliza_paz: editedRow.poliza_paz,
+      propio: editedRow.propio, */
       referencia: editedRow.referencia,
-      rtu_paz: editedRow.rtu_paz,
-      segurida_social_paz: editedRow.segurida_social_paz,
+      /* rtu_paz: editedRow.rtu_paz,
+      segurida_social_paz: editedRow.segurida_social_paz, */
       serie: editedRow.serie,
       tipo: editedRow.tipo,
       estado: editedRow.estado,
@@ -149,7 +149,7 @@ export default function ModalEditVehicle({
               label="ID Propietaro"
               margin="none"
               name="IdPropietario"
-              value={editedRow ? editedRow?.id_propietario : ""}
+              value={editedRow ? editedRow?.propietario : ""}
               placeholder="Ingrese el identificador del propietario"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
@@ -223,7 +223,7 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Pago Hasta"
@@ -240,7 +240,7 @@ export default function ModalEditVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -292,7 +292,7 @@ export default function ModalEditVehicle({
             />
           </Grid>
 
-          <Grid item xs={6}>
+        {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Poliza Paz"
@@ -324,7 +324,7 @@ export default function ModalEditVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
@@ -343,7 +343,7 @@ export default function ModalEditVehicle({
             />
           </Grid>
 
-          <Grid item xs={6}>
+         {/*  <Grid item xs={6}>
             <TextField
               fullWidth
               label="RTU Paz"
@@ -375,7 +375,7 @@ export default function ModalEditVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField

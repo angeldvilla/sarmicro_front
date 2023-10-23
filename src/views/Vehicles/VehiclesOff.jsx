@@ -64,7 +64,7 @@ const OffVehicles = () => {
       {
         field: "modelo",
         headerName: "Modelo",
-        width: 80,
+        width: 70,
       },
       {
         field: "placa",
@@ -74,7 +74,7 @@ const OffVehicles = () => {
       {
         field: "clase",
         headerName: "Clase",
-        width: 120,
+        width: 100,
       },
       {
         field: "referencia",
@@ -94,7 +94,7 @@ const OffVehicles = () => {
       {
         field: "motor",
         headerName: "Motor",
-        width: 140,
+        width: 120,
       },
       {
         field: "telefono",
@@ -105,7 +105,7 @@ const OffVehicles = () => {
       {
         field: "referencia",
         headerName: "Referencia",
-        width: 120,
+        width: 105,
       },
       {
         field: "serie",

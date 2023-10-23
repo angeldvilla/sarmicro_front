@@ -16,30 +16,25 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
-import ModalCreateVehicle from "../Modals/ModalVehicles/ModalCreateVehicle";
 import ModalEditVehicle from "../Modals/ModalVehicles/ModalEditVehicle";
 import {
   getOffVehiculos,
-  createVehicle,
   updateVehicle,
   deleteVehicle,
-  registerAllPolizas,
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster } from "sonner";
-import styles from "../Buttons/styleButton.module.css";
 
 const DataGridOffVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
-  const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
+
   const [deleteId, setDeleteId] = useState(null);
 
   const navigate = useNavigate();
   const backFunction = () => {
-    navigate(-1);
+    navigate("/vehiculos");
   };
 
   const dispatch = useDispatch();
@@ -47,24 +42,6 @@ const DataGridOffVehicles = ({ rows, columns }) => {
   useEffect(() => {
     dispatch(getOffVehiculos());
   }, [dispatch]);
-
-  const handleOpen = () => {
-    setOpenForm(true);
-  };
-
-  const handleCreate = async (data) => {
-    setOpenForm(false);
-    dispatch(createVehicle(data));
-  };
-
-  const confirmRegisterPolizas = () => {
-    setOpenRegisterPolizas(true);
-  };
-
-  const registerPolizas = () => {
-    setOpenRegisterPolizas(false);
-    dispatch(registerAllPolizas());
-  };
 
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
@@ -96,7 +73,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 90,
+    width: 80,
     renderCell: (params) => (
       <div
         style={{
@@ -157,52 +134,6 @@ const DataGridOffVehicles = ({ rows, columns }) => {
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: "auto",
-            marginRight: "1.5em",
-            gap: "1rem",
-          }}
-        >
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "#0ca840ed",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            className={styles.botonLogin}
-            onClick={handleOpen}
-          >
-            Crear Vehiculo
-          </Typography>
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(209, 188, 3, 0.966)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            className={styles.botonRegisterPolizas}
-            onClick={confirmRegisterPolizas}
-          >
-            Registrar Polizas
-          </Typography>
-        </div>
       </div>
       <div
         style={{
@@ -334,88 +265,6 @@ const DataGridOffVehicles = ({ rows, columns }) => {
           </Typography>
         </DialogActions>
       </Dialog>
-      <Dialog
-        open={openRegisterPolizas}
-        onClose={() => setOpenRegisterPolizas(false)}
-      >
-        <DialogTitle
-          style={{
-            fontFamily: "sans-serif",
-            textAlign: "center",
-            fontWeight: "600",
-          }}
-        >
-          Registro de Todas las Polizas
-        </DialogTitle>
-        <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
-          ¿Estás seguro de registrar todas las polizas del parque automotor?
-        </DialogContent>
-        <DialogActions style={{ justifyContent: "center" }}>
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(19, 75, 197, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="primary"
-            onClick={() => setOpenRegisterPolizas(false)}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(2, 59, 182, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(19, 75, 197, 0.938)")
-            }
-          >
-            No
-          </Typography>
-          {/*  <Button onClick={() => setOpenRegisterPolizas(false)} color="primary">
-            No
-          </Button> */}
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(197, 31, 19, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="error"
-            onClick={registerPolizas}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(187, 12, 0, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(197, 31, 19, 0.938)")
-            }
-          >
-            Si
-          </Typography>
-          {/* <Button onClick={registerPolizas} color="error">
-            Sí
-          </Button> */}
-        </DialogActions>
-      </Dialog>
-      <ModalCreateVehicle
-        open={openForm}
-        handleClose={() => setOpenForm(false)}
-        handleCreate={handleCreate}
-      />
       <ModalEditVehicle
         open={openEdit}
         handleClose={() => setOpenEdit(false)}

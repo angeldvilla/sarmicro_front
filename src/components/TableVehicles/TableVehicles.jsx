@@ -39,7 +39,7 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   const navigate = useNavigate();
   const backFunction = () => {
-    navigate(-1);
+    navigate("/inicio");
   };
 
   const dispatch = useDispatch();
