@@ -180,7 +180,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
                 backgroundColor: "#ffffffcc",
                 color: "black",
                 marginTop: "2%",
-                marginBottom: "2%",
+                marginBottom: "5%",
               }}
             />
             {index < groupedRows.length - 1 && (

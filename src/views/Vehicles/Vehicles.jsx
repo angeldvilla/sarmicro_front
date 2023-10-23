@@ -34,7 +34,7 @@ const Vehicles = () => {
   const handleSwitchChange = (event, rowId) => {
     const newState = event.target.checked ? "1" : "0";
 
-    const updatedRow = rows.find((row) => row.id === rowId);
+    /* const updatedRow = rows.find((row) => row.id === rowId); */
 
     const updatedVehicle = {
       id: rowId,
@@ -140,7 +140,7 @@ const Vehicles = () => {
         {scrollUp && (
           <button
             onClick={scrollToUp}
-            className="fixed bottom-10 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
+            className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
           >
             <ArrowUpwardIcon
               style={{

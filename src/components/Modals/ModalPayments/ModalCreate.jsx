@@ -196,7 +196,7 @@ export default function ModalCreate({
                 <MenuItem value={7}>Semanal</MenuItem>
                 <MenuItem value={15}>Quincenal</MenuItem>
                 <MenuItem value={31}>Mensual</MenuItem>
-                <MenuItem value={91}>Trimestral</MenuItem>
+                <MenuItem value={93}>Trimestral</MenuItem>
                 <MenuItem value={180}>Semestral</MenuItem>
                 <MenuItem value={365}>Anual</MenuItem>
               </Select>
