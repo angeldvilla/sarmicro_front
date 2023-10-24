@@ -13,7 +13,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DownloadIcon from "@mui/icons-material/Download";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -27,7 +26,7 @@ import {
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
 import { utils, writeFileXLSX } from "xlsx";
-import styles from "../Buttons/styleButton.module.css";
+import styleOffVehicles from "./tablesVehicles.module.css";
 
 const DataGridOffVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
@@ -154,70 +153,27 @@ const DataGridOffVehicles = ({ rows, columns }) => {
   }
 
   return (
-    <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
+    <div className={styleOffVehicles.container1}>
       <NavBar />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: 20,
-          marginLeft: 20,
-        }}
-      >
+      <div className={styleOffVehicles.container2}>
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: "auto",
-            marginRight: "1.5em",
-            gap: "1rem",
-          }}
-        >
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "#005704eb",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            className={styles.botonLogin}
+        <div className={styleOffVehicles.container3}>
+          <button
+            className={styleOffVehicles.buttonDownload}
             onClick={downloadExcel}
           >
             Descargar Excel <DownloadIcon />
-          </Typography>
+          </button>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <div className={styleOffVehicles.container4}>
         {groupedRows.map((group, index) => (
           <div key={index}>
             <Grid item xs={2}>
               <Paper
                 elevation={3}
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "18px",
-                  marginBottom: "2%",
-                  marginTop: "3%",
-                  fontFamily: "sans-serif",
-                  fontStyle: "italic",
-                  fontWeight: "bold",
-                  color: "#0080ca",
-                  fontSize: "1.2em",
-                }}
+                style={{ color: "#0080ca" }}
+                className={styleOffVehicles.paper}
               >
                 {group.tipoVehiculo}
               </Paper>
@@ -243,12 +199,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
                   showQuickFilter: true,
                 },
               }}
-              style={{
-                backgroundColor: "#ffffffcc",
-                color: "black",
-                marginTop: "2%",
-                marginBottom: "5%",
-              }}
+              className={styleOffVehicles.dataGrid}
             />
             {index < groupedRows.length - 1 && (
               <Divider
@@ -277,59 +228,19 @@ const DataGridOffVehicles = ({ rows, columns }) => {
           ¿Estás seguro de eliminar este vehiculo?
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(19, 75, 197, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "5px 15px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="primary"
+          <button
+            className={styleOffVehicles.buttonClose}
             onClick={() => setOpenDelete(false)}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(2, 59, 182, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(19, 75, 197, 0.938)")
-            }
           >
             No
-          </Typography>
+          </button>
 
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(197, 31, 19, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "5px 15px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="error"
+          <button
+            className={styleOffVehicles.buttonDelete}
             onClick={handleDelete}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(187, 12, 0, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(197, 31, 19, 0.938)")
-            }
           >
             Si
-          </Typography>
+          </button>
         </DialogActions>
       </Dialog>
       <ModalEditVehicle

@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import DataGridValues from "../../components/TableValues/TableValues";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import style from "../Vehicles/vehicles.module.css";
 
 const Values = () => {
   const rows = useSelector((state) => state?.values?.valuesData);
+  const [scrollUp, setScrollUp] = useState(false);
 
-  const sortModel = [
-    {
-      field: "id",
-      sort: "desc",
-    },
-  ];
+  const handleScrollUp = () => {
+    if (window.scrollY > 900) {
+      setScrollUp(true);
+    } else {
+      setScrollUp(false);
+    }
+  };
+
+  const scrollToUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollUp);
+    return () => window.removeEventListener("scroll", handleScrollUp);
+  }, []);
 
   const columns = [
     {
@@ -114,7 +130,20 @@ const Values = () => {
     }, */
   ];
 
-  return <DataGridValues rows={rows} columns={columns} sortModel={sortModel} />;
+  return (
+    <>
+      <DataGridValues rows={rows} columns={columns} />
+      {scrollUp && (
+        <button
+          onClick={scrollToUp}
+          className={style.scrollUpButton}
+          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out" */
+        >
+          <ArrowUpwardIcon className={style.arrowBack} />
+        </button>
+      )}
+    </>
+  );
 };
 
 export default Values;

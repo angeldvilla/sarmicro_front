@@ -16,9 +16,8 @@ code {
     monospace;
 }
 
-
 /* Estilos para el scrollBar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 12px;
 }
 ::-webkit-scrollbar-track {
@@ -30,4 +29,4 @@ code {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #1f5506da;
-}
+} */

@@ -3,6 +3,7 @@ import DataGridPayments from "../../components/TablePayment/TablePayment.jsx";
 import Cuotas from "../Cuotas/Cuotas.jsx";
 import { useSelector } from "react-redux";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import style from "../Vehicles/vehicles.module.css";
 
 const Payments = () => {
   const rows = useSelector((state) => state?.payments?.polizasData);
@@ -150,22 +151,17 @@ const Payments = () => {
         }}
       />
       <DataGridPayments rows={rows} columns={columns} sortModel={sortModel} />
-      <div>
-        {scrollUp && (
-          <button
-            onClick={scrollToUp}
-            className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
-          >
-            <ArrowUpwardIcon
-              style={{
-                width: "35px",
-                height: "35px",
-                backgroundColor: "#0080ca",
-              }}
-            />
-          </button>
-        )}
-      </div>
+
+      {scrollUp && (
+        <button
+          onClick={scrollToUp}
+          className={style.scrollUpButton}
+          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
+           */
+        >
+          <ArrowUpwardIcon className={style.arrowBack} />
+        </button>
+      )}
     </>
   );
 };

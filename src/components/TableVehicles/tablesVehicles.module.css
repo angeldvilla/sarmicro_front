@@ -1,0 +1,139 @@
+.container1 {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.container2 {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.container3 {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 4em;
+  gap: 1rem;
+}
+
+.container4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttonDownload {
+  text-align: center;
+  cursor: pointer;
+  background-color: #005704eb;
+  color: white;
+  font-family: Sans-serif;
+  font-weight: bold;
+  border-radius: 8px;
+  border: #ffffff;
+  padding: 8px 20px;
+  font-size: 0.9em;
+  position: relative;
+}
+
+.buttonDownload:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  background: green;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.buttonDownload:hover {
+  color: white;
+  transform: scale(1.05);
+  transition: 0.8s;
+}
+
+.buttonDownload:hover:after {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+.buttonDownload:active {
+  top: 2px;
+}
+
+.paper {
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  margin-bottom: 2%;
+  margin-top: 3%;
+  font-family: sans-serif;
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: bold;
+  color: #0080ca;
+}
+
+.dataGrid {
+  background-color: #ffffffcc;
+  color: black;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.dialogTitle {
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 800;
+}
+
+.dialogContent {
+  font-style: inherit;
+  font-weight: 400;
+}
+
+.dialogActions {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonClose {
+  text-align: center;
+  cursor: pointer;
+  background-color: rgba(19, 75, 197, 0.938);
+  color: white;
+  font-family: sans-serif;
+  font-size: 0.9em;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 5px 15px;
+  margin-right: 0.5em;
+}
+
+.buttonClose:hover {
+  background-color: rgba(2, 59, 182, 0.938);
+}
+
+.buttonDelete {
+  text-align: center;
+  cursor: pointer;
+  background-color: rgba(197, 31, 19, 0.938);
+  color: white;
+  font-family: sans-serif;
+  font-size: 0.9em;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 5px 15px;
+}
+
+.buttonDelete:hover {
+  background-color: rgba(187, 12, 0, 0.938);
+}

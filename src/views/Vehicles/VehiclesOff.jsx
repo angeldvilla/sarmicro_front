@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateVehicle } from "../../redux/actions/actionsVehicles";
 import DataGridOffVehicles from "../../components/TableVehicles/OffVehicles";
 import Switch from "@mui/material/Switch";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import style from "./vehicles.module.css";
 
 const OffVehicles = () => {
   const rows = useSelector((state) => state?.vehicles?.offVehiculos);
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
-    if (window.scrollY > 500) {
+    if (window.scrollY > 900) {
       setScrollUp(true);
     } else {
       setScrollUp(false);
@@ -30,129 +31,128 @@ const OffVehicles = () => {
   }, []);
 
   const dispatch = useDispatch();
-  const handleSwitchChange = (event, rowId) => {
-    const newState = event.target.checked ? "1" : "0";
 
-    const updatedRow = rows.find((row) => row.id === rowId);
+  const handleSwitchChange = useCallback(
+    (event, rowId) => {
+      const newState = event.target.checked ? "1" : "0";
 
-    const updatedVehicle = {
-      ...updatedRow,
-      estado: newState,
-    };
+      const updatedRow = rows.find((row) => row.id === rowId);
 
-    dispatch(updateVehicle(updatedVehicle, rowId));
-  };
+      const updatedVehicle = {
+        ...updatedRow,
+        estado: newState,
+      };
 
-  const allRows = rows.map((row) => ({
-    ...row,
-    columns: [
-      {
-        field: "id",
-        headerName: "ID",
-        width: 60,
-      },
-      {
-        field: "id_movil",
-        headerName: "ID Movil",
-        width: 80,
-      },
-      {
-        field: "propietario",
-        headerName: "Propietario",
-        width: 90,
-      },
-      {
-        field: "modelo",
-        headerName: "Modelo",
-        width: 70,
-      },
-      {
-        field: "placa",
-        headerName: "Placa",
-        width: 90,
-      },
-      {
-        field: "clase",
-        headerName: "Clase",
-        width: 100,
-      },
-      {
-        field: "grupo",
-        headerName: "Grupo",
-        width: 70,
-      },
-      {
-        field: "poliza",
-        headerName: "Poliza",
-        width: 60,
-      },
-      {
-        field: "motor",
-        headerName: "Motor",
-        width: 120,
-      },
-      {
-        field: "telefono",
-        headerName: "Telefono",
-        width: 90,
-      },
+      dispatch(updateVehicle(updatedVehicle, rowId));
+    },
+    [dispatch, rows]
+  );
 
-      {
-        field: "referencia",
-        headerName: "Referencia",
-        width: 105,
-      },
-      {
-        field: "serie",
-        headerName: "Serie",
-        width: 175,
-      },
-      {
-        field: "tipo",
-        headerName: "Tipo",
-        width: 90,
-      },
-      {
-        field: "tipov",
-        headerName: "Tipo Vehiculo",
-        width: 120,
-      },
-      {
-        field: "estado",
-        headerName: "Estado",
-        width: 70,
-        renderCell: (params) => (
-          <Switch
-            label={params}
-            checked={params.value === "1"}
-            color={params.value === "1" ? "success" : "error"}
-            onChange={(event) => handleSwitchChange(event, params.row.id)}
-          />
-        ),
-      },
-    ],
-  }));
+  const allRows = useMemo(() => {
+    return rows.map((row) => ({
+      ...row,
+      columns: [
+        {
+          field: "id",
+          headerName: "ID",
+          width: 60,
+        },
+        {
+          field: "id_movil",
+          headerName: "ID Movil",
+          width: 80,
+        },
+        {
+          field: "propietario",
+          headerName: "Propietario",
+          width: 90,
+        },
+        {
+          field: "modelo",
+          headerName: "Modelo",
+          width: 70,
+        },
+        {
+          field: "placa",
+          headerName: "Placa",
+          width: 90,
+        },
+        {
+          field: "clase",
+          headerName: "Clase",
+          width: 100,
+        },
+        {
+          field: "grupo",
+          headerName: "Grupo",
+          width: 70,
+        },
+        {
+          field: "poliza",
+          headerName: "Poliza",
+          width: 60,
+        },
+        {
+          field: "motor",
+          headerName: "Motor",
+          width: 120,
+        },
+        {
+          field: "telefono",
+          headerName: "Telefono",
+          width: 90,
+        },
+
+        {
+          field: "referencia",
+          headerName: "Referencia",
+          width: 105,
+        },
+        {
+          field: "serie",
+          headerName: "Serie",
+          width: 175,
+        },
+        {
+          field: "tipo",
+          headerName: "Tipo",
+          width: 90,
+        },
+        {
+          field: "tipov",
+          headerName: "Tipo Vehiculo",
+          width: 120,
+        },
+        {
+          field: "estado",
+          headerName: "Estado",
+          width: 70,
+          renderCell: (params) => (
+            <Switch
+              label={params}
+              checked={params.value === "1"}
+              color={params.value === "1" ? "success" : "error"}
+              onChange={(event) => handleSwitchChange(event, params.row.id)}
+            />
+          ),
+        },
+      ],
+    }));
+  }, [rows, handleSwitchChange]);
 
   return (
     <>
       <DataGridOffVehicles rows={allRows} columns={allRows[0]?.columns || []} />
 
-      <div>
-        {scrollUp && (
-          <button
-            onClick={scrollToUp}
-            className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
-          >
-            <ArrowUpwardIcon
-              style={{
-                width: "35px",
-                height: "35px",
-                backgroundColor: "#0080ca",
-              }}
-            />
-          </button>
-        )}
-      </div>
+      {scrollUp && (
+        <button
+          onClick={scrollToUp}
+          className={style.scrollUpButton}
+          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out" */
+        >
+          <ArrowUpwardIcon className={style.arrowBack} />
+        </button>
+      )}
     </>
   );
 };

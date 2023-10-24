@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import DataGridCash from "../../components/TableCash/TableCash";
 import { useSelector } from "react-redux";
-
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import style from "../Vehicles/vehicles.module.css";
 const CashBox = () => {
   const rows = useSelector((state) => state?.cash?.pagosData);
+  const [scrollUp, setScrollUp] = useState(false);
+
+  const handleScrollUp = () => {
+    if (window.scrollY > 900) {
+      setScrollUp(true);
+    } else {
+      setScrollUp(false);
+    }
+  };
+
+  const scrollToUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollUp);
+    return () => window.removeEventListener("scroll", handleScrollUp);
+  }, []);
 
   const rowsModified = () => {
     return rows.map((row) => {
@@ -85,7 +107,20 @@ const CashBox = () => {
     },
   ];
 
-  return <DataGridCash rows={rowsModified()} columns={columns} />;
+  return (
+    <>
+      <DataGridCash rows={rowsModified()} columns={columns} />
+      {scrollUp && (
+        <button
+          onClick={scrollToUp}
+          className={style.scrollUpButton}
+          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out" */
+        >
+          <ArrowUpwardIcon className={style.arrowBack} />
+        </button>
+      )}
+    </>
+  );
 };
 
 export default CashBox;
