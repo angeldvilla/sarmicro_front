@@ -45,9 +45,10 @@ export default function ModalEditValue({
       dias: editedRow.dias,
       vehiculo_grupo_id: editedRow.vehiculo_grupo_id,
       numero_cuotas: editedRow.numero_cuotas,
-      cuota_inicial_porcentaje: editedRow.cuota_inicial_porcentaje,
+      /* cuota_inicial_porcentaje: editedRow.cuota_inicial_porcentaje, */
       fecha_inicial: editedRow.fecha_inicial,
       fecha_vencimiento: editedRow.fecha_vencimiento,
+      valor_inicial: editedRow.valor_inicial,
     };
     handleEdit(data, rowEdit.id);
   };
@@ -239,7 +240,7 @@ export default function ModalEditValue({
             />
           </Grid>
 
-          <Grid item xs={6}>
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Porcentaje de Cuota"
@@ -251,6 +252,23 @@ export default function ModalEditValue({
                 setEditedRow((prevState) => ({
                   ...prevState,
                   cuota_inicial_porcentaje: e.target.value,
+                }))
+              }
+            />
+          </Grid> */}
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Valor inicial"
+              margin="none"
+              name="TotalPagar"
+              type="number"
+              value={editedRow ? editedRow?.valor_inicial : ""}
+              placeholder="Valor inicial"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  valor_inicial: e.target.value,
                 }))
               }
             />

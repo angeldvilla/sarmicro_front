@@ -203,7 +203,7 @@ export default function ModalCreate({
             </FormControl>
           </Grid>
 
-        {/*   <Grid item xs={6}>
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Porcentaje de Cuota"
@@ -227,37 +227,6 @@ export default function ModalCreate({
               InputLabelProps={{ shrink: true }}
               value={editedRow ? editedRow?.valor_inicial : ""}
               placeholder="Valor de la cuota"
-              disabled
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Fecha de Inicio"
-              name={"FechaIni"}
-              margin="none"
-              type="date"
-              InputLabelProps={{ shrink: true }}
-              disabled
-              value={editedRow ? editedRow?.fecha_inicio : ""}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Fecha de Fin"
-              name={"FechaFin"}
-              margin="none"
-              type="date"
-              InputLabelProps={{ shrink: true }}
-              value={editedRow ? editedRow?.fecha_fin : ""}
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  fecha_fin: e.target.value,
-                }))
-              }
               disabled
             />
           </Grid>
@@ -289,6 +258,36 @@ export default function ModalCreate({
               name="IdVehiculo"
               variant="outlined"
               value={editedRow ? editedRow?.id_vehiculo : ""}
+              disabled
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Fecha de Inicio"
+              name={"FechaIni"}
+              margin="none"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              disabled
+              value={editedRow ? editedRow?.fecha_inicio : ""}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Fecha de Fin"
+              name={"FechaFin"}
+              margin="none"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              value={editedRow ? editedRow?.fecha_fin : ""}
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  fecha_fin: e.target.value,
+                }))
+              }
               disabled
             />
           </Grid>

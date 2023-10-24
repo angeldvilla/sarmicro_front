@@ -39,11 +39,24 @@ export default function ModalEditCuota({
       monto: Number(editedRow.monto),
       fecha_vencimiento: editedRow.fecha_vencimiento,
       pagada: editedRow.pagada,
-      estado: 1,
+      estado: editedRow.estado,
       created_at: today,
       updated_at: null,
     };
     handleEdit(data, rowEdit.id);
+  };
+
+  const editState = (event) => {
+    const pagada = event.target.value;
+    const estado = pagada ? "1" : "0";
+
+    setEditedRow((prevState) => {
+      return {
+        ...prevState,
+        pagada,
+        estado,
+      };
+    });
   };
 
   return (
@@ -80,7 +93,7 @@ export default function ModalEditCuota({
               variant="h6"
               component="div"
             >
-              Crear Cuota
+              Editar Cuota
             </Typography>
             <Button
               style={{
@@ -164,12 +177,13 @@ export default function ModalEditCuota({
                 label="Pagada"
                 variant="outlined"
                 value={editedRow ? editedRow?.pagada : ""}
-                onChange={(e) =>
+                /* onChange={(e) =>
                   setEditedRow((prevState) => ({
                     ...prevState,
                     pagada: e.target.value,
                   }))
-                }
+                } */
+                onChange={editState}
               >
                 <MenuItem value={0}>No</MenuItem>
                 <MenuItem value={1}>Si</MenuItem>

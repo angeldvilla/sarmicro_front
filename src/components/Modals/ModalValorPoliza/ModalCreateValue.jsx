@@ -31,7 +31,7 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
     dias: "",
     vehiculo_grupo_id: "",
     numero_cuotas: "",
-    cuota_inicial_porcentaje: "",
+   /*  cuota_inicial_porcentaje: "", */
     fecha_inicial: today,
     fecha_vencimiento: "",
     valor_inicial: 0,
@@ -45,7 +45,7 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
       dias: newValorPoliza.dias,
       vehiculo_grupo_id: newValorPoliza.vehiculo_grupo_id,
       numero_cuotas: newValorPoliza.numero_cuotas,
-      cuota_inicial_porcentaje: newValorPoliza.cuota_inicial_porcentaje,
+      /* cuota_inicial_porcentaje: newValorPoliza.cuota_inicial_porcentaje, */
       fecha_inicial: newValorPoliza.fecha_inicial,
       fecha_vencimiento: newValorPoliza.fecha_vencimiento,
       valor_inicial: newValorPoliza.valor_inicial,
@@ -54,7 +54,7 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
     handleCreate(valuePoliza);
   };
 
-  const valueTotal = (event) => {
+  /* const valueTotal = (event) => {
     const cuota_inicial_porcentaje = event.target.value;
 
     const valor_inicial =
@@ -68,7 +68,7 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
         };
       });
     }
-  };
+  }; */
 
   return (
     <div>
@@ -269,7 +269,7 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Porcentaje de Cuota"
@@ -279,15 +279,15 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
               value={
                 newValorPoliza ? newValorPoliza?.cuota_inicial_porcentaje : ""
               }
-              /*  onChange={(e) =>
+               onChange={(e) =>
                 setNewValorPoliza((prevState) => ({
                   ...prevState,
                   cuota_inicial_porcentaje: e.target.value,
                 }))
-              } */
+              }
               onChange={valueTotal}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -297,7 +297,12 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
               type="number"
               value={newValorPoliza ? newValorPoliza?.valor_inicial : ""}
               placeholder="Valor inicial"
-              disabled
+              onChange={(e) =>
+                setNewValorPoliza((prevState) => ({
+                  ...prevState,
+                  valor_inicial: e.target.value,
+                }))
+              }
             />
           </Grid>
           <Grid item xs={6}>

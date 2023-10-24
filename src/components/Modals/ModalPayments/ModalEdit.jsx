@@ -34,8 +34,8 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
       dias_cuota: editedRow.dias_cuota,
       cedula: editedRow.cedula,
       nombre: editedRow.nombre,
-      /* porcentaje: editedRow.porcentaje,
-      total_pagar: editedRow.total_pagar, */
+      /* porcentaje: editedRow.porcentaje,*/
+      valor_inicial: editedRow.valor_inicial,
       estado: 1,
     };
     handleEdit(data, rowEdit.id);
@@ -124,13 +124,12 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               name="MontoTotal"
               value={editedRow ? editedRow?.monto_total : ""}
               placeholder="Ingrese Monto Total de la póliza"
-              disabled
-              /* onChange={(e) =>
+              onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
                   monto_total: e.target.value,
                 })
-              } */
+              }
             />
           </Grid>
 
@@ -179,7 +178,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          {/*    <Grid item xs={6}>
             <TextField
               fullWidth
               label="Porcentaje de Cuota"
@@ -196,7 +195,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               }
               disabled
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
@@ -205,48 +204,15 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               margin="none"
               name="TotalPagar"
               type="number"
-              value={editedRow ? editedRow?.total_pagar : ""}
+              value={editedRow ? editedRow?.valor_inicial : ""}
               placeholder="Valor total a pagar"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  total_pagar: e.target.value,
+                  valor_inicial: e.target.value,
                 }))
               }
               disabled
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Fecha de Inicio"
-              name="FechaIni"
-              margin="none"
-              type="date"
-              value={editedRow ? editedRow?.fecha_inicio : ""}
-              onChange={(e) =>
-                setEditedRow({
-                  ...editedRow,
-                  fecha_inicio: e.target.value,
-                })
-              }
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Fecha de Fin"
-              name="FechaFin"
-              margin="none"
-              type="date"
-              value={editedRow ? editedRow?.fecha_fin : ""}
-              onChange={(e) =>
-                setEditedRow({
-                  ...editedRow,
-                  fecha_fin: e.target.value,
-                })
-              }
             />
           </Grid>
 
@@ -278,6 +244,38 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               variant="outlined"
               value={editedRow ? editedRow?.id_vehiculo : ""}
               disabled
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Fecha de Inicio"
+              name="FechaIni"
+              margin="none"
+              type="date"
+              value={editedRow ? editedRow?.fecha_inicio : ""}
+              onChange={(e) =>
+                setEditedRow({
+                  ...editedRow,
+                  fecha_inicio: e.target.value,
+                })
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Fecha de Fin"
+              name="FechaFin"
+              margin="none"
+              type="date"
+              value={editedRow ? editedRow?.fecha_fin : ""}
+              onChange={(e) =>
+                setEditedRow({
+                  ...editedRow,
+                  fecha_fin: e.target.value,
+                })
+              }
             />
           </Grid>
         </Grid>
