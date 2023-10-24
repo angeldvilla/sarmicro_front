@@ -16,7 +16,6 @@ import BusAlertIcon from "@mui/icons-material/BusAlert";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
@@ -33,6 +32,7 @@ import {
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
 import { utils, writeFileXLSX } from "xlsx";
+import style from "./tablesVehicles.module.css";
 import styles from "../Buttons/styleButton.module.css";
 
 const DataGridVehicles = ({ rows, columns }) => {
@@ -81,7 +81,6 @@ const DataGridVehicles = ({ rows, columns }) => {
     if (polizasRegistradas) {
       return;
     }
-
     setOpenRegisterPolizas(false);
     setPolizasRegistradas(true);
 
@@ -172,7 +171,8 @@ const DataGridVehicles = ({ rows, columns }) => {
   }
 
   const viewVehiclesOff = () => {
-    window.open("/vehiculos-desvinculados", "_blank");
+    navigate("/vehiculos-desvinculados");
+    /* window.open("/vehiculos-desvinculados", "_blank"); */
   };
 
   const exportToExcel = () => {
@@ -198,27 +198,27 @@ const DataGridVehicles = ({ rows, columns }) => {
   };
 
   return (
-    <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
+    <div className={style.container1}>
       <NavBar />
       <div
-        style={{
+        /*   style={{
           display: "flex",
           alignItems: "center",
           marginTop: 20,
           marginLeft: 20,
-        }}
+        }} */ className={style.container2}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
         <div
-          style={{
+          /*  style={{
             display: "flex",
             alignItems: "center",
             marginLeft: "auto",
             marginRight: "1.5em",
             gap: "1rem",
-          }}
+          }} */ className={style.container3}
         >
-          <Typography
+          <button
             style={{
               textAlign: "center",
               cursor: "pointer",
@@ -235,8 +235,8 @@ const DataGridVehicles = ({ rows, columns }) => {
             onClick={handleOpen}
           >
             Crear Vehiculo <AddCircleIcon />
-          </Typography>
-          <Typography
+          </button>
+          <button
             style={{
               textAlign: "center",
               cursor: "pointer",
@@ -253,8 +253,8 @@ const DataGridVehicles = ({ rows, columns }) => {
             onClick={confirmRegisterPolizas}
           >
             Registrar Polizas <AppRegistrationIcon />
-          </Typography>
-          <Typography
+          </button>
+          <button
             style={{
               textAlign: "center",
               cursor: "pointer",
@@ -270,9 +270,9 @@ const DataGridVehicles = ({ rows, columns }) => {
             className={styles.boton}
             onClick={downloadExcel}
           >
-            Descargar <DownloadIcon />
-          </Typography>
-          <Typography
+            Descargar Excel <DownloadIcon />
+          </button>
+          <button
             style={{
               textAlign: "center",
               cursor: "pointer",
@@ -289,33 +289,23 @@ const DataGridVehicles = ({ rows, columns }) => {
             onClick={viewVehiclesOff}
           >
             Vehiculos Desvinculados <BusAlertIcon />
-          </Typography>
+          </button>
         </div>
       </div>
       <div
-        style={{
+        /* style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}
+        }} */ className={style.container4}
       >
         {groupedRows.map((group, index) => (
           <div key={index}>
             <Grid item xs={2}>
               <Paper
                 elevation={3}
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "18px",
-                  marginBottom: "2%",
-                  marginTop: "3%",
-                  fontFamily: "sans-serif",
-                  fontStyle: "italic",
-                  fontWeight: "bold",
-                  color: "#0080ca",
-                  fontSize: "1.2em",
-                }}
+                style={{ color: "#0080ca" }}
+                className={style.paper}
               >
                 {group.tipoVehiculo}
               </Paper>
@@ -341,12 +331,7 @@ const DataGridVehicles = ({ rows, columns }) => {
                   showQuickFilter: true,
                 },
               }}
-              style={{
-                backgroundColor: "#ffffffcc",
-                color: "black",
-                marginTop: "2%",
-                marginBottom: "5%",
-              }}
+              className={style.dataGrid}
             />
             {index < groupedRows.length - 1 && (
               <Divider
@@ -375,59 +360,16 @@ const DataGridVehicles = ({ rows, columns }) => {
           ¿Estás seguro de eliminar este vehiculo?
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(19, 75, 197, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "5px 15px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="primary"
+          <button
+            className={style.buttonClose}
             onClick={() => setOpenDelete(false)}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(2, 59, 182, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(19, 75, 197, 0.938)")
-            }
           >
             No
-          </Typography>
+          </button>
 
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(197, 31, 19, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "5px 15px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="error"
-            onClick={handleDelete}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(187, 12, 0, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(197, 31, 19, 0.938)")
-            }
-          >
+          <button className={style.buttonDelete} onClick={handleDelete}>
             Si
-          </Typography>
+          </button>
         </DialogActions>
       </Dialog>
       <Dialog
@@ -447,64 +389,16 @@ const DataGridVehicles = ({ rows, columns }) => {
           ¿Estás seguro de registrar todas las polizas del parque automotor?
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(19, 75, 197, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="primary"
+          <button
+            className={style.buttonClose}
             onClick={() => setOpenRegisterPolizas(false)}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(2, 59, 182, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(19, 75, 197, 0.938)")
-            }
           >
             No
-          </Typography>
-          {/*  <Button onClick={() => setOpenRegisterPolizas(false)} color="primary">
-            No
-          </Button> */}
-          <Typography
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              backgroundColor: "rgba(197, 31, 19, 0.938)",
-              color: "white",
-              fontFamily: "Sans-serif",
-              fontWeight: "bold",
-              borderRadius: "8px",
-              padding: "8px 20px",
-              fontSize: "0.90em",
-              display: { xs: "none", md: "flex", marginLeft: "auto" },
-            }}
-            color="error"
-            onClick={registerPolizas}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(187, 12, 0, 0.938)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "rgba(197, 31, 19, 0.938)")
-            }
-          >
+          </button>
+
+          <button className={style.buttonDelete} onClick={registerPolizas}>
             Si
-          </Typography>
-          {/* <Button onClick={registerPolizas} color="error">
-            Sí
-          </Button> */}
+          </button>
         </DialogActions>
       </Dialog>
       <ModalCreateVehicle

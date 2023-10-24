@@ -1,37 +1,85 @@
 .scaleWelcome h1 {
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 0 auto;
-    letter-spacing: 0.15em;
-    animation: typing 2.5s steps(20, end);
-    font-family: "Sans-serif", sans-serif;
-    font-size: 20px;
-    margin-left: 2em;
-    font-weight: 760;
-    font-style: italic;
-    color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: typing 2.5s steps(20, end);
+  font-family: sans-serif;
+  font-size: 20px;
+  margin-left: 2em;
+  font-weight: 760;
+  font-style: italic;
+  color: white;
+}
+
+/* PARA BOTON DE CERRAR SESIÓN */
+.botonLogout {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  background-color: #000000;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 0.95em;
+}
+
+.botonLogout {
+  z-index: 1;
+  position: relative;
+  border-radius: 8px;
+}
+
+.botonLogout:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  background: red;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.botonLogout:hover {
+  color: white;
+  transform: scale(1.05);
+  transition: 0.8s;
+}
+
+.botonLogout:hover:after {
+  left: auto;
+  right: 0;
+  width: 100%;
+}
+
+.botonLogout:active {
+  top: 2px;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
   }
-  
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
+  to {
+    width: 100%;
   }
-  
-  /* Detener la animación después de completarla una vez */
-  .scaleWelcome h1::after {
-    animation: none; /* Detener la animación */
+}
+
+/* Detener la animación después de completarla una vez */
+.scaleWelcome h1::after {
+  animation: none; /* Detener la animación */
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
   }
-  
-  @keyframes blink-caret {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: orange;
-    }
+  50% {
+    border-color: orange;
   }
+}

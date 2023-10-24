@@ -164,8 +164,8 @@ const DataGridCash = ({ rows, columns }) => {
             style={{
               backgroundColor: "#ffffffcc",
               color: "black",
-              marginTop: "20px",
-              marginBottom: "25px",
+              marginTop: "2%",
+              marginBottom: "5%",
             }}
           />
         </div>

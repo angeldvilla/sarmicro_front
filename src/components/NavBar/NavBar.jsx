@@ -4,14 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import LogoutIcon from "@mui/icons-material/Logout";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
-import styles from "../Buttons/styleButton.module.css";
 import { logoutUser } from "../../redux/actions/actionsAuth";
 import { Toaster } from "sonner";
 import style from "./navBar.module.css";
@@ -91,23 +89,10 @@ function NavBar() {
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
           >
-            <Typography
-              style={{
-                textAlign: "center",
-                cursor: "pointer",
-                backgroundColor: "#000000",
-                color: "white",
-                borderRadius: "8px",
-                padding: "8px 20px",
-                fontSize: "0.75em",
-                display: { xs: "none", md: "flex", marginLeft: "auto" },
-              }}
-              className={styles.botonLogout}
-              onClick={handleLogout}
-            >
+            <button className={style.botonLogout} onClick={handleLogout}>
               Cerrar Sesión
               <LogoutIcon style={{ marginLeft: 10, fontSize: "large" }} />
-            </Typography>
+            </button>
             <Toaster position="top-right" richColors />
           </Box>
         </Toolbar>
