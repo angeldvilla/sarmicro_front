@@ -19,3 +19,7 @@ export const REGISTER_ALL_POLIZAS = "/registerPolizas"; /* -> RUTA PARA REGISTRA
 export const DETAIL_POLICYS_URL = "" /* -> RUTA PARA CONSULTAR LOS DETALLES DE UNA POLIZA ELIMINADA */
 export const TIPO_POLIZA_URL = "/tipov-poliza";
 export const TIPO_EMPRESA_URL = "/tipo-empresa-poliza";
+
+
+export const EXPORT_EXCEL_VINCULADO_URL = "https://poliza.transargelia.com.co/public/api/recibos/parque-automotor-vinculado-excel";
+export const EXPORT_EXCEL_DESVINCULADO_URL = "https://poliza.transargelia.com.co/public/api/recibos/parque-automotor-desvinculado-excel";

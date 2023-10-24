@@ -4,13 +4,17 @@ import {
   VEHICULOS_URL,
   REGISTER_ALL_POLIZAS,
   VEHICULOS_OFF_URL,
-  PARQUE_AUTOMOTOR_URL
+  PARQUE_AUTOMOTOR_URL,
+  EXPORT_EXCEL_VINCULADO_URL,
+  EXPORT_EXCEL_DESVINCULADO_URL,
 } from "./path.js";
 import {
   GET_VEHICULOS,
   CREATE_VEHICULO,
   UPDATE_VEHICULO,
   GET_OFF_VEHICULOS,
+  GET_EXPORT_EXCEL_VINCULADOS,
+  GET_EXPORT_EXCEL_DESVINCULADOS,
 } from "./actionTypes.js";
 import { toast } from "sonner";
 
@@ -113,6 +117,40 @@ export const deleteVehicle = (id) => {
     } catch (error) {
       console.error(error);
       toast.error("No hay datos de vehiculos");
+    }
+  };
+};
+
+//Accion para traer informacion completa y exportar vehiculos vinculados en Excel
+export const getExportVinculadosExcel = () => {
+  return async (dispatch) => {
+    const vehiculosPath = `${EXPORT_EXCEL_VINCULADO_URL}`;
+    try {
+      const { data } = await axios.get(vehiculosPath);
+      return dispatch({
+        type: GET_EXPORT_EXCEL_VINCULADOS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("No hay datos de vehiculos para exportar");
+    }
+  };
+};
+
+//Accion para traer informacion completa y exportar vehiculos desvinculados en Excel
+export const getExportDesvinculadosExcel = () => {
+  return async (dispatch) => {
+    const vehiculosPath = `${EXPORT_EXCEL_DESVINCULADO_URL}`;
+    try {
+      const { data } = await axios.get(vehiculosPath);
+      return dispatch({
+        type: GET_EXPORT_EXCEL_DESVINCULADOS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("No hay datos de vehiculos para exportar");
     }
   };
 };

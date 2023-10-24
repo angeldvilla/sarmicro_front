@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -22,9 +22,11 @@ import {
   getOffVehiculos,
   updateVehicle,
   deleteVehicle,
+  getExportDesvinculadosExcel,
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
+import { utils, writeFileXLSX } from "xlsx";
 import styles from "../Buttons/styleButton.module.css";
 
 const DataGridOffVehicles = ({ rows, columns }) => {
@@ -43,7 +45,12 @@ const DataGridOffVehicles = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getOffVehiculos());
+    dispatch(getExportDesvinculadosExcel());
   }, [dispatch]);
+
+  const resultados = useSelector(
+    (state) => state?.vehicles?.excelExportDesvinculados
+  );
 
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
@@ -70,6 +77,28 @@ const DataGridOffVehicles = ({ rows, columns }) => {
       dispatch(deleteVehicle(deleteId));
     }
     setOpenDelete(false);
+  };
+
+  const exportToExcel = () => {
+    const wb = utils.book_new();
+
+    // Agregar la hoja de cálculo al libro
+    utils.book_append_sheet(
+      wb,
+      // Crear una hoja de cálculo y asignarle los datos
+      utils.json_to_sheet(resultados),
+      "Vehiculos Desvinculados"
+    );
+    // Descargar el archivo Excel
+    writeFileXLSX(wb, "Vehiculos-Desvinculados-Parque-Automotor.xlsx");
+  };
+
+  const downloadExcel = async () => {
+    try {
+      exportToExcel(resultados);
+    } catch (error) {
+      toast.error("Error al descargar el archivo excel, intente de nuevo");
+    }
   };
 
   const actionsColumn = {
@@ -145,8 +174,6 @@ const DataGridOffVehicles = ({ rows, columns }) => {
             gap: "1rem",
           }}
         >
-          
-         
           <Typography
             style={{
               textAlign: "center",
@@ -161,11 +188,10 @@ const DataGridOffVehicles = ({ rows, columns }) => {
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
             className={styles.botonLogin}
-            /* onClick={viewVehiclesOff} */
+            onClick={downloadExcel}
           >
             Descargar Excel <DownloadIcon />
           </Typography>
-          
         </div>
       </div>
       <div

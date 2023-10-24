@@ -1,5 +1,7 @@
 import {
   GET_VEHICULOS,
+  GET_EXPORT_EXCEL_VINCULADOS,
+  GET_EXPORT_EXCEL_DESVINCULADOS,
   GET_OFF_VEHICULOS,
   CREATE_VEHICULO,
   UPDATE_VEHICULO,
@@ -9,6 +11,8 @@ import {
 const initialState = {
   vechiculosData: [],
   offVehiculos: [],
+  excelExportVinculados: [],
+  excelExportDesvinculados: [],
 };
 
 export default function VehiclesReducer(state = initialState, action) {
@@ -37,6 +41,18 @@ export default function VehiclesReducer(state = initialState, action) {
       return {
         ...state,
         vechiculosData: updateValue,
+      };
+
+    case GET_EXPORT_EXCEL_VINCULADOS:
+      return {
+        ...state,
+        excelExportVinculados: action.payload,
+      };
+
+    case GET_EXPORT_EXCEL_DESVINCULADOS:
+      return {
+        ...state,
+        excelExportDesvinculados: action.payload,
       };
 
     case LOGOUT:
