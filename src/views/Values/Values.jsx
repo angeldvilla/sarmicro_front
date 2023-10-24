@@ -58,18 +58,13 @@ const Values = () => {
       },
     },
     {
-      field: "vehiculo_grupo_id",
-      headerName: "Grupo Vehiculo",
+      field: "numero_cuotas",
+      headerName: "Numero Cuotas",
       width: 120,
     },
     {
-      field: "cuota_inicial_porcentaje",
-      headerName: "Porcentaje Cuota Inicial",
-      width: 170,
-    },
-    {
-      field: "numero_cuotas",
-      headerName: "Numero Cuotas",
+      field: "valor_inicial",
+      headerName: "Valor Inicial",
       width: 120,
     },
     {

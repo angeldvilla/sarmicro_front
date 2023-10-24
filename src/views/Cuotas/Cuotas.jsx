@@ -5,12 +5,14 @@ import { useSelector } from "react-redux";
 const Cuotas = () => {
   const rows = useSelector((state) => state?.cuotas?.cuotasData);
 
-  const sortModel = [
-    {
-      field: "fecha_vencimiento",
-      sort: "desc",
-    },
-  ];  
+  const rowsModified = () => {
+    return rows.map((row) => {
+      return {
+        ...row,
+        id_vehiculo: row?.poliza?.id_vehiculo,
+      };
+    });
+  };
 
   const columns = [
     {
@@ -26,7 +28,12 @@ const Cuotas = () => {
     {
       field: "monto",
       headerName: "Monto",
-      width: 230,
+      width: 120,
+    },
+    {
+      field: "id_vehiculo",
+      headerName: "ID Vehiculo",
+      width: 120,
     },
     {
       field: "fecha_vencimiento",
@@ -67,7 +74,7 @@ const Cuotas = () => {
     },
   ];
 
-  return <DataGridCuotas rows={rows} columns={columns} sortModel={sortModel} />;
+  return <DataGridCuotas rows={rowsModified()} columns={columns} />;
 };
 
 export default Cuotas;

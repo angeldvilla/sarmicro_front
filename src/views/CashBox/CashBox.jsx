@@ -5,13 +5,6 @@ import { useSelector } from "react-redux";
 const CashBox = () => {
   const rows = useSelector((state) => state?.cash?.pagosData);
 
-  const sortModel = [
-    {
-      field: "fecha_vencimiento",
-      sort: "desc",
-    },
-  ];
-
   const rowsModified = () => {
     return rows.map((row) => {
       return {
@@ -92,13 +85,7 @@ const CashBox = () => {
     },
   ];
 
-  return (
-    <DataGridCash
-      rows={rowsModified()}
-      columns={columns}
-      sortModel={sortModel}
-    />
-  );
+  return <DataGridCash rows={rowsModified()} columns={columns} />;
 };
 
 export default CashBox;

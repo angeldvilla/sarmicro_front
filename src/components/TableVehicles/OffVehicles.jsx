@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DownloadIcon from "@mui/icons-material/Download";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
@@ -24,6 +25,7 @@ import {
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster } from "sonner";
+import styles from "../Buttons/styleButton.module.css";
 
 const DataGridOffVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
@@ -134,6 +136,37 @@ const DataGridOffVehicles = ({ rows, columns }) => {
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginLeft: "auto",
+            marginRight: "1.5em",
+            gap: "1rem",
+          }}
+        >
+          
+         
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#005704eb",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            className={styles.botonLogin}
+            /* onClick={viewVehiclesOff} */
+          >
+            Descargar Excel <DownloadIcon />
+          </Typography>
+          
+        </div>
       </div>
       <div
         style={{

@@ -72,9 +72,16 @@ const DataGridCuotas = ({ rows, columns }) => {
     }
   };
 
-  const handleCreate = async (data) => {
+  const handleCreate = async (data, rowId) => {
+    const url = "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
+    const selectedRow = rows.find((row) => row.id === rowId);
     setOpenPaid(false);
-    dispatch(createCuota(data));
+    try {
+      await dispatch(createCuota(data));
+      window.open(`${url}${selectedRow.id}`, "_blank");
+    } catch (error) {
+      toast.error("Error al crear el pago de la cuota, intente de nuevo");
+    }
   };
 
   /* const CustomHeaderButton = () => {
@@ -135,6 +142,7 @@ const DataGridCuotas = ({ rows, columns }) => {
   const handlePrint = (rowId) => {
     const url = "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
     const selectedRow = rows.find((row) => row.id === rowId);
+    console.log(selectedRow);
     if (selectedRow.estado === "1" && selectedRow.pagada === "1") {
       window.open(`${url}${selectedRow.id}`, "_blank");
     } else {
@@ -386,7 +394,7 @@ const DataGridCuotas = ({ rows, columns }) => {
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
             color="error"
-            onClick={() => handleCreate(rowEdit)}
+            onClick={() => handleCreate(rowEdit, rowEdit.id)}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "rgba(187, 12, 0, 0.938)")

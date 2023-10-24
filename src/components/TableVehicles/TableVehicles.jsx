@@ -7,9 +7,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DownloadIcon from "@mui/icons-material/Download";
+import BusAlertIcon from "@mui/icons-material/BusAlert";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
@@ -201,7 +205,7 @@ const DataGridVehicles = ({ rows, columns }) => {
             className={styles.botonLogin}
             onClick={handleOpen}
           >
-            Crear Vehiculo
+            Crear Vehiculo <AddCircleIcon />
           </Typography>
           <Typography
             style={{
@@ -219,7 +223,25 @@ const DataGridVehicles = ({ rows, columns }) => {
             className={styles.botonRegisterPolizas}
             onClick={confirmRegisterPolizas}
           >
-            Registrar Polizas
+            Registrar Polizas <AppRegistrationIcon />
+          </Typography>
+          <Typography
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#0c4aa8eb",
+              color: "white",
+              fontFamily: "Sans-serif",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "0.90em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            className={styles.boton}
+            /* onClick={viewVehiclesOff} */
+          >
+            Descargar <DownloadIcon />
           </Typography>
           <Typography
             style={{
@@ -237,7 +259,7 @@ const DataGridVehicles = ({ rows, columns }) => {
             className={styles.botonLogout}
             onClick={viewVehiclesOff}
           >
-            Vehiculos Desvinculados
+            Vehiculos Desvinculados <BusAlertIcon />
           </Typography>
         </div>
       </div>
