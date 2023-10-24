@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -28,9 +28,11 @@ import {
   updateVehicle,
   deleteVehicle,
   registerAllPolizas,
+  getExportVinculadosExcel,
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
+import { utils, writeFileXLSX } from "xlsx";
 import styles from "../Buttons/styleButton.module.css";
 
 const DataGridVehicles = ({ rows, columns }) => {
@@ -51,7 +53,12 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getVehiculos());
+    dispatch(getExportVinculadosExcel());
   }, [dispatch]);
+
+  const resultados = useSelector(
+    (state) => state?.vehicles?.excelExportVinculados
+  );
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -168,6 +175,28 @@ const DataGridVehicles = ({ rows, columns }) => {
     window.open("/vehiculos-desvinculados", "_blank");
   };
 
+  const exportToExcel = () => {
+    const wb = utils.book_new();
+
+    // Agregar la hoja de cálculo al libro
+    utils.book_append_sheet(
+      wb,
+      // Crear una hoja de cálculo y asignarle los datos
+      utils.json_to_sheet(resultados),
+      "Vehiculos Vinculados"
+    );
+    // Descargar el archivo Excel
+    writeFileXLSX(wb, "Vehiculos-Parque-Automotor.xlsx");
+  };
+
+  const downloadExcel = async () => {
+    try {
+      exportToExcel(resultados);
+    } catch (error) {
+      toast.error("Error al descargar el archivo excel, intente de nuevo");
+    }
+  };
+
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
       <NavBar />
@@ -239,7 +268,7 @@ const DataGridVehicles = ({ rows, columns }) => {
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
             className={styles.boton}
-            /* onClick={viewVehiclesOff} */
+            onClick={downloadExcel}
           >
             Descargar <DownloadIcon />
           </Typography>
