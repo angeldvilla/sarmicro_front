@@ -1,7 +1,4 @@
-import React /* , { useEffect }  */ from "react";
-import { /* useDispatch, */ useSelector } from "react-redux";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-/* import Button from "@mui/material/Button"; */
+import React from "react";
 import Dialog from "@mui/material/Dialog";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,88 +6,17 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import { esES } from "@mui/x-data-grid";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DataGridFrom = ({ open, handleClose, handleCreate }) => {
-  /* const dispatch = useDispatch(); */
+const DataGridForm = ({ open, handleClose, rows }) => {
+  const saldoActual = 1200000;
+  const saldoAnterior = 1000000;
+  const saldoTotal = saldoActual + saldoAnterior;
 
-  /* const backFunction = () => {
-    navigate(-1);
-  }; */
-
-  /* useEffect(() => {
-    dispatch(getDetailsPolicys());
-  }, [dispatch]); */
-
-  const rows = useSelector((state) => state?.cash?.pagosData);
-
-  const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      width: 120,
-    },
-    {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 120,
-    },
-    {
-      field: "recibo",
-      headerName: "Recibo",
-      width: 150,
-    },
-    {
-      field: "concepto",
-      headerName: "Concepto",
-      width: 150,
-    },
-    {
-      field: "movil",
-      headerName: "Movil",
-      width: 120,
-    },
-    {
-      field: "ingresos",
-      headerName: "Ingresos",
-      width: 120,
-    },
-    {
-      field: "egresos",
-      headerName: "Egresos",
-      width: 150,
-    },
-    {
-      field: "saldo",
-      headerName: "Saldo",
-      width: 120,
-    },
-    {
-      field: "dias_cuota",
-      headerName: "Dias Cuotas",
-      width: 120,
-    },
-    {
-      field: "clase",
-      headerName: "Clase Vehículo",
-      width: 120,
-    },
-    {
-      field: "grupo",
-      headerName: "Grupo",
-      width: 120,
-    },
-    {
-      field: "modelo",
-      headerName: "Modelo",
-      width: 120,
-    },
-  ];
-
+  console.log(rows);
   return (
     <div>
       <Dialog
@@ -125,62 +51,176 @@ const DataGridFrom = ({ open, handleClose, handleCreate }) => {
               variant="h6"
               component="div"
             >
-              Cuadre de Caja de Seguros
+              Cuadre de Caja de Seguros Contractual y Extracontractual
             </Typography>
-            {/*      <Button
-              style={{
-                backgroundColor: "rgba(0, 148, 7, 0.795)",
-                color: "white",
-                borderRadius: "8px",
-              }}
-              autoFocus
-              onClick={handleCreatePago}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor =
-                  "rgba(0, 173, 9, 0.753)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor =
-                  "rgba(0, 148, 7, 0.795)")
-              }
-            >
-              Guardar
-            </Button> */}
           </Toolbar>
         </AppBar>
-        <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
+        <Typography
+          sx={{ textAlign: "center", marginTop: "2%" }}
+          variant="h6"
+          component="div"
+        >
+          Transportes Argelia y Cairo, Transportes Mariscal Robledo S.A y
+          Transp. Cartago
+        </Typography>
+        <table
+          style={{
+            width: "97%",
+            marginTop: "2%",
+            borderCollapse: "collapse",
+            marginLeft: 18,
+          }}
+        >
+          <thead>
+            <tr>
+              <th style={cellStyle}>Fecha</th>
+              <th style={cellStyle}>Recibo</th>
+              <th style={cellStyle}>Concepto</th>
+              <th style={cellStyle}>Movil</th>
+              <th style={cellStyle}>Ingresos</th>
+              <th style={cellStyle}>Egresos</th>
+              <th style={cellStyle}>Saldo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.id}>
+                <td style={cellStyle}>{row.fecha_pago}</td>
+                <td style={cellStyle}>{row.numero_cuotas}</td>
+                <td style={cellStyle}>{row.grupo}</td>
+                <td style={cellStyle}>{row.modelo}</td>
+                <td style={cellStyle}>{row.monto_total}</td>
+                <td style={cellStyle}>{row.monto}</td>
+                <td style={cellStyle}>{row.dias_cuota}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <table
+          style={{
+            width: "97%",
+            borderCollapse: "collapse",
+            marginLeft: 18,
+          }}
+        >
+          <tbody>
+            <tr
+              style={{
+                border: "1px solid #000",
+                padding: "8px",
+              }}
+            >
+              <td
+                style={{
+                  fontSize: "1.1em",
+                  fontWeight: "bold",
+                  textAlign: "end",
+                }}
+              >
+                Totales
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={{
+            width: "97%",
+            marginTop: "4%",
+            borderCollapse: "collapse",
+            marginLeft: 18,
+          }}
+        >
+          <Typography
+            sx={{ ml: 2, flex: 1, textAlign: "center" }}
+            variant="h6"
+            component="div"
+          >
+            Resumen de Caja
+          </Typography>
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              justifyContent: "space-evenly",
+              border: "1px solid #000",
+              padding: "10px",
             }}
           >
-            <DataGrid
-              rows={rows}
-              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-              columns={columns}
-              /* initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[10, 25, 50, 100]} */
-              disableColumnSelector
-              disableDensitySelector
-              slots={{ toolbar: GridToolbar }}
-              slotProps={{
-                toolbar: {
-                  showQuickFilter: "true",
-                },
-              }}
-              style={{
-                backgroundColor: "#ffffffcc",
-                color: "black",
-                marginTop: "20px",
-                marginBottom: "25px",
-              }}
-            />
+            <div>
+              <div
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  fontSize: "1em",
+                }}
+              >
+                Total Ingresos
+              </div>
+              <hr
+                style={{
+                  borderColor: "#000000f0",
+                  borderWidth: "2px",
+                  margin: "10px 0",
+                }}
+              />
+              <div
+                style={{
+                  color: "orange",
+                  fontWeight: "bold",
+                  fontSize: "1em",
+                }}
+              >
+                Saldo Anterior
+              </div>
+              <hr
+                style={{
+                  borderColor: "#000000f0",
+                  borderWidth: "2px",
+                  margin: "10px 0",
+                }}
+              />
+              <div
+                style={{
+                  color: "green",
+                  fontWeight: "bold",
+                  fontSize: "1em",
+                }}
+              >
+                Total
+              </div>
+              <hr
+                style={{
+                  borderColor: "#000000f0",
+                  borderWidth: "2px",
+                  margin: "10px 0",
+                }}
+              />
+            </div>
+            <div>
+              <div>$ {saldoActual}</div>{" "}
+              <hr
+                style={{
+                  borderColor: "#000000f0",
+                  borderWidth: "2px",
+                  margin: "10px 0",
+                }}
+              />
+              <div>$ {saldoAnterior}</div>{" "}
+              <hr
+                style={{
+                  borderColor: "#000000f0",
+                  borderWidth: "2px",
+                  margin: "10px 0",
+                }}
+              />
+              <div>$ {saldoTotal}</div>{" "}
+              <hr
+                style={{
+                  borderColor: "#000000f0",
+                  borderWidth: "2px",
+                  margin: "10px 0",
+                }}
+              />
+            </div>
           </div>
         </div>
       </Dialog>
@@ -188,4 +228,11 @@ const DataGridFrom = ({ open, handleClose, handleCreate }) => {
   );
 };
 
-export default DataGridFrom;
+const cellStyle = {
+  width: "2px",
+  border: "1px solid #000",
+  padding: "5px",
+  textAlign: "center",
+};
+
+export default DataGridForm;

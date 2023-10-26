@@ -38,6 +38,7 @@ const DataGridDetailsPolicys = ({ rows, columns }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          height: "500px",
         }}
       >
         <DataGrid
@@ -50,12 +51,17 @@ const DataGridDetailsPolicys = ({ rows, columns }) => {
             },
           }}
           pageSizeOptions={[10, 25, 50, 100]} */
+          loading={rows.length === 0}
+          virtualization
           disableColumnSelector
           disableDensitySelector
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
             toolbar: {
-              showQuickFilter: "true",
+              csvOptions: { disableToolbarButton: true },
+              printOptions: { disableToolbarButton: true },
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 250 },
             },
           }}
           style={{

@@ -200,24 +200,9 @@ const DataGridVehicles = ({ rows, columns }) => {
   return (
     <div className={style.container1}>
       <NavBar />
-      <div
-        /*   style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: 20,
-          marginLeft: 20,
-        }} */ className={style.container2}
-      >
+      <div className={style.container2}>
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-        <div
-          /*  style={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: "auto",
-            marginRight: "1.5em",
-            gap: "1rem",
-          }} */ className={style.container3}
-        >
+        <div className={style.container3}>
           <button
             style={{
               textAlign: "center",
@@ -292,13 +277,7 @@ const DataGridVehicles = ({ rows, columns }) => {
           </button>
         </div>
       </div>
-      <div
-        /* style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }} */ className={style.container4}
-      >
+      <div className={style.container4}>
         {groupedRows.map((group, index) => (
           <div key={index}>
             <Grid item xs={2}>
@@ -325,12 +304,16 @@ const DataGridVehicles = ({ rows, columns }) => {
               disableColumnSelector
               disableDensitySelector
               disableRowSelectionOnClick
-              slots={{ toolbar: GridToolbar }}
-              slotProps={{
+              components={{ Toolbar: GridToolbar }}
+              componentsProps={{
                 toolbar: {
+                  csvOptions: { disableToolbarButton: true },
+                  printOptions: { disableToolbarButton: true },
                   showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 250 },
                 },
               }}
+              experimentalFeatures={{ newEditingApi: true }}
               className={style.dataGrid}
             />
             {index < groupedRows.length - 1 && (

@@ -33,7 +33,7 @@ const CashBox = () => {
         ...row,
         fecha_vencimiento: row?.cuota?.fecha_vencimiento,
         pagada: row?.cuota?.pagada,
-        cliente_id: row?.cuota?.poliza?.cliente_id,
+        id_propietario: row?.cuota?.poliza?.id_propietario,
         monto_total: row?.cuota?.poliza?.monto_total,
         numero_cuotas: row?.cuota?.poliza?.numero_cuotas,
         dias_cuota: row?.cuota?.poliza?.dias_cuota,
@@ -71,7 +71,7 @@ const CashBox = () => {
       width: 75,
     },
     {
-      field: "nombre",
+      field: "id_propietario",
       headerName: "Nombre Cliente",
       width: 120,
     },

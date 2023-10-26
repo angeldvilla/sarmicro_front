@@ -193,10 +193,13 @@ const DataGridOffVehicles = ({ rows, columns }) => {
               disableColumnSelector
               disableDensitySelector
               disableRowSelectionOnClick
-              slots={{ toolbar: GridToolbar }}
-              slotProps={{
+              components={{ Toolbar: GridToolbar }}
+              componentsProps={{
                 toolbar: {
+                  csvOptions: { disableToolbarButton: true },
+                  printOptions: { disableToolbarButton: true },
                   showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 250 },
                 },
               }}
               className={styleOffVehicles.dataGrid}

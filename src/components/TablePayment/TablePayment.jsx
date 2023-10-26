@@ -177,18 +177,14 @@ const DataGridPayments = ({ rows, columns }) => {
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
-      {/*       <NavBar />
       <div
         style={{
-          alignSelf: "flex-start",
-          position: "relative",
+          display: "flex",
+          alignItems: "center",
           marginTop: 20,
           marginLeft: 20,
-          right: 0,
         }}
-      >
-        <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-      </div> */}
+      ></div>
       <div
         style={{
           display: "flex",
@@ -226,14 +222,18 @@ const DataGridPayments = ({ rows, columns }) => {
             },
           }}
           pageSizeOptions={[10, 25, 50, 100]} */
+          loading={rows.length === 0}
+          virtualization
           disableColumnSelector
           disableDensitySelector
           disableRowSelectionOnClick
-          /* hideFooterPagination */
-          slots={{ toolbar: GridToolbar }}
-          slotProps={{
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
             toolbar: {
+              csvOptions: { disableToolbarButton: true },
+              printOptions: { disableToolbarButton: true },
               showQuickFilter: true,
+              quickFilterProps: { debounceMs: 250 },
             },
           }}
           style={{
