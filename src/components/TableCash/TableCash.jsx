@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ModalCash from "../Modals/ModalCash/ModalCash";
-import { getPagos, createPago } from "../../redux/actions/actionsCashBox";
+import { getPagos } from "../../redux/actions/actionsCashBox";
 import { esES } from "@mui/x-data-grid";
 
 const DataGridCash = ({ rows, columns }) => {
@@ -33,10 +33,10 @@ const DataGridCash = ({ rows, columns }) => {
     setOpenForm(true);
   };
 
-  const handleCreate = async (data) => {
+  /* const handleCreate = async (data) => {
     setOpenForm(false);
     dispatch(createPago(data));
-  };
+  }; */
 
   /* const CustomHeaderButton = () => {
     return (
@@ -112,6 +112,7 @@ const DataGridCash = ({ rows, columns }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          /* height: "700px", */
         }}
       >
         <Grid item xs={2}>
@@ -133,47 +134,43 @@ const DataGridCash = ({ rows, columns }) => {
             Movimiento de Caja
           </Paper>
         </Grid>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "98%",
-            /* height: "500px", */
-            marginLeft: 15,
-          }}
-        >
-          <DataGrid
-            rows={rows}
-            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-            columns={[...columns]}
-            /* initialState={{
+
+        <DataGrid
+          rows={rows}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+          columns={[...columns]}
+          /* initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[10, 25, 50, 100]} */
-            disableColumnSelector
-            disableDensitySelector
-            disableRowSelectionOnClick
-            slots={{ toolbar: GridToolbar }}
-            slotProps={{
-              toolbar: {
-                showQuickFilter: true,
-              },
-            }}
-            style={{
-              backgroundColor: "#ffffffcc",
-              color: "black",
-              marginTop: "2%",
-              marginBottom: "5%",
-            }}
-          />
-        </div>
+          loading={rows.length === 0}
+          virtualization
+          disableColumnSelector
+          disableDensitySelector
+          disableRowSelectionOnClick
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              csvOptions: { disableToolbarButton: true },
+              printOptions: { disableToolbarButton: true },
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 250 },
+            },
+          }}
+          style={{
+            backgroundColor: "#ffffffcc",
+            color: "black",
+            marginTop: "2%",
+            marginBottom: "5%",
+          }}
+        />
       </div>
       <ModalCash
         open={openForm}
         handleClose={() => setOpenForm(false)}
-        handleCreate={handleCreate}
+        rows={rows}
       />
     </div>
   );

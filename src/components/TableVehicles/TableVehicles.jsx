@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch /* , useSelector */ } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -27,7 +27,7 @@ import {
   updateVehicle,
   deleteVehicle,
   registerAllPolizas,
-  getExportVinculadosExcel,
+  /* getExportVinculadosExcel, */
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
@@ -53,12 +53,10 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getVehiculos());
-    dispatch(getExportVinculadosExcel());
+    /* dispatch(getExportVinculadosExcel()); */
   }, [dispatch]);
 
-  const resultados = useSelector(
-    (state) => state?.vehicles?.excelExportVinculados
-  );
+  /* const resultados = useSelector((state) => state?.vehicles?.vehiclesData); */
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -79,6 +77,7 @@ const DataGridVehicles = ({ rows, columns }) => {
   }; */
   const registerPolizas = async () => {
     if (polizasRegistradas) {
+      toast.error("Ya se proceso el registro de todas las polizas");
       return;
     }
     setOpenRegisterPolizas(false);
@@ -182,7 +181,7 @@ const DataGridVehicles = ({ rows, columns }) => {
     utils.book_append_sheet(
       wb,
       // Crear una hoja de cálculo y asignarle los datos
-      utils.json_to_sheet(resultados),
+      utils.json_to_sheet(rows),
       "Vehiculos Vinculados"
     );
     // Descargar el archivo Excel
@@ -191,7 +190,7 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   const downloadExcel = async () => {
     try {
-      exportToExcel(resultados);
+      exportToExcel(rows);
     } catch (error) {
       toast.error("Error al descargar el archivo excel, intente de nuevo");
     }
@@ -200,24 +199,9 @@ const DataGridVehicles = ({ rows, columns }) => {
   return (
     <div className={style.container1}>
       <NavBar />
-      <div
-        /*   style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: 20,
-          marginLeft: 20,
-        }} */ className={style.container2}
-      >
+      <div className={style.container2}>
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-        <div
-          /*  style={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: "auto",
-            marginRight: "1.5em",
-            gap: "1rem",
-          }} */ className={style.container3}
-        >
+        <div className={style.container3}>
           <button
             style={{
               textAlign: "center",
@@ -292,13 +276,7 @@ const DataGridVehicles = ({ rows, columns }) => {
           </button>
         </div>
       </div>
-      <div
-        /* style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }} */ className={style.container4}
-      >
+      <div className={style.container4}>
         {groupedRows.map((group, index) => (
           <div key={index}>
             <Grid item xs={2}>
@@ -325,12 +303,16 @@ const DataGridVehicles = ({ rows, columns }) => {
               disableColumnSelector
               disableDensitySelector
               disableRowSelectionOnClick
-              slots={{ toolbar: GridToolbar }}
-              slotProps={{
+              components={{ Toolbar: GridToolbar }}
+              componentsProps={{
                 toolbar: {
+                  csvOptions: { disableToolbarButton: true },
+                  printOptions: { disableToolbarButton: true },
                   showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 250 },
                 },
               }}
+              experimentalFeatures={{ newEditingApi: true }}
               className={style.dataGrid}
             />
             {index < groupedRows.length - 1 && (

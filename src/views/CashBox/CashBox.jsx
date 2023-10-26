@@ -33,7 +33,7 @@ const CashBox = () => {
         ...row,
         fecha_vencimiento: row?.cuota?.fecha_vencimiento,
         pagada: row?.cuota?.pagada,
-        cliente_id: row?.cuota?.poliza?.cliente_id,
+        id_propietario: row?.cuota?.poliza?.id_propietario,
         monto_total: row?.cuota?.poliza?.monto_total,
         numero_cuotas: row?.cuota?.poliza?.numero_cuotas,
         dias_cuota: row?.cuota?.poliza?.dias_cuota,
@@ -48,31 +48,34 @@ const CashBox = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 120,
+      width: 60,
     },
     {
       field: "monto",
       headerName: "Monto",
-      width: 105,
+      width: 120,
     },
     {
       field: "fecha_pago",
       headerName: "Fecha Pago",
-      width: 150,
+      width: 160,
     },
     {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
-      width: 150,
+      width: 140,
     },
     {
       field: "pagada",
       headerName: "Pagada",
       width: 75,
+      renderCell: (params) => (
+        <span>{params.value === "1" ? "Se pagó" : "No se pagó"}</span>
+      ),
     },
     {
-      field: "nombre",
-      headerName: "Nombre Cliente",
+      field: "id_propietario",
+      headerName: "Cedula Cliente",
       width: 120,
     },
     {

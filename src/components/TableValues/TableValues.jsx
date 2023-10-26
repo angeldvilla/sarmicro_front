@@ -66,7 +66,8 @@ const DataGridValues = ({ rows, columns }) => {
           marginBottom: "20px",
         }}
       >
-        <GridToolbar showQuickFilter="true" />
+        <GridToolbar showQuickFilter={true} />
+
         <div
           style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
         >
@@ -83,6 +84,7 @@ const DataGridValues = ({ rows, columns }) => {
       </div>
     );
   };
+
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
     setRowEdit(selectedRow);
@@ -194,10 +196,21 @@ const DataGridValues = ({ rows, columns }) => {
             },
           }}
           pageSizeOptions={[10, 25, 50, 100]} */
+          loading={rows.length === 0}
+          virtualization
           disableRowSelectionOnClick
           disableColumnSelector
           disableDensitySelector
-          slots={{ toolbar: CustomHeaderButton }}
+          /* slots={{ toolbar: CustomHeaderButton }} */
+          components={{ toolbar: CustomHeaderButton }}
+          componentsProps={{
+            toolbar: {
+              csvOptions: { disableToolbarButton: true },
+              printOptions: { disableToolbarButton: true },
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 250 },
+            },
+          }}
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
