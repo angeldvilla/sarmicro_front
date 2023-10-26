@@ -12,19 +12,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const DataGridForm = ({ open, handleClose, rows }) => {
-  console.log(rows);
   let totalIngresos = 0;
   let totalEgresos = 0;
-  let saldo = 0;
 
   // Calcular los totales de ingresos egresos y saldo
   for (const row of rows) {
     totalIngresos += Number(row?.monto_total);
     totalEgresos += Number(row?.monto);
-    saldo += Number(row?.dias_cuota);
   }
-  let saldoAnterior = 1500000;
-  const total = totalIngresos + saldoAnterior;
+  const saldoTotal = totalIngresos - totalEgresos;
+  const total = totalIngresos + saldoTotal;
 
   return (
     <div>
@@ -92,24 +89,30 @@ const DataGridForm = ({ open, handleClose, rows }) => {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.id}>
-                <td style={cellStyle}>{row?.fecha_pago}</td>
-                <td style={cellStyle}>{row?.numero_cuotas}</td>
-                <td style={cellStyle}>{row?.grupo}</td>
-                <td style={cellStyle}>{row?.modelo}</td>
-                <td style={cellStyle}>{`$${Number(row?.monto_total)}`}</td>
-                <td style={cellStyle}>{`$${Number(row?.monto)}`}</td>
-                <td style={cellStyle}>{`$${row?.dias_cuota}`}</td>
-              </tr>
-            ))}
+            {rows.map((row, index) => {
+              const ingresos = Number(row?.monto_total);
+              const egresos = Number(row?.monto);
+              const saldo = ingresos - egresos;
+
+              return (
+                <tr key={index}>
+                  <td style={cellStyle}>{row?.fecha_pago}</td>
+                  <td style={cellStyle}>{row?.numero_cuotas}</td>
+                  <td style={cellStyle}>{row?.grupo}</td>
+                  <td style={cellStyle}>{row?.modelo}</td>
+                  <td style={cellStyle}>{`$${ingresos}`}</td>
+                  <td style={cellStyle}>{`$${egresos}`}</td>
+                  <td style={cellStyle}>{`$${saldo}`}</td>
+                </tr>
+              );
+            })}
 
             <tr>
               <td style={cellStyle} colSpan="3"></td>
               <td style={cellStyle}>Totales</td>
               <td style={cellStyle}>{`$${totalIngresos}`}</td>
               <td style={cellStyle}>{`$${totalEgresos}`}</td>
-              <td style={cellStyle}>{`$${saldo}`}</td>
+              <td style={cellStyle}>{`$${saldoTotal}`}</td>
             </tr>
           </tbody>
         </table>
@@ -131,6 +134,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
           <div
             style={{
               display: "flex",
+              marginTop: "1%",
               justifyContent: "space-evenly",
               border: "1px solid #000",
               padding: "10px",
@@ -192,7 +196,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
-              <div>$ {saldoAnterior}</div>{" "}
+              <div>$ {saldoTotal}</div>{" "}
               <hr
                 style={{
                   borderColor: "#464646",
