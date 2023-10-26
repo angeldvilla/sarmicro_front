@@ -120,6 +120,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
           style={{
             width: "97%",
             marginTop: "4%",
+            marginBottom: "2%",
             borderCollapse: "collapse",
             marginLeft: 18,
           }}
