@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch /* , useSelector */ } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -21,7 +21,7 @@ import {
   getOffVehiculos,
   updateVehicle,
   deleteVehicle,
-  getExportDesvinculadosExcel,
+  /* getExportDesvinculadosExcel, */
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
@@ -44,13 +44,13 @@ const DataGridOffVehicles = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getOffVehiculos());
-    dispatch(getExportDesvinculadosExcel());
+    /* dispatch(getExportDesvinculadosExcel()); */
   }, [dispatch]);
 
-  const resultados = useSelector(
-    (state) => state?.vehicles?.excelExportDesvinculados
+  /* const resultados = useSelector(
+    (state) => state?.vehicles?.offVehiculos
   );
-
+ */
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
     setRowEdit(selectedRow);
@@ -85,7 +85,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
     utils.book_append_sheet(
       wb,
       // Crear una hoja de cálculo y asignarle los datos
-      utils.json_to_sheet(resultados),
+      utils.json_to_sheet(rows),
       "Vehiculos Desvinculados"
     );
     // Descargar el archivo Excel
@@ -94,7 +94,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
 
   const downloadExcel = async () => {
     try {
-      exportToExcel(resultados);
+      exportToExcel(rows);
     } catch (error) {
       toast.error("Error al descargar el archivo excel, intente de nuevo");
     }

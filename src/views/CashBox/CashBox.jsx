@@ -48,31 +48,34 @@ const CashBox = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 120,
+      width: 60,
     },
     {
       field: "monto",
       headerName: "Monto",
-      width: 105,
+      width: 120,
     },
     {
       field: "fecha_pago",
       headerName: "Fecha Pago",
-      width: 150,
+      width: 160,
     },
     {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
-      width: 150,
+      width: 140,
     },
     {
       field: "pagada",
       headerName: "Pagada",
       width: 75,
+      renderCell: (params) => (
+        <span>{params.value === "1" ? "Se pagó" : "No se pagó"}</span>
+      ),
     },
     {
       field: "id_propietario",
-      headerName: "Nombre Cliente",
+      headerName: "Cedula Cliente",
       width: 120,
     },
     {

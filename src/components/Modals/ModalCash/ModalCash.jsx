@@ -12,14 +12,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const DataGridForm = ({ open, handleClose, rows }) => {
-  const saldoActual = 1200000;
-  const saldoAnterior = 1000000;
-  const saldoTotal = saldoActual + saldoAnterior;
-
-  const totalIngresos = 0;
-  const totalEgresos = 0;
-
   console.log(rows);
+  let totalIngresos = 0;
+  let totalEgresos = 0;
+  let saldo = 0;
+
+  // Calcular los totales de ingresos egresos y saldo
+  for (const row of rows) {
+    totalIngresos += Number(row?.monto_total);
+    totalEgresos += Number(row?.monto);
+    saldo += Number(row?.dias_cuota);
+  }
+  let saldoAnterior = 1500000;
+  const total = totalIngresos + saldoAnterior;
+
   return (
     <div>
       <Dialog
@@ -88,21 +94,22 @@ const DataGridForm = ({ open, handleClose, rows }) => {
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
-                <td style={cellStyle}>{row.fecha_pago}</td>
-                <td style={cellStyle}>{row.numero_cuotas}</td>
-                <td style={cellStyle}>{row.grupo}</td>
-                <td style={cellStyle}>{row.modelo}</td>
-                <td style={cellStyle}>{row.monto_total}</td>
-                <td style={cellStyle}>{row.monto}</td>
-                <td style={cellStyle}>{row.dias_cuota}</td>
+                <td style={cellStyle}>{row?.fecha_pago}</td>
+                <td style={cellStyle}>{row?.numero_cuotas}</td>
+                <td style={cellStyle}>{row?.grupo}</td>
+                <td style={cellStyle}>{row?.modelo}</td>
+                <td style={cellStyle}>{`$${Number(row?.monto_total)}`}</td>
+                <td style={cellStyle}>{`$${Number(row?.monto)}`}</td>
+                <td style={cellStyle}>{`$${row?.dias_cuota}`}</td>
               </tr>
             ))}
+
             <tr>
               <td style={cellStyle} colSpan="3"></td>
-              <td style={{ ...cellStyle, color: "red" }}>Totales</td>
-              <td style={cellStyle}>{totalIngresos}</td>
-              <td style={cellStyle}>{totalEgresos}</td>
-              <td style={cellStyle}>{saldoTotal}</td>
+              <td style={cellStyle}>Totales</td>
+              <td style={cellStyle}>{`$${totalIngresos}`}</td>
+              <td style={cellStyle}>{`$${totalEgresos}`}</td>
+              <td style={cellStyle}>{`$${saldo}`}</td>
             </tr>
           </tbody>
         </table>
@@ -132,7 +139,6 @@ const DataGridForm = ({ open, handleClose, rows }) => {
             <div>
               <div
                 style={{
-                  color: "red",
                   fontWeight: "bold",
                   fontSize: "1em",
                 }}
@@ -148,7 +154,6 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               />
               <div
                 style={{
-                  color: "orange",
                   fontWeight: "bold",
                   fontSize: "1em",
                 }}
@@ -164,7 +169,6 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               />
               <div
                 style={{
-                  color: "green",
                   fontWeight: "bold",
                   fontSize: "1em",
                 }}
@@ -180,7 +184,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               />
             </div>
             <div>
-              <div>$ {saldoActual}</div>{" "}
+              <div>$ {totalIngresos}</div>{" "}
               <hr
                 style={{
                   borderColor: "#464646",
@@ -196,7 +200,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
-              <div>$ {saldoTotal}</div>{" "}
+              <div>$ {total}</div>{" "}
               <hr
                 style={{
                   borderColor: "#464646",

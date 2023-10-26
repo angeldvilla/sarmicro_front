@@ -25,27 +25,28 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
   const today = new Date().toISOString().split("T")[0];
   const [newValorPoliza, setNewValorPoliza] = useState({
     tipo_poliza: "",
+    tipo_poliza_id: "",
     empresa: "",
     vehiculo_grupo: "",
     valor_poliza: "",
     dias: "",
     vehiculo_grupo_id: "",
     numero_cuotas: "",
-   /*  cuota_inicial_porcentaje: "", */
     fecha_inicial: today,
     fecha_vencimiento: "",
     valor_inicial: 0,
   });
+  console.log(newValorPoliza);
   const handleCreateValuePoliza = () => {
     const valuePoliza = {
       tipo_poliza: newValorPoliza.tipo_poliza,
+      tipo_poliza_id: newValorPoliza.tipo_poliza_id,
       empresa: newValorPoliza.empresa,
       vehiculo_grupo: newValorPoliza.vehiculo_grupo,
       valor_poliza: newValorPoliza.valor_poliza,
       dias: newValorPoliza.dias,
       vehiculo_grupo_id: newValorPoliza.vehiculo_grupo_id,
       numero_cuotas: newValorPoliza.numero_cuotas,
-      /* cuota_inicial_porcentaje: newValorPoliza.cuota_inicial_porcentaje, */
       fecha_inicial: newValorPoliza.fecha_inicial,
       fecha_vencimiento: newValorPoliza.fecha_vencimiento,
       valor_inicial: newValorPoliza.valor_inicial,
@@ -135,12 +136,27 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
                 label="Tipo de Poliza"
                 variant="outlined"
                 value={newValorPoliza ? newValorPoliza?.tipo_poliza : ""}
-                onChange={(e) =>
+                /* onChange={(e) =>
                   setNewValorPoliza((prevState) => ({
                     ...prevState,
                     tipo_poliza: e.target.value,
                   }))
-                }
+                } */
+                onChange={(e) => {
+                  const selectedPolicy = e.target.value;
+
+                  // Obtener el tipo_poliza_id de acuerdo a el tipo de poliza seleccionada
+                  const foundPolicy = typePolicy.find(
+                    (policy) => policy.tipov === selectedPolicy
+                  );
+                  const tipo_poliza_id = foundPolicy?.id_tipov;
+
+                  setNewValorPoliza((prevState) => ({
+                    ...prevState,
+                    tipo_poliza: selectedPolicy,
+                    tipo_poliza_id: tipo_poliza_id,
+                  }));
+                }}
               >
                 <MenuItem value="">
                   <em>Ninguno</em>
