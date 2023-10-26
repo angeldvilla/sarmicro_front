@@ -16,6 +16,9 @@ const DataGridForm = ({ open, handleClose, rows }) => {
   const saldoAnterior = 1000000;
   const saldoTotal = saldoActual + saldoAnterior;
 
+  const totalIngresos = 0;
+  const totalEgresos = 0;
+
   console.log(rows);
   return (
     <div>
@@ -94,31 +97,12 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                 <td style={cellStyle}>{row.dias_cuota}</td>
               </tr>
             ))}
-          </tbody>
-        </table>
-        <table
-          style={{
-            width: "97%",
-            borderCollapse: "collapse",
-            marginLeft: 18,
-          }}
-        >
-          <tbody>
-            <tr
-              style={{
-                border: "1px solid #000",
-                padding: "8px",
-              }}
-            >
-              <td
-                style={{
-                  fontSize: "1.1em",
-                  fontWeight: "bold",
-                  textAlign: "end",
-                }}
-              >
-                Totales
-              </td>
+            <tr>
+              <td style={cellStyle} colSpan="3"></td>
+              <td style={{ ...cellStyle, color: "red" }}>Totales</td>
+              <td style={cellStyle}>{totalIngresos}</td>
+              <td style={cellStyle}>{totalEgresos}</td>
+              <td style={cellStyle}>{saldoTotal}</td>
             </tr>
           </tbody>
         </table>
@@ -157,8 +141,8 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               </div>
               <hr
                 style={{
-                  borderColor: "#000000f0",
-                  borderWidth: "2px",
+                  borderColor: "#464646",
+                  borderWidth: "1px",
                   margin: "10px 0",
                 }}
               />
@@ -173,8 +157,8 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               </div>
               <hr
                 style={{
-                  borderColor: "#000000f0",
-                  borderWidth: "2px",
+                  borderColor: "#464646",
+                  borderWidth: "1px",
                   margin: "10px 0",
                 }}
               />
@@ -189,8 +173,8 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               </div>
               <hr
                 style={{
-                  borderColor: "#000000f0",
-                  borderWidth: "2px",
+                  borderColor: "#464646",
+                  borderWidth: "1px",
                   margin: "10px 0",
                 }}
               />
@@ -199,24 +183,24 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               <div>$ {saldoActual}</div>{" "}
               <hr
                 style={{
-                  borderColor: "#000000f0",
-                  borderWidth: "2px",
+                  borderColor: "#464646",
+                  borderWidth: "1px",
                   margin: "10px 0",
                 }}
               />
               <div>$ {saldoAnterior}</div>{" "}
               <hr
                 style={{
-                  borderColor: "#000000f0",
-                  borderWidth: "2px",
+                  borderColor: "#464646",
+                  borderWidth: "1px",
                   margin: "10px 0",
                 }}
               />
               <div>$ {saldoTotal}</div>{" "}
               <hr
                 style={{
-                  borderColor: "#000000f0",
-                  borderWidth: "2px",
+                  borderColor: "#464646",
+                  borderWidth: "1px",
                   margin: "10px 0",
                 }}
               />
