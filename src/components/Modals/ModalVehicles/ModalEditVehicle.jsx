@@ -36,18 +36,19 @@ export default function ModalEditVehicle({
       modelo: editedRow.modelo,
       placa: editedRow.placa,
       clase: editedRow.clase,
-      color: editedRow.color,
-     /*  pago_hasta: editedRow.pago_hasta, */
+      /*  color: editedRow.color, */
+      /*  pago_hasta: editedRow.pago_hasta, */
       grupo: editedRow.grupo,
       motor: editedRow.motor,
       poliza: editedRow.poliza,
-     /*  poliza_paz: editedRow.poliza_paz,
+      /*  poliza_paz: editedRow.poliza_paz,
       propio: editedRow.propio, */
       referencia: editedRow.referencia,
       /* rtu_paz: editedRow.rtu_paz,
       segurida_social_paz: editedRow.segurida_social_paz, */
       serie: editedRow.serie,
       tipo: editedRow.tipo,
+      tipov: editedRow.tipov,
       estado: editedRow.estado,
     };
     handleEdit(data, rowEdit.id);
@@ -207,7 +208,7 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Color"
@@ -222,7 +223,7 @@ export default function ModalEditVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
           {/* <Grid item xs={6}>
             <TextField
               fullWidth
@@ -292,7 +293,7 @@ export default function ModalEditVehicle({
             />
           </Grid>
 
-        {/*   <Grid item xs={6}>
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Poliza Paz"
@@ -343,7 +344,7 @@ export default function ModalEditVehicle({
             />
           </Grid>
 
-         {/*  <Grid item xs={6}>
+          {/*  <Grid item xs={6}>
             <TextField
               fullWidth
               label="RTU Paz"
@@ -401,11 +402,27 @@ export default function ModalEditVehicle({
               margin="none"
               name="Tipo"
               value={editedRow ? editedRow?.tipo : ""}
-              placeholder="Ingrese el tipo de vehiculo"
+              placeholder="Ingrese el tipo"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
                   tipo: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Tipo de Vehiculo"
+              margin="none"
+              name="TipoVehiculo"
+              value={editedRow ? editedRow?.tipov : ""}
+              placeholder="Ingrese el tipo de vehiculo"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  tipov: e.target.value,
                 }))
               }
             />
