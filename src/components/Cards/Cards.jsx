@@ -18,6 +18,7 @@ import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
 import cuadreCaja from "../../assets/images/cuadreCaja.jpg";
 import deleted from "../../assets/images/deleted.png";
+import users from "../../assets/images/users.png";
 
 export const CardPolicy = () => {
   return (
@@ -275,6 +276,52 @@ export const DetailPolicy = () => {
               >
                 Esta tarjeta muestra información de la eliminación en cascada de
                 las polizas
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <div className={styles.overlay}>
+          {/*<Typography className={styles.overlayButton}>
+            Ver Detalles
+            <RestoreFromTrashIcon
+              style={{ marginLeft: 10, fontSize: "large" }}
+            />
+          </Typography>*/}
+        </div>
+      </a>
+    </div>
+  );
+};
+
+export const CardUsers = () => {
+  return (
+    <div className={styles.cardContainer}>
+      <a href="/usuarios">
+        <Card style={{ borderRadius: "1.2em" }}>
+          <CardActionArea>
+            <CardMedia
+              className={styles.cardImage}
+              component="img"
+              height="140"
+              image={users}
+              alt="Usuarios"
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                className={styles.cardText}
+              >
+                Usuarios
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className={styles.cardText}
+              >
+                Esta tarjeta muestra información de los usuarios registrados y
+                los accesos que tienen en el sistema
               </Typography>
             </CardContent>
           </CardActionArea>

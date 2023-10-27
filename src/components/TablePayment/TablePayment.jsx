@@ -208,7 +208,7 @@ const DataGridPayments = ({ rows, columns }) => {
               fontSize: "1.2em",
             }}
           >
-            Lista de Cuotas Iniciales Polizas
+            Lista de Pagos Polizas
           </Paper>
         </Grid>
 

@@ -4,6 +4,7 @@ import Cuotas from "../Cuotas/Cuotas.jsx";
 import { useSelector } from "react-redux";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import style from "../Vehicles/vehicles.module.css";
+import formatNumber from "../../formatNumbers.js";
 
 const Payments = () => {
   const rows = useSelector((state) => state?.payments?.polizasData);
@@ -61,6 +62,9 @@ const Payments = () => {
       field: "monto_total",
       headerName: "Monto Total",
       width: 150,
+      renderCell: (params) => {
+        return formatNumber(params.value);
+      },
     },
     {
       field: "numero_cuotas",

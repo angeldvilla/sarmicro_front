@@ -3,6 +3,7 @@ import DataGridCash from "../../components/TableCash/TableCash";
 import { useSelector } from "react-redux";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import style from "../Vehicles/vehicles.module.css";
+import formatNumber from "../../formatNumbers";
 const CashBox = () => {
   const rows = useSelector((state) => state?.cash?.pagosData);
   const [scrollUp, setScrollUp] = useState(false);
@@ -81,7 +82,10 @@ const CashBox = () => {
     {
       field: "monto_total",
       headerName: "Monto Total",
-      width: 100,
+      width: 110,
+      renderCell : (params) => {
+        return formatNumber(params.value)
+      }
     },
     {
       field: "numero_cuotas",

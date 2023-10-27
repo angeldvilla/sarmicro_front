@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import DataGridValues from "../../components/TableValues/TableValues";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import style from "../Vehicles/vehicles.module.css";
+import formatNumber from "../../formatNumbers";
 
 const Values = () => {
   const rows = useSelector((state) => state?.values?.valuesData);
@@ -48,6 +49,9 @@ const Values = () => {
       field: "valor_poliza",
       headerName: "Valor Poliza",
       width: 120,
+      renderCell: (params) => {
+        return formatNumber(params.value);
+      },
     },
     {
       field: "dias",
@@ -82,6 +86,9 @@ const Values = () => {
       field: "valor_inicial",
       headerName: "Valor Inicial",
       width: 120,
+      renderCell: (params) => {
+        return formatNumber(params.value);
+      },
     },
     {
       field: "fecha_inicial",

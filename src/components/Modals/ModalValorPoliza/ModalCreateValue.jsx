@@ -22,17 +22,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function ModalCreateValue({ open, handleClose, handleCreate }) {
   const typePolicy = useSelector((state) => state?.values?.typesPolicys);
   const typeEnterprise = useSelector((state) => state?.values?.typesEnterprise);
-  const today = new Date().toISOString().split("T")[0];
+  /* const today = new Date().toISOString().split("T")[0]; */
   const [newValorPoliza, setNewValorPoliza] = useState({
     tipo_poliza: "",
     tipo_poliza_id: "",
     empresa: "",
     vehiculo_grupo: "",
     valor_poliza: "",
-    dias: "",
+    dias: 365,
     vehiculo_grupo_id: "",
     numero_cuotas: "",
-    fecha_inicial: today,
+    fecha_inicial: "",
     fecha_vencimiento: "",
     valor_inicial: 0,
   });
@@ -247,21 +247,22 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
                 label="Tipo de Cuotas (Dias)"
                 variant="outlined"
                 value={newValorPoliza ? newValorPoliza?.dias : ""}
-                onChange={(e) =>
+                /* onChange={(e) =>
                   setNewValorPoliza((prevState) => ({
                     ...prevState,
                     dias: e.target.value,
                   }))
-                }
+                } */
+                disabled
               >
-                <MenuItem value="">
+                {/*  <MenuItem value="">
                   <em>Ninguno</em>
                 </MenuItem>
-                <MenuItem value={7}>Semanal</MenuItem>
+                 <MenuItem value={7}>Semanal</MenuItem>
                 <MenuItem value={15}>Quincenal</MenuItem>
                 <MenuItem value={31}>Mensual</MenuItem>
                 <MenuItem value={93}>Trimestral</MenuItem>
-                <MenuItem value={180}>Semestral</MenuItem>
+                <MenuItem value={180}>Semestral</MenuItem> */}
                 <MenuItem value={365}>Anual</MenuItem>
               </Select>
             </FormControl>
@@ -329,8 +330,13 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
               margin="none"
               type="date"
               InputLabelProps={{ shrink: true }}
-              disabled
               value={newValorPoliza ? newValorPoliza?.fecha_inicial : ""}
+              onChange={(e) =>
+                setNewValorPoliza((prevState) => ({
+                  ...prevState,
+                  fecha_inicial: e.target.value,
+                }))
+              }
             />
           </Grid>
           <Grid item xs={6}>
