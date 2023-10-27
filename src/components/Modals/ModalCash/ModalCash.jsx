@@ -66,8 +66,8 @@ const DataGridForm = ({ open, handleClose, rows }) => {
           variant="h6"
           component="div"
         >
-          Transportes Argelia y Cairo, Transportes Mariscal Robledo S.A y
-          Transp. Cartago
+          Transportes Argelia y Cairo S.A, Transportadora Cartago S.A.S y
+          Transportes Especiales el Sol S.A.S
         </Typography>
         <table
           style={{
@@ -109,7 +109,15 @@ const DataGridForm = ({ open, handleClose, rows }) => {
 
             <tr>
               <td style={cellStyle} colSpan="3"></td>
-              <td style={{...cellStyle, fontWeight: "800", fontStyle: "oblique"}}>Totales</td>
+              <td
+                style={{
+                  ...cellStyle,
+                  fontWeight: "800",
+                  fontStyle: "oblique",
+                }}
+              >
+                Totales
+              </td>
               <td style={cellStyle}>{`$${totalIngresos}`}</td>
               <td style={cellStyle}>{`$${totalEgresos}`}</td>
               <td style={cellStyle}>{`$${saldoTotal}`}</td>
