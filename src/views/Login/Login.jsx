@@ -69,7 +69,7 @@ const Login = () => {
                 fontSize: "1.8em",
               }}
             >
-              Bienvenido a SarMicros
+              Bienvenido al Sistema de Poliza
             </h1>
 
             <InputEmail
