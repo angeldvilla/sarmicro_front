@@ -109,7 +109,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
 
             <tr>
               <td style={cellStyle} colSpan="3"></td>
-              <td style={cellStyle}>Totales</td>
+              <td style={{...cellStyle, fontWeight: "800", fontStyle: "oblique"}}>Totales</td>
               <td style={cellStyle}>{`$${totalIngresos}`}</td>
               <td style={cellStyle}>{`$${totalEgresos}`}</td>
               <td style={cellStyle}>{`$${saldoTotal}`}</td>

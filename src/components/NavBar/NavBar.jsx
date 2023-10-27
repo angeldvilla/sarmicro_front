@@ -49,7 +49,7 @@ function NavBar() {
               }}
               className={style.scaleWelcome}
             >
-              <h5>Sistema de Polizas Sarmicro</h5>
+              <h5>Gestión de Valores de Polizas - TA, TC y TE</h5>
             </div>
           </Box>
 
@@ -80,7 +80,7 @@ function NavBar() {
               }}
               className={style.scaleWelcome}
             >
-              <h1>Sistema de Polizas Sarmicro</h1>
+              <h1>Gestión de Valores de Polizas - TA, TC y TE</h1>
             </div>
           </Box>
           <Box

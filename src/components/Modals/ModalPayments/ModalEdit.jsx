@@ -141,13 +141,13 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               name="NumCuotas"
               value={editedRow ? editedRow?.numero_cuotas : ""}
               placeholder="Ingrese número de cuotas"
-              disabled
-              /* onChange={(e) =>
+              /* disabled */
+              onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
                   numero_cuotas: e.target.value,
                 })
-              } */
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -212,7 +212,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
                   valor_inicial: e.target.value,
                 }))
               }
-              disabled
+              
             />
           </Grid>
 

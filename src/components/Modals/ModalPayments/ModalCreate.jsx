@@ -33,11 +33,11 @@ export default function ModalCreate({
   const [editedRow, setEditedRow] = useState(rowEdit);
 
   const handleCreatePoliza = () => {
-    const today = new Date().toISOString().split("T")[0];
+    /* const today = new Date().toISOString().split("T")[0]; */
     const dataPoliza = {
       id: editedRow.id,
       numero_poliza: editedRow.numero_poliza,
-      fecha_inicio: today,
+      fecha_inicio: editedRow.fecha_inicio,
       fecha_fin: editedRow.fecha_fin,
       monto_total: editedRow.monto_total,
       numero_cuotas: editedRow.numero_cuotas,
@@ -183,21 +183,22 @@ export default function ModalCreate({
                 label="Tipo de Cuotas"
                 variant="outlined"
                 value={editedRow ? editedRow?.dias_cuota : ""}
-                onChange={(e) =>
+                /*  onChange={(e) =>
                   setEditedRow((prevState) => ({
                     ...prevState,
                     dias_cuota: e.target.value,
                   }))
-                }
+                } */
+                disabled
               >
-                <MenuItem value="">
+                {/* <MenuItem value="">
                   <em>Ninguno</em>
-                </MenuItem>
-                <MenuItem value={7}>Semanal</MenuItem>
+                </MenuItem> */}
+                {/* <MenuItem value={7}>Semanal</MenuItem>
                 <MenuItem value={15}>Quincenal</MenuItem>
                 <MenuItem value={31}>Mensual</MenuItem>
                 <MenuItem value={93}>Trimestral</MenuItem>
-                <MenuItem value={180}>Semestral</MenuItem>
+                <MenuItem value={180}>Semestral</MenuItem> */}
                 <MenuItem value={365}>Anual</MenuItem>
               </Select>
             </FormControl>

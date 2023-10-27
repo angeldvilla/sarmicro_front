@@ -26,18 +26,19 @@ export default function ModalCreateVehicle({
     modelo: "",
     placa: "",
     clase: "",
-    color: "",
-    pago_hasta: "",
+    /* color: "", */
+    /* pago_hasta: "", */
     grupo: "",
     motor: "",
     poliza: "",
-    poliza_paz: "",
-    propio: "",
+    /* poliza_paz: "",
+    propio: "", */
     referencia: "",
-    rtu_paz: "",
-    segurida_social_paz: "",
+    /* rtu_paz: "",
+    segurida_social_paz: "", */
     serie: "",
     tipo: "",
+    tipov: "",
   });
   const handleCreateVehicle = () => {
     const dataVehicle = {
@@ -201,7 +202,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Color"
@@ -234,7 +235,7 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -286,7 +287,7 @@ export default function ModalCreateVehicle({
             />
           </Grid>
 
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Poliza Paz"
@@ -318,7 +319,7 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
@@ -337,7 +338,7 @@ export default function ModalCreateVehicle({
             />
           </Grid>
 
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="RTU Paz"
@@ -369,7 +370,7 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
@@ -395,11 +396,27 @@ export default function ModalCreateVehicle({
               margin="none"
               name="Tipo"
               value={newVehicle ? newVehicle?.tipo : ""}
-              placeholder="Ingrese el tipo de vehiculo"
+              placeholder="Ingrese el tipo"
               onChange={(e) =>
                 setNewVehicle((prevState) => ({
                   ...prevState,
                   tipo: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Tipo de Vehiculo"
+              margin="none"
+              name="TipoVehiculo"
+              value={newVehicle ? newVehicle?.tipov : ""}
+              placeholder="Ingrese el tipo de vehiculo"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  tipov: e.target.value,
                 }))
               }
             />

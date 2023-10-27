@@ -1,6 +1,7 @@
 import React from "react";
 import DataGridCuotas from "../../components/TableCuotas/TableCuotas.jsx";
 import { useSelector } from "react-redux";
+import formatNumber from "../../formatNumbers.js";
 
 const Cuotas = () => {
   const rows = useSelector((state) => state?.cuotas?.cuotasData);
@@ -29,6 +30,9 @@ const Cuotas = () => {
       field: "monto",
       headerName: "Monto",
       width: 120,
+      renderCell: (params) => {
+        return formatNumber(params.value);
+      },
     },
     {
       field: "id_vehiculo",

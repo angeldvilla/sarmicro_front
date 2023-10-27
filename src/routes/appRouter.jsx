@@ -12,6 +12,7 @@ import CashBox from "../views/CashBox/CashBox.jsx";
 import Vehicles from "../views/Vehicles/Vehicles.jsx";
 import OffVehicles from "../views/Vehicles/VehiclesOff.jsx";
 import DetailPolicy from "../views/DetailPolicy/DetailPolicy.jsx";
+import Users from "../views/Users/Users.jsx";
 import Error404 from "../views/Error/Error.jsx";
 
 const RoutesApp = () => {
@@ -95,6 +96,14 @@ const RoutesApp = () => {
         element={
           <RoutesProtected>
             <DetailPolicy />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/usuarios"
+        element={
+          <RoutesProtected>
+            <Users />
           </RoutesProtected>
         }
       />
