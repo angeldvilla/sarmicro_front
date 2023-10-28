@@ -21,11 +21,11 @@ import {
   getUsers,
   updateUser,
 } from "../../redux/actions/actionsUsers";
-import ModalCreateUser from "../Modals/ModalUsers/ModalEditUser";
+import ModalCreateUser from "../Modals/ModalUsers/ModalCreateUser";
+import ModalEditUser from "../Modals/ModalUsers/ModalEditUser";
 import { esES } from "@mui/x-data-grid";
 import { Toaster } from "sonner";
 import style from "../TableVehicles/tablesVehicles.module.css";
-import ModalEditUser from "../Modals/ModalUsers/ModalEditUser";
 
 const DataGridUsers = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);

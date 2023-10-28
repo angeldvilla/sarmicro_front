@@ -22,7 +22,7 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
     email: "",
     cedula: "",
     telefono: "",
-    password: "",
+    /* password: "", */
   });
   const handleCreateUser = () => {
     const valuePoliza = {
@@ -30,7 +30,7 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
       email: newUser.email,
       cedula: newUser.cedula,
       telefono: newUser.telefono,
-      password: newUser.password,
+      /* password: newUser.password, */
       estado: 1,
     };
 
@@ -38,9 +38,14 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
   };
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const togglePasswordConfirmVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -107,7 +112,6 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
               label="Nombre Completo"
               margin="none"
               name="NomCompleto"
-              type="number"
               value={newUser ? newUser?.name : ""}
               placeholder="Ingrese el nombre completo"
               onChange={(e) =>
@@ -125,7 +129,6 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
               label="Correo Electronico"
               margin="none"
               name="CorreoElectronico"
-              type="number"
               value={newUser ? newUser?.email : ""}
               placeholder="Ingrese el numero de cuotas"
               onChange={(e) =>
@@ -170,7 +173,15 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
             <TextField
               fullWidth
               label="Contraseña"
@@ -178,7 +189,7 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
               name="Contraseña"
               type={showPassword ? "text" : "password"}
               value={newUser ? newUser?.password : ""}
-              placeholder="Digite la contraseñ"
+              placeholder="Digite la contraseña"
               inputProps={{
                 autoComplete: "new-password",
               }}
@@ -189,8 +200,64 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
                 }))
               }
             />
-            <span onClick={togglePasswordVisibility}>
+            <span
+              onClick={togglePasswordVisibility}
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                alignItems: "center",
+                right: "10px",
+              }}
+            >
               {showPassword ? (
+                <VisibilityIcon
+                  sx={{ color: "action.active", ml: 1, my: 0.5 }}
+                />
+              ) : (
+                <VisibilityOffIcon
+                  sx={{ color: "action.active", ml: 1, my: 0.5 }}
+                />
+              )}
+            </span>
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+
+              position: "relative",
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Confirmar Contraseña"
+              margin="none"
+              name="Contraseña"
+              type={showConfirmPassword ? "text" : "password"}
+              value={newUser ? newUser?.password_confirmation : ""}
+              placeholder="Confirmar la contraseña"
+              inputProps={{
+                autoComplete: "new-password",
+              }}
+              onChange={(e) =>
+                setNewUser((prevState) => ({
+                  ...prevState,
+                  password_confirmation: e.target.value,
+                }))
+              }
+            />
+            <span
+              onClick={togglePasswordConfirmVisibility}
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                alignItems: "center",
+                right: "10px",
+              }}
+            >
+              {showConfirmPassword ? (
                 <VisibilityIcon
                   sx={{ color: "action.active", ml: 1, my: 0.5 }}
                 />

@@ -37,16 +37,22 @@ export default function ModalEditUser({
       email: editedRow.email,
       cedula: editedRow.cedula,
       telefono: editedRow.telefono,
-      password: editedRow.password,
+      /* password: editedRow.password,
+      password_confirmation: editedRow.password_confirmation, */
       estado: editedRow.estado,
     };
     handleEdit(data, rowEdit.id);
   };
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const togglePasswordConfirmVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -113,7 +119,6 @@ export default function ModalEditUser({
               label="Nombre Completo"
               margin="none"
               name="NomCompleto"
-              type="number"
               value={editedRow ? editedRow?.name : ""}
               placeholder="Ingrese el nombre completo"
               onChange={(e) =>
@@ -131,9 +136,8 @@ export default function ModalEditUser({
               label="Correo Electronico"
               margin="none"
               name="CorreoElectronico"
-              type="number"
               value={editedRow ? editedRow?.email : ""}
-              placeholder="Ingrese el numero de cuotas"
+              placeholder="Ingrese el correo electronico"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
@@ -149,8 +153,9 @@ export default function ModalEditUser({
               label="Cedula"
               margin="none"
               name="Cedula"
-              type="number"
+              /* type="number" */
               value={editedRow ? editedRow?.cedula : ""}
+              placeholder="Ingrese numero de cedula de ciudadania"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
@@ -165,9 +170,9 @@ export default function ModalEditUser({
               label="Telefono"
               margin="none"
               name="Telefono"
-              type="number"
+              /* type="number" */
               value={editedRow ? editedRow?.telefono : ""}
-              placeholder="Valor inicial"
+              placeholder="Ingrese un numero de telefono"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
@@ -176,7 +181,16 @@ export default function ModalEditUser({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+
+              position: "relative",
+            }}
+          >
             <TextField
               fullWidth
               label="Contraseña"
@@ -184,7 +198,7 @@ export default function ModalEditUser({
               name="Contraseña"
               type={showPassword ? "text" : "password"}
               value={editedRow ? editedRow?.password : ""}
-              placeholder="Digite la contraseñ"
+              placeholder="Digite la contraseña"
               inputProps={{
                 autoComplete: "new-password",
               }}
@@ -195,8 +209,63 @@ export default function ModalEditUser({
                 }))
               }
             />
-            <span onClick={togglePasswordVisibility}>
+            <span
+              onClick={togglePasswordVisibility}
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                alignItems: "center",
+                right: "10px",
+              }}
+            >
               {showPassword ? (
+                <VisibilityIcon
+                  sx={{ color: "action.active", ml: 1, my: 0.5 }}
+                />
+              ) : (
+                <VisibilityOffIcon
+                  sx={{ color: "action.active", ml: 1, my: 0.5 }}
+                />
+              )}
+            </span>
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              position: "relative",
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Confirmar Contraseña"
+              margin="none"
+              name="Contraseña"
+              type={showConfirmPassword ? "text" : "password"}
+              value={editedRow ? editedRow?.password_confirmation : ""}
+              placeholder="Confirmar la contraseña"
+              inputProps={{
+                autoComplete: "new-password",
+              }}
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  password_confirmation: e.target.value,
+                }))
+              }
+            />
+            <span
+              onClick={togglePasswordConfirmVisibility}
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                alignItems: "center",
+                right: "10px",
+              }}
+            >
+              {showConfirmPassword ? (
                 <VisibilityIcon
                   sx={{ color: "action.active", ml: 1, my: 0.5 }}
                 />
