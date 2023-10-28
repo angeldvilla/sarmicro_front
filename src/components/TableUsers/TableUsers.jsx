@@ -1,13 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
-import { getDetailsPolicys } from "../../redux/actions/actionsDetails";
+import Tooltip from "@mui/material/Tooltip";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import {
+  createUser,
+  deleteUser,
+  getUsers,
+  updateUser,
+} from "../../redux/actions/actionsUsers";
+import ModalCreateUser from "../Modals/ModalUsers/ModalEditUser";
 import { esES } from "@mui/x-data-grid";
+import { Toaster } from "sonner";
+import style from "../TableVehicles/tablesVehicles.module.css";
+import ModalEditUser from "../Modals/ModalUsers/ModalEditUser";
 
 const DataGridUsers = ({ rows, columns }) => {
+  const [rowEdit, setRowEdit] = useState(null);
+  const [openForm, setOpenForm] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -16,46 +42,140 @@ const DataGridUsers = ({ rows, columns }) => {
   };
 
   useEffect(() => {
-    dispatch(getDetailsPolicys());
+    dispatch(getUsers());
   }, [dispatch]);
 
-  return (
-    <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
-      <NavBar />
-      <div
-        style={{
-          alignSelf: "flex-start",
-          position: "relative",
-          marginTop: 20,
-          marginLeft: 20,
-          right: 0,
-        }}
-      >
-        <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
-      </div>
+  const handleOpen = () => {
+    setOpenForm(true);
+  };
+
+  const handleCreate = async (data) => {
+    setOpenForm(false);
+    dispatch(createUser(data));
+  };
+
+  const handleUpdate = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+    setRowEdit(selectedRow);
+    setOpenEdit(true);
+  };
+
+  const handleEdit = async (data, rowId) => {
+    setOpenEdit(false);
+    dispatch(updateUser(data, rowId));
+  };
+
+  const handleConfirmDelete = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+
+    if (selectedRow) {
+      setDeleteId(selectedRow.id);
+      setOpenDelete(true);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (deleteId !== null) {
+      dispatch(deleteUser(deleteId));
+    }
+    setOpenDelete(false);
+  };
+
+  const CustomHeaderButton = () => {
+    return (
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           alignItems: "center",
-          height: "500px",
+          marginBottom: "20px",
         }}
       >
+        <GridToolbar showQuickFilter={true} />
+
+        <div
+          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
+        >
+          <Tooltip title="Crear Usuario">
+            <IconButton
+              aria-label="Crear Usuario"
+              onClick={handleOpen}
+              color="primary"
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      </div>
+    );
+  };
+
+  const actionsColumn = {
+    field: "actions",
+    headerName: "Acciones",
+    width: 90,
+    renderCell: (params) => (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "95%",
+        }}
+      >
+        <Tooltip title="Editar">
+          <IconButton
+            aria-label="Editar"
+            style={{ color: "#0054b4" }}
+            onClick={() => handleUpdate(params.id)}
+          >
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Borrar">
+          <IconButton
+            aria-label="Borrar"
+            style={{ color: "#dd0000" }}
+            onClick={() => handleConfirmDelete(params.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
+    ),
+  };
+
+  return (
+    <div className={style.container1}>
+      <NavBar />
+      <div className={style.container2}>
+        <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
+      </div>
+      <div className={style.container4}>
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            style={{ color: "#0080ca" }}
+            className={style.paper}
+          >
+            Lista de Usuarios
+          </Paper>
+        </Grid>
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={columns}
-          /* initialState={{
+          columns={[...columns, actionsColumn]}
+          initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+              paginationModel: { page: 0, pageSize: 25 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]} */
+          pageSizeOptions={[25, 50, 100]}
           loading={rows.length === 0}
           virtualization
           disableColumnSelector
           disableDensitySelector
-          components={{ Toolbar: GridToolbar }}
+          disableRowSelectionOnClick
+          components={{ Toolbar: CustomHeaderButton }}
           componentsProps={{
             toolbar: {
               csvOptions: { disableToolbarButton: true },
@@ -64,14 +184,47 @@ const DataGridUsers = ({ rows, columns }) => {
               quickFilterProps: { debounceMs: 250 },
             },
           }}
-          style={{
-            backgroundColor: "#ffffffcc",
-            color: "black",
-            marginTop: "20px",
-            marginBottom: "25px",
-          }}
+          className={style.dataGrid}
         />
       </div>
+      <Toaster richColors position="top-right" />
+      <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
+        <DialogTitle
+          style={{
+            fontFamily: "sans-serif",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Eliminar Usuario
+        </DialogTitle>
+        <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
+          ¿Estás seguro de eliminar este usuario, esta acción es irreversible?
+        </DialogContent>
+        <DialogActions style={{ justifyContent: "center" }}>
+          <button
+            className={style.buttonClose}
+            onClick={() => setOpenDelete(false)}
+          >
+            No
+          </button>
+
+          <button className={style.buttonDelete} onClick={handleDelete}>
+            Si
+          </button>
+        </DialogActions>
+      </Dialog>
+      <ModalCreateUser
+        open={openForm}
+        handleClose={() => setOpenForm(false)}
+        handleCreate={handleCreate}
+      />
+      <ModalEditUser
+        open={openEdit}
+        handleClose={() => setOpenEdit(false)}
+        handleEdit={handleEdit}
+        rowEdit={rowEdit}
+      />
     </div>
   );
 };

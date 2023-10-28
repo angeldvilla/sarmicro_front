@@ -52,7 +52,17 @@ const Vehicles = () => {
   const uniqueClasses = Array.from(new Set(rows.map((row) => row.tipov))); */
 
   const allRows = useMemo(() => {
-    return rows.map((row) => ({
+    const uniqueIds = new Set();
+    const filteredRows = [];
+  
+    for (const row of rows) {
+      if (!uniqueIds.has(row.id)) {
+        uniqueIds.add(row.id);
+        filteredRows.push(row);
+      }
+    }
+  
+    return filteredRows.map((row) => ({
       ...row,
       columns: [
         {

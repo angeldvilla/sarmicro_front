@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ENDPOINT, LOGIN_URL, REGISTER_URL, USERS_URL } from "./path.js";
-import { POST_LOGIN, POST_REGISTER, LOGOUT, GET_USERS } from "./actionTypes.js";
+import { ENDPOINT, LOGIN_URL, REGISTER_URL} from "./path.js";
+import { POST_LOGIN, POST_REGISTER, LOGOUT } from "./actionTypes.js";
 import { toast } from "sonner";
 
 // Acción para autenticar al usuario y redirigirlo a la página de inicio
@@ -72,23 +72,6 @@ export const logoutUser = (unAuthenticated, navigate) => {
     } catch (error) {
       console.error(error);
       toast.error("Error al cerrar sesión");
-    }
-  };
-};
-
-// Acción para obtener datos de usuarios
-export const getUsers = () => {
-  return async (dispatch) => {
-    const usersPath = `${ENDPOINT}${USERS_URL}`;
-    try {
-      const { data } = await axios.get(usersPath);
-      return dispatch({
-        type: GET_USERS,
-        payload: data,
-      });
-    } catch (error) {
-      console.log(error);
-      toast.error("No hay datos de usuarios");
     }
   };
 };
