@@ -85,25 +85,24 @@ export const createVehicle = (vehicleData) => {
   };
 };
 
-//Acción para actualizar un vehiculo
-export const updateVehicle = (vehicleData, id) => {
-  return async (dispatch) => {
-    const vechiculosPath = `${ENDPOINT}${VEHICULOS_URL}/${id}`;
-    try {
-      const { data } = await axios.put(vechiculosPath, vehicleData);
-      toast.success("Vehiculo actualizado correctamente");
-      dispatch(getVehiculos());
-      return dispatch({
+// Acción para actualizar un vehiculo
+export const updateVehicle = (vehicleData, id, dispatch) => {
+  const vechiculosPath = `${ENDPOINT}${VEHICULOS_URL}/${id}`;
+  axios
+    .put(vechiculosPath, vehicleData)
+    .then(({ data }) => {
+      dispatch({
         type: UPDATE_VEHICULO,
         payload: data,
       });
-    } catch (error) {
+      toast.success("Vehiculo actualizado correctamente");
+    })
+    .catch((error) => {
       console.error(error);
       toast.error(
         "No se pudo actualizar los datos del vehiculo, intentar de nuevo"
       );
-    }
-  };
+    });
 };
 
 //Acción para eliminar un vehiculo

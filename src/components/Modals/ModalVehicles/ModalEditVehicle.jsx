@@ -155,7 +155,7 @@ export default function ModalEditVehicle({
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  id_propietario: e.target.value,
+                  propietario: e.target.value,
                 }))
               }
             />
@@ -203,7 +203,7 @@ export default function ModalEditVehicle({
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  placa: e.target.value,
+                  clase: e.target.value,
                 }))
               }
             />

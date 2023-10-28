@@ -62,12 +62,11 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenForm(true);
   };
 
-  const handleCreate = async (data) => {
+  const handleCreate = (data) => {
     // Verificar si ya existe un registro con el mismo ID
     const isDuplicate = rows.some((row) => row.id === data.id);
 
     if (isDuplicate) {
-      // Mostrar un mensaje de error o realizar alguna acción
       toast.error("Ya existe un registro con este ID.");
     } else {
       setOpenForm(false);
@@ -83,7 +82,7 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenRegisterPolizas(false);
     dispatch(registerAllPolizas());
   }; */
-  const registerPolizas = async () => {
+  const registerPolizas = () => {
     if (polizasRegistradas) {
       toast.error("Ya se proceso el registro de todas las polizas");
       return;
@@ -92,7 +91,7 @@ const DataGridVehicles = ({ rows, columns }) => {
     setPolizasRegistradas(true);
 
     try {
-      await dispatch(registerAllPolizas());
+      dispatch(registerAllPolizas());
     } catch (error) {
       toast.error("Ya se proceso el registro de todas las polizas");
     }
@@ -104,7 +103,7 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenEdit(true);
   };
 
-  const handleEdit = async (data, rowId) => {
+  const handleEdit = (data, rowId) => {
     setOpenEdit(false);
     dispatch(updateVehicle(data, rowId));
   };
@@ -118,7 +117,7 @@ const DataGridVehicles = ({ rows, columns }) => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (deleteId !== null) {
       dispatch(deleteVehicle(deleteId));
     }

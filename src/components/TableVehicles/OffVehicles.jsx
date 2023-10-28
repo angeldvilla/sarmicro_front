@@ -57,7 +57,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
     setOpenEdit(true);
   };
 
-  const handleEdit = async (data, rowId) => {
+  const handleEdit = (data, rowId) => {
     setOpenEdit(false);
     dispatch(updateVehicle(data, rowId));
   };

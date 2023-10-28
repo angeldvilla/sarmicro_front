@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateVehicle } from "../../redux/actions/actionsVehicles";
+import {
+  getOffVehiculos,
+  updateVehicle,
+} from "../../redux/actions/actionsVehicles";
 import DataGridOffVehicles from "../../components/TableVehicles/OffVehicles";
 import Switch from "@mui/material/Switch";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -32,7 +35,7 @@ const OffVehicles = () => {
 
   const dispatch = useDispatch();
 
-  const handleSwitchChange = useCallback(
+  /* const handleSwitchChange = useCallback(
     (event, rowId) => {
       const newState = event.target.checked ? "1" : "0";
 
@@ -46,6 +49,33 @@ const OffVehicles = () => {
       dispatch(updateVehicle(updatedVehicle, rowId));
     },
     [dispatch, rows]
+  ); */
+
+  const [updating, setUpdating] = useState(false);
+
+  const handleSwitchChange = useCallback(
+    (event, rowId) => {
+      if (updating) {
+        return;
+      }
+
+      setUpdating(true);
+
+      try {
+        const newState = event.target.checked ? "1" : "0";
+        const updatedVehicle = {
+          id: rowId,
+          estado: newState,
+        };
+        dispatch(updateVehicle(updatedVehicle, rowId, dispatch));
+        dispatch(getOffVehiculos());
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setUpdating(false);
+      }
+    },
+    [dispatch, updating]
   );
 
   const allRows = useMemo(() => {
