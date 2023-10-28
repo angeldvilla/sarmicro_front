@@ -153,7 +153,7 @@ export default function ModalEditUser({
               label="Cedula"
               margin="none"
               name="Cedula"
-              /* type="number" */
+              type="number"
               value={editedRow ? editedRow?.cedula : ""}
               placeholder="Ingrese numero de cedula de ciudadania"
               onChange={(e) =>
@@ -170,7 +170,7 @@ export default function ModalEditUser({
               label="Telefono"
               margin="none"
               name="Telefono"
-              /* type="number" */
+              type="number"
               value={editedRow ? editedRow?.telefono : ""}
               placeholder="Ingrese un numero de telefono"
               onChange={(e) =>
