@@ -130,7 +130,7 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
               margin="none"
               name="CorreoElectronico"
               value={newUser ? newUser?.email : ""}
-              placeholder="Ingrese el numero de cuotas"
+              placeholder="Ingrese el correo electronico"
               onChange={(e) =>
                 setNewUser((prevState) => ({
                   ...prevState,
@@ -148,6 +148,7 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
               name="Cedula"
               type="number"
               value={newUser ? newUser?.cedula : ""}
+              placeholder="Ingrese numero de cedula de ciudadania"
               onChange={(e) =>
                 setNewUser((prevState) => ({
                   ...prevState,
@@ -164,7 +165,7 @@ export default function ModalCreateUser({ open, handleClose, handleCreate }) {
               name="Telefono"
               type="number"
               value={newUser ? newUser?.telefono : ""}
-              placeholder="Valor inicial"
+              placeholder="Ingrese un numero de telefono"
               onChange={(e) =>
                 setNewUser((prevState) => ({
                   ...prevState,
