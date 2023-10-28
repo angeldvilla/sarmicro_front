@@ -36,14 +36,17 @@ const Users = () => {
     (event, rowId) => {
       const newState = event.target.checked ? "1" : "0";
 
-      const updatedVehicle = {
-        id: rowId,
+      const updatedRow = rows.find((row) => row.id === rowId);
+      
+      const updatedUser = {
+        ...updatedRow,
         estado: newState,
       };
+      console.log(updatedUser);
 
-      dispatch(updateUser(updatedVehicle, rowId));
+      dispatch(updateUser(updatedUser, rowId));
     },
-    [dispatch]
+    [dispatch, rows]
   );
 
   const columns = [
