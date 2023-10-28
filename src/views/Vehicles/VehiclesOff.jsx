@@ -49,7 +49,17 @@ const OffVehicles = () => {
   );
 
   const allRows = useMemo(() => {
-    return rows.map((row) => ({
+    const uniqueIds = new Set();
+    const filteredRows = [];
+
+    for (const row of rows) {
+      if (!uniqueIds.has(row.id)) {
+        uniqueIds.add(row.id);
+        filteredRows.push(row);
+      }
+    }
+
+    return filteredRows.map((row) => ({
       ...row,
       columns: [
         {

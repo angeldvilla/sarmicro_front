@@ -122,7 +122,7 @@ const DataGridPayments = ({ rows, columns }) => {
         style={{
           display: "flex",
           justifyContent: "space-evenly",
-          width: "100%",
+          width: "95%",
         }}
       >
         <Tooltip title="Crear Pago de Poliza">
@@ -180,14 +180,6 @@ const DataGridPayments = ({ rows, columns }) => {
       <div
         style={{
           display: "flex",
-          alignItems: "center",
-          marginTop: 20,
-          marginLeft: 20,
-        }}
-      ></div>
-      <div
-        style={{
-          display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
@@ -241,6 +233,7 @@ const DataGridPayments = ({ rows, columns }) => {
             color: "black",
             marginTop: "10px",
             marginBottom: "5%",
+            width: "95%",
           }}
         />
       </div>

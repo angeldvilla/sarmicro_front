@@ -63,8 +63,16 @@ const DataGridVehicles = ({ rows, columns }) => {
   };
 
   const handleCreate = async (data) => {
-    setOpenForm(false);
-    dispatch(createVehicle(data));
+    // Verificar si ya existe un registro con el mismo ID
+    const isDuplicate = rows.some((row) => row.id === data.id);
+
+    if (isDuplicate) {
+      // Mostrar un mensaje de error o realizar alguna acción
+      toast.error("Ya existe un registro con este ID.");
+    } else {
+      setOpenForm(false);
+      dispatch(createVehicle(data));
+    }
   };
 
   const confirmRegisterPolizas = () => {
@@ -126,7 +134,7 @@ const DataGridVehicles = ({ rows, columns }) => {
         style={{
           display: "flex",
           justifyContent: "space-evenly",
-          width: "100%",
+          width: "95%",
         }}
       >
         <Tooltip title="Editar">
