@@ -36,16 +36,10 @@ export default function ModalEditVehicle({
       modelo: editedRow.modelo,
       placa: editedRow.placa,
       clase: editedRow.clase,
-      /*  color: editedRow.color, */
-      /*  pago_hasta: editedRow.pago_hasta, */
       grupo: editedRow.grupo,
       motor: editedRow.motor,
       poliza: editedRow.poliza,
-      /*  poliza_paz: editedRow.poliza_paz,
-      propio: editedRow.propio, */
       referencia: editedRow.referencia,
-      /* rtu_paz: editedRow.rtu_paz,
-      segurida_social_paz: editedRow.segurida_social_paz, */
       serie: editedRow.serie,
       tipo: editedRow.tipo,
       tipov: editedRow.tipov,
@@ -96,7 +90,6 @@ export default function ModalEditVehicle({
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleEditVehiculo}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =
@@ -208,40 +201,6 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Color"
-              margin="none"
-              name="Color"
-              value={editedRow ? editedRow?.color : ""}
-              placeholder="Ingrese el color del vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  color: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Pago Hasta"
-              type="date"
-              InputLabelProps={{ shrink: true }}
-              margin="none"
-              name="PagoHasta"
-              value={editedRow ? editedRow?.pago_hasta : ""}
-              placeholder="Ingrese la fecha de pago del vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  pago_hasta: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -292,41 +251,6 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-
-          {/*   <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Poliza Paz"
-              margin="none"
-              name="PolizaPaz"
-              value={editedRow ? editedRow?.poliza_paz : ""}
-              placeholder="Ingrese el paz y salvo del vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  poliza_paz: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Propio"
-              margin="none"
-              name="Propio"
-              value={editedRow ? editedRow?.propio : ""}
-              placeholder="Indique si el vehiculo es propio (SI O NO)"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  propio: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
-
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -343,41 +267,6 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-
-          {/*  <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="RTU Paz"
-              margin="none"
-              name="RtuPaz"
-              value={editedRow ? editedRow?.rtu_paz : ""}
-              placeholder="Indique si el RTU esta a paz y salvo (SI O NO)"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  rtu_paz: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Seguridad Social"
-              margin="none"
-              name="SeguridadSocial"
-              value={editedRow ? editedRow?.segurida_social_paz : ""}
-              placeholder="Indique si la seguridad social esta a paz y salvo (SI O NO)"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  segurida_social_paz: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
-
           <Grid item xs={6}>
             <TextField
               fullWidth

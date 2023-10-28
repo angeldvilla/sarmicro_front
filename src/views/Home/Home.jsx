@@ -2,11 +2,10 @@ import React from "react";
 import {
   CardPolicy,
   CardPayments,
-  /* CardCuotas, */
   CardVehicles,
   CashBox,
   DetailPolicy,
-  CardUsers
+  CardUsers,
 } from "../../components/Cards/Cards";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -40,12 +39,6 @@ const Home = () => {
             <CardPayments />
           </div>
         </div>
-
-       {/*  <div className={styles.cardStyle}>
-          <div className={styles.scaleUpBottom3}>
-            <CardCuotas />
-          </div>
-        </div> */}
 
         <div className={styles.cardStyle}>
           <div className={styles.scaleUpBottom4}>

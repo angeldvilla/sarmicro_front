@@ -26,16 +26,10 @@ export default function ModalCreateVehicle({
     modelo: "",
     placa: "",
     clase: "",
-    /* color: "", */
-    /* pago_hasta: "", */
     grupo: "",
     motor: "",
     poliza: "",
-    /* poliza_paz: "",
-    propio: "", */
     referencia: "",
-    /* rtu_paz: "",
-    segurida_social_paz: "", */
     serie: "",
     tipo: "",
     tipov: "",
@@ -90,7 +84,6 @@ export default function ModalCreateVehicle({
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleCreateVehicle}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =
@@ -197,45 +190,11 @@ export default function ModalCreateVehicle({
               onChange={(e) =>
                 setNewVehicle((prevState) => ({
                   ...prevState,
-                  placa: e.target.value,
+                  clase: e.target.value,
                 }))
               }
             />
           </Grid>
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Color"
-              margin="none"
-              name="Color"
-              value={newVehicle ? newVehicle?.color : ""}
-              placeholder="Ingrese el color del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  color: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Pago Hasta"
-              type="date"
-              InputLabelProps={{ shrink: true }}
-              margin="none"
-              name="PagoHasta"
-              value={newVehicle ? newVehicle?.pago_hasta : ""}
-              placeholder="Ingrese la fecha de pago del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  pago_hasta: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -286,41 +245,6 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Poliza Paz"
-              margin="none"
-              name="PolizaPaz"
-              value={newVehicle ? newVehicle?.poliza_paz : ""}
-              placeholder="Ingrese el paz y salvo del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  poliza_paz: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Propio"
-              margin="none"
-              name="Propio"
-              value={newVehicle ? newVehicle?.propio : ""}
-              placeholder="Indique si el vehiculo es propio (SI O NO)"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  propio: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
-
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -337,41 +261,6 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="RTU Paz"
-              margin="none"
-              name="RtuPaz"
-              value={newVehicle ? newVehicle?.rtu_paz : ""}
-              placeholder="Indique si el RTU esta a paz y salvo (SI O NO)"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  rtu_paz: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Seguridad Social"
-              margin="none"
-              name="SeguridadSocial"
-              value={newVehicle ? newVehicle?.segurida_social_paz : ""}
-              placeholder="Indique si la seguridad social esta a paz y salvo (SI O NO)"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  segurida_social_paz: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
-
           <Grid item xs={6}>
             <TextField
               fullWidth

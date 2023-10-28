@@ -3,13 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import styles from "../../components/Buttons/styleButton.module.css";
 import style from "./error.module.css";
-/* import { useNavigate } from "react-router-dom"; */
 const Error = () => {
-  /*   const navigate = useNavigate();
-
-  const backFunction = () => {
-    navigate("/inicio");
-  }; */
   return (
     <div className={style.errorContainer}>
       <div className={style.blurIn}>
@@ -41,7 +35,6 @@ const Error = () => {
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
             className={styles.botonLogout}
-            /* onClick={backFunction} */
           >
             VOLVER A INICIO
             <HomeIcon style={{ marginLeft: 10, fontSize: "large" }} />

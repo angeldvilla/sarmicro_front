@@ -7,7 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-/* import AddIcon from "@mui/icons-material/Add"; */
 import PaidIcon from "@mui/icons-material/Paid";
 import PrintIcon from "@mui/icons-material/Print";
 import EditIcon from "@mui/icons-material/Edit";
@@ -18,7 +17,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-/* import ModalCreateCuota from "../Modals/ModalCuotas/ModalCreateCuota"; */
 import ModalEditCuota from "../Modals/ModalCuotas/ModalEditCuota";
 import {
   getCuotas,
@@ -83,34 +81,6 @@ const DataGridCuotas = ({ rows, columns }) => {
       toast.error("Error al crear el pago de la cuota, intente de nuevo");
     }
   };
-
-  /* const CustomHeaderButton = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <GridToolbar showQuickFilter="true" />
-        <div
-          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
-        >
-          <Tooltip title="Crear Cuota">
-            <IconButton
-              aria-label="Crear Cuota"
-              onClick={handleOpen}
-              color="primary"
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
-        </div>
-      </div>
-    );
-  }; */
 
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
@@ -221,7 +191,6 @@ const DataGridCuotas = ({ rows, columns }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          /* height: "500px", */
         }}
       >
         <div className={style.scaleWelcome}>
@@ -247,12 +216,12 @@ const DataGridCuotas = ({ rows, columns }) => {
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          /* initialState={{
+          initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+              paginationModel: { page: 0, pageSize: 25 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]} */
+          pageSizeOptions={[25, 50, 100]}
           loading={rows.length === 0}
           virtualization
           disableColumnSelector
@@ -414,11 +383,6 @@ const DataGridCuotas = ({ rows, columns }) => {
           </Typography>
         </DialogActions>
       </Dialog>
-      {/*  <ModalCreateCuota
-        open={openPaid}
-        handleClose={() => setOpenPaid(false)}
-        handleCreate={handleCreate}
-      /> */}
       <ModalEditCuota
         open={openEdit}
         handleClose={() => setOpenEdit(false)}

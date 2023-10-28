@@ -22,7 +22,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function ModalCreateValue({ open, handleClose, handleCreate }) {
   const typePolicy = useSelector((state) => state?.values?.typesPolicys);
   const typeEnterprise = useSelector((state) => state?.values?.typesEnterprise);
-  /* const today = new Date().toISOString().split("T")[0]; */
   const [newValorPoliza, setNewValorPoliza] = useState({
     tipo_poliza: "",
     tipo_poliza_id: "",
@@ -53,22 +52,6 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
 
     handleCreate(valuePoliza);
   };
-
-  /* const valueTotal = (event) => {
-    const cuota_inicial_porcentaje = event.target.value;
-
-    const valor_inicial =
-      parseFloat(newValorPoliza.valor_poliza * cuota_inicial_porcentaje) / 100;
-    if (!isNaN(cuota_inicial_porcentaje)) {
-      setNewValorPoliza((prevState) => {
-        return {
-          ...prevState,
-          cuota_inicial_porcentaje,
-          valor_inicial,
-        };
-      });
-    }
-  }; */
 
   return (
     <div>
@@ -112,7 +95,6 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleCreateValuePoliza}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =
@@ -135,12 +117,6 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
                 label="Tipo de Poliza"
                 variant="outlined"
                 value={newValorPoliza ? newValorPoliza?.tipo_poliza : ""}
-                /* onChange={(e) =>
-                  setNewValorPoliza((prevState) => ({
-                    ...prevState,
-                    tipo_poliza: e.target.value,
-                  }))
-                } */
                 onChange={(e) => {
                   const selectedPolicy = e.target.value;
 
@@ -177,12 +153,6 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
                 label="Empresa"
                 variant="outlined"
                 value={newValorPoliza ? newValorPoliza?.empresa : ""}
-                /* onChange={(e) =>
-                  setNewValorPoliza((prevState) => ({
-                    ...prevState,
-                    empresa: e.target.value,
-                  }))
-                } */
                 onChange={(e) => {
                   const selectedEnterprise = e.target.value;
 
@@ -246,22 +216,8 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
                 label="Tipo de Cuotas (Dias)"
                 variant="outlined"
                 value={newValorPoliza ? newValorPoliza?.dias : ""}
-                /* onChange={(e) =>
-                  setNewValorPoliza((prevState) => ({
-                    ...prevState,
-                    dias: e.target.value,
-                  }))
-                } */
                 disabled
               >
-                {/*  <MenuItem value="">
-                  <em>Ninguno</em>
-                </MenuItem>
-                 <MenuItem value={7}>Semanal</MenuItem>
-                <MenuItem value={15}>Quincenal</MenuItem>
-                <MenuItem value={31}>Mensual</MenuItem>
-                <MenuItem value={93}>Trimestral</MenuItem>
-                <MenuItem value={180}>Semestral</MenuItem> */}
                 <MenuItem value={365}>Anual</MenuItem>
               </Select>
             </FormControl>
@@ -284,26 +240,6 @@ export default function ModalCreateValue({ open, handleClose, handleCreate }) {
               }
             />
           </Grid>
-
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Porcentaje de Cuota"
-              margin="none"
-              name="PorcentajeCuota"
-              type="number"
-              value={
-                newValorPoliza ? newValorPoliza?.cuota_inicial_porcentaje : ""
-              }
-               onChange={(e) =>
-                setNewValorPoliza((prevState) => ({
-                  ...prevState,
-                  cuota_inicial_porcentaje: e.target.value,
-                }))
-              }
-              onChange={valueTotal}
-            />
-          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth

@@ -5,16 +5,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-/* import PaidIcon from "@mui/icons-material/Paid";
-import PolicyIcon from "@mui/icons-material/Policy";
-import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
-import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
-import SavingsIcon from "@mui/icons-material/Savings";
-import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash"; */
 import styles from "./card.module.css";
 import valorPoliza from "../../assets/images/valorPolizas.jpg";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
-/* import cuotasPolizas from "../../assets/images/cuotas.jpg"; */
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
 import cuadreCaja from "../../assets/images/cuadreCaja.jpg";
 import deleted from "../../assets/images/deleted.png";
@@ -31,7 +24,6 @@ export const CardPolicy = () => {
               component="img"
               height="140"
               image={valorPoliza}
-              /* https://img.freepik.com/vector-gratis/iconos-polizas-seguros_603843-478.jpg?w=2000 */
               alt="Valor de Polizas"
             />
             <CardContent>
@@ -55,10 +47,6 @@ export const CardPolicy = () => {
           </CardActionArea>
         </Card>
         <div className={styles.overlay}>
-          {/* <Typography className={styles.overlayButton}>
-            Ver Detalles
-            <PolicyIcon style={{ marginLeft: 10, fontSize: "large" }} />
-          </Typography> */}
         </div>
       </NavLink>
     </div>
@@ -76,9 +64,6 @@ export const CardPayments = () => {
               component="img"
               height="140"
               image={pagoPolizas}
-              /*https://img.freepik.com/vector-premium/concepto-ganancia-billetera-dinero-pago-linea-ilustracion-vectorial-plana-banner-pagina-destino_128772-915.jpg
-           
-          https://www.autopista.es/uploads/s1/57/92/67/2/5eec6d370de69406553493f3-que-seguro-de-coche-elegir-tipos-de-polizas-ventajas-e-inconvenientes.jpeg */
               alt="Pago de Polizas"
             />
             <CardContent>
@@ -102,60 +87,11 @@ export const CardPayments = () => {
           </CardActionArea>
         </Card>
         <div className={styles.overlay}>
-          {/* <Typography className={styles.overlayButton}>
-            Ver Detalles
-            <PaidIcon style={{ marginLeft: 10, fontSize: "large" }} />
-          </Typography>*/}
         </div>
       </NavLink>
     </div>
   );
 };
-
-/* export const CardCuotas = () => {
-  return (
-    <div className={styles.cardContainer}>
-      <NavLink to="/cuotas">
-        <Card style={{ borderRadius: "1.2em" }}>
-          <CardActionArea>
-            <CardMedia
-              className={styles.cardImage}
-              component="img"
-              height="140"
-              image={cuotasPolizas}
-              https://img.freepik.com/vector-gratis/iconos-polizas-seguros_603843-478.jpg?w=2000
-              alt="Cuotas"
-            />
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                className={styles.cardText}
-              >
-                Cuotas
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                className={styles.cardText}
-              >
-                Esta tarjeta muestra información relacionada con las cuotas
-                registradas de las polizas.
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        <div className={styles.overlay}>
-           <Typography className={styles.overlayButton}>
-            Ver Detalles
-            <RequestQuoteIcon style={{ marginLeft: 10, fontSize: "large" }} />
-          </Typography>
-        </div>
-      </NavLink>
-    </div>
-  );
-}; */
 
 export const CardVehicles = () => {
   return (
@@ -168,8 +104,6 @@ export const CardVehicles = () => {
               component="img"
               height="140"
               image={parqueAutomotor}
-              /* https://img.freepik.com/vector-premium/diseno-zona-aparcamiento-o-parque_24877-34208.jpg
-           https://img.freepik.com/vector-gratis/estacionamiento-isometrico-coloreado_1284-25255.jpg?w=2000 */
               alt="Parque Automotor"
             />
             <CardContent>
@@ -193,10 +127,6 @@ export const CardVehicles = () => {
           </CardActionArea>
         </Card>
         <div className={styles.overlay}>
-          {/*  <Typography className={styles.overlayButton}>
-            Ver Detalles
-            <LocalTaxiIcon style={{ marginLeft: 10, fontSize: "large" }} />
-          </Typography> */}
         </div>
       </a>
     </div>
@@ -237,10 +167,6 @@ export const CashBox = () => {
           </CardActionArea>
         </Card>
         <div className={styles.overlay}>
-          {/*<Typography className={styles.overlayButton}>
-            Ver Detalles
-            <SavingsIcon style={{ marginLeft: 10, fontSize: "large" }} />
-          </Typography>*/}
         </div>
       </a>
     </div>
@@ -281,12 +207,6 @@ export const DetailPolicy = () => {
           </CardActionArea>
         </Card>
         <div className={styles.overlay}>
-          {/*<Typography className={styles.overlayButton}>
-            Ver Detalles
-            <RestoreFromTrashIcon
-              style={{ marginLeft: 10, fontSize: "large" }}
-            />
-          </Typography>*/}
         </div>
       </a>
     </div>
@@ -327,12 +247,6 @@ export const CardUsers = () => {
           </CardActionArea>
         </Card>
         <div className={styles.overlay}>
-          {/*<Typography className={styles.overlayButton}>
-            Ver Detalles
-            <RestoreFromTrashIcon
-              style={{ marginLeft: 10, fontSize: "large" }}
-            />
-          </Typography>*/}
         </div>
       </a>
     </div>

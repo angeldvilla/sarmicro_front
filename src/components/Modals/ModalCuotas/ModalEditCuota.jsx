@@ -101,7 +101,6 @@ export default function ModalEditCuota({
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleEditCuota}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =
@@ -177,12 +176,6 @@ export default function ModalEditCuota({
                 label="Pagada"
                 variant="outlined"
                 value={editedRow ? editedRow?.pagada : ""}
-                /* onChange={(e) =>
-                  setEditedRow((prevState) => ({
-                    ...prevState,
-                    pagada: e.target.value,
-                  }))
-                } */
                 onChange={editState}
               >
                 <MenuItem value={0}>No</MenuItem>

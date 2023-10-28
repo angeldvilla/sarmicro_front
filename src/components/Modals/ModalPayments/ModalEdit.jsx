@@ -34,7 +34,6 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
       dias_cuota: editedRow.dias_cuota,
       cedula: editedRow.cedula,
       nombre: editedRow.nombre,
-      /* porcentaje: editedRow.porcentaje,*/
       valor_inicial: editedRow.valor_inicial,
       estado: 1,
     };
@@ -83,7 +82,6 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleEditPoliza}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =
@@ -108,12 +106,6 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               value={editedRow ? editedRow?.numero_poliza : ""}
               placeholder="Ingrese número de póliza"
               disabled
-              /*  onChange={(e) =>
-                setEditedRow({
-                  ...editedRow,
-                  numero_poliza: e.target.value,
-                })
-              } */
             />
           </Grid>
           <Grid item xs={6}>
@@ -141,7 +133,6 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               name="NumCuotas"
               value={editedRow ? editedRow?.numero_cuotas : ""}
               placeholder="Ingrese número de cuotas"
-              /* disabled */
               onChange={(e) =>
                 setEditedRow({
                   ...editedRow,
@@ -177,26 +168,6 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               disabled
             />
           </Grid>
-
-          {/*    <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Porcentaje de Cuota"
-              margin="none"
-              name="PorcentajeCuota"
-              type="number"
-              value={editedRow ? editedRow?.porcentaje : ""}
-              placeholder="Ingrese el porcentaje de la primera cuota"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  porcentaje: e.target.value,
-                }))
-              }
-              disabled
-            />
-          </Grid> */}
-
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -212,10 +183,8 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
                   valor_inicial: e.target.value,
                 }))
               }
-              
             />
           </Grid>
-
           <Grid item xs={6}>
             <TextField
               fullWidth

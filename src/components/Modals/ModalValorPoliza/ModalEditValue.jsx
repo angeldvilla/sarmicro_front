@@ -45,7 +45,6 @@ export default function ModalEditValue({
       dias: editedRow.dias,
       vehiculo_grupo_id: editedRow.vehiculo_grupo_id,
       numero_cuotas: editedRow.numero_cuotas,
-      /* cuota_inicial_porcentaje: editedRow.cuota_inicial_porcentaje, */
       fecha_inicial: editedRow.fecha_inicial,
       fecha_vencimiento: editedRow.fecha_vencimiento,
       valor_inicial: editedRow.valor_inicial,
@@ -95,7 +94,6 @@ export default function ModalEditValue({
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleEditValuePoliza}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =
@@ -239,23 +237,6 @@ export default function ModalEditValue({
               }
             />
           </Grid>
-
-          {/*   <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Porcentaje de Cuota"
-              margin="none"
-              name="PorcentajeCuota"
-              type="number"
-              value={editedRow ? editedRow?.cuota_inicial_porcentaje : ""}
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  cuota_inicial_porcentaje: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
