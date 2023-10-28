@@ -7,7 +7,6 @@ import Login from "../views/Login/Login.jsx";
 import Register from "../views/Register/Register.jsx";
 import Values from "../views/Values/Values.jsx";
 import Payments from "../views/Payments/Payments.jsx";
-/* import Cuotas from "../views/Cuotas/Cuotas.jsx"; */
 import CashBox from "../views/CashBox/CashBox.jsx";
 import Vehicles from "../views/Vehicles/Vehicles.jsx";
 import OffVehicles from "../views/Vehicles/VehiclesOff.jsx";
@@ -59,14 +58,6 @@ const RoutesApp = () => {
           </RoutesProtected>
         }
       />
-      {/*       <Route
-        path="/cuotas"
-        element={
-          <RoutesProtected>
-            <Cuotas />
-          </RoutesProtected>
-        }
-      /> */}
       <Route
         path="/vehiculos"
         element={

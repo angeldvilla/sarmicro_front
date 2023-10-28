@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch /* , useSelector */ } from "react-redux";
+import { useDispatch } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -21,7 +21,6 @@ import {
   getOffVehiculos,
   updateVehicle,
   deleteVehicle,
-  /* getExportDesvinculadosExcel, */
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
@@ -44,20 +43,15 @@ const DataGridOffVehicles = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getOffVehiculos());
-    /* dispatch(getExportDesvinculadosExcel()); */
   }, [dispatch]);
 
-  /* const resultados = useSelector(
-    (state) => state?.vehicles?.offVehiculos
-  );
- */
   const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
     setRowEdit(selectedRow);
     setOpenEdit(true);
   };
 
-  const handleEdit = async (data, rowId) => {
+  const handleEdit = (data, rowId) => {
     setOpenEdit(false);
     dispatch(updateVehicle(data, rowId));
   };

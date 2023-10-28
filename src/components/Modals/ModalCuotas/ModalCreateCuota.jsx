@@ -81,7 +81,6 @@ export default function ModalCreateCuota({ open, handleClose, handleCreate }) {
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleCreateCuota}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =

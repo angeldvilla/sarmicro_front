@@ -30,13 +30,6 @@ const Payments = () => {
     return () => window.removeEventListener("scroll", handleScrollUp);
   }, []);
 
-  const sortModel = [
-    {
-      field: "id",
-      sort: "desc",
-    },
-  ];
-
   const columns = [
     {
       field: "id",
@@ -154,15 +147,10 @@ const Payments = () => {
           margin: "20px 0",
         }}
       />
-      <DataGridPayments rows={rows} columns={columns} sortModel={sortModel} />
+      <DataGridPayments rows={rows} columns={columns} />
 
       {scrollUp && (
-        <button
-          onClick={scrollToUp}
-          className={style.scrollUpButton}
-          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out"
-           */
-        >
+        <button onClick={scrollToUp} className={style.scrollUpButton}>
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>
       )}

@@ -190,18 +190,17 @@ const DataGridValues = ({ rows, columns }) => {
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          /*  initialState={{
+          initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+              paginationModel: { page: 0, pageSize: 25 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]} */
+          pageSizeOptions={[25, 50, 100]}
           loading={rows.length === 0}
           virtualization
           disableRowSelectionOnClick
           disableColumnSelector
           disableDensitySelector
-          /* slots={{ toolbar: CustomHeaderButton }} */
           components={{ toolbar: CustomHeaderButton }}
           componentsProps={{
             toolbar: {

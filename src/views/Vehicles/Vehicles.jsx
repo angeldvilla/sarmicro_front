@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateVehicle } from "../../redux/actions/actionsVehicles";
+import {
+  updateVehicle,
+  getVehiculos,
+} from "../../redux/actions/actionsVehicles";
 import DataGridVehicles from "../../components/TableVehicles/TableVehicles";
 import Switch from "@mui/material/Switch";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -32,36 +35,60 @@ const Vehicles = () => {
 
   const dispatch = useDispatch();
 
-  const handleSwitchChange = useCallback(
+  /* const handleSwitchChange = useCallback(
     (event, rowId) => {
       const newState = event.target.checked ? "1" : "0";
 
-      /* const updatedRow = rows.find((row) => row.id === rowId); */
+      const updatedRow = rows.find((row) => row.id === rowId);
 
       const updatedVehicle = {
-        id: rowId,
+        ...updatedRow,
         estado: newState,
       };
 
-      dispatch(updateVehicle(updatedVehicle, rowId));
+      dispatch(updateVehicle(updatedVehicle, rowId, dispatch));
     },
-    [dispatch]
+    [dispatch, rows]
+  ); */
+  const [updating, setUpdating] = useState(false);
+
+  const handleSwitchChange = useCallback(
+    (event, rowId) => {
+      if (updating) {
+        return;
+      }
+
+      setUpdating(true);
+
+      try {
+        const newState = event.target.checked ? "1" : "0";
+        const updatedVehicle = {
+          id: rowId,
+          estado: newState,
+        };
+        dispatch(updateVehicle(updatedVehicle, rowId, dispatch));
+        dispatch(getVehiculos());
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setUpdating(false);
+      }
+    },
+    [dispatch, updating]
   );
 
-  /*  // Obtener todas las clases únicas
-  const uniqueClasses = Array.from(new Set(rows.map((row) => row.tipov))); */
-
+  
   const allRows = useMemo(() => {
     const uniqueIds = new Set();
     const filteredRows = [];
-  
+
     for (const row of rows) {
       if (!uniqueIds.has(row.id)) {
         uniqueIds.add(row.id);
         filteredRows.push(row);
       }
     }
-  
+
     return filteredRows.map((row) => ({
       ...row,
       columns: [
@@ -155,7 +182,6 @@ const Vehicles = () => {
         <button
           onClick={scrollToUp}
           className={style.scrollUpButton}
-          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out" */
         >
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>

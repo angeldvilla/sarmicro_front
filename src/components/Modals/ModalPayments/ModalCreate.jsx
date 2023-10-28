@@ -33,7 +33,6 @@ export default function ModalCreate({
   const [editedRow, setEditedRow] = useState(rowEdit);
 
   const handleCreatePoliza = () => {
-    /* const today = new Date().toISOString().split("T")[0]; */
     const dataPoliza = {
       id: editedRow.id,
       numero_poliza: editedRow.numero_poliza,
@@ -42,27 +41,11 @@ export default function ModalCreate({
       monto_total: editedRow.monto_total,
       numero_cuotas: editedRow.numero_cuotas,
       dias_cuota: editedRow.dias_cuota,
-      /* porcentaje: editedRow.porcentaje, */
       valor_inicial: editedRow.valor_inicial,
       estado: 1,
     };
     handleCreate(dataPoliza);
   };
-
-  /* const valueTotal = (event) => {
-    const porcentaje = event.target.value;
-
-    const total_pagar = parseFloat(editedRow.monto_total * porcentaje) / 100;
-    if (!isNaN(porcentaje)) {
-      setEditedRow((prevState) => {
-        return {
-          ...prevState,
-          porcentaje,
-          total_pagar,
-        };
-      });
-    }
-  }; */
 
   return (
     <div>
@@ -183,40 +166,12 @@ export default function ModalCreate({
                 label="Tipo de Cuotas"
                 variant="outlined"
                 value={editedRow ? editedRow?.dias_cuota : ""}
-                /*  onChange={(e) =>
-                  setEditedRow((prevState) => ({
-                    ...prevState,
-                    dias_cuota: e.target.value,
-                  }))
-                } */
                 disabled
               >
-                {/* <MenuItem value="">
-                  <em>Ninguno</em>
-                </MenuItem> */}
-                {/* <MenuItem value={7}>Semanal</MenuItem>
-                <MenuItem value={15}>Quincenal</MenuItem>
-                <MenuItem value={31}>Mensual</MenuItem>
-                <MenuItem value={93}>Trimestral</MenuItem>
-                <MenuItem value={180}>Semestral</MenuItem> */}
                 <MenuItem value={365}>Anual</MenuItem>
               </Select>
             </FormControl>
           </Grid>
-
-          {/*   <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Porcentaje de Cuota"
-              margin="none"
-              name="PorcentajeCuota"
-              type="number"
-              value={editedRow ? editedRow?.porcentaje : ""}
-              placeholder="Ingrese el porcentaje de la primera cuota"
-              onChange={valueTotal}
-              disabled
-            />
-          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
@@ -224,7 +179,6 @@ export default function ModalCreate({
               label="Valor de la cuota"
               margin="none"
               name="TotalPagar"
-              /* type="number" */
               InputLabelProps={{ shrink: true }}
               value={editedRow ? editedRow?.valor_inicial : ""}
               placeholder="Valor de la cuota"

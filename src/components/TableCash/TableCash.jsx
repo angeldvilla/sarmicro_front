@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-/* import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add"; */
 import FindInPageIcon from "@mui/icons-material/FindInPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
-/* import Tooltip from "@mui/material/Tooltip"; */
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -32,39 +29,6 @@ const DataGridCash = ({ rows, columns }) => {
   const handleOpen = () => {
     setOpenForm(true);
   };
-
-  /* const handleCreate = async (data) => {
-    setOpenForm(false);
-    dispatch(createPago(data));
-  }; */
-
-  /* const CustomHeaderButton = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <GridToolbar showQuickFilter="true" />
-        <div
-          style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}
-        >
-          <Tooltip title="Consultar">
-            <IconButton
-              aria-label="Movimiento Caja"
-              onClick={handleOpen}
-              color="primary"
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
-        </div>
-      </div>
-    );
-  }; */
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
@@ -99,7 +63,6 @@ const DataGridCash = ({ rows, columns }) => {
               marginRight: "1em",
               display: { xs: "none", md: "flex", marginLeft: "auto" },
             }}
-            /* className={styles.botonLogout} */
             onClick={handleOpen}
           >
             Consultar
@@ -112,7 +75,6 @@ const DataGridCash = ({ rows, columns }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          /* height: "700px", */
         }}
       >
         <Grid item xs={2}>
@@ -139,12 +101,12 @@ const DataGridCash = ({ rows, columns }) => {
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns]}
-          /* initialState={{
+          initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+              paginationModel: { page: 0, pageSize: 25 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]} */
+          pageSizeOptions={[25, 50, 100]}
           loading={rows.length === 0}
           virtualization
           disableColumnSelector

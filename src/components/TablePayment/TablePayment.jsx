@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-/* import { useNavigate } from "react-router-dom"; */
 import { useDispatch } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
@@ -12,8 +11,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
 import PrintIcon from "@mui/icons-material/Print";
-/*import ArrowBackIcon from "@mui/icons-material/ArrowBack"; */
-/* import NavBar from "../NavBar/NavBar"; */
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -40,10 +37,6 @@ const DataGridPayments = ({ rows, columns }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const dispatch = useDispatch();
-  /*   const navigate = useNavigate();
-  const backFunction = () => {
-    navigate(-1);
-  }; */
 
   useEffect(() => {
     dispatch(getPolizas());
@@ -167,7 +160,6 @@ const DataGridPayments = ({ rows, columns }) => {
             style={{ color: "rgba(41, 41, 41, 0.966)" }}
             onClick={() => handleSeeDetail(params.id)}
           >
-            {/* rgba(209, 188, 3, 0.966) */}
             <InfoIcon />
           </IconButton>
         </Tooltip>
@@ -208,12 +200,12 @@ const DataGridPayments = ({ rows, columns }) => {
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
-          /* initialState={{
+          initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
+              paginationModel: { page: 0, pageSize: 25 },
             },
           }}
-          pageSizeOptions={[10, 25, 50, 100]} */
+          pageSizeOptions={[25, 50, 100]}
           loading={rows.length === 0}
           virtualization
           disableColumnSelector

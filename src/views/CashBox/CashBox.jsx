@@ -121,7 +121,6 @@ const CashBox = () => {
         <button
           onClick={scrollToUp}
           className={style.scrollUpButton}
-          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out" */
         >
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>

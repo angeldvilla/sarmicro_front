@@ -100,41 +100,6 @@ const Values = () => {
       headerName: "Fecha de Vencimiento",
       width: 170,
     },
-
-    /*     {
-      field: "created_at",
-      headerName: "Fecha Creación",
-      width: 220,
-      renderCell: (params) => {
-        return (
-          <span
-            style={{
-              color: params.value === null ? "red" : "green",
-            }}
-          >
-            {params.value === null ? "No hay fecha de creación" : params.value}
-          </span>
-        );
-      },
-    },
-    {
-      field: "updated_at",
-      headerName: "Fecha Actualización",
-      width: 220,
-      renderCell: (params) => {
-        return (
-          <span
-            style={{
-              color: params.value === null ? "red" : "green",
-            }}
-          >
-            {params.value === null
-              ? "No hay fecha de actualización"
-              : params.value}
-          </span>
-        );
-      },
-    }, */
   ];
 
   return (
@@ -144,7 +109,6 @@ const Values = () => {
         <button
           onClick={scrollToUp}
           className={style.scrollUpButton}
-          /* className="fixed bottom-2 right-6 text-white py-4 px-3 rounded-lg z-100 animate-fade-up animate-ease-out" */
         >
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>

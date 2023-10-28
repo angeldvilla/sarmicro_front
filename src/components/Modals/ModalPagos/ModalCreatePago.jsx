@@ -74,7 +74,6 @@ export default function ModalCreatePago({ open, handleClose, handleCreate }) {
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleCreatePago}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =
