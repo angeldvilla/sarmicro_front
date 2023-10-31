@@ -248,7 +248,7 @@ const DataGridPayments = ({ rows, columns }) => {
             style={{
               textAlign: "center",
               cursor: "pointer",
-              backgroundColor: "rgba(19, 75, 197, 0.938)",
+              backgroundColor: "rgba(197, 31, 19, 0.938)",
               color: "white",
               fontFamily: "Sans-serif",
               fontWeight: "bold",
@@ -261,11 +261,11 @@ const DataGridPayments = ({ rows, columns }) => {
             onClick={() => setOpenDelete(false)}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor =
-                "rgba(2, 59, 182, 0.938)")
+                "rgba(187, 12, 0, 0.938)")
             }
             onMouseLeave={(e) =>
               (e.currentTarget.style.backgroundColor =
-                "rgba(19, 75, 197, 0.938)")
+                "rgba(197, 31, 19, 0.938)")
             }
           >
             No
@@ -275,7 +275,7 @@ const DataGridPayments = ({ rows, columns }) => {
             style={{
               textAlign: "center",
               cursor: "pointer",
-              backgroundColor: "rgba(197, 31, 19, 0.938)",
+              backgroundColor: "rgba(19, 75, 197, 0.938)",
               color: "white",
               fontFamily: "Sans-serif",
               fontWeight: "bold",
@@ -288,11 +288,11 @@ const DataGridPayments = ({ rows, columns }) => {
             onClick={handleDelete}
             onMouseEnter={(e) =>
               (e.currentTarget.style.backgroundColor =
-                "rgba(187, 12, 0, 0.938)")
+                "rgba(2, 59, 182, 0.938)")
             }
             onMouseLeave={(e) =>
               (e.currentTarget.style.backgroundColor =
-                "rgba(197, 31, 19, 0.938)")
+                "rgba(19, 75, 197, 0.938)")
             }
           >
             Si

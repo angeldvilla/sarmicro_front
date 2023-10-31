@@ -19,7 +19,10 @@ import {
   createUser,
   deleteUser,
   getUsers,
+  getPermissions,
+  getRoles,
   updateUser,
+  getRolesuser,
 } from "../../redux/actions/actionsUsers";
 import ModalCreateUser from "../Modals/ModalUsers/ModalCreateUser";
 import ModalEditUser from "../Modals/ModalUsers/ModalEditUser";
@@ -43,6 +46,9 @@ const DataGridUsers = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(getPermissions());
+    dispatch(getRoles());
+    dispatch(getRolesuser());
   }, [dispatch]);
 
   const handleOpen = () => {
@@ -203,13 +209,13 @@ const DataGridUsers = ({ rows, columns }) => {
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
           <button
-            className={style.buttonClose}
+            className={style.buttonDelete}
             onClick={() => setOpenDelete(false)}
           >
             No
           </button>
 
-          <button className={style.buttonDelete} onClick={handleDelete}>
+          <button className={style.buttonClose} onClick={handleDelete}>
             Si
           </button>
         </DialogActions>

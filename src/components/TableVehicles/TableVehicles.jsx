@@ -341,13 +341,13 @@ const DataGridVehicles = ({ rows, columns }) => {
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
           <button
-            className={style.buttonClose}
+            className={style.buttonDelete}
             onClick={() => setOpenDelete(false)}
           >
             No
           </button>
 
-          <button className={style.buttonDelete} onClick={handleDelete}>
+          <button className={style.buttonClose} onClick={handleDelete}>
             Si
           </button>
         </DialogActions>
@@ -370,13 +370,13 @@ const DataGridVehicles = ({ rows, columns }) => {
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
           <button
-            className={style.buttonClose}
+            className={style.buttonDelete}
             onClick={() => setOpenRegisterPolizas(false)}
           >
             No
           </button>
 
-          <button className={style.buttonDelete} onClick={registerPolizas}>
+          <button className={style.buttonClose} onClick={registerPolizas}>
             Si
           </button>
         </DialogActions>
