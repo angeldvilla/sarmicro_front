@@ -1,9 +1,4 @@
-import {
-  GET_USERS,
-  LOGOUT,
-  POST_LOGIN,
-  POST_REGISTER,
-} from "../actions/actionTypes";
+import { POST_LOGIN, LOGOUT } from "../actions/actionTypes";
 
 const initialState = {
   authUser: {},
@@ -21,18 +16,6 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         authUser: {},
-      };
-
-    case POST_REGISTER:
-      return {
-        ...state,
-        userData: action.payload,
-      };
-
-    case GET_USERS:
-      return {
-        ...state,
-        userData: action.payload,
       };
 
     default:

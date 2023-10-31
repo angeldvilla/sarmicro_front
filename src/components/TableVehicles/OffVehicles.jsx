@@ -226,14 +226,14 @@ const DataGridOffVehicles = ({ rows, columns }) => {
         </DialogContent>
         <DialogActions style={{ justifyContent: "center" }}>
           <button
-            className={styleOffVehicles.buttonClose}
+            className={styleOffVehicles.buttonDelete}
             onClick={() => setOpenDelete(false)}
           >
             No
           </button>
 
           <button
-            className={styleOffVehicles.buttonDelete}
+            className={styleOffVehicles.buttonClose}
             onClick={handleDelete}
           >
             Si

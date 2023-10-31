@@ -1,12 +1,22 @@
 import {
   GET_USERS,
+  POST_REGISTER,
+  GET_PERMISSIONS,
+  GET_ROLES,
   CREATE_USER,
   UPDATE_USER,
   LOGOUT,
+  UPDATE_PERMISSIONS,
+  UPDATE_ROLES,
+  GET_ROLES_USER,
+  CREATE_ROLES,
 } from "../actions/actionTypes";
 
 const initialState = {
   usersData: [],
+  permissionsData: [],
+  rolesData: [],
+  userRoles: [],
 };
 
 export default function UsersReducer(state = initialState, action) {
@@ -17,10 +27,28 @@ export default function UsersReducer(state = initialState, action) {
         usersData: action.payload,
       };
 
-    case LOGOUT:
+    case POST_REGISTER:
       return {
         ...state,
-        usersData: [],
+        userData: action.payload,
+      };
+
+    case GET_PERMISSIONS:
+      return {
+        ...state,
+        permissionsData: action.payload,
+      };
+
+    case GET_ROLES:
+      return {
+        ...state,
+        rolesData: action.payload,
+      };
+
+    case GET_ROLES_USER:
+      return {
+        ...state,
+        userRoles: action.payload,
       };
 
     case CREATE_USER:
@@ -37,6 +65,32 @@ export default function UsersReducer(state = initialState, action) {
         userData: updatedUsers,
       };
 
+    case UPDATE_PERMISSIONS:
+      const updatedPermissions = [...state.permissionsData, action.payload];
+      return {
+        ...state,
+        permissionsData: updatedPermissions,
+      };
+
+      case CREATE_ROLES:
+      const newRole = [...state.rolesData, action.payload];
+      return {
+        ...state,
+        rolesData: newRole,
+      };
+
+    case UPDATE_ROLES:
+      const updatedRoles = [...state.rolesData, action.payload];
+      return {
+        ...state,
+        rolesData: updatedRoles,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        usersData: [],
+      };
     default:
       return {
         ...state,
