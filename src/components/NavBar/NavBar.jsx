@@ -88,9 +88,11 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <button onClick={handleLogout}>
+                <button onClick={handleLogout} style={{ color: "red" }}>
                   Cerrar Sesión
-                  <LogoutIcon style={{ marginLeft: 10, fontSize: "large" }} />
+                  <LogoutIcon
+                    style={{ marginLeft: 10, fontSize: "large", color: "red" }}
+                  />
                 </button>
               </MenuItem>
             </Menu>
@@ -158,9 +160,11 @@ function NavBar() {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <button onClick={handleLogout}>
+                <button onClick={handleLogout} style={{ color: "red" }}>
                   Cerrar Sesión
-                  <LogoutIcon style={{ marginLeft: 10, fontSize: "large" }} />
+                  <LogoutIcon
+                    style={{ marginLeft: 10, fontSize: "large", color: "red" }}
+                  />
                 </button>
               </MenuItem>
             </Menu>
