@@ -119,40 +119,7 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
-  /*   const actionsColumn = {
-    field: "actions",
-    headerName: "Acciones",
-    width: 90,
-    renderCell: (params) => (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          width: "95%",
-        }}
-      >
-        <Tooltip title="Editar">
-          <IconButton
-            aria-label="Editar"
-            style={{ color: "#0054b4" }}
-            onClick={() => handleUpdate(params.id)}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Borrar">
-          <IconButton
-            aria-label="Borrar"
-            style={{ color: "#dd0000" }}
-            onClick={() => handleConfirmDelete(params.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
-    ),
-  }; */
-
+  
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
@@ -169,7 +136,7 @@ const DataGridVehicles = ({ rows, columns }) => {
       const allowedEditRoles = [1,2];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
-      const canEdit = allowedEditRoles.includes(userRoleId);
+      /* const canEdit = allowedEditRoles.includes(userRoleId); */
       const canDelete = allowedEditRoles.includes(userRoleId);
 
       return (
@@ -180,7 +147,7 @@ const DataGridVehicles = ({ rows, columns }) => {
             width: "100%",
           }}
         >
-          {canEdit && (
+          {/* {canEdit && ( */}
             <Tooltip title="Editar">
               <IconButton
                 aria-label="Editar"
@@ -190,7 +157,7 @@ const DataGridVehicles = ({ rows, columns }) => {
                 <EditIcon />
               </IconButton>
             </Tooltip>
-          )}
+          {/* )} */}
           {canDelete && (
             <Tooltip title="Borrar">
               <IconButton

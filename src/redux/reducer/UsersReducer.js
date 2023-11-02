@@ -98,6 +98,10 @@ export default function UsersReducer(state = initialState, action) {
       return {
         ...state,
         usersData: [],
+        permissionsData: [],
+        rolesData: [],
+        userRoles: [],
+        permissionRoles: [],
       };
     default:
       return {

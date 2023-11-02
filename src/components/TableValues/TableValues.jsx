@@ -116,40 +116,6 @@ const DataGridValues = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
-  /*   const actionsColumn = {
-    field: "actions",
-    headerName: "Acciones",
-    width: 90,
-    renderCell: (params) => (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          width: "100%",
-        }}
-      >
-        <Tooltip title="Editar">
-          <IconButton
-            aria-label="Editar"
-            style={{ color: "#0054b4" }}
-            onClick={() => handleUpdate(params.id)}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Borrar">
-          <IconButton
-            aria-label="Borrar"
-            style={{ color: "#dd0000" }}
-            onClick={() => handleConfirmDelete(params.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
-    ),
-  }; */
-
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
@@ -157,14 +123,15 @@ const DataGridValues = ({ rows, columns }) => {
     renderCell: (params) => {
       // Encuentra el role_id del usuario logueado
       const loggedInUserId = authUser.user.id;
-      const userRole = userRoles.find((role) => role.user_id === loggedInUserId);
-      const userRoleId = userRole ? userRole.role_id : null;
+      const userRole = userRoles.find(
+        (role) => Number(role.user_id) === loggedInUserId
+      );
+      const userRoleId = userRole ? Number(userRole.role_id) : null;
 
-      // Se Define un array de role_id donde tiene permisos para editar o borrar
-      const allowedEditRoles = [2];
+      // Se define un array de role_id donde tiene permisos para editar o borrar
+      const allowedEditRoles = [1, 2];
 
-      // Se Comprueba si el usuario logueado tiene permiso para editar o borrar
-      const canEdit = allowedEditRoles.includes(userRoleId);
+      // Se comprueba si el usuario logueado tiene permiso para editar o borrar
       const canDelete = allowedEditRoles.includes(userRoleId);
 
       return (
@@ -175,17 +142,15 @@ const DataGridValues = ({ rows, columns }) => {
             width: "100%",
           }}
         >
-          {canEdit && (
-            <Tooltip title="Editar">
-              <IconButton
-                aria-label="Editar"
-                style={{ color: "#0054b4" }}
-                onClick={() => handleUpdate(params.id)}
-              >
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Tooltip title="Editar">
+            <IconButton
+              aria-label="Editar"
+              style={{ color: "#0054b4" }}
+              onClick={() => handleUpdate(params.id)}
+            >
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
           {canDelete && (
             <Tooltip title="Borrar">
               <IconButton

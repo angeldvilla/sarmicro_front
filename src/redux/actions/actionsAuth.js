@@ -21,7 +21,7 @@ export const authLogin = (userData, navigate) => {
       });
     } catch (error) {
       // En caso de error, mostrar un mensaje de error
-      toast.error(`${error.response.data.mensaje}, intente de nuevo!`);
+      toast.error(`${error.response.data.message}, intente de nuevo!`);
     }
   };
 };
@@ -43,9 +43,8 @@ export const registerUser = (userData, navigate) => {
         payload: data,
       });
     } catch (error) {
-      console.error(error);
       // En caso de error, mostrar un mensaje de error
-      toast.error(`${error.response.data.mensaje}, intente de nuevo!`);
+      toast.error(`${error.response.data.message}, intente de nuevo!`);
     }
   };
 };
@@ -69,7 +68,6 @@ export const logoutUser = (unAuthenticated, navigate) => {
         type: LOGOUT,
       });
     } catch (error) {
-      console.error(error);
       toast.error("Error al cerrar sesión");
     }
   };
