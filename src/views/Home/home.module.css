@@ -1,4 +1,4 @@
-/* .cardContainerStyle {
+/* .cardContainerStyle3 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px; 
@@ -8,16 +8,7 @@
   margin-left: 15px;
 }  */
 
-.cardContainerStyle {
-  display: grid;
-  place-items: center;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-/* .cardContainerStyle {
+/* .cardContainerStyle4 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -26,6 +17,15 @@
   gap: 2rem;
   margin-top: 2.5em;
 } */
+
+.cardContainerStyle {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 6.5rem;
+  margin-top: 2.5rem;
+}
 
 .cardStyle {
   width: 95%;

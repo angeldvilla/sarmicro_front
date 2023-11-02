@@ -46,6 +46,10 @@ export const createUser = (userData) => {
       const { data } = await axios.post(usersPath, userData);
       toast.success("Usuario creado con éxito");
       dispatch(getUsers());
+      dispatch(getPermissions());
+      dispatch(getPermissionsandRoles());
+      dispatch(getRoles());
+      dispatch(getRolesuser());
       return dispatch({
         type: CREATE_USER,
         payload: data,
@@ -65,6 +69,10 @@ export const updateUser = (userData, id) => {
       const { data } = await axios.put(usersPath, userData);
       toast.success("Usuario actualizado correctamente");
       dispatch(getUsers());
+      dispatch(getPermissions());
+      dispatch(getPermissionsandRoles());
+      dispatch(getRoles());
+      dispatch(getRolesuser());
       return dispatch({
         type: UPDATE_USER,
         payload: data,
@@ -86,6 +94,10 @@ export const deleteUser = (id) => {
       await axios.delete(usersPath);
       toast.success("Usuario eliminado correctamente");
       dispatch(getUsers());
+      dispatch(getPermissions());
+      dispatch(getPermissionsandRoles());
+      dispatch(getRoles());
+      dispatch(getRolesuser());
     } catch (error) {
       console.error(error);
       toast.error("No hay datos de usuarios");
@@ -122,27 +134,6 @@ export const getPermissionsandRoles = () => {
     } catch (error) {
       console.log(error);
       toast.error("No hay datos de permisos");
-    }
-  };
-};
-
-//Acción para actualizar permisos
-export const createPermissions = (userData) => {
-  return async (dispatch) => {
-    const permissionsPath = `${ENDPOINT}${PERMISSIONSANDROLES_URL}`;
-    try {
-      const { data } = await axios.post(permissionsPath, userData);
-      toast.success("Usuario actualizado correctamente");
-      dispatch(getUsers());
-      return dispatch({
-        type: UPDATE_PERMISSIONS,
-        payload: data,
-      });
-    } catch (error) {
-      console.error(error);
-      toast.error(
-        "No se pudo actualizar los roles del usuario, intentar de nuevo"
-      );
     }
   };
 };
@@ -188,6 +179,8 @@ export const createRoles = (userData) => {
       const { data } = await axios.post(rolesPath, userData);
       toast.success("Usuario actualizado correctamente");
       dispatch(getUsers());
+      dispatch(getPermissions());
+      dispatch(getPermissionsandRoles());
       dispatch(getRoles());
       dispatch(getRolesuser());
       return dispatch({
@@ -211,6 +204,8 @@ export const updateRoles = (userData, id) => {
       const { data } = await axios.put(rolesPath, userData);
       toast.success("Usuario actualizado correctamente");
       dispatch(getUsers());
+      dispatch(getPermissions());
+      dispatch(getPermissionsandRoles());
       dispatch(getRoles());
       dispatch(getRolesuser());
       return dispatch({
@@ -221,6 +216,31 @@ export const updateRoles = (userData, id) => {
       console.error(error);
       toast.error(
         "No se pudo actualizar los roles del usuario, intentar de nuevo"
+      );
+    }
+  };
+};
+
+//Acción para actualizar permisos
+export const createPermissions = (userData) => {
+  return async (dispatch) => {
+    const permissionsPath = `${ENDPOINT}${PERMISSIONSANDROLES_URL}`;
+    try {
+      const { data } = await axios.post(permissionsPath, userData);
+      toast.success("Usuario actualizado correctamente");
+      dispatch(getUsers());
+      dispatch(getPermissions());
+      dispatch(getPermissionsandRoles());
+      dispatch(getRoles());
+      dispatch(getRolesuser());
+      return dispatch({
+        type: UPDATE_PERMISSIONS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        "No se pudo actualizar los permisos del usuario, intentar de nuevo"
       );
     }
   };

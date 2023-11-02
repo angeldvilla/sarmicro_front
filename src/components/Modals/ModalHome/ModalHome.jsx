@@ -28,8 +28,7 @@ export default function ModalHome({
         {message}{" "}
         {userName && (
           <>
-            {userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase()}{" "}
-            <VerifiedIcon color="success" />
+            {userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase()}
           </>
         )}
       </DialogTitle>
@@ -38,23 +37,26 @@ export default function ModalHome({
           <Grid item xs={12}>
             <Paper elevation={1} style={{ padding: "20px" }}>
               <Typography variant="body1" style={{ textAlign: "center" }}>
-                Has iniciado sesión con éxito!
+                Has iniciado sesión con éxito! <VerifiedIcon color="success" />
               </Typography>
             </Paper>
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions style={{ justifyContent: "center" }}>
-        <CancelIcon
+        <button
           onClick={closeDetail}
-          color="error"
+          style={{ color: "red", cursor: "pointer" }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.color = "rgba(185, 12, 0, 0.938)")
           }
           onMouseLeave={(e) =>
             (e.currentTarget.style.color = "rgba(255, 17, 0, 0.938)")
           }
-        />
+        >
+          Cerrar
+          <CancelIcon />
+        </button>
       </DialogActions>
     </Dialog>
   );

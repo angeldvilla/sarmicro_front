@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -18,12 +18,7 @@ import Grid from "@mui/material/Grid";
 import {
   createUser,
   deleteUser,
-  getUsers,
-  getPermissions,
-  getPermissionsandRoles,
-  getRoles,
   updateUser,
-  getRolesuser,
 } from "../../redux/actions/actionsUsers";
 import ModalCreateUser from "../Modals/ModalUsers/ModalCreateUser";
 import ModalEditUser from "../Modals/ModalUsers/ModalEditUser";
@@ -39,7 +34,6 @@ const DataGridUsers = ({ rows, columns }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const authUser = useSelector((state) => state?.auth?.authUser);
-  console.log(authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
 
   const navigate = useNavigate();
@@ -48,14 +42,6 @@ const DataGridUsers = ({ rows, columns }) => {
   const backFunction = () => {
     navigate(-1);
   };
-
-  useEffect(() => {
-    dispatch(getUsers());
-    dispatch(getPermissions());
-    dispatch(getPermissionsandRoles());
-    dispatch(getRoles());
-    dispatch(getRolesuser());
-  }, [dispatch]);
 
   const handleOpen = () => {
     setOpenForm(true);

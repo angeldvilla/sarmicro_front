@@ -9,7 +9,6 @@ import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import { logoutUser } from "../../redux/actions/actionsAuth";
@@ -132,9 +131,15 @@ function NavBar() {
               }}
             >
               {userLogged && (
-                <Typography variant="h6" sx={{ marginRight: 2 }}>
+                <h6
+                  style={{
+                    marginRight: 5,
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
                   {userLogged.user.name}
-                </Typography>
+                </h6>
               )}
             </Box>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
