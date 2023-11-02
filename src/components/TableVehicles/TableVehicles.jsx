@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch /* , useSelector */ } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -42,6 +42,9 @@ const DataGridVehicles = ({ rows, columns }) => {
   const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [polizasRegistradas, setPolizasRegistradas] = useState(false);
+
+  const authUser = useSelector((state) => state?.auth?.authUser);
+  const userRoles = useSelector((state) => state?.users?.userRoles);
 
   const navigate = useNavigate();
   const backFunction = () => {
@@ -116,7 +119,7 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
-  const actionsColumn = {
+  /*   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
     width: 90,
@@ -148,6 +151,60 @@ const DataGridVehicles = ({ rows, columns }) => {
         </Tooltip>
       </div>
     ),
+  }; */
+
+  const actionsColumn = {
+    field: "actions",
+    headerName: "Acciones",
+    width: 90,
+    renderCell: (params) => {
+      // Encuentra el role_id del usuario logueado
+      const loggedInUserId = authUser.user.id;
+      const userRole = userRoles.find(
+        (role) => Number(role.user_id) === loggedInUserId
+      );
+      const userRoleId = userRole ? Number(userRole.role_id) : null;
+
+      // Se define un array de role_id donde tiene permisos para editar o borrar
+      const allowedEditRoles = [1,2];
+
+      // Se comprueba si el usuario logueado tiene permiso para editar o borrar
+      const canEdit = allowedEditRoles.includes(userRoleId);
+      const canDelete = allowedEditRoles.includes(userRoleId);
+
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            width: "100%",
+          }}
+        >
+          {canEdit && (
+            <Tooltip title="Editar">
+              <IconButton
+                aria-label="Editar"
+                style={{ color: "#0054b4" }}
+                onClick={() => handleUpdate(params.id)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {canDelete && (
+            <Tooltip title="Borrar">
+              <IconButton
+                aria-label="Borrar"
+                style={{ color: "#dd0000" }}
+                onClick={() => handleConfirmDelete(params.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+        </div>
+      );
+    },
   };
 
   const groupedVehicles = {};

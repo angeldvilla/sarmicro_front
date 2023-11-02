@@ -11,6 +11,9 @@ import style from "./vehicles.module.css";
 
 const Vehicles = () => {
   const rows = useSelector((state) => state?.vehicles?.vechiculosData);
+  const authUser = useSelector((state) => state?.auth?.authUser);
+  const userRoles = useSelector((state) => state?.users?.userRoles);
+
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
@@ -35,21 +38,21 @@ const Vehicles = () => {
 
   const dispatch = useDispatch();
 
-  /* const handleSwitchChange = useCallback(
-    (event, rowId) => {
-      const newState = event.target.checked ? "1" : "0";
+  const canViewStatusColumn = useMemo(() => {
+    // Se obtiene el role_id del usuario logueado
+    const loggedInUserId = authUser.user.id;
+    const userRole = userRoles.find(
+      (role) => Number(role.user_id) === loggedInUserId
+    );
+    const userRoleId = userRole ? Number(userRole.role_id) : null;
 
-      const updatedRow = rows.find((row) => row.id === rowId);
+    // Se define un array de role_id que pueden ver la columna de estado
+    const allowedViewStatusRoles = [1, 2];
 
-      const updatedVehicle = {
-        ...updatedRow,
-        estado: newState,
-      };
+    // Comprueba si el usuario logueado tiene permiso para ver la columna de estado
+    return allowedViewStatusRoles.includes(userRoleId);
+  }, [authUser, userRoles]);
 
-      dispatch(updateVehicle(updatedVehicle, rowId, dispatch));
-    },
-    [dispatch, rows]
-  ); */
   const [updating, setUpdating] = useState(false);
 
   const handleSwitchChange = useCallback(
@@ -77,7 +80,6 @@ const Vehicles = () => {
     [dispatch, updating]
   );
 
-  
   const allRows = useMemo(() => {
     const uniqueIds = new Set();
     const filteredRows = [];
@@ -88,101 +90,103 @@ const Vehicles = () => {
         filteredRows.push(row);
       }
     }
+    const columns = [
+      {
+        field: "id",
+        headerName: "ID",
+        width: 60,
+      },
+      {
+        field: "id_movil",
+        headerName: "ID Movil",
+        width: 90,
+      },
+      {
+        field: "propietario",
+        headerName: "Propietario",
+        width: 100,
+      },
+      {
+        field: "modelo",
+        headerName: "Modelo",
+        width: 70,
+      },
+      {
+        field: "placa",
+        headerName: "Placa",
+        width: 100,
+      },
+      {
+        field: "clase",
+        headerName: "Clase",
+        width: 105,
+      },
+      {
+        field: "motor",
+        headerName: "Motor",
+        width: 100,
+      },
+      {
+        field: "grupo",
+        headerName: "Grupo",
+        width: 90,
+      },
+      {
+        field: "poliza",
+        headerName: "Poliza",
+        width: 70,
+      },
+      {
+        field: "referencia",
+        headerName: "Referencia",
+        width: 105,
+      },
+      {
+        field: "serie",
+        headerName: "Serie",
+        width: 180,
+      },
+      {
+        field: "tipo",
+        headerName: "Tipo",
+        width: 100,
+      },
+      {
+        field: "tipov",
+        headerName: "Tipo Vehiculo",
+        width: 190,
+      },
+    ];
+
+    if (canViewStatusColumn) {
+      // Agrega la columna de estado si el usuario tiene permiso
+      columns.push({
+        field: "estado",
+        headerName: "Estado",
+        width: 75,
+        renderCell: (params) => (
+          <Switch
+            label={params}
+            checked={params.value === "1"}
+            color={params.value === "1" ? "success" : "error"}
+            onChange={(event) => handleSwitchChange(event, params.row.id)}
+          />
+        ),
+      });
+    }
 
     return filteredRows.map((row) => ({
       ...row,
-      columns: [
-        {
-          field: "id",
-          headerName: "ID",
-          width: 60,
-        },
-        {
-          field: "id_movil",
-          headerName: "ID Movil",
-          width: 90,
-        },
-        {
-          field: "propietario",
-          headerName: "Propietario",
-          width: 100,
-        },
-        {
-          field: "modelo",
-          headerName: "Modelo",
-          width: 70,
-        },
-        {
-          field: "placa",
-          headerName: "Placa",
-          width: 100,
-        },
-        {
-          field: "clase",
-          headerName: "Clase",
-          width: 105,
-        },
-        {
-          field: "motor",
-          headerName: "Motor",
-          width: 100,
-        },
-        {
-          field: "grupo",
-          headerName: "Grupo",
-          width: 90,
-        },
-        {
-          field: "poliza",
-          headerName: "Poliza",
-          width: 70,
-        },
-        {
-          field: "referencia",
-          headerName: "Referencia",
-          width: 105,
-        },
-        {
-          field: "serie",
-          headerName: "Serie",
-          width: 180,
-        },
-        {
-          field: "tipo",
-          headerName: "Tipo",
-          width: 100,
-        },
-        {
-          field: "tipov",
-          headerName: "Tipo Vehiculo",
-          width: 190,
-        },
-        {
-          field: "estado",
-          headerName: "Estado",
-          width: 75,
-          renderCell: (params) => (
-            <Switch
-              label={params}
-              checked={params.value === "1"}
-              color={params.value === "1" ? "success" : "error"}
-              onChange={(event) => handleSwitchChange(event, params.row.id)}
-            />
-          ),
-        },
-      ],
+      columns,
     }));
-  }, [rows, handleSwitchChange]);
+  }, [rows, canViewStatusColumn, handleSwitchChange]);
 
   return (
     <>
       <DataGridVehicles rows={allRows} columns={allRows[0]?.columns || []} />
 
       {scrollUp && (
-        <button
-          onClick={scrollToUp}
-          className={style.scrollUpButton}
-        >
+        <button onClick={scrollToUp} className={style.scrollUpButton}>
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>
       )}

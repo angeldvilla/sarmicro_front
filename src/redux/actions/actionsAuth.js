@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ENDPOINT, LOGIN_URL, REGISTER_URL} from "./path.js";
+import { ENDPOINT, LOGIN_URL, REGISTER_URL } from "./path.js";
 import { POST_LOGIN, POST_REGISTER, LOGOUT } from "./actionTypes.js";
 import { toast } from "sonner";
 
@@ -12,7 +12,7 @@ export const authLogin = (userData, navigate) => {
 
       // Mostrar un mensaje de éxito y redirigir al usuario a la página de inicio
       setTimeout(() => {
-        toast.success("Ingreso correctamente!");
+        /* toast.success("Ingreso correctamente!"); */
         navigate("/inicio");
       }, 1000);
       return dispatch({
@@ -55,12 +55,11 @@ export const logoutUser = (unAuthenticated, navigate) => {
   return async (dispatch) => {
     /* const logoutPath = `${ENDPOINT}${LOGOUT_URL}`; */
     try {
-      /* await axios.post(logoutPath, unAuthenticated); */
-      window.addEventListener("beforeunload", () => {
-        localStorage.removeItem(unAuthenticated);
-        localStorage.clear();
-      });
       // Realizar el proceso de cierre de sesión
+      sessionStorage.clear();
+      sessionStorage.removeItem(unAuthenticated);
+      localStorage.removeItem(unAuthenticated);
+      localStorage.clear();
       setTimeout(() => {
         toast.success("Cerraste sesión, hasta pronto!");
         navigate("/");

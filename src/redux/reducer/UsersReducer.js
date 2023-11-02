@@ -10,6 +10,7 @@ import {
   UPDATE_ROLES,
   GET_ROLES_USER,
   CREATE_ROLES,
+  GET_PERMISSIONSANDROLES,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   permissionsData: [],
   rolesData: [],
   userRoles: [],
+  permissionRoles: [],
 };
 
 export default function UsersReducer(state = initialState, action) {
@@ -30,7 +32,7 @@ export default function UsersReducer(state = initialState, action) {
     case POST_REGISTER:
       return {
         ...state,
-        userData: action.payload,
+        usersData: action.payload,
       };
 
     case GET_PERMISSIONS:
@@ -55,14 +57,20 @@ export default function UsersReducer(state = initialState, action) {
       const newUser = [...state.usersData, action.payload];
       return {
         ...state,
-        userData: newUser,
+        usersData: newUser,
       };
 
     case UPDATE_USER:
       const updatedUsers = [...state.usersData, action.payload];
       return {
         ...state,
-        userData: updatedUsers,
+        usersData: updatedUsers,
+      };
+
+    case GET_PERMISSIONSANDROLES:
+      return {
+        ...state,
+        permissionRoles: action.payload,
       };
 
     case UPDATE_PERMISSIONS:
@@ -72,7 +80,7 @@ export default function UsersReducer(state = initialState, action) {
         permissionsData: updatedPermissions,
       };
 
-      case CREATE_ROLES:
+    case CREATE_ROLES:
       const newRole = [...state.rolesData, action.payload];
       return {
         ...state,

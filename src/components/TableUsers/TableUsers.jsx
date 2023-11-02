@@ -20,6 +20,7 @@ import {
   deleteUser,
   getUsers,
   getPermissions,
+  getPermissionsandRoles,
   getRoles,
   updateUser,
   getRolesuser,
@@ -47,6 +48,7 @@ const DataGridUsers = ({ rows, columns }) => {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getPermissions());
+    dispatch(getPermissionsandRoles());
     dispatch(getRoles());
     dispatch(getRolesuser());
   }, [dispatch]);
