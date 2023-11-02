@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../redux/actions/actionsUsers";
 import {
   CardPolicy,
   CardPayments,
@@ -7,11 +9,32 @@ import {
   DetailPolicy,
   CardUsers,
 } from "../../components/Cards/Cards";
+import ModalHome from "../../components/Modals/ModalHome/ModalHome";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import styles from "./home.module.css";
 
 const Home = () => {
+  const [showModal, setShowModal] = useState(false);
+  const userLogged = useSelector((state) => state?.auth?.authUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+
+    // Verifica si el modal ya se ha mostrado en la sesión actual
+    const modalShown = sessionStorage.getItem("modalShown");
+
+    // Verifica si el usuario ha cerrado la sesión
+    const userLoggedOut = !userLogged;
+
+    if (userLogged && (!modalShown || userLoggedOut)) {
+      setShowModal(true);
+      // Establece que el modal se ha mostrado en la sesión actual
+      sessionStorage.setItem("modalShown", "true");
+    }
+  }, [dispatch, userLogged]);
+
   return (
     <>
       <div
@@ -62,6 +85,12 @@ const Home = () => {
         </div>
       </div>
       <Footer />
+      <ModalHome
+        openDetail={showModal}
+        closeDetail={() => setShowModal(false)}
+        message="Bienvenido"
+        userName={userLogged?.user?.name}
+      />
     </>
   );
 };

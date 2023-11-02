@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updatePermissions,
+  createPermissions,
   createRoles,
   updateRoles,
   updateUser,
@@ -32,6 +32,7 @@ const Users = () => {
   const [selectedPermissions, setSelectedPermissions] = useState({});
   const [currentUserId, setCurrentUserId] = useState(null);
   const [userPermissions, setUserPermissions] = useState({});
+  const [selectedRoleId, setSelectedRoleId] = useState(null);
 
   const handleScrollUp = () => {
     if (window.scrollY > 900) {
@@ -93,12 +94,11 @@ const Users = () => {
   };
 
   const handleOpenPermissionsDialog = (rowId) => {
+    const roleId = getRoleIdForUser(rowId);
     setCurrentUserId(rowId);
+    setSelectedPermissions(userPermissions[rowId] || {});
+    setSelectedRoleId(roleId);
     setPermissionsDialogOpen(true);
-
-    // Cargar los permisos del usuario actual desde el estado local
-    const userPermissionData = userPermissions[rowId] || {};
-    setSelectedPermissions(userPermissionData);
   };
 
   const handleClosePermissionsDialog = () => {
@@ -114,15 +114,24 @@ const Users = () => {
 
   const handleSavePermissions = () => {
     if (currentUserId !== null) {
-      /* const updatedRow = rows.find((row) => row.id === currentUserId); */
+      // Extrae los nombres de los permisos seleccionados
+      const selectedPermissionNames = Object.keys(selectedPermissions);
 
-      // Actualiza el objeto de permisos del usuario actual
-      const updatedUserPermissions = { ...userPermissions };
-      updatedUserPermissions[currentUserId] = selectedPermissions;
-      setUserPermissions(updatedUserPermissions);
+      // Filtra los permisos seleccionados y obtiene sus IDs
+      const selectedPermissionIds = permissions
+        .filter((permission) =>
+          selectedPermissionNames.includes(permission.name)
+        )
+        .map((permission) => permission.id);
 
-      // Envía los permisos al servidor o al estado global según corresponda
-      dispatch(updatePermissions(selectedPermissions, currentUserId));
+      // Crea el objeto de permisos con role_id y permissions_id
+      const permissionsData = {
+        role_id: selectedRoleId,
+        permissions_id: selectedPermissionIds,
+      };
+
+      // Envía el objeto de permisos al servidor
+      dispatch(createPermissions(permissionsData, currentUserId));
     }
 
     setPermissionsDialogOpen(false);

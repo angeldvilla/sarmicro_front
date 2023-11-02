@@ -7,6 +7,7 @@ import {
   GET_ROLES_USER,
   CREATE_USER,
   UPDATE_USER,
+  GET_PERMISSIONSANDROLES,
   UPDATE_PERMISSIONS,
   CREATE_ROLES,
   UPDATE_ROLES,
@@ -14,6 +15,7 @@ import {
 import {
   ENDPOINT,
   USERS_URL,
+  PERMISSIONSANDROLES_URL,
   PERMISSIONS_URL,
   ROLES_URL,
   ROLES_USER_URL,
@@ -108,12 +110,28 @@ export const getPermissions = () => {
   };
 };
 
-//Acción para actualizar permisos
-export const updatePermissions = (userData, id) => {
+export const getPermissionsandRoles = () => {
   return async (dispatch) => {
-    const permissionsPath = `${ENDPOINT}${PERMISSIONS_URL}/${id}`;
+    const permissionsUrl = `${ENDPOINT}${PERMISSIONSANDROLES_URL}`;
     try {
-      const { data } = await axios.put(permissionsPath, userData);
+      const { data } = await axios.get(permissionsUrl);
+      return dispatch({
+        type: GET_PERMISSIONSANDROLES,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("No hay datos de permisos");
+    }
+  };
+};
+
+//Acción para actualizar permisos
+export const createPermissions = (userData) => {
+  return async (dispatch) => {
+    const permissionsPath = `${ENDPOINT}${PERMISSIONSANDROLES_URL}`;
+    try {
+      const { data } = await axios.post(permissionsPath, userData);
       toast.success("Usuario actualizado correctamente");
       dispatch(getUsers());
       return dispatch({
@@ -160,8 +178,7 @@ export const getRolesuser = () => {
       toast.error("No hay datos de roles");
     }
   };
-}
-
+};
 
 //Acción para crear roles
 export const createRoles = (userData) => {

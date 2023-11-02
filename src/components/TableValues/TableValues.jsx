@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
@@ -34,6 +34,10 @@ const DataGridValues = ({ rows, columns }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+
+  const authUser = useSelector((state) => state?.auth?.authUser);
+  console.log(authUser);
+  const userRoles = useSelector((state) => state?.users?.userRoles);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -112,7 +116,7 @@ const DataGridValues = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
-  const actionsColumn = {
+  /*   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
     width: 90,
@@ -144,6 +148,58 @@ const DataGridValues = ({ rows, columns }) => {
         </Tooltip>
       </div>
     ),
+  }; */
+
+  const actionsColumn = {
+    field: "actions",
+    headerName: "Acciones",
+    width: 90,
+    renderCell: (params) => {
+      // Encuentra el role_id del usuario logueado
+      const loggedInUserId = authUser.user.id;
+      const userRole = userRoles.find((role) => role.user_id === loggedInUserId);
+      const userRoleId = userRole ? userRole.role_id : null;
+
+      // Se Define un array de role_id donde tiene permisos para editar o borrar
+      const allowedEditRoles = [2];
+
+      // Se Comprueba si el usuario logueado tiene permiso para editar o borrar
+      const canEdit = allowedEditRoles.includes(userRoleId);
+      const canDelete = allowedEditRoles.includes(userRoleId);
+
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            width: "100%",
+          }}
+        >
+          {canEdit && (
+            <Tooltip title="Editar">
+              <IconButton
+                aria-label="Editar"
+                style={{ color: "#0054b4" }}
+                onClick={() => handleUpdate(params.id)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {canDelete && (
+            <Tooltip title="Borrar">
+              <IconButton
+                aria-label="Borrar"
+                style={{ color: "#dd0000" }}
+                onClick={() => handleConfirmDelete(params.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+        </div>
+      );
+    },
   };
 
   return (
