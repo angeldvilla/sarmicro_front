@@ -54,17 +54,20 @@ export default function UsersReducer(state = initialState, action) {
       };
 
     case CREATE_USER:
-      const newUser = [...state.usersData, action.payload];
       return {
         ...state,
-        usersData: newUser,
+        usersData: [...state.usersData, action.payload],
       };
 
     case UPDATE_USER:
-      const updatedUsers = [...state.usersData, action.payload];
       return {
         ...state,
-        usersData: updatedUsers,
+        usersData: state.usersData.map((user) => {
+          if (user.id === action.payload.id) {
+            return action.payload;
+          }
+          return user;
+        }),
       };
 
     case GET_PERMISSIONSANDROLES:
