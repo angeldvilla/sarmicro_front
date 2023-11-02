@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -35,6 +35,10 @@ const DataGridPayments = ({ rows, columns }) => {
   const [openDetail, setOpenDetail] = useState(false);
   const [viewDetail, setViewDetail] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+
+  const authUser = useSelector((state) => state?.auth?.authUser);
+  console.log(authUser);
+  const userRoles = useSelector((state) => state?.users?.userRoles);
 
   const dispatch = useDispatch();
 
@@ -110,61 +114,78 @@ const DataGridPayments = ({ rows, columns }) => {
     field: "actions",
     headerName: "Acciones",
     width: 189,
-    renderCell: (params) => (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          width: "95%",
-        }}
-      >
-        <Tooltip title="Crear Pago de Poliza">
-          <IconButton
-            aria-label="Crear Pago de Poliza"
-            onClick={() => handleOpen(params.id)}
-            color="primary"
-          >
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Imprimir">
-          <IconButton
-            aria-label="Imprimir"
-            onClick={() => handlePrint(params.id)}
-            color="warning"
-          >
-            <PrintIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Editar">
-          <IconButton
-            aria-label="Editar"
-            style={{ color: "#0054b4" }}
-            onClick={() => handleUpdate(params.id)}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Borrar">
-          <IconButton
-            aria-label="Borrar"
-            style={{ color: "#dd0000" }}
-            onClick={() => handleConfirmDelete(params.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Detalle">
-          <IconButton
-            aria-label="Detalle"
-            style={{ color: "rgba(41, 41, 41, 0.966)" }}
-            onClick={() => handleSeeDetail(params.id)}
-          >
-            <InfoIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
-    ),
+    renderCell: (params) => {
+      // Encuentra el role_id del usuario logueado
+      const loggedInUserId = authUser.user.id;
+      const userRole = userRoles.find(
+        (role) => Number(role.user_id) === loggedInUserId
+      );
+      const userRoleId = userRole ? Number(userRole.role_id) : null;
+
+      // Se define un array de role_id donde tiene permisos para editar o borrar
+      const allowedEditRoles = [1, 2];
+
+      // Se comprueba si el usuario logueado tiene permiso para editar o borrar
+      const canDelete = allowedEditRoles.includes(userRoleId);
+
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            width: "95%",
+          }}
+        >
+          <Tooltip title="Crear Pago de Poliza">
+            <IconButton
+              aria-label="Crear Pago de Poliza"
+              onClick={() => handleOpen(params.id)}
+              color="primary"
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Imprimir">
+            <IconButton
+              aria-label="Imprimir"
+              onClick={() => handlePrint(params.id)}
+              color="warning"
+            >
+              <PrintIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Editar">
+            <IconButton
+              aria-label="Editar"
+              style={{ color: "#0054b4" }}
+              onClick={() => handleUpdate(params.id)}
+            >
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          {canDelete && (
+            <Tooltip title="Borrar">
+              <IconButton
+                aria-label="Borrar"
+                style={{ color: "#dd0000" }}
+                onClick={() => handleConfirmDelete(params.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          <Tooltip title="Detalle">
+            <IconButton
+              aria-label="Detalle"
+              style={{ color: "rgba(41, 41, 41, 0.966)" }}
+              onClick={() => handleSeeDetail(params.id)}
+            >
+              <InfoIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      );
+    },
   };
 
   return (
