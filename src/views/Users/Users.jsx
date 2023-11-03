@@ -152,15 +152,15 @@ const Users = () => {
         .map((permissionId) => Number(permissionId));
 
       // Envía varios objeto de permisos dependiendo de los permissions_id seleccionado
-      selectedPermissionIds.forEach((permissionId) => {
-        const permissionsData = {
-          user_id: currentUserId,
-          permissions_id: permissionId,
-        };
+      /* selectedPermissionIds.forEach((permissionId) => { */
+      const permissionsData = {
+        user_id: currentUserId,
+        permissions_id: selectedPermissionIds,
+      };
 
-        // Enviar el arreglo de objetos de permisos al servidor
-        dispatch(createPermissions(permissionsData, currentUserId));
-      });
+      // Enviar el arreglo de objetos de permisos al servidor
+      dispatch(createPermissions(permissionsData, currentUserId));
+      /* }); */
 
       setPermissionsDialogOpen(false);
     }
@@ -189,32 +189,31 @@ const Users = () => {
         {
           field: "id",
           headerName: "ID",
-          width: 60,
         },
         {
           field: "name",
           headerName: "Nombre Completo",
-          width: 250,
+          flex: 1,
         },
         {
           field: "email",
           headerName: "Correo Electronico",
-          width: 270,
+          flex: 1,
         },
         {
           field: "cedula",
           headerName: "Cedula",
-          width: 120,
+          flex: 1,
         },
         {
           field: "telefono",
           headerName: "Telefono",
-          width: 120,
+          flex: 1,
         },
         {
           field: "roles",
           headerName: "Roles",
-          width: 165,
+          flex: 1,
           renderCell: (params) => (
             <FormControl variant="standard" fullWidth>
               <InputLabel>Rol</InputLabel>
@@ -264,55 +263,61 @@ const Users = () => {
         },
       ],
     }));
-  }, [rows, handleSwitchChange /* handleRoleChange, handleOpenPermissionsDialog, roles, getRoleIdForUser */]);
+  }, [
+    rows,
+    handleSwitchChange /* handleRoleChange, handleOpenPermissionsDialog, roles, getRoleIdForUser */,
+  ]);
 
   return (
     <>
-      <DataGridUsers rows={allRows} columns={allRows[0]?.columns || []} />
-      <Dialog
-        open={permissionsDialogOpen}
-        onClose={handleClosePermissionsDialog}
-      >
-        <DialogTitle
-          style={{
-            fontFamily: "sans-serif",
-            textAlign: "center",
-            fontWeight: "400",
-          }}
-        >
-          Editar Permisos
-        </DialogTitle>
-        <DialogContent>
-          {permissions &&
-            permissions.map((permission) => (
-              <div key={permission.name}>
-                <Checkbox
-                  name={permission.name}
-                  checked={selectedPermissions[permission.id] || false}
-                  onChange={(event) =>
-                    handlePermissionsChange(event, permission.id)
-                  }
-                />
-                {permission.name}
-              </div>
-            ))}
-        </DialogContent>
-        <DialogActions>
-          <button
-            className={styles.buttonDelete}
-            onClick={handleClosePermissionsDialog}
-          >
-            Cancelar
-          </button>
+      <div style={{ width: "100%", maxWidth: "100%" }}>
+        <DataGridUsers rows={allRows} columns={allRows[0]?.columns || []} />
 
-          <button
-            className={styles.buttonClose}
-            onClick={handleSavePermissions}
+        <Dialog
+          open={permissionsDialogOpen}
+          onClose={handleClosePermissionsDialog}
+        >
+          <DialogTitle
+            style={{
+              fontFamily: "sans-serif",
+              textAlign: "center",
+              fontWeight: "400",
+            }}
           >
-            Guardar
-          </button>
-        </DialogActions>
-      </Dialog>
+            Editar Permisos
+          </DialogTitle>
+          <DialogContent>
+            {permissions &&
+              permissions.map((permission) => (
+                <div key={permission.name}>
+                  <Checkbox
+                    name={permission.name}
+                    checked={selectedPermissions[permission.id] || false}
+                    onChange={(event) =>
+                      handlePermissionsChange(event, permission.id)
+                    }
+                  />
+                  {permission.name}
+                </div>
+              ))}
+          </DialogContent>
+          <DialogActions>
+            <button
+              className={styles.buttonDelete}
+              onClick={handleClosePermissionsDialog}
+            >
+              Cancelar
+            </button>
+
+            <button
+              className={styles.buttonClose}
+              onClick={handleSavePermissions}
+            >
+              Guardar
+            </button>
+          </DialogActions>
+        </Dialog>
+      </div>
       {scrollUp && (
         <button onClick={scrollToUp} className={style.scrollUpButton}>
           <ArrowUpwardIcon className={style.arrowBack} />

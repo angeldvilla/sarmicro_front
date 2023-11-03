@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -27,6 +32,8 @@ export default function ModalEditVehicle({
   }, [open, rowEdit]);
 
   const [editedRow, setEditedRow] = useState(rowEdit);
+
+  const typePolicy = useSelector((state) => state?.values?.typesPolicys);
 
   const handleEditVehiculo = () => {
     const data = {
@@ -301,20 +308,30 @@ export default function ModalEditVehicle({
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Tipo de Vehiculo"
-              margin="none"
-              name="TipoVehiculo"
-              value={editedRow ? editedRow?.tipov : ""}
-              placeholder="Ingrese el tipo de vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  tipov: e.target.value,
-                }))
-              }
-            />
+            <FormControl fullWidth>
+              <InputLabel>Tipo de Vehiculo</InputLabel>
+              <Select
+                label="Tipo de Vehiculo"
+                variant="outlined"
+                value={editedRow ? editedRow?.tipov : ""}
+                onChange={(e) =>
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    tipov: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value="">
+                  <em>Ninguno</em>
+                </MenuItem>
+                {typePolicy &&
+                  typePolicy.map((policy) => (
+                    <MenuItem key={policy.id_tipov} value={policy.tipov}>
+                      {policy.tipov}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       </Dialog>

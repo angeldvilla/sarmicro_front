@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ENDPOINT, PAGOS_URL } from "./path.js";
-import { CREATE_PAGO, GET_PAGOS, UPDATE_PAGO } from "./actionTypes.js";
+import { GET_PAGOS } from "./actionTypes.js";
 import { toast } from "sonner";
 
 // Acción para obtener datos de pagos
@@ -20,18 +20,14 @@ export const getPagos = () => {
   };
 };
 
+
 // Acción para crear pagos
 export const createPago = (pagoData) => {
-  return async (dispatch) => {
+  return async () => {
     const pagosPath = `${ENDPOINT}${PAGOS_URL}`;
     try {
-      const { data } = await axios.post(pagosPath, pagoData);
+      await axios.post(pagosPath, pagoData);
       toast.success("Pago creado con exito");
-      dispatch(getPagos());
-      return dispatch({
-        type: CREATE_PAGO,
-        payload: data,
-      });
     } catch (error) {
       console.error(error);
       toast.error("Error al crear el pago, intentar de nuevo");
@@ -41,16 +37,11 @@ export const createPago = (pagoData) => {
 
 // Acción para editar pagos
 export const updatePago = (pagoData, id) => {
-  return async (dispatch) => {
+  return async () => {
     const pagosPath = `${ENDPOINT}${PAGOS_URL}/${id}`;
     try {
-      const { data } = await axios.put(pagosPath, pagoData);
-      toast.success("Pago se edito correctamente");
-      dispatch(getPagos());
-      return dispatch({
-        type: UPDATE_PAGO,
-        payload: data,
-      });
+      await axios.put(pagosPath, pagoData);
+      toast.success("Pago actualizado correctamente");
     } catch (error) {
       console.error(error);
       toast.error("Error al editar el pago, intentar de nuevo");
@@ -64,7 +55,7 @@ export const deletePago = (id) => {
     const pagosPath = `${ENDPOINT}${PAGOS_URL}/${id}`;
     try {
       await axios.delete(pagosPath);
-      toast.success("Pago eliminada correctamente");
+      toast.success("Pago eliminadao correctamente");
       dispatch(getPagos());
     } catch (error) {
       console.error(error);

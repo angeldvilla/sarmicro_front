@@ -121,9 +121,10 @@ const DataGridUsers = ({ rows, columns }) => {
       const userRoleId = userRole ? Number(userRole.role_id) : null;
 
       // Se define un array de role_id donde tiene permisos para editar o borrar
-      const allowedEditRoles = [1, 2];
+      const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
+      const canEdit = allowedEditRoles.includes(userRoleId);
       const canDelete = allowedEditRoles.includes(userRoleId);
 
       return (
@@ -131,18 +132,20 @@ const DataGridUsers = ({ rows, columns }) => {
           style={{
             display: "flex",
             justifyContent: "space-evenly",
-            width: "100%",
+            width: "95%",
           }}
         >
-          <Tooltip title="Editar">
-            <IconButton
-              aria-label="Editar"
-              style={{ color: "#0054b4" }}
-              onClick={() => handleUpdate(params.id)}
-            >
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
+          {canEdit && (
+            <Tooltip title="Editar">
+              <IconButton
+                aria-label="Editar"
+                style={{ color: "#0054b4" }}
+                onClick={() => handleUpdate(params.id)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           {canDelete && (
             <Tooltip title="Borrar">
               <IconButton
@@ -165,7 +168,13 @@ const DataGridUsers = ({ rows, columns }) => {
       <div className={style.container2}>
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
       </div>
-      <div className={style.container4}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <Grid item xs={2}>
           <Paper
             elevation={3}
@@ -181,10 +190,11 @@ const DataGridUsers = ({ rows, columns }) => {
           columns={[...columns, actionsColumn]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 50 },
             },
           }}
-          pageSizeOptions={[25, 50, 100]}
+          pageSizeOptions={[50, 100]}
+          autoHeight
           loading={rows.length === 0}
           virtualization
           disableColumnSelector
@@ -199,7 +209,13 @@ const DataGridUsers = ({ rows, columns }) => {
               quickFilterProps: { debounceMs: 250 },
             },
           }}
-          className={style.dataGrid}
+          style={{
+            backgroundColor: "#ffffffcc",
+            color: "black",
+            marginTop: "2%",
+            marginBottom: "5%",
+            width: "95%",
+          }}
         />
       </div>
       <Toaster richColors position="top-right" />

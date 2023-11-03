@@ -19,17 +19,19 @@ const Cuotas = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 70,
+      /* width: 70, */
     },
     {
       field: "poliza_id",
       headerName: "ID Poliza",
-      width: 90,
+      flex: 1,
+      /* width: 90, */
     },
     {
       field: "monto",
       headerName: "Monto",
-      width: 120,
+      flex: 1,
+      /* width: 120, */
       renderCell: (params) => {
         return formatNumber(params.value);
       },
@@ -37,17 +39,20 @@ const Cuotas = () => {
     {
       field: "id_vehiculo",
       headerName: "ID Vehiculo",
-      width: 120,
+      flex: 1,
+      /* width: 120, */
     },
     {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
+      /* flex: 1, */
       width: 230,
     },
     {
       field: "pagada",
       headerName: "Pagada",
-      width: 230,
+      flex: 1,
+      /* width: 230, */
       renderCell: (params) => {
         return (
           <span
@@ -63,7 +68,7 @@ const Cuotas = () => {
     {
       field: "estado",
       headerName: "Estado",
-      width: 100,
+      /* width: 100, */
       renderCell: (params) => {
         return (
           <span
@@ -78,7 +83,11 @@ const Cuotas = () => {
     },
   ];
 
-  return <DataGridCuotas rows={rowsModified()} columns={columns} />;
+  return (
+    <div style={{ width: "100%", maxWidth: "100%" }}>
+      <DataGridCuotas rows={rowsModified()} columns={columns} />
+    </div>
+  );
 };
 
 export default Cuotas;

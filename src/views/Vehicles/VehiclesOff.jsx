@@ -67,7 +67,7 @@ const OffVehicles = () => {
           id: rowId,
           estado: newState,
         };
-        dispatch(updateVehicle(updatedVehicle, rowId, dispatch));
+        dispatch(updateVehicle(updatedVehicle, rowId));
         dispatch(getOffVehiculos());
       } catch (error) {
         console.error(error);
@@ -166,7 +166,7 @@ const OffVehicles = () => {
         {
           field: "estado",
           headerName: "Estado",
-          width: 70,
+          width: 100,
           renderCell: (params) => (
             <Switch
               label={params}
@@ -182,13 +182,15 @@ const OffVehicles = () => {
 
   return (
     <>
-      <DataGridOffVehicles rows={allRows} columns={allRows[0]?.columns || []} />
+      <div style={{ width: "100%", maxWidth: "100%" }}>
+        <DataGridOffVehicles
+          rows={allRows}
+          columns={allRows[0]?.columns || []}
+        />
+      </div>
 
       {scrollUp && (
-        <button
-          onClick={scrollToUp}
-          className={style.scrollUpButton}
-        >
+        <button onClick={scrollToUp} className={style.scrollUpButton}>
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>
       )}

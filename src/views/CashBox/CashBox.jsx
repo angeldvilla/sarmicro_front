@@ -37,10 +37,10 @@ const CashBox = () => {
         id_propietario: row?.cuota?.poliza?.id_propietario,
         monto_total: row?.cuota?.poliza?.monto_total,
         numero_cuotas: row?.cuota?.poliza?.numero_cuotas,
-        dias_cuota: row?.cuota?.poliza?.dias_cuota,
+        placa: row?.cuota?.poliza?.vehiculo?.placa,
         clase: row?.cuota?.poliza?.vehiculo?.clase,
         grupo: row?.cuota?.poliza?.vehiculo?.grupo,
-        modelo: row?.cuota?.poliza?.vehiculo?.modelo,
+        id_movil: row?.cuota?.poliza?.vehiculo?.id_movil,
       };
     });
   };
@@ -49,79 +49,60 @@ const CashBox = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 60,
+      flex: 1,
     },
     {
       field: "monto",
       headerName: "Monto",
-      width: 120,
+      flex: 1,
     },
     {
       field: "fecha_pago",
       headerName: "Fecha Pago",
-      width: 160,
+      flex: 1,
     },
     {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
-      width: 140,
-    },
-    {
-      field: "pagada",
-      headerName: "Pagada",
-      width: 75,
-      renderCell: (params) => (
-        <span>{params.value === "1" ? "Se pagó" : "No se pagó"}</span>
-      ),
-    },
-    {
-      field: "id_propietario",
-      headerName: "Cedula Cliente",
-      width: 120,
+      width: 150,
     },
     {
       field: "monto_total",
       headerName: "Monto Total",
-      width: 110,
-      renderCell : (params) => {
-        return formatNumber(params.value)
-      }
+      flex: 1,
+      renderCell: (params) => {
+        return formatNumber(params.value);
+      },
     },
     {
-      field: "numero_cuotas",
-      headerName: "Numero Cuotas",
-      width: 120,
+      field: "placa",
+      headerName: "Placa",
+      flex: 1,
     },
     {
-      field: "dias_cuota",
-      headerName: "Dias Cuotas",
-      width: 100,
+      field: "id_movil",
+      headerName: "ID Movil",
+      flex: 1,
     },
     {
       field: "clase",
       headerName: "Clase Vehículo",
-      width: 120,
+      flex: 1,
     },
     {
       field: "grupo",
       headerName: "Grupo",
-      width: 120,
-    },
-    {
-      field: "modelo",
-      headerName: "Modelo",
-      width: 120,
+      flex: 1,
     },
   ];
 
   return (
     <>
-      <DataGridCash rows={rowsModified()} columns={columns} />
+      <div style={{ width: "100%", maxWidth: "100%" }}>
+        <DataGridCash rows={rowsModified()} columns={columns} />
+      </div>
       {scrollUp && (
-        <button
-          onClick={scrollToUp}
-          className={style.scrollUpButton}
-        >
+        <button onClick={scrollToUp} className={style.scrollUpButton}>
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>
       )}

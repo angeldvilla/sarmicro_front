@@ -25,7 +25,6 @@ import {
   deleteCuota,
 } from "../../redux/actions/actionsCuotas.js";
 import { esES } from "@mui/x-data-grid";
-import style from "../NavBar/navBar.module.css";
 import { Toaster, toast } from "sonner";
 
 const DataGridCuotas = ({ rows, columns }) => {
@@ -36,7 +35,6 @@ const DataGridCuotas = ({ rows, columns }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const authUser = useSelector((state) => state?.auth?.authUser);
-  console.log(authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
 
   const navigate = useNavigate();
@@ -52,7 +50,6 @@ const DataGridCuotas = ({ rows, columns }) => {
 
   const handleConfirmPaid = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
-    console.log(selectedRow);
 
     const newValueCuota = {
       ...selectedRow,
@@ -60,7 +57,6 @@ const DataGridCuotas = ({ rows, columns }) => {
       pagada: "1",
       estado: "1",
     };
-    console.log(newValueCuota);
 
     if (selectedRow) {
       const { estado, pagada } = selectedRow;
@@ -116,7 +112,7 @@ const DataGridCuotas = ({ rows, columns }) => {
   const handlePrint = (rowId) => {
     const url = "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
     const selectedRow = rows.find((row) => row.id === rowId);
-    console.log(selectedRow);
+
     if (selectedRow.estado === "1" && selectedRow.pagada === "1") {
       window.open(`${url}${selectedRow.id}`, "_blank");
     } else {
@@ -137,9 +133,10 @@ const DataGridCuotas = ({ rows, columns }) => {
       const userRoleId = userRole ? Number(userRole.role_id) : null;
 
       // Se define un array de role_id donde tiene permisos para editar o borrar
-      const allowedEditRoles = [1, 2];
+      const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
+      const canEdit = allowedEditRoles.includes(userRoleId);
       const canDelete = allowedEditRoles.includes(userRoleId);
 
       return (
@@ -147,7 +144,7 @@ const DataGridCuotas = ({ rows, columns }) => {
           style={{
             display: "flex",
             justifyContent: "space-evenly",
-            width: "100%",
+            width: "95%",
           }}
         >
           <Tooltip title="Pagar Cuota">
@@ -168,15 +165,17 @@ const DataGridCuotas = ({ rows, columns }) => {
               <PrintIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Editar">
-            <IconButton
-              aria-label="Editar"
-              style={{ color: "#0054b4" }}
-              onClick={() => handleUpdate(params.id)}
-            >
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
+          {canEdit && (
+            <Tooltip title="Editar">
+              <IconButton
+                aria-label="Editar"
+                style={{ color: "#0054b4" }}
+                onClick={() => handleUpdate(params.id)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           {canDelete && (
             <Tooltip title="Borrar">
               <IconButton
@@ -202,7 +201,6 @@ const DataGridCuotas = ({ rows, columns }) => {
           position: "relative",
           marginTop: 20,
           marginLeft: 20,
-          right: 0,
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
@@ -214,35 +212,35 @@ const DataGridCuotas = ({ rows, columns }) => {
           alignItems: "center",
         }}
       >
-        <div className={style.scaleWelcome}>
-          <Grid item xs={2}>
-            <Paper
-              elevation={3}
-              style={{
-                padding: "18px",
-                marginBottom: "20px",
-                marginTop: "20px",
-                fontFamily: "sans-serif",
-                fontStyle: "italic",
-                fontWeight: "bold",
-                color: "#0080ca",
-                fontSize: "1.2em",
-              }}
-            >
-              Lista de Cuotas
-            </Paper>
-          </Grid>
-        </div>
+        <Grid item xs={2}>
+          <Paper
+            elevation={3}
+            style={{
+              padding: "18px",
+              marginBottom: "20px",
+              marginTop: "20px",
+              fontFamily: "sans-serif",
+              fontStyle: "italic",
+              fontWeight: "bold",
+              color: "#0080ca",
+              fontSize: "1.2em",
+            }}
+          >
+            Lista de Cuotas
+          </Paper>
+        </Grid>
+
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           columns={[...columns, actionsColumn]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 50 },
             },
           }}
-          pageSizeOptions={[25, 50, 100]}
+          pageSizeOptions={[50, 100]}
+          autoHeight
           loading={rows.length === 0}
           virtualization
           disableColumnSelector
@@ -260,9 +258,9 @@ const DataGridCuotas = ({ rows, columns }) => {
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
-            marginTop: "20px",
-            height: "500px",
-            marginBottom: "25px",
+            marginTop: "2%",
+            marginBottom: "5%",
+            width: "95%",
           }}
         />
       </div>

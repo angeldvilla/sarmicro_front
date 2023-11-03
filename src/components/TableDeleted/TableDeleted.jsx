@@ -28,7 +28,6 @@ const DataGridDetailsPolicys = ({ rows, columns }) => {
           position: "relative",
           marginTop: 20,
           marginLeft: 20,
-          right: 0,
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
@@ -38,7 +37,6 @@ const DataGridDetailsPolicys = ({ rows, columns }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          height: "500px",
         }}
       >
         <DataGrid
@@ -47,10 +45,11 @@ const DataGridDetailsPolicys = ({ rows, columns }) => {
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 50 },
             },
           }}
-          pageSizeOptions={[25, 50, 100]}
+          pageSizeOptions={[50, 100]}
+          autoHeight
           loading={rows.length === 0}
           virtualization
           disableColumnSelector
@@ -67,8 +66,9 @@ const DataGridDetailsPolicys = ({ rows, columns }) => {
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
-            marginTop: "20px",
-            marginBottom: "25px",
+            marginTop: "2%",
+            marginBottom: "5%",
+            width: "95%",
           }}
         />
       </div>

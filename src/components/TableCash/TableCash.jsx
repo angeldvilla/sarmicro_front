@@ -3,17 +3,23 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import FindInPageIcon from "@mui/icons-material/FindInPage";
+import MoneyOffCsredIcon from "@mui/icons-material/MoneyOffCsred";
+import ArchiveIcon from "@mui/icons-material/Archive";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ModalCash from "../Modals/ModalCash/ModalCash";
-import { getPagos } from "../../redux/actions/actionsCashBox";
+import ModalEgreso from "../Modals/ModalCash/ModalEgreso";
+import ModalDiary from "../Modals/ModalCash/ModalDiary";
+import { getPagos, createPago } from "../../redux/actions/actionsCashBox";
 import { esES } from "@mui/x-data-grid";
+import { Toaster, toast } from "sonner";
 
 const DataGridCash = ({ rows, columns }) => {
   const [openForm, setOpenForm] = useState(false);
+  const [openEgreso, setOpenEgreso] = useState(false);
+  const [openDiary, setOpenDiary] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,6 +35,27 @@ const DataGridCash = ({ rows, columns }) => {
   const handleOpen = () => {
     setOpenForm(true);
   };
+
+  const handleOpenEgreso = () => {
+    setOpenEgreso(true);
+  };
+
+  const handleOpenDiary = () => {
+    setOpenDiary(true);
+  };
+
+  const handleCreateEgreso = (data) => {
+    try {
+      dispatch(createPago(data));
+    } catch (error) {
+      toast.error("Error al crear el egreso");
+    }
+  };
+
+  const handleFecha = (date) => {
+    const url = `https://poliza.transargelia.com.co/public/api/consulta-diaria/${date?.fecha}`
+    window.open(url);
+  }
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
@@ -51,7 +78,25 @@ const DataGridCash = ({ rows, columns }) => {
             gap: "1rem",
           }}
         >
-          <Typography
+          <button
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#0098d4",
+              color: "white",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "1em",
+              marginRight: "1em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            onClick={handleOpenDiary}
+          >
+            Caja diaria
+            <ArchiveIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </button>
+
+          <button
             style={{
               textAlign: "center",
               cursor: "pointer",
@@ -67,7 +112,25 @@ const DataGridCash = ({ rows, columns }) => {
           >
             Consultar
             <FindInPageIcon style={{ marginLeft: 10, fontSize: "large" }} />
-          </Typography>
+          </button>
+
+          <button
+            style={{
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#d42a00",
+              color: "white",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontSize: "1em",
+              marginRight: "1em",
+              display: { xs: "none", md: "flex", marginLeft: "auto" },
+            }}
+            onClick={handleOpenEgreso}
+          >
+            Egresos
+            <MoneyOffCsredIcon style={{ marginLeft: 10, fontSize: "large" }} />
+          </button>
         </div>
       </div>
       <div
@@ -103,10 +166,11 @@ const DataGridCash = ({ rows, columns }) => {
           columns={[...columns]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 50 },
             },
           }}
-          pageSizeOptions={[25, 50, 100]}
+          pageSizeOptions={[50, 100]}
+          autoHeight
           loading={rows.length === 0}
           virtualization
           disableColumnSelector
@@ -126,13 +190,25 @@ const DataGridCash = ({ rows, columns }) => {
             color: "black",
             marginTop: "2%",
             marginBottom: "5%",
+            width: "95%",
           }}
         />
       </div>
+      <Toaster position="top-right" richColors />
       <ModalCash
         open={openForm}
         handleClose={() => setOpenForm(false)}
         rows={rows}
+      />
+      <ModalEgreso
+        open={openEgreso}
+        handleClose={() => setOpenEgreso(false)}
+        handleCreateEgreso={handleCreateEgreso}
+      />
+      <ModalDiary
+        open={openDiary}
+        handleClose={() => setOpenDiary(false)}
+        handleFecha={handleFecha}
       />
     </div>
   );

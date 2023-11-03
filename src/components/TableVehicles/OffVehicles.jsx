@@ -11,6 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DownloadIcon from "@mui/icons-material/Download";
+import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Paper from "@mui/material/Paper";
@@ -21,18 +22,25 @@ import {
   getOffVehiculos,
   updateVehicle,
   deleteVehicle,
+  registerDesvinculate,
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
 import { utils, writeFileXLSX } from "xlsx";
 import styleOffVehicles from "./tablesVehicles.module.css";
+import Loader from "../Loader/Loader";
 
 const DataGridOffVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openRegisterDesvinculate, setOpenRegisterDesvinculate] =
+    useState(false);
 
   const [deleteId, setDeleteId] = useState(null);
+  const [idMovil, setIdMovil] = useState(null);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const authUser = useSelector((state) => state?.auth?.authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
@@ -46,6 +54,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getOffVehiculos());
+    setIsLoading(false);
   }, [dispatch]);
 
   const handleUpdate = (rowId) => {
@@ -75,6 +84,21 @@ const DataGridOffVehicles = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
+  const handleConfirmRegisterDesvinculate = (rowId) => {
+    const selectedRow = rows.find((row) => row.id_movil === rowId);
+
+    if (selectedRow) {
+      setIdMovil(selectedRow.id_movil);
+      setOpenRegisterDesvinculate(true);
+    }
+  };
+  const handleRegisterDesvinculate = () => {
+    if (idMovil !== null) {
+      dispatch(registerDesvinculate(idMovil));
+    }
+    setOpenRegisterDesvinculate(false);
+  };
+
   const exportToExcel = () => {
     const wb = utils.book_new();
 
@@ -100,7 +124,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 80,
+    width: 120,
     renderCell: (params) => {
       // Encuentra el role_id del usuario logueado
       const loggedInUserId = authUser.user.id;
@@ -110,19 +134,33 @@ const DataGridOffVehicles = ({ rows, columns }) => {
       const userRoleId = userRole ? Number(userRole.role_id) : null;
 
       // Se define un array de role_id donde tiene permisos para editar o borrar
-      const allowedEditRoles = [1,2];
+      const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
-      const canDelete = allowedEditRoles.includes(userRoleId);
+      const autorized = allowedEditRoles.includes(userRoleId);
 
       return (
         <div
           style={{
             display: "flex",
             justifyContent: "space-evenly",
-            width: "100%",
+            width: "95%",
           }}
         >
+          {autorized && (
+            <Tooltip title="Registrar">
+              <IconButton
+                aria-label="Registrar"
+                style={{ color: "green" }}
+                onClick={() =>
+                  handleConfirmRegisterDesvinculate(params.row.id_movil)
+                }
+              >
+                <ReplyAllIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {autorized && (
             <Tooltip title="Editar">
               <IconButton
                 aria-label="Editar"
@@ -132,7 +170,8 @@ const DataGridOffVehicles = ({ rows, columns }) => {
                 <EditIcon />
               </IconButton>
             </Tooltip>
-          {canDelete && (
+          )}
+          {autorized && (
             <Tooltip title="Borrar">
               <IconButton
                 aria-label="Borrar"
@@ -180,56 +219,61 @@ const DataGridOffVehicles = ({ rows, columns }) => {
           </button>
         </div>
       </div>
-      <div className={styleOffVehicles.container4}>
-        {groupedRows.map((group, index) => (
-          <div key={index}>
-            <Grid item xs={2}>
-              <Paper
-                elevation={3}
-                style={{ color: "#0080ca" }}
-                className={styleOffVehicles.paper}
-              >
-                {group.tipoVehiculo}
-              </Paper>
-            </Grid>
-            <DataGrid
-              rows={group.vehicles}
-              columns={[...columns, actionsColumn]}
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 25 },
-                },
-              }}
-              pageSizeOptions={[25, 50, 100]}
-              loading={group.vehicles.length === 0}
-              virtualization
-              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-              disableColumnSelector
-              disableDensitySelector
-              disableRowSelectionOnClick
-              components={{ Toolbar: GridToolbar }}
-              componentsProps={{
-                toolbar: {
-                  csvOptions: { disableToolbarButton: true },
-                  printOptions: { disableToolbarButton: true },
-                  showQuickFilter: true,
-                  quickFilterProps: { debounceMs: 250 },
-                },
-              }}
-              className={styleOffVehicles.dataGrid}
-            />
-            {index < groupedRows.length - 1 && (
-              <Divider
-                style={{
-                  borderColor: "#0080ca9e",
-                  borderWidth: "2px",
-                  margin: "20px 0",
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styleOffVehicles.container4}>
+          {groupedRows.map((group, index) => (
+            <div key={index}>
+              <Grid item xs={2}>
+                <Paper
+                  elevation={3}
+                  style={{ color: "#0080ca" }}
+                  className={styleOffVehicles.paper}
+                >
+                  {group.tipoVehiculo}
+                </Paper>
+              </Grid>
+              <DataGrid
+                rows={group.vehicles}
+                columns={[...columns, actionsColumn]}
+                initialState={{
+                  pagination: {
+                    paginationModel: { page: 0, pageSize: 25 },
+                  },
                 }}
+                pageSizeOptions={[25, 50, 100]}
+                autoHeight
+                loading={group.vehicles.length === 0}
+                virtualization
+                localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                disableColumnSelector
+                disableDensitySelector
+                disableRowSelectionOnClick
+                components={{ Toolbar: GridToolbar }}
+                componentsProps={{
+                  toolbar: {
+                    csvOptions: { disableToolbarButton: true },
+                    printOptions: { disableToolbarButton: true },
+                    showQuickFilter: true,
+                    quickFilterProps: { debounceMs: 250 },
+                  },
+                }}
+                className={styleOffVehicles.dataGrid}
               />
-            )}
-          </div>
-        ))}
-      </div>
+              {index < groupedRows.length - 1 && (
+                <Divider
+                  style={{
+                    borderColor: "#0080ca9e",
+                    borderWidth: "2px",
+                    margin: "20px 0",
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
       <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle
@@ -255,6 +299,39 @@ const DataGridOffVehicles = ({ rows, columns }) => {
           <button
             className={styleOffVehicles.buttonClose}
             onClick={handleDelete}
+          >
+            Si
+          </button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={openRegisterDesvinculate}
+        onClose={() => setOpenRegisterDesvinculate(false)}
+      >
+        <DialogTitle
+          style={{
+            fontFamily: "sans-serif",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Vincular Vehiculo
+        </DialogTitle>
+        <DialogContent style={{ fontStyle: "revert-layer", fontWeight: "400" }}>
+          ¿Estás seguro de vincular este vehiculo en el parque automotor y
+          registarlo en las polizas?
+        </DialogContent>
+        <DialogActions style={{ justifyContent: "center" }}>
+          <button
+            className={styleOffVehicles.buttonDelete}
+            onClick={() => setOpenRegisterDesvinculate(false)}
+          >
+            No
+          </button>
+
+          <button
+            className={styleOffVehicles.buttonClose}
+            onClick={handleRegisterDesvinculate}
           >
             Si
           </button>

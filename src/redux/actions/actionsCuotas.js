@@ -45,7 +45,7 @@ export const updateCuota = (cuotaData, id) => {
     const cuotasPath = `${ENDPOINT}${CUOTAS_URL}/${id}`;
     try {
       const { data } = await axios.put(cuotasPath, cuotaData);
-      toast.success("Cuota se edito correctamente");
+      toast.success("Cuota actualizada correctamente");
       dispatch(getCuotas());
       return dispatch({
         type: UPDATE_CUOTA,

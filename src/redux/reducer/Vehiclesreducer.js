@@ -6,6 +6,7 @@ import {
   CREATE_VEHICULO,
   UPDATE_VEHICULO,
   LOGOUT,
+  LOADING,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -13,20 +14,29 @@ const initialState = {
   offVehiculos: [],
   excelExportVinculados: [],
   excelExportDesvinculados: [],
+  isLoading: null,
 };
 
 export default function VehiclesReducer(state = initialState, action) {
   switch (action.type) {
+    case LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+
     case GET_VEHICULOS:
       return {
         ...state,
         vechiculosData: action.payload,
+        isLoading: false,
       };
 
     case GET_OFF_VEHICULOS:
       return {
         ...state,
         offVehiculos: action.payload,
+        isLoading: false,
       };
 
     case CREATE_VEHICULO:
@@ -34,6 +44,7 @@ export default function VehiclesReducer(state = initialState, action) {
       return {
         ...state,
         vechiculosData: newValue,
+        isLoading: false,
       };
 
     case UPDATE_VEHICULO:
@@ -41,6 +52,7 @@ export default function VehiclesReducer(state = initialState, action) {
       return {
         ...state,
         vechiculosData: updateValue,
+        isLoading: false,
       };
 
     case GET_EXPORT_EXCEL_VINCULADOS:
