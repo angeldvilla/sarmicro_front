@@ -20,6 +20,7 @@ export const PARQUE_AUTOMOTOR_URL = "/parque-automotor";
 export const VEHICULOS_OFF_URL = "/parque-automotor-desvinculado"
 
 export const REGISTER_ALL_POLIZAS = "/registerPolizas"; /* -> RUTA PARA REGISTRAR TODAS LAS POLIZAS DEL PARQUE AUTOMOTORO */
+export const REGISTER_OFF_VEHICULOS = "/registra-movil-poliza"
 export const DETAIL_POLICYS_URL = "" /* -> RUTA PARA CONSULTAR LOS DETALLES DE UNA POLIZA ELIMINADA */
 export const TIPO_POLIZA_URL = "/tipov-poliza";
 export const TIPO_EMPRESA_URL = "/tipo-empresa-poliza";

@@ -66,7 +66,7 @@ const Vehicles = () => {
           id: rowId,
           estado: newState,
         };
-        dispatch(updateVehicle(updatedVehicle, rowId, dispatch));
+        dispatch(updateVehicle(updatedVehicle, rowId));
         dispatch(getVehiculos());
       } catch (error) {
         console.error(error);
@@ -99,12 +99,10 @@ const Vehicles = () => {
         {
           field: "id_movil",
           headerName: "ID Movil",
-          width: 90,
         },
         {
           field: "propietario",
           headerName: "Propietario",
-          width: 100,
         },
         {
           field: "modelo",
@@ -114,7 +112,6 @@ const Vehicles = () => {
         {
           field: "placa",
           headerName: "Placa",
-          width: 100,
         },
         {
           field: "clase",
@@ -124,17 +121,16 @@ const Vehicles = () => {
         {
           field: "motor",
           headerName: "Motor",
-          width: 100,
         },
         {
           field: "grupo",
           headerName: "Grupo",
-          width: 90,
+          width: 60,
         },
         {
           field: "poliza",
           headerName: "Poliza",
-          width: 70,
+          width: 60,
         },
         {
           field: "referencia",
@@ -144,17 +140,15 @@ const Vehicles = () => {
         {
           field: "serie",
           headerName: "Serie",
-          width: 180,
         },
         {
           field: "tipo",
           headerName: "Tipo",
-          width: 100,
         },
         {
           field: "tipov",
           headerName: "Tipo Vehiculo",
-          width: 190,
+          width: 175,
         },
         {
           field: "estado",
@@ -175,7 +169,9 @@ const Vehicles = () => {
 
   return (
     <>
-      <DataGridVehicles rows={allRows} columns={allRows[0]?.columns || []} />
+      <div style={{ width: "100%", maxWidth: "100%" }}>
+        <DataGridVehicles rows={allRows} columns={allRows[0]?.columns || []} />
+      </div>
 
       {scrollUp && (
         <button onClick={scrollToUp} className={style.scrollUpButton}>

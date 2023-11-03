@@ -34,27 +34,26 @@ const Payments = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 60,
     },
     {
       field: "numero_poliza",
       headerName: "#Poliza",
-      width: 70,
+      flex: 1,
     },
     {
       field: "fecha_inicio",
       headerName: "Fecha Inicio",
-      width: 100,
+      flex: 1,
     },
     {
       field: "fecha_fin",
       headerName: "Fecha Fin",
-      width: 140,
+      flex: 1,
     },
     {
       field: "monto_total",
       headerName: "Monto Total",
-      width: 150,
+      width: 130,
       renderCell: (params) => {
         return formatNumber(params.value);
       },
@@ -62,7 +61,7 @@ const Payments = () => {
     {
       field: "numero_cuotas",
       headerName: "# Cuotas",
-      width: 75,
+      flex: 1,
       renderCell: (params) => {
         return (
           <span
@@ -78,7 +77,7 @@ const Payments = () => {
     {
       field: "dias_cuota",
       headerName: "Tipo Cuotas",
-      width: 150,
+      flex: 1,
       renderCell: (params) => {
         return (
           <span
@@ -107,22 +106,22 @@ const Payments = () => {
     {
       field: "cedula",
       headerName: "Cedula Propietario",
-      width: 150,
+      flex: 1,
     },
     {
       field: "nombre",
       headerName: "Nombre Cliente",
-      width: 310,
+      flex: 1,
     },
     {
       field: "id_vehiculo",
       headerName: "ID Vehiculo",
-      width: 95,
+      flex: 1,
     },
     {
       field: "estado",
       headerName: "Estado",
-      width: 90,
+      flex: 1,
       renderCell: (params) => {
         return (
           <span
@@ -139,7 +138,9 @@ const Payments = () => {
 
   return (
     <>
-      <Cuotas />
+      <div style={{ width: "100%", maxWidth: "100%" }}>
+        <Cuotas />
+      </div>
       <hr
         style={{
           borderColor: "#0080ca9e",
@@ -147,7 +148,9 @@ const Payments = () => {
           margin: "20px 0",
         }}
       />
-      <DataGridPayments rows={rows} columns={columns} />
+      <div style={{ width: "100%", maxWidth: "100%" }}>
+        <DataGridPayments rows={rows} columns={columns} />
+      </div>
 
       {scrollUp && (
         <button onClick={scrollToUp} className={style.scrollUpButton}>

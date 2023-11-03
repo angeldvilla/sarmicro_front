@@ -36,7 +36,6 @@ const DataGridValues = ({ rows, columns }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const authUser = useSelector((state) => state?.auth?.authUser);
-  console.log(authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
 
   const navigate = useNavigate();
@@ -119,7 +118,7 @@ const DataGridValues = ({ rows, columns }) => {
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 90,
+    width: 100,
     renderCell: (params) => {
       // Encuentra el role_id del usuario logueado
       const loggedInUserId = authUser.user.id;
@@ -129,9 +128,10 @@ const DataGridValues = ({ rows, columns }) => {
       const userRoleId = userRole ? Number(userRole.role_id) : null;
 
       // Se define un array de role_id donde tiene permisos para editar o borrar
-      const allowedEditRoles = [1, 2];
+      const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
+      const canEdit = allowedEditRoles.includes(userRoleId);
       const canDelete = allowedEditRoles.includes(userRoleId);
 
       return (
@@ -139,18 +139,20 @@ const DataGridValues = ({ rows, columns }) => {
           style={{
             display: "flex",
             justifyContent: "space-evenly",
-            width: "100%",
+            width: "95%",
           }}
         >
-          <Tooltip title="Editar">
-            <IconButton
-              aria-label="Editar"
-              style={{ color: "#0054b4" }}
-              onClick={() => handleUpdate(params.id)}
-            >
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
+          {canEdit && (
+            <Tooltip title="Editar">
+              <IconButton
+                aria-label="Editar"
+                style={{ color: "#0054b4" }}
+                onClick={() => handleUpdate(params.id)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           {canDelete && (
             <Tooltip title="Borrar">
               <IconButton
@@ -176,7 +178,6 @@ const DataGridValues = ({ rows, columns }) => {
           position: "relative",
           marginTop: 20,
           marginLeft: 20,
-          right: 0,
         }}
       >
         <ArrowBackIcon onClick={backFunction} style={{ cursor: "pointer" }} />
@@ -213,10 +214,11 @@ const DataGridValues = ({ rows, columns }) => {
           columns={[...columns, actionsColumn]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 50 },
             },
           }}
-          pageSizeOptions={[25, 50, 100]}
+          pageSizeOptions={[50, 100]}
+          autoHeight
           loading={rows.length === 0}
           virtualization
           disableRowSelectionOnClick
@@ -236,6 +238,7 @@ const DataGridValues = ({ rows, columns }) => {
             color: "black",
             marginTop: "2%",
             marginBottom: "5%",
+            width: "95%",
           }}
         />
       </div>

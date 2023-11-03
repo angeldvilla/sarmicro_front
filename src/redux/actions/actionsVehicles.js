@@ -3,6 +3,7 @@ import {
   ENDPOINT,
   VEHICULOS_URL,
   REGISTER_ALL_POLIZAS,
+  REGISTER_OFF_VEHICULOS,
   VEHICULOS_OFF_URL,
   PARQUE_AUTOMOTOR_URL,
   EXPORT_EXCEL_VINCULADO_URL,
@@ -15,8 +16,16 @@ import {
   GET_OFF_VEHICULOS,
   GET_EXPORT_EXCEL_VINCULADOS,
   GET_EXPORT_EXCEL_DESVINCULADOS,
+  LOADING,
 } from "./actionTypes.js";
 import { toast } from "sonner";
+
+export const viewLoader = (isLoading) => {
+  return {
+    type: LOADING,
+    payload: isLoading,
+  };
+};
 
 // Acción para obtener datos de vehiculos
 export const getVehiculos = () => {
@@ -52,6 +61,20 @@ export const getOffVehiculos = () => {
   };
 };
 
+// Acción para obtener datos de vehiculos
+export const registerDesvinculate = (idMovil) => {
+  return async () => {
+    const vechiculosPath = `${ENDPOINT}${REGISTER_OFF_VEHICULOS}/${idMovil}`;
+    try {
+      await axios.get(vechiculosPath);
+      toast.success("Vehiculo registrado correctamente");
+    } catch (error) {
+      console.error(error);
+      toast.error("No se pudo registrar el vehiculo, intentar de nuevo");
+    }
+  };
+};
+
 //Accion para registrar todas las polizas del parque automotor
 export const registerAllPolizas = () => {
   return async () => {
@@ -71,6 +94,8 @@ export const createVehicle = (vehicleData) => {
   return async (dispatch) => {
     const vechiculosPath = `${ENDPOINT}${VEHICULOS_URL}`;
     try {
+      dispatch(viewLoader(true));
+
       const { data } = await axios.post(vechiculosPath, vehicleData);
       toast.success("Vehiculo creado con éxito");
       dispatch(getVehiculos());
@@ -86,23 +111,25 @@ export const createVehicle = (vehicleData) => {
 };
 
 // Acción para actualizar un vehiculo
-export const updateVehicle = (vehicleData, id, dispatch) => {
-  const vechiculosPath = `${ENDPOINT}${VEHICULOS_URL}/${id}`;
-  axios
-    .put(vechiculosPath, vehicleData)
-    .then(({ data }) => {
-      dispatch({
+export const updateVehicle = (vehicleData, id) => {
+  return async (dispatch) => {
+    const vechiculosPath = `${ENDPOINT}${VEHICULOS_URL}/${id}`;
+    try {
+      const { data } = await axios.put(vechiculosPath, vehicleData);
+      toast.success("Vehiculo actualizado correctamente");
+      dispatch(getVehiculos());
+      dispatch(getOffVehiculos());
+      return dispatch({
         type: UPDATE_VEHICULO,
         payload: data,
       });
-      toast.success("Vehiculo actualizado correctamente");
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error(error);
       toast.error(
         "No se pudo actualizar los datos del vehiculo, intentar de nuevo"
       );
-    });
+    }
+  };
 };
 
 //Acción para eliminar un vehiculo
@@ -113,6 +140,7 @@ export const deleteVehicle = (id) => {
       await axios.delete(vechiculosPath);
       toast.success("Vehiculo eliminado correctamente");
       dispatch(getVehiculos());
+      dispatch(getOffVehiculos());
     } catch (error) {
       console.error(error);
       toast.error("No hay datos de vehiculos");

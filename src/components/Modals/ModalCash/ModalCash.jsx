@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="down" ref={ref} {...props} />;
 });
 
 const DataGridForm = ({ open, handleClose, rows }) => {
@@ -17,8 +17,8 @@ const DataGridForm = ({ open, handleClose, rows }) => {
 
   // Calcular los totales de ingresos egresos y saldo
   for (const row of rows) {
-    totalIngresos += Number(row?.monto_total);
-    totalEgresos += Number(row?.monto);
+    totalIngresos += Number(row?.monto);
+    /* totalEgresos += Number(row?.monto); */
   }
   const saldoTotal = totalIngresos - totalEgresos;
   const total = totalIngresos + saldoTotal;
@@ -90,16 +90,20 @@ const DataGridForm = ({ open, handleClose, rows }) => {
           </thead>
           <tbody>
             {rows.map((row, index) => {
-              const ingresos = Number(row?.monto_total);
-              const egresos = Number(row?.monto);
+              const concepto = row?.concepto === null ? "---" : row?.concepto;
+              const ingresos =
+                Number(row?.tipo_valor) === 1 ? Number(row?.monto) : "";
+              const egresos = Number(row?.tipo_valor) === 0 ? "0" : "0";
               const saldo = ingresos - egresos;
 
               return (
                 <tr key={index}>
                   <td style={cellStyle}>{row?.fecha_pago}</td>
-                  <td style={cellStyle}>{row?.numero_cuotas}</td>
-                  <td style={cellStyle}>{row?.grupo}</td>
-                  <td style={cellStyle}>{row?.modelo}</td>
+                  <td style={cellStyle}>2023000{row?.cuota_id}</td>
+                  <td style={cellStyle}>{concepto}</td>
+                  <td style={cellStyle}>
+                    {row?.cuota?.poliza?.vehiculo?.id_movil}
+                  </td>
                   <td style={cellStyle}>{`$${ingresos}`}</td>
                   <td style={cellStyle}>{`$${egresos}`}</td>
                   <td style={cellStyle}>{`$${saldo}`}</td>
@@ -195,6 +199,36 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
+{/*               <div
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1em",
+                }}
+              >
+                Menos salidas de caja
+              </div>
+              <hr
+                style={{
+                  borderColor: "#464646",
+                  borderWidth: "1px",
+                  margin: "10px 0",
+                }}
+              />
+              <div
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1em",
+                }}
+              >
+                Saldo en caja hasta la fecha
+              </div>
+              <hr
+                style={{
+                  borderColor: "#464646",
+                  borderWidth: "1px",
+                  margin: "10px 0",
+                }}
+              /> */}
             </div>
             <div>
               <div>$ {totalIngresos}</div>{" "}
@@ -221,6 +255,22 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
+             {/*  <div>$ {total}</div>{" "}
+              <hr
+                style={{
+                  borderColor: "#464646",
+                  borderWidth: "1px",
+                  margin: "10px 0",
+                }}
+              />
+              <div>$ {total}</div>{" "}
+              <hr
+                style={{
+                  borderColor: "#464646",
+                  borderWidth: "1px",
+                  margin: "10px 0",
+                }}
+              /> */}
             </div>
           </div>
         </div>

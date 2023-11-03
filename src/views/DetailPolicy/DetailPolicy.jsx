@@ -9,9 +9,10 @@ const DetailPolicy = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 20,
+      flex: 1,
+      /* width: 20, */
     },
-/*     {
+    /*     {
       field: "cuota_id",
       headerName: "ID Poliza",
       width: 75,
@@ -28,7 +29,11 @@ const DetailPolicy = () => {
     }, */
   ];
 
-  return <DataGridDetailsPolicys rows={rows} columns={columns} />;
+  return (
+    <div style={{ width: "100%", maxWidth: "100%" }}>
+      <DataGridDetailsPolicys rows={rows} columns={columns} />;
+    </div>
+  );
 };
 
 export default DetailPolicy;

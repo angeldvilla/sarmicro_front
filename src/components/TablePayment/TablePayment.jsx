@@ -37,7 +37,6 @@ const DataGridPayments = ({ rows, columns }) => {
   const [deleteId, setDeleteId] = useState(null);
 
   const authUser = useSelector((state) => state?.auth?.authUser);
-  console.log(authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
 
   const dispatch = useDispatch();
@@ -123,9 +122,10 @@ const DataGridPayments = ({ rows, columns }) => {
       const userRoleId = userRole ? Number(userRole.role_id) : null;
 
       // Se define un array de role_id donde tiene permisos para editar o borrar
-      const allowedEditRoles = [1, 2];
+      const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
+      const canEdit = allowedEditRoles.includes(userRoleId);
       const canDelete = allowedEditRoles.includes(userRoleId);
 
       return (
@@ -154,15 +154,17 @@ const DataGridPayments = ({ rows, columns }) => {
               <PrintIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Editar">
-            <IconButton
-              aria-label="Editar"
-              style={{ color: "#0054b4" }}
-              onClick={() => handleUpdate(params.id)}
-            >
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
+          {canEdit && (
+            <Tooltip title="Editar">
+              <IconButton
+                aria-label="Editar"
+                style={{ color: "#0054b4" }}
+                onClick={() => handleUpdate(params.id)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           {canDelete && (
             <Tooltip title="Borrar">
               <IconButton
@@ -205,7 +207,7 @@ const DataGridPayments = ({ rows, columns }) => {
               alignItems: "center",
               padding: "18px",
               marginBottom: "20px",
-              marginTop: "20px",
+              marginTop: "80px",
               fontFamily: "sans-serif",
               fontStyle: "italic",
               fontWeight: "bold",
@@ -223,10 +225,11 @@ const DataGridPayments = ({ rows, columns }) => {
           columns={[...columns, actionsColumn]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
+              paginationModel: { page: 0, pageSize: 50 },
             },
           }}
-          pageSizeOptions={[25, 50, 100]}
+          pageSizeOptions={[50, 100]}
+          autoHeight
           loading={rows.length === 0}
           virtualization
           disableColumnSelector
@@ -244,7 +247,7 @@ const DataGridPayments = ({ rows, columns }) => {
           style={{
             backgroundColor: "#ffffffcc",
             color: "black",
-            marginTop: "10px",
+            marginTop: "2%",
             marginBottom: "5%",
             width: "95%",
           }}

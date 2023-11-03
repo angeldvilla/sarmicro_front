@@ -33,6 +33,7 @@ import { Toaster, toast } from "sonner";
 import { utils, writeFileXLSX } from "xlsx";
 import style from "./tablesVehicles.module.css";
 import styles from "../Buttons/styleButton.module.css";
+import Loader from "../Loader/Loader";
 
 const DataGridVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
@@ -42,6 +43,8 @@ const DataGridVehicles = ({ rows, columns }) => {
   const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [polizasRegistradas, setPolizasRegistradas] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const authUser = useSelector((state) => state?.auth?.authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
@@ -55,7 +58,8 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getVehiculos());
-  }, [dispatch]);
+    setIsLoading(false);
+  }, [dispatch, isLoading]);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -119,7 +123,6 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
-  
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
@@ -133,10 +136,10 @@ const DataGridVehicles = ({ rows, columns }) => {
       const userRoleId = userRole ? Number(userRole.role_id) : null;
 
       // Se define un array de role_id donde tiene permisos para editar o borrar
-      const allowedEditRoles = [1,2];
+      const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
-      /* const canEdit = allowedEditRoles.includes(userRoleId); */
+      const canEdit = allowedEditRoles.includes(userRoleId);
       const canDelete = allowedEditRoles.includes(userRoleId);
 
       return (
@@ -144,10 +147,10 @@ const DataGridVehicles = ({ rows, columns }) => {
           style={{
             display: "flex",
             justifyContent: "space-evenly",
-            width: "100%",
+            width: "95%",
           }}
         >
-          {/* {canEdit && ( */}
+          {canEdit && (
             <Tooltip title="Editar">
               <IconButton
                 aria-label="Editar"
@@ -157,7 +160,7 @@ const DataGridVehicles = ({ rows, columns }) => {
                 <EditIcon />
               </IconButton>
             </Tooltip>
-          {/* )} */}
+          )}
           {canDelete && (
             <Tooltip title="Borrar">
               <IconButton
@@ -298,57 +301,62 @@ const DataGridVehicles = ({ rows, columns }) => {
           </button>
         </div>
       </div>
-      <div className={style.container4}>
-        {groupedRows.map((group, index) => (
-          <div key={index}>
-            <Grid item xs={2}>
-              <Paper
-                elevation={3}
-                style={{ color: "#0080ca" }}
-                className={style.paper}
-              >
-                {group.tipoVehiculo}
-              </Paper>
-            </Grid>
-            <DataGrid
-              rows={group.vehicles}
-              columns={[...columns, actionsColumn]}
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 25 },
-                },
-              }}
-              pageSizeOptions={[25, 50, 100]}
-              loading={group.vehicles.length === 0}
-              virtualization
-              localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-              disableColumnSelector
-              disableDensitySelector
-              disableRowSelectionOnClick
-              components={{ Toolbar: GridToolbar }}
-              componentsProps={{
-                toolbar: {
-                  csvOptions: { disableToolbarButton: true },
-                  printOptions: { disableToolbarButton: true },
-                  showQuickFilter: true,
-                  quickFilterProps: { debounceMs: 250 },
-                },
-              }}
-              experimentalFeatures={{ newEditingApi: true }}
-              className={style.dataGrid}
-            />
-            {index < groupedRows.length - 1 && (
-              <Divider
-                style={{
-                  borderColor: "#0080ca9e",
-                  borderWidth: "2px",
-                  margin: "20px 0",
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={style.container4}>
+          {groupedRows.map((group, index) => (
+            <div key={index}>
+              <Grid item xs={2}>
+                <Paper
+                  elevation={3}
+                  style={{ color: "#0080ca" }}
+                  className={style.paper}
+                >
+                  {group.tipoVehiculo}
+                </Paper>
+              </Grid>
+              <DataGrid
+                rows={group.vehicles}
+                columns={[...columns, actionsColumn]}
+                initialState={{
+                  pagination: {
+                    paginationModel: { page: 0, pageSize: 25 },
+                  },
                 }}
+                pageSizeOptions={[25, 50, 100]}
+                autoHeight
+                loading={group.vehicles.length === 0}
+                virtualization
+                localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                disableColumnSelector
+                disableDensitySelector
+                disableRowSelectionOnClick
+                components={{ Toolbar: GridToolbar }}
+                componentsProps={{
+                  toolbar: {
+                    csvOptions: { disableToolbarButton: true },
+                    printOptions: { disableToolbarButton: true },
+                    showQuickFilter: true,
+                    quickFilterProps: { debounceMs: 250 },
+                  },
+                }}
+                experimentalFeatures={{ newEditingApi: true }}
+                className={style.dataGrid}
               />
-            )}
-          </div>
-        ))}
-      </div>
+              {index < groupedRows.length - 1 && (
+                <Divider
+                  style={{
+                    borderColor: "#0080ca9e",
+                    borderWidth: "2px",
+                    margin: "20px 0",
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
       <Toaster richColors position="top-right" />
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle

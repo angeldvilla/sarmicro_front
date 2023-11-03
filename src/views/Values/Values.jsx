@@ -33,22 +33,24 @@ const Values = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 9,
+      width: 100,
     },
     {
       field: "tipo_poliza",
       headerName: "Tipo Poliza",
-      width: 200,
+      flex: 1,
     },
     {
       field: "vehiculo_grupo",
       headerName: "Grupo Vehiculo",
-      width: 120,
+      flex: 1,
+      /* width: 120, */
     },
     {
       field: "valor_poliza",
       headerName: "Valor Poliza",
-      width: 120,
+      flex: 1,
+      /* width: 120, */
       renderCell: (params) => {
         return formatNumber(params.value);
       },
@@ -56,7 +58,8 @@ const Values = () => {
     {
       field: "dias",
       headerName: "Dias",
-      width: 100,
+      flex: 1,
+      /* width: 100, */
       renderCell: (params) => {
         return (
           <span>
@@ -80,12 +83,14 @@ const Values = () => {
     {
       field: "numero_cuotas",
       headerName: "Numero Cuotas",
-      width: 120,
+      flex: 1,
+      /* width: 120, */
     },
     {
       field: "valor_inicial",
       headerName: "Valor Inicial",
-      width: 120,
+      flex: 1,
+      /* width: 120, */
       renderCell: (params) => {
         return formatNumber(params.value);
       },
@@ -104,12 +109,11 @@ const Values = () => {
 
   return (
     <>
-      <DataGridValues rows={rows} columns={columns} />
+      <div style={{ width: "100%", maxWidth: "100%" }}>
+        <DataGridValues rows={rows} columns={columns} />
+      </div>
       {scrollUp && (
-        <button
-          onClick={scrollToUp}
-          className={style.scrollUpButton}
-        >
+        <button onClick={scrollToUp} className={style.scrollUpButton}>
           <ArrowUpwardIcon className={style.arrowBack} />
         </button>
       )}

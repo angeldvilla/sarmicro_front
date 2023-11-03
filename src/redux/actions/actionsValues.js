@@ -89,7 +89,7 @@ export const updateValorPoliza = (valueData, id) => {
     const valoresPolizasPath = `${ENDPOINT}${VALOR_POLIZA_URL}/${id}`;
     try {
       const { data } = await axios.put(valoresPolizasPath, valueData);
-      toast.success("Valor de poliza se edito correctamente");
+      toast.success("Valor de poliza actualizado correctamente");
       dispatch(getValoresPolizas());
       return dispatch({
         type: UPDATE_VALOR_POLIZA,
@@ -108,7 +108,7 @@ export const deleteValorPoliza = (id) => {
     const valoresPolizasPath = `${ENDPOINT}${VALOR_POLIZA_URL}/${id}`;
     try {
       await axios.delete(valoresPolizasPath);
-      toast.success("Valor de poliza se eliminó correctamente");
+      toast.success("Valor de poliza eliminado correctamente");
       dispatch(getValoresPolizas());
     } catch (error) {
       console.log(error);
