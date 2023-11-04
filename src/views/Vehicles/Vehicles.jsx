@@ -98,25 +98,26 @@ const Vehicles = () => {
         },
         {
           field: "id_movil",
-          headerName: "ID Movil",
+          headerName: "Movil",
         },
         {
           field: "propietario",
           headerName: "Propietario",
+          width: 180,
         },
         {
-          field: "modelo",
-          headerName: "Modelo",
-          width: 70,
+          field: "clase",
+          headerName: "Clase",
+          width: 105,
         },
         {
           field: "placa",
           headerName: "Placa",
         },
         {
-          field: "clase",
-          headerName: "Clase",
-          width: 105,
+          field: "modelo",
+          headerName: "Modelo",
+          width: 70,
         },
         {
           field: "motor",
@@ -125,35 +126,35 @@ const Vehicles = () => {
         {
           field: "grupo",
           headerName: "Grupo",
-          width: 60,
+          width: 70,
         },
-        {
+/*         {
           field: "poliza",
           headerName: "Poliza",
           width: 60,
-        },
-        {
-          field: "referencia",
-          headerName: "Referencia",
-          width: 105,
-        },
+        }, */
         {
           field: "serie",
           headerName: "Serie",
         },
         {
+          field: "referencia",
+          headerName: "Referencia",
+        },
+        {
           field: "tipo",
           headerName: "Tipo",
+          width: 90,
         },
         {
           field: "tipov",
           headerName: "Tipo Vehiculo",
-          width: 175,
+          width: 120,
         },
         {
           field: "estado",
           headerName: "Estado",
-          width: 75,
+          width: 100,
           renderCell: (params) => (
             <Switch
               label={params}

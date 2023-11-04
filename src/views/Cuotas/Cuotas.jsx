@@ -19,14 +19,18 @@ const Cuotas = () => {
     {
       field: "id",
       headerName: "ID",
-      /* width: 70, */
     },
     {
+      field: "id_vehiculo",
+      headerName: "Movil",
+      flex: 1,
+    },
+/*     {
       field: "poliza_id",
       headerName: "ID Poliza",
       flex: 1,
-      /* width: 90, */
-    },
+      width: 90,
+    }, */
     {
       field: "monto",
       headerName: "Monto",
@@ -37,22 +41,14 @@ const Cuotas = () => {
       },
     },
     {
-      field: "id_vehiculo",
-      headerName: "ID Vehiculo",
-      flex: 1,
-      /* width: 120, */
-    },
-    {
       field: "fecha_vencimiento",
       headerName: "Fecha Vencimiento",
-      /* flex: 1, */
       width: 230,
     },
     {
       field: "pagada",
       headerName: "Pagada",
       flex: 1,
-      /* width: 230, */
       renderCell: (params) => {
         return (
           <span
@@ -68,7 +64,6 @@ const Cuotas = () => {
     {
       field: "estado",
       headerName: "Estado",
-      /* width: 100, */
       renderCell: (params) => {
         return (
           <span

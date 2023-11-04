@@ -47,6 +47,7 @@ const DataGridCash = ({ rows, columns }) => {
   const handleCreateEgreso = (data) => {
     try {
       dispatch(createPago(data));
+      setOpenEgreso(false);
     } catch (error) {
       toast.error("Error al crear el egreso");
     }
