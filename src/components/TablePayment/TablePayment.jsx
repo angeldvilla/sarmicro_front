@@ -78,8 +78,8 @@ const DataGridPayments = ({ rows, columns }) => {
         const urlCuotasWithId = `${urlCuotas}${idCuotas}`;
 
         // Abre las dos ventanas al mismo tiempo
-        window.open(urlCuotasWithId);
         window.open(urlWithId);
+        window.open(urlCuotasWithId);
 
         setOpenForm(false);
       } else {
