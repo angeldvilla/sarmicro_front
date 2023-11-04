@@ -99,13 +99,26 @@ const OffVehicles = () => {
         },
         {
           field: "id_movil",
-          headerName: "ID Movil",
-          width: 80,
+          headerName: "Movil",
         },
         {
           field: "propietario",
           headerName: "Propietario",
-          width: 90,
+          width: 160,
+        },
+        {
+          field: "telefono",
+          headerName: "Telefono",
+          width: 110,
+        },
+        {
+          field: "clase",
+          headerName: "Clase",
+          width: 120,
+        },
+        {
+          field: "placa",
+          headerName: "Placa",
         },
         {
           field: "modelo",
@@ -113,45 +126,26 @@ const OffVehicles = () => {
           width: 70,
         },
         {
-          field: "placa",
-          headerName: "Placa",
-          width: 90,
-        },
-        {
-          field: "clase",
-          headerName: "Clase",
-          width: 100,
+          field: "motor",
+          headerName: "Motor",
         },
         {
           field: "grupo",
           headerName: "Grupo",
           width: 70,
         },
-        {
+/*         {
           field: "poliza",
           headerName: "Poliza",
           width: 60,
-        },
-        {
-          field: "motor",
-          headerName: "Motor",
-          width: 120,
-        },
-        {
-          field: "telefono",
-          headerName: "Telefono",
-          width: 90,
-        },
-
-        {
-          field: "referencia",
-          headerName: "Referencia",
-          width: 105,
-        },
+        }, */
         {
           field: "serie",
           headerName: "Serie",
-          width: 175,
+        },
+        {
+          field: "referencia",
+          headerName: "Referencia",
         },
         {
           field: "tipo",
@@ -172,6 +166,9 @@ const OffVehicles = () => {
               label={params}
               checked={params.value === "1"}
               color={params.value === "1" ? "success" : "error"}
+              style={{
+                color: params.value === "1" ? "green" : "red",
+              }}
               onChange={(event) => handleSwitchChange(event, params.row.id)}
             />
           ),

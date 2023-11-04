@@ -116,7 +116,7 @@ const DataGridCuotas = ({ rows, columns }) => {
     if (selectedRow.estado === "1" && selectedRow.pagada === "1") {
       window.open(`${url}${selectedRow.id}`, "_blank");
     } else {
-      toast.error("Haga el registro de la cuota para imprimir");
+      toast.error("Hacer el registro de la cuota para imprimir");
     }
   };
 
@@ -136,8 +136,7 @@ const DataGridCuotas = ({ rows, columns }) => {
       const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
-      const canEdit = allowedEditRoles.includes(userRoleId);
-      const canDelete = allowedEditRoles.includes(userRoleId);
+      const autorized = allowedEditRoles.includes(userRoleId);
 
       return (
         <div
@@ -165,7 +164,7 @@ const DataGridCuotas = ({ rows, columns }) => {
               <PrintIcon />
             </IconButton>
           </Tooltip>
-          {canEdit && (
+          {autorized && (
             <Tooltip title="Editar">
               <IconButton
                 aria-label="Editar"
@@ -176,7 +175,7 @@ const DataGridCuotas = ({ rows, columns }) => {
               </IconButton>
             </Tooltip>
           )}
-          {canDelete && (
+          {autorized && (
             <Tooltip title="Borrar">
               <IconButton
                 aria-label="Borrar"
@@ -236,10 +235,10 @@ const DataGridCuotas = ({ rows, columns }) => {
           columns={[...columns, actionsColumn]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 50 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
-          pageSizeOptions={[50, 100]}
+          pageSizeOptions={[10, 25, 50, 100]}
           autoHeight
           loading={rows.length === 0}
           virtualization

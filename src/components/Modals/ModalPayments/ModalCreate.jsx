@@ -89,7 +89,6 @@ export default function ModalCreate({
                 color: "white",
                 borderRadius: "8px",
               }}
-              /* autoFocus */
               onClick={handleCreatePoliza}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor =

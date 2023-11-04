@@ -44,22 +44,32 @@ const Values = () => {
       field: "vehiculo_grupo",
       headerName: "Grupo Vehiculo",
       flex: 1,
-      /* width: 120, */
     },
     {
       field: "valor_poliza",
       headerName: "Valor Poliza",
       flex: 1,
-      /* width: 120, */
       renderCell: (params) => {
         return formatNumber(params.value);
       },
     },
     {
-      field: "dias",
-      headerName: "Dias",
+      field: "valor_inicial",
+      headerName: "Valor Inicial",
       flex: 1,
-      /* width: 100, */
+      renderCell: (params) => {
+        return formatNumber(params.value);
+      },
+    },
+    {
+      field: "numero_cuotas",
+      headerName: "Numero Cuotas",
+      flex: 1,
+    },
+    {
+      field: "dias",
+      headerName: "Tipo Cuotas",
+      flex: 1,
       renderCell: (params) => {
         return (
           <span>
@@ -78,21 +88,6 @@ const Values = () => {
               : ""}
           </span>
         );
-      },
-    },
-    {
-      field: "numero_cuotas",
-      headerName: "Numero Cuotas",
-      flex: 1,
-      /* width: 120, */
-    },
-    {
-      field: "valor_inicial",
-      headerName: "Valor Inicial",
-      flex: 1,
-      /* width: 120, */
-      renderCell: (params) => {
-        return formatNumber(params.value);
       },
     },
     {

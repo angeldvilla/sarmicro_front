@@ -30,33 +30,31 @@ const Payments = () => {
     return () => window.removeEventListener("scroll", handleScrollUp);
   }, []);
 
+
   const columns = [
     {
       field: "id",
       headerName: "ID",
     },
     {
+      field: "id_vehiculo",
+      headerName: "Movil",
+      flex: 1,
+    },
+ /*    {
       field: "numero_poliza",
       headerName: "#Poliza",
       flex: 1,
-    },
+    }, */
     {
-      field: "fecha_inicio",
-      headerName: "Fecha Inicio",
+      field: "nombre",
+      headerName: "Nombre Cliente",
       flex: 1,
     },
     {
-      field: "fecha_fin",
-      headerName: "Fecha Fin",
+      field: "cedula",
+      headerName: "Cedula Propietario",
       flex: 1,
-    },
-    {
-      field: "monto_total",
-      headerName: "Monto Total",
-      width: 130,
-      renderCell: (params) => {
-        return formatNumber(params.value);
-      },
     },
     {
       field: "numero_cuotas",
@@ -104,18 +102,21 @@ const Payments = () => {
       },
     },
     {
-      field: "cedula",
-      headerName: "Cedula Propietario",
+      field: "monto_total",
+      headerName: "Monto Total",
+      width: 130,
+      renderCell: (params) => {
+        return formatNumber(params.value);
+      },
+    },
+    {
+      field: "fecha_inicio",
+      headerName: "Fecha Inicio",
       flex: 1,
     },
     {
-      field: "nombre",
-      headerName: "Nombre Cliente",
-      flex: 1,
-    },
-    {
-      field: "id_vehiculo",
-      headerName: "ID Vehiculo",
+      field: "fecha_fin",
+      headerName: "Fecha Fin",
       flex: 1,
     },
     {

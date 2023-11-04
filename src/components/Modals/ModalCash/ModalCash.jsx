@@ -1,5 +1,7 @@
 import React from "react";
 import Dialog from "@mui/material/Dialog";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -17,8 +19,11 @@ const DataGridForm = ({ open, handleClose, rows }) => {
 
   // Calcular los totales de ingresos egresos y saldo
   for (const row of rows) {
-    totalIngresos += Number(row?.monto);
-    /* totalEgresos += Number(row?.monto); */
+    if (row?.tipo_valor === "1") {
+      totalIngresos += Number(row?.monto);
+    } else if (row?.tipo_valor === "0") {
+      totalEgresos += Number(row?.monto);
+    }
   }
   const saldoTotal = totalIngresos - totalEgresos;
   const total = totalIngresos + saldoTotal;
@@ -61,14 +66,33 @@ const DataGridForm = ({ open, handleClose, rows }) => {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Typography
-          sx={{ textAlign: "center", marginTop: "2%" }}
-          variant="h6"
-          component="div"
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          Transportes Argelia y Cairo S.A, Transportadora Cartago S.A.S y
-          Transportes Especiales el Sol S.A.S
-        </Typography>
+          <Grid item xs={2}>
+            <Paper
+              elevation={3}
+              style={{
+                padding: "18px",
+                marginBottom: "1%",
+                marginTop: "3%",
+                fontFamily: "sans-serif",
+                fontStyle: "italic",
+                fontWeight: "bold",
+                color: "#0080ca",
+                fontSize: "1.2em",
+              }}
+            >
+              Transportes Argelia y Cairo S.A, Transportadora Cartago S.A.S y
+              Transportes Especiales el Sol S.A.S
+            </Paper>
+          </Grid>
+        </div>
         <table
           style={{
             width: "97%",
@@ -91,9 +115,8 @@ const DataGridForm = ({ open, handleClose, rows }) => {
           <tbody>
             {rows.map((row, index) => {
               const concepto = row?.concepto === null ? "---" : row?.concepto;
-              const ingresos =
-                Number(row?.tipo_valor) === 1 ? Number(row?.monto) : "";
-              const egresos = Number(row?.tipo_valor) === 0 ? "0" : "0";
+              const ingresos = Number(row?.tipo_valor) === 1 ? Number(row?.monto) : "0";
+              const egresos = Number(row?.tipo_valor) === 0 ? Number(row?.monto) : "0";
               const saldo = ingresos - egresos;
 
               return (
@@ -137,13 +160,31 @@ const DataGridForm = ({ open, handleClose, rows }) => {
             marginLeft: 18,
           }}
         >
-          <Typography
-            sx={{ ml: 2, flex: 1, textAlign: "center" }}
-            variant="h6"
-            component="div"
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            Resumen de Caja
-          </Typography>
+            <Grid item xs={2}>
+              <Paper
+                elevation={3}
+                style={{
+                  padding: "12px",
+                  marginBottom: "1%",
+                  marginTop: "2%",
+                  fontFamily: "sans-serif",
+                  fontStyle: "italic",
+                  fontWeight: "bold",
+                  color: "#0080ca",
+                  fontSize: "1.2em",
+                }}
+              >
+                Resumen de Caja
+              </Paper>
+            </Grid>
+          </div>
           <div
             style={{
               display: "flex",
@@ -199,7 +240,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
-{/*               <div
+              {/*               <div
                 style={{
                   fontWeight: "bold",
                   fontSize: "1em",
@@ -255,7 +296,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
-             {/*  <div>$ {total}</div>{" "}
+              {/*  <div>$ {total}</div>{" "}
               <hr
                 style={{
                   borderColor: "#464646",

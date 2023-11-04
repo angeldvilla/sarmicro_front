@@ -139,9 +139,8 @@ const DataGridVehicles = ({ rows, columns }) => {
       const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
-      const canEdit = allowedEditRoles.includes(userRoleId);
-      const canDelete = allowedEditRoles.includes(userRoleId);
-
+      const autorized = allowedEditRoles.includes(userRoleId);
+      
       return (
         <div
           style={{
@@ -150,7 +149,7 @@ const DataGridVehicles = ({ rows, columns }) => {
             width: "95%",
           }}
         >
-          {canEdit && (
+          {autorized && (
             <Tooltip title="Editar">
               <IconButton
                 aria-label="Editar"
@@ -161,7 +160,7 @@ const DataGridVehicles = ({ rows, columns }) => {
               </IconButton>
             </Tooltip>
           )}
-          {canDelete && (
+          {autorized && (
             <Tooltip title="Borrar">
               <IconButton
                 aria-label="Borrar"

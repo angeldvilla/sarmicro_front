@@ -38,6 +38,7 @@ const DataGridPayments = ({ rows, columns }) => {
 
   const authUser = useSelector((state) => state?.auth?.authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
+  /* const cuotas = useSelector((state) => state?.cuotas?.cuotasData); */
 
   const dispatch = useDispatch();
 
@@ -61,8 +62,32 @@ const DataGridPayments = ({ rows, columns }) => {
   };
 
   const handleCreate = async (polizaData) => {
-    setOpenForm(false);
-    dispatch(createPoliza(polizaData));
+    const urlcuotasInicial =
+      "https://poliza.transargelia.com.co/public/api/recibos/cuotasInicial/";
+    const urlCuotas =
+      "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
+
+    try {
+      const response = await dispatch(createPoliza(polizaData));
+
+      if (response && response.payload) {
+        const idCuotas = response.payload.id;
+        const idCuotasInicial = response.payload.poliza_id;
+
+        const urlWithId = `${urlcuotasInicial}${idCuotasInicial}`;
+        const urlCuotasWithId = `${urlCuotas}${idCuotas}`;
+
+        // Abre las dos ventanas al mismo tiempo
+        window.open(urlCuotasWithId);
+        window.open(urlWithId);
+
+        setOpenForm(false);
+      } else {
+        toast.error("Respuesta de la creación de póliza incorrecta");
+      }
+    } catch (error) {
+      toast.error("Error al crear el pago de la póliza, intenta de nuevo");
+    }
   };
 
   const handleUpdate = (rowId) => {
@@ -101,11 +126,13 @@ const DataGridPayments = ({ rows, columns }) => {
   const handlePrint = (rowId) => {
     const url =
       "https://poliza.transargelia.com.co/public/api/recibos/cuotasInicial/";
+
     const selectedRow = rows.find((row) => row.id === rowId);
+
     if (selectedRow.estado === "1") {
-      window.open(`${url}${selectedRow.id}`, "_blank");
+      window.open(`${url}${selectedRow.id}`);
     } else {
-      toast.error("Haga el registro de la cuota para imprimir");
+      toast.error("Hacer el pago de la poliza para imprimir");
     }
   };
 
@@ -125,8 +152,7 @@ const DataGridPayments = ({ rows, columns }) => {
       const allowedEditRoles = [1];
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
-      const canEdit = allowedEditRoles.includes(userRoleId);
-      const canDelete = allowedEditRoles.includes(userRoleId);
+      const autorized = allowedEditRoles.includes(userRoleId);
 
       return (
         <div
@@ -154,7 +180,7 @@ const DataGridPayments = ({ rows, columns }) => {
               <PrintIcon />
             </IconButton>
           </Tooltip>
-          {canEdit && (
+          {autorized && (
             <Tooltip title="Editar">
               <IconButton
                 aria-label="Editar"
@@ -165,7 +191,7 @@ const DataGridPayments = ({ rows, columns }) => {
               </IconButton>
             </Tooltip>
           )}
-          {canDelete && (
+          {autorized && (
             <Tooltip title="Borrar">
               <IconButton
                 aria-label="Borrar"
