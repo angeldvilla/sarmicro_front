@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import BusinessIcon from "@mui/icons-material/Business";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
@@ -27,6 +28,7 @@ import {
   getTipoEmpresas,
 } from "../../redux/actions/actionsValues";
 import { esES } from "@mui/x-data-grid";
+import styles from "../Buttons/styleButton.module.css";
 
 const DataGridValues = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
@@ -240,6 +242,26 @@ const DataGridValues = ({ rows, columns }) => {
             width: "95%",
           }}
         />
+        <button
+          style={{
+            textAlign: "center",
+            cursor: "pointer",
+            backgroundColor: "rgba(189, 170, 1, 0.966)",
+            color: "white",
+            fontFamily: "Sans-serif",
+            fontWeight: "bold",
+            borderRadius: "8px",
+            padding: "8px 20px",
+            fontSize: "0.90em",
+            marginTop: "-1em",
+            marginBottom: "5em",
+            display: { xs: "none", md: "flex", marginLeft: "auto" },
+          }}
+          className={styles.botonRegisterPolizas}
+          /* onClick={confirmRegisterPolizas} */
+        >
+          Agregar Compañia <BusinessIcon />
+        </button>
       </div>
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle

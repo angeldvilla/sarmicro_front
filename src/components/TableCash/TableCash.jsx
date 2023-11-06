@@ -54,7 +54,7 @@ const DataGridCash = ({ rows, columns }) => {
   };
 
   const handleFecha = (date) => {
-    const url = `https://poliza.transargelia.com.co/public/api/consulta-diaria/${date?.fecha}`
+    const url = `https://poliza.transargelia.com.co/public/api/consulta-diaria/${date?.fecha_inicio}/${date?.fecha_fin}`;
     window.open(url);
   }
 
