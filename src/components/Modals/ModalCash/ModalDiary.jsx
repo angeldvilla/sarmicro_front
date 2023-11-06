@@ -17,12 +17,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const DataGridDiary = ({ open, handleClose, handleFecha }) => {
   const [valueDiary, setValueDiary] = useState({
-    fecha: "",
+    fecha_inicio: "",
+    fecha_fin: "",
   });
 
   const handleCreate = () => {
     const date = {
-      fecha: valueDiary.fecha,
+      fecha_inicio: valueDiary.fecha_inicio,
+      fecha_fin: valueDiary.fecha_fin,
     };
     handleFecha(date);
   };
@@ -108,25 +110,45 @@ const DataGridDiary = ({ open, handleClose, handleFecha }) => {
             </Paper>
           </Grid>
         </div>
-        <Grid container spacing={2} sx={{ p: 20, justifyContent: "center" }}>
-          {/*  <Grid item xs={6}> */}
-          <TextField
-            sx={{ width: "20em" }}
-            label="Fecha"
-            margin="none"
-            name="Fecha"
-            type="date"
-            InputLabelProps={{ shrink: true }}
-            value={valueDiary ? valueDiary?.fecha : ""}
-            placeholder="Ingrese el rango de fecha"
-            onChange={(e) =>
-              setValueDiary((prevState) => ({
-                ...prevState,
-                fecha: e.target.value,
-              }))
-            }
-          />
-          {/* </Grid> */}
+        <Grid container spacing={2} sx={{ p: 20 }}>
+          <Grid item xs={6}>
+            <TextField
+              /* sx={{ width: "20em" }} */
+              fullWidth
+              label="Fecha Inicio"
+              margin="none"
+              name="FechaInicio"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              value={valueDiary ? valueDiary?.fecha_inicio : ""}
+              placeholder="Ingrese el rango de fecha inicio"
+              onChange={(e) =>
+                setValueDiary((prevState) => ({
+                  ...prevState,
+                  fecha_inicio: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              /* sx={{ width: "20em" }} */
+              fullWidth
+              label="Fecha Final"
+              margin="none"
+              name="FechaFinal"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              value={valueDiary ? valueDiary?.fecha_fin : ""}
+              placeholder="Ingrese el rango de fecha final"
+              onChange={(e) =>
+                setValueDiary((prevState) => ({
+                  ...prevState,
+                  fecha_fin: e.target.value,
+                }))
+              }
+            />
+          </Grid>
         </Grid>
       </Dialog>
     </div>

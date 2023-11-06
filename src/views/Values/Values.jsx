@@ -10,7 +10,7 @@ const Values = () => {
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
-    if (window.scrollY > 900) {
+    if (window.scrollY > 500) {
       setScrollUp(true);
     } else {
       setScrollUp(false);
