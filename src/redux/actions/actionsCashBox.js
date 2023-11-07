@@ -20,14 +20,14 @@ export const getPagos = () => {
   };
 };
 
-
 // Acción para crear pagos
 export const createPago = (pagoData) => {
-  return async () => {
+  return async (dispatch) => {
     const pagosPath = `${ENDPOINT}${PAGOS_URL}`;
     try {
       await axios.post(pagosPath, pagoData);
       toast.success("Pago creado con exito");
+      dispatch(getPagos());
     } catch (error) {
       console.error(error);
       toast.error("Error al crear el pago, intentar de nuevo");
@@ -37,11 +37,12 @@ export const createPago = (pagoData) => {
 
 // Acción para editar pagos
 export const updatePago = (pagoData, id) => {
-  return async () => {
+  return async (dispatch) => {
     const pagosPath = `${ENDPOINT}${PAGOS_URL}/${id}`;
     try {
       await axios.put(pagosPath, pagoData);
       toast.success("Pago actualizado correctamente");
+      dispatch(getPagos());
     } catch (error) {
       console.error(error);
       toast.error("Error al editar el pago, intentar de nuevo");

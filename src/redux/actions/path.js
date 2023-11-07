@@ -24,6 +24,7 @@ export const REGISTER_OFF_VEHICULOS = "/registra-movil-poliza"
 export const DETAIL_POLICYS_URL = "" /* -> RUTA PARA CONSULTAR LOS DETALLES DE UNA POLIZA ELIMINADA */
 export const TIPO_POLIZA_URL = "/tipov-poliza";
 export const TIPO_EMPRESA_URL = "/tipo-empresa-poliza";
+export const NEW_COMPANY = "/compañia";
 
 
 export const EXPORT_EXCEL_VINCULADO_URL = "https://poliza.transargelia.com.co/public/api/recibos/parque-automotor-vinculado-excel";
