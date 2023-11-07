@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import ModalCash from "../Modals/ModalCash/ModalCash";
 import ModalEgreso from "../Modals/ModalCash/ModalEgreso";
 import ModalDiary from "../Modals/ModalCash/ModalDiary";
-import { getPagos, createPago } from "../../redux/actions/actionsCashBox";
+import { createPago } from "../../redux/actions/actionsCashBox";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
 
@@ -27,10 +27,6 @@ const DataGridCash = ({ rows, columns }) => {
   const backFunction = () => {
     navigate(-1);
   };
-
-  useEffect(() => {
-    dispatch(getPagos());
-  }, [dispatch]);
 
   const handleOpen = () => {
     setOpenForm(true);
@@ -56,7 +52,7 @@ const DataGridCash = ({ rows, columns }) => {
   const handleFecha = (date) => {
     const url = `https://poliza.transargelia.com.co/public/api/consulta-diaria/${date?.fecha_inicio}/${date?.fecha_fin}`;
     window.open(url);
-  }
+  };
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
