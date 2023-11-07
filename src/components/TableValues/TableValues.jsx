@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -22,12 +22,8 @@ import ModalEditValue from "../Modals/ModalValorPoliza/ModalEditValue";
 import EditCompany from "../Modals/ModalCompany/EditCompany";
 import {
   createValorPoliza,
-  getValoresPolizas,
-  getTipoPolizas,
   updateValorPoliza,
   deleteValorPoliza,
-  getTipoEmpresas,
-  getCompany,
   updateCompany,
 } from "../../redux/actions/actionsValues";
 import { esES } from "@mui/x-data-grid";
@@ -50,13 +46,6 @@ const DataGridValues = ({ rows, columns }) => {
   const backFunction = () => {
     navigate(-1);
   };
-
-  useEffect(() => {
-    dispatch(getValoresPolizas());
-    dispatch(getTipoPolizas());
-    dispatch(getTipoEmpresas());
-    dispatch(getCompany());
-  }, [dispatch]);
 
   const handleOpen = () => {
     setOpenForm(true);

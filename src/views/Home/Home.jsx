@@ -9,6 +9,12 @@ import {
 } from "../../redux/actions/actionsUsers";
 import { getPagos } from "../../redux/actions/actionsCashBox";
 import {
+  getValoresPolizas,
+  getTipoPolizas,
+  getTipoEmpresas,
+  getCompany,
+} from "../../redux/actions/actionsValues";
+import {
   CardPolicy,
   CardPayments,
   CardVehicles,
@@ -35,6 +41,10 @@ const Home = () => {
     dispatch(getRoles());
     dispatch(getRolesuser());
     dispatch(getPagos());
+    dispatch(getValoresPolizas());
+    dispatch(getTipoPolizas());
+    dispatch(getTipoEmpresas());
+    dispatch(getCompany());
 
     // Verifica si el modal ya se ha mostrado en la sesión actual
     const modalShown = sessionStorage.getItem("modalShown");
@@ -73,7 +83,7 @@ const Home = () => {
   };
 
   //Verifica si es administrador para mostrar la card de detalles polizas
-/*   const loggedInUserId = userLogged.user.id;
+  /*   const loggedInUserId = userLogged.user.id;
   const userRole = userRoles.find(
     (role) => Number(role.user_id) === loggedInUserId
   );
@@ -148,7 +158,7 @@ const Home = () => {
           )}
         </div>
 
-     {/*    <div
+        {/*    <div
           className={styles.cardStyle}
           style={{
             display: visibilityDeletePolizas ? "block" : "none",
