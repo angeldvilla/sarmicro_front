@@ -257,6 +257,9 @@ const Users = () => {
               label={params}
               checked={params.value === "1"}
               color={params.value === "1" ? "success" : "error"}
+              style={{
+                color: params.value === "1" ? "green" : "red",
+              }}
               onChange={(event) => handleSwitchChange(event, params.row.id)}
             />
           ),

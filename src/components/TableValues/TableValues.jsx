@@ -19,6 +19,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ModalCreateValue from "../Modals/ModalValorPoliza/ModalCreateValue";
 import ModalEditValue from "../Modals/ModalValorPoliza/ModalEditValue";
+import EditCompany from "../Modals/ModalCompany/EditCompany";
 import {
   createValorPoliza,
   getValoresPolizas,
@@ -26,6 +27,8 @@ import {
   updateValorPoliza,
   deleteValorPoliza,
   getTipoEmpresas,
+  getCompany,
+  updateCompany,
 } from "../../redux/actions/actionsValues";
 import { esES } from "@mui/x-data-grid";
 import styles from "../Buttons/styleButton.module.css";
@@ -35,10 +38,12 @@ const DataGridValues = ({ rows, columns }) => {
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openCompany, setOpenCompany] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
   const authUser = useSelector((state) => state?.auth?.authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
+  const companyData = useSelector((state) => state?.values?.companyData);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,6 +55,7 @@ const DataGridValues = ({ rows, columns }) => {
     dispatch(getValoresPolizas());
     dispatch(getTipoPolizas());
     dispatch(getTipoEmpresas());
+    dispatch(getCompany());
   }, [dispatch]);
 
   const handleOpen = () => {
@@ -59,6 +65,15 @@ const DataGridValues = ({ rows, columns }) => {
   const handleCreate = async (data) => {
     setOpenForm(false);
     dispatch(createValorPoliza(data));
+  };
+
+  const handleOpenModalCompany = () => {
+    setOpenCompany(true);
+  };
+
+  const handleEditNameCompany = (data, id) => {
+    setOpenCompany(false);
+    dispatch(updateCompany(data, id));
   };
 
   const CustomHeaderButton = () => {
@@ -258,9 +273,9 @@ const DataGridValues = ({ rows, columns }) => {
             display: { xs: "none", md: "flex", marginLeft: "auto" },
           }}
           className={styles.botonRegisterPolizas}
-          /* onClick={confirmRegisterPolizas} */
+          onClick={handleOpenModalCompany}
         >
-          Agregar Compañia <BusinessIcon />
+          Compañia de Poliza <BusinessIcon />
         </button>
       </div>
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
@@ -343,6 +358,12 @@ const DataGridValues = ({ rows, columns }) => {
         handleClose={() => setOpenEdit(false)}
         handleEdit={handleEdit}
         rowEdit={rowEdit}
+      />
+      <EditCompany
+        open={openCompany}
+        company={companyData}
+        handleClose={() => setOpenCompany(false)}
+        handleEditNameCompany={handleEditNameCompany}
       />
     </div>
   );

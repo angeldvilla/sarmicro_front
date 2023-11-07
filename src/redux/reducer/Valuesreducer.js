@@ -5,12 +5,15 @@ import {
   LOGOUT,
   UPDATE_VALOR_POLIZA,
   GET_TIPO_EMPRESA,
+  GET_NAME_COMPANY,
+  EDIT_COMPANY,
 } from "../actions/actionTypes";
 
 const initialState = {
   valuesData: [],
   typesPolicys: [],
   typesEnterprise: [],
+  companyData: [],
 };
 
 export default function ValuesReducer(state = initialState, action) {
@@ -45,6 +48,19 @@ export default function ValuesReducer(state = initialState, action) {
       return {
         ...state,
         valuesData: updatedValue,
+      };
+
+    case GET_NAME_COMPANY:
+      return {
+        ...state,
+        companyData: action.payload,
+      };
+
+    case EDIT_COMPANY:
+      const editValueCompany = [...state.companyData, action.payload];
+      return {
+        ...state,
+        companyData: editValueCompany,
       };
 
     case LOGOUT:

@@ -6,6 +6,7 @@ import style from "../Vehicles/vehicles.module.css";
 import formatNumber from "../../formatNumbers";
 const CashBox = () => {
   const rows = useSelector((state) => state?.cash?.pagosData);
+  console.log(rows);
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
@@ -29,18 +30,16 @@ const CashBox = () => {
   }, []);
 
   const rowsModified = () => {
-    return rows.map((row) => {
+    return rows.transacciones.map((row) => {
       return {
         ...row,
-        fecha_vencimiento: row?.cuota?.fecha_vencimiento,
-        pagada: row?.cuota?.pagada,
-        id_propietario: row?.cuota?.poliza?.id_propietario,
-        monto_total: row?.cuota?.poliza?.monto_total,
-        numero_cuotas: row?.cuota?.poliza?.numero_cuotas,
-        placa: row?.cuota?.poliza?.vehiculo?.placa,
-        clase: row?.cuota?.poliza?.vehiculo?.clase,
-        grupo: row?.cuota?.poliza?.vehiculo?.grupo,
-        id_movil: row?.cuota?.poliza?.vehiculo?.id_movil,
+        id: row.id,
+        id_movil: row.id_movil,
+        recibo: `2023000${row.id}`,
+        concepto: row.concepto,
+        fecha_pago: row.fecha_pago,
+        monto: row.monto,
+        tipo: row.tipo,
       };
     });
   };
@@ -52,46 +51,41 @@ const CashBox = () => {
       flex: 1,
     },
     {
+      field: "id_movil",
+      headerName: "Movil",
+      flex: 1,
+    },
+    {
+      field: "recibo",
+      headerName: "Recibo",
+      flex: 1,
+    },
+    {
+      field: "concepto",
+      headerName: "Concepto",
+      flex: 1,
+    },
+    {
       field: "monto",
       headerName: "Monto",
-      flex: 1,
-    },
-    {
-      field: "fecha_pago",
-      headerName: "Fecha Pago",
-      flex: 1,
-    },
-    {
-      field: "fecha_vencimiento",
-      headerName: "Fecha Vencimiento",
-      width: 150,
-    },
-    {
-      field: "monto_total",
-      headerName: "Monto Total",
       flex: 1,
       renderCell: (params) => {
         return formatNumber(params.value);
       },
     },
     {
-      field: "placa",
-      headerName: "Placa",
+      field: "tipo",
+      headerName: "Valor",
       flex: 1,
+      renderCell: (params) => (
+        <span style={{ color: params.value === "Ingreso" ? "green" : "red" }}>
+          {params.value}
+        </span>
+      ),
     },
     {
-      field: "id_movil",
-      headerName: "ID Movil",
-      flex: 1,
-    },
-    {
-      field: "clase",
-      headerName: "Clase Vehículo",
-      flex: 1,
-    },
-    {
-      field: "grupo",
-      headerName: "Grupo",
+      field: "fecha_pago",
+      headerName: "Fecha Pago",
       flex: 1,
     },
   ];
