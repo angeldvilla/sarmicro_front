@@ -7,6 +7,7 @@ import {
   getRoles,
   getRolesuser,
 } from "../../redux/actions/actionsUsers";
+import { getPagos } from "../../redux/actions/actionsCashBox";
 import {
   CardPolicy,
   CardPayments,
@@ -33,6 +34,7 @@ const Home = () => {
     dispatch(getPermissionsandRoles());
     dispatch(getRoles());
     dispatch(getRolesuser());
+    dispatch(getPagos());
 
     // Verifica si el modal ya se ha mostrado en la sesión actual
     const modalShown = sessionStorage.getItem("modalShown");
