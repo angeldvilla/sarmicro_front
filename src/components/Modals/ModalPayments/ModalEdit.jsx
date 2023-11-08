@@ -27,6 +27,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
     const data = {
       id: editedRow.id,
       numero_poliza: editedRow.numero_poliza,
+      placa: editedRow.placa,
       fecha_inicio: editedRow.fecha_inicio,
       fecha_fin: editedRow.fecha_fin,
       monto_total: editedRow.monto_total,
@@ -97,7 +98,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
           </Toolbar>
         </AppBar>
         <Grid container spacing={2} sx={{ p: 20 }}>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Número de Póliza"
@@ -107,21 +108,48 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               placeholder="Ingrese número de póliza"
               disabled
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Monto Total"
-              margin="none"
-              name="MontoTotal"
-              value={editedRow ? editedRow?.monto_total : ""}
-              placeholder="Ingrese Monto Total de la póliza"
-              onChange={(e) =>
-                setEditedRow({
-                  ...editedRow,
-                  monto_total: e.target.value,
-                })
-              }
+              label="ID Vehiculo"
+              name="IdVehiculo"
+              variant="outlined"
+              value={editedRow ? editedRow?.id_vehiculo : ""}
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Placa"
+              name="Placa"
+              variant="outlined"
+              value={editedRow ? editedRow?.placa : ""}
+              disabled
+            />
+          </Grid>
+          
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Nombre Cliente"
+              name="NomCliente"
+              variant="outlined"
+              value={editedRow ? editedRow?.nombre : ""}
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Cedula Propietario"
+              name="CedulaPropietario"
+              variant="outlined"
+              value={editedRow ? editedRow?.cedula : ""}
+              disabled
             />
           </Grid>
 
@@ -141,6 +169,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               }
             />
           </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -168,6 +197,24 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               disabled
             />
           </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Monto Total"
+              margin="none"
+              name="MontoTotal"
+              value={editedRow ? editedRow?.monto_total : ""}
+              placeholder="Ingrese Monto Total de la póliza"
+              onChange={(e) =>
+                setEditedRow({
+                  ...editedRow,
+                  monto_total: e.target.value,
+                })
+              }
+            />
+          </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -185,36 +232,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               }
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Cedula Propietario"
-              name="CedulaPropietario"
-              variant="outlined"
-              value={editedRow ? editedRow?.cedula : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Nombre Cliente"
-              name="NomCliente"
-              variant="outlined"
-              value={editedRow ? editedRow?.nombre : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="ID Vehiculo"
-              name="IdVehiculo"
-              variant="outlined"
-              value={editedRow ? editedRow?.id_vehiculo : ""}
-              disabled
-            />
-          </Grid>
+    
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -231,6 +249,7 @@ export default function ModalEdit({ open, handleClose, handleEdit, rowEdit }) {
               }
             />
           </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
