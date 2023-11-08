@@ -121,20 +121,36 @@ export default function ModalCreate({
               disabled
             />
           </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Monto Total"
-              margin="none"
-              name="MontoTotal"
-              value={editedRow ? editedRow?.monto_total : ""}
-              placeholder="Ingrese Monto Total de la póliza"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  monto_total: e.target.value,
-                }))
-              }
+              label="ID Vehiculo"
+              name="IdVehiculo"
+              variant="outlined"
+              value={editedRow ? editedRow?.id_vehiculo : ""}
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Nombre Cliente"
+              name="NomCliente"
+              variant="outlined"
+              value={editedRow ? editedRow?.nombre : ""}
+              disabled
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Cedula Propietario"
+              name="CedulaPropietario"
+              variant="outlined"
+              value={editedRow ? editedRow?.cedula : ""}
               disabled
             />
           </Grid>
@@ -188,33 +204,21 @@ export default function ModalCreate({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Cedula Propietario"
-              name="CedulaPropietario"
-              variant="outlined"
-              value={editedRow ? editedRow?.cedula : ""}
+              label="Monto Total"
+              margin="none"
+              name="MontoTotal"
+              value={editedRow ? editedRow?.monto_total : ""}
+              placeholder="Ingrese Monto Total de la póliza"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  monto_total: e.target.value,
+                }))
+              }
               disabled
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Nombre Cliente"
-              name="NomCliente"
-              variant="outlined"
-              value={editedRow ? editedRow?.nombre : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="ID Vehiculo"
-              name="IdVehiculo"
-              variant="outlined"
-              value={editedRow ? editedRow?.id_vehiculo : ""}
-              disabled
-            />
-          </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth

@@ -36,6 +36,7 @@ const DataGridCuotas = ({ rows, columns }) => {
 
   const authUser = useSelector((state) => state?.auth?.authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
+  const payment = useSelector((state) => state?.payments?.polizasData);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -73,10 +74,10 @@ const DataGridCuotas = ({ rows, columns }) => {
   const handleCreate = async (data, rowId) => {
     const url = "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
     const selectedRow = rows.find((row) => row.id === rowId);
-    setOpenPaid(false);
     try {
       await dispatch(createCuota(data));
-      window.open(`${url}${selectedRow.id}`, "_blank");
+      window.open(`${url}${selectedRow.id}`);
+      setOpenPaid(false);
     } catch (error) {
       toast.error("Error al crear el pago de la cuota, intente de nuevo");
     }
@@ -110,11 +111,19 @@ const DataGridCuotas = ({ rows, columns }) => {
   };
 
   const handlePrint = (rowId) => {
+    const urlcuotasInicial =
+      "https://poliza.transargelia.com.co/public/api/recibos/cuotasInicial/";
     const url = "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
-    const selectedRow = rows.find((row) => row.id === rowId);
+    const selectedRow = rows.find((row) => row?.id === rowId);
+    const paymentData = payment.find(
+      (row) => row?.id_vehiculo === selectedRow?.id_vehiculo
+    );
 
-    if (selectedRow.estado === "1" && selectedRow.pagada === "1") {
-      window.open(`${url}${selectedRow.id}`, "_blank");
+    if (selectedRow?.estado === "1" && selectedRow?.pagada === "1") {
+      window.open(`${url}${selectedRow?.id}`);
+      if (paymentData) {
+        window.open(`${urlcuotasInicial}${paymentData?.id}`);
+      }
     } else {
       toast.error("Hacer el registro de la cuota para imprimir");
     }

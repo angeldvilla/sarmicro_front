@@ -40,14 +40,15 @@ export default function ModalEditVehicle({
       id_movil: editedRow.id_movil,
       id_marca: editedRow.id_marca,
       propietario: editedRow.propietario,
-      modelo: editedRow.modelo,
-      placa: editedRow.placa,
+      telefono: editedRow.telefono,
       clase: editedRow.clase,
-      grupo: editedRow.grupo,
+      placa: editedRow.placa,
+      modelo: editedRow.modelo,
       motor: editedRow.motor,
+      grupo: editedRow.grupo,
       poliza: editedRow.poliza,
-      referencia: editedRow.referencia,
       serie: editedRow.serie,
+      referencia: editedRow.referencia,
       tipo: editedRow.tipo,
       tipov: editedRow.tipov,
       estado: editedRow.estado,
@@ -115,9 +116,9 @@ export default function ModalEditVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="ID Movil"
+              label="Movil"
               margin="none"
-              name="IdMovil"
+              name="Movil"
               value={editedRow ? editedRow?.id_movil : ""}
               placeholder="Ingrese el identificador del movil"
               onChange={(e) =>
@@ -131,27 +132,11 @@ export default function ModalEditVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="ID Marca"
+              label="Propietaro"
               margin="none"
-              name="IdMarca"
-              value={editedRow ? editedRow?.id_marca : ""}
-              placeholder="Ingrese el identificador de la marca"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  id_marca: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="ID Propietaro"
-              margin="none"
-              name="IdPropietario"
+              name="Propietario"
               value={editedRow ? editedRow?.propietario : ""}
-              placeholder="Ingrese el identificador del propietario"
+              placeholder="Ingrese datos del propietario"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
@@ -163,31 +148,15 @@ export default function ModalEditVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Modelo"
+              label="Telefono"
               margin="none"
-              name="Modelo"
-              value={editedRow ? editedRow?.modelo : ""}
-              placeholder="Ingrese el modelo del vehiculo"
+              name="Telefono"
+              value={editedRow ? editedRow?.telefono : ""}
+              placeholder="Ingrese el telefono del propietario"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  modelo: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Placa"
-              margin="none"
-              name="Placa"
-              value={editedRow ? editedRow?.placa : ""}
-              placeholder="Ingrese la placa del vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  placa: e.target.value,
+                  telefono: e.target.value,
                 }))
               }
             />
@@ -211,20 +180,35 @@ export default function ModalEditVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Grupo"
+              label="Placa"
               margin="none"
-              name="Grupo"
-              value={editedRow ? editedRow?.grupo : ""}
-              placeholder="Ingrese el grupo del vehiculo"
+              name="Placa"
+              value={editedRow ? editedRow?.placa : ""}
+              placeholder="Ingrese la placa del vehiculo"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  grupo: e.target.value,
+                  placa: e.target.value,
                 }))
               }
             />
           </Grid>
-
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Modelo"
+              margin="none"
+              name="Modelo"
+              value={editedRow ? editedRow?.modelo : ""}
+              placeholder="Ingrese el modelo del vehiculo"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  modelo: e.target.value,
+                }))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -241,35 +225,18 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="Poliza"
+              label="Grupo"
               margin="none"
-              name="Poliza"
-              value={editedRow ? editedRow?.poliza : ""}
-              placeholder="Ingrese el numero de poliza del vehiculo"
+              name="Grupo"
+              value={editedRow ? editedRow?.grupo : ""}
+              placeholder="Ingrese el grupo del vehiculo"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  poliza: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Referencia"
-              margin="none"
-              name="Referencia"
-              value={editedRow ? editedRow?.referencia : ""}
-              placeholder="Ingrese la referencia del vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  referencia: e.target.value,
+                  grupo: e.target.value,
                 }))
               }
             />
@@ -290,7 +257,22 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Referencia"
+              margin="none"
+              name="Referencia"
+              value={editedRow ? editedRow?.referencia : ""}
+              placeholder="Ingrese la referencia del vehiculo"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  referencia: e.target.value,
+                }))
+              }
+            />
+          </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth

@@ -38,7 +38,7 @@ const DataGridPayments = ({ rows, columns }) => {
 
   const authUser = useSelector((state) => state?.auth?.authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
-  /* const cuotas = useSelector((state) => state?.cuotas?.cuotasData); */
+  const cuotas = useSelector((state) => state?.cuotas?.cuotasData);
 
   const dispatch = useDispatch();
 
@@ -127,10 +127,25 @@ const DataGridPayments = ({ rows, columns }) => {
     const url =
       "https://poliza.transargelia.com.co/public/api/recibos/cuotasInicial/";
 
-    const selectedRow = rows.find((row) => row.id === rowId);
+    const urlCuotasInicial =
+      "https://poliza.transargelia.com.co/public/api/recibos/cuotas/";
+
+    const selectedRow = rows.find((row) => row?.id === rowId);
+    const cuotaData = cuotas.filter(
+      (row) =>
+        row?.poliza?.id_vehiculo === selectedRow?.id_vehiculo &&
+        row?.estado === "1"
+    );
 
     if (selectedRow.estado === "1") {
-      window.open(`${url}${selectedRow.id}`);
+      window.open(`${url}${selectedRow?.id}`);
+      if (cuotaData.length > 0) {
+        cuotaData.forEach((cuota) => {
+          window.open(`${urlCuotasInicial}${cuota.id}`);
+        });
+      } else {
+        toast.error("No hay cuotas activas para imprimir");
+      }
     } else {
       toast.error("Hacer el pago de la poliza para imprimir");
     }

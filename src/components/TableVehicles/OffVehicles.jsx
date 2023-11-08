@@ -147,7 +147,6 @@ const DataGridOffVehicles = ({ rows, columns }) => {
             width: "95%",
           }}
         >
-          {autorized && (
             <Tooltip title="Registrar">
               <IconButton
                 aria-label="Registrar"
@@ -159,7 +158,7 @@ const DataGridOffVehicles = ({ rows, columns }) => {
                 <ReplyAllIcon />
               </IconButton>
             </Tooltip>
-          )}
+        
           {autorized && (
             <Tooltip title="Editar">
               <IconButton
