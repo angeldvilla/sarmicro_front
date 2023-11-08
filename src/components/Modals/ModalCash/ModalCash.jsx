@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import formatNumber from "../../../formatNumbers";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -127,11 +128,11 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   <td style={cellStyle}>{row?.fecha_pago}</td>
                   <td
                     style={{ ...cellStyle, color: "green" }}
-                  >{`$${ingresos} COP`}</td>
+                  >{`${formatNumber(ingresos)} COP`}</td>
                   <td
                     style={{ ...cellStyle, color: "red" }}
-                  >{`$${egresos} COP`}</td>
-                  <td style={cellStyle}>{`$${saldo} COP`}</td>
+                  >{`${formatNumber(egresos)} COP`}</td>
+                  <td style={cellStyle}>{`${formatNumber(saldo)} COP`}</td>
                 </tr>
               );
             })}
@@ -149,11 +150,11 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               </td>
               <td
                 style={{ ...cellStyle, color: "green" }}
-              >{`$${totalIngresos} COP`}</td>
+              >{`${formatNumber(totalIngresos)} COP`}</td>
               <td
                 style={{ ...cellStyle, color: "red" }}
-              >{`$${totalEgresos} COP`}</td>
-              <td style={cellStyle}>{`$${saldoTotal} COP`}</td>
+              >{`${formatNumber(totalEgresos)} COP`}</td>
+              <td style={cellStyle}>{`${formatNumber(saldoTotal)} COP`}</td>
             </tr>
           </tbody>
         </table>
@@ -248,7 +249,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               />
             </div>
             <div>
-              <div style={{ color: "green" }}>$ {totalIngresos} COP</div>{" "}
+              <div style={{ color: "green" }}>{formatNumber(totalIngresos)} COP</div>{" "}
               <hr
                 style={{
                   borderColor: "#464646",
@@ -256,7 +257,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
-              <div style={{ color: "red" }}>$ {totalEgresos} COP</div>{" "}
+              <div style={{ color: "red" }}>{formatNumber(totalEgresos)} COP</div>{" "}
               <hr
                 style={{
                   borderColor: "#464646",
@@ -264,7 +265,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
                   margin: "10px 0",
                 }}
               />
-              <div>$ {saldoTotal} COP</div>{" "}
+              <div>{formatNumber(saldoTotal)} COP</div>{" "}
               <hr
                 style={{
                   borderColor: "#464646",

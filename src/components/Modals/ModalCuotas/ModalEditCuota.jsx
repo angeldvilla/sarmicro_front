@@ -36,6 +36,7 @@ export default function ModalEditCuota({
     const data = {
       cuota_id: editedRow.id,
       poliza_id: Number(editedRow.poliza_id),
+      id_vehiculo: editedRow.id_vehiculo,
       monto: Number(editedRow.monto),
       fecha_vencimiento: editedRow.fecha_vencimiento,
       pagada: editedRow.pagada,
@@ -119,18 +120,18 @@ export default function ModalEditCuota({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="ID Poliza"
+              label="ID Movil"
               margin="none"
-              name="IdPoliza"
-              type="number"
-              value={editedRow ? editedRow?.poliza_id : ""}
-              placeholder="Ingrese el ID de la Poliza"
+              name="IdMovil"
+              value={editedRow ? editedRow?.id_vehiculo : ""}
+              placeholder="Ingrese el ID del movil"
               onChange={(e) =>
                 setEditedRow((prevState) => ({
                   ...prevState,
-                  poliza_id: e.target.value,
+                  id_vehiculo: e.target.value,
                 }))
               }
+              disabled
             />
           </Grid>
           <Grid item xs={6}>
@@ -148,6 +149,7 @@ export default function ModalEditCuota({
                   monto: e.target.value,
                 }))
               }
+              disabled
             />
           </Grid>
 
@@ -167,6 +169,7 @@ export default function ModalEditCuota({
                   fecha_vencimiento: e.target.value,
                 }))
               }
+              disabled
             />
           </Grid>
           <Grid item xs={6}>

@@ -31,6 +31,15 @@ const Payments = () => {
   }, []);
 
 
+  const rowsModified = () => {
+    return rows.map((row) => {
+      return {
+        ...row,
+        placa: row?.vehiculo?.placa,
+      };
+    });
+  };
+
   const columns = [
     {
       field: "id",
@@ -39,6 +48,11 @@ const Payments = () => {
     {
       field: "id_vehiculo",
       headerName: "Movil",
+      flex: 1,
+    },
+    {
+      field: "placa",
+      headerName: "Placa",
       flex: 1,
     },
  /*    {
@@ -150,7 +164,7 @@ const Payments = () => {
         }}
       />
       <div style={{ width: "100%", maxWidth: "100%" }}>
-        <DataGridPayments rows={rows} columns={columns} />
+        <DataGridPayments rows={rowsModified()} columns={columns} />
       </div>
 
       {scrollUp && (

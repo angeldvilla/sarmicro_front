@@ -106,6 +106,11 @@ const Vehicles = () => {
           width: 180,
         },
         {
+          field: "telefono",
+          headerName: "Telefono",
+          width: 110,
+        },
+        {
           field: "clase",
           headerName: "Clase",
           width: 105,

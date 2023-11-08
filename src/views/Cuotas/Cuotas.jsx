@@ -11,6 +11,7 @@ const Cuotas = () => {
       return {
         ...row,
         id_vehiculo: row?.poliza?.id_vehiculo,
+        placa: row?.poliza?.vehiculo?.placa,
       };
     });
   };
@@ -25,7 +26,12 @@ const Cuotas = () => {
       headerName: "Movil",
       flex: 1,
     },
-/*     {
+    {
+      field: "placa",
+      headerName: "Placa",
+      flex: 1,
+    },
+    /*     {
       field: "poliza_id",
       headerName: "ID Poliza",
       flex: 1,
