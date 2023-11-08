@@ -36,6 +36,7 @@ export default function ModalCreate({
     const dataPoliza = {
       id: editedRow.id,
       numero_poliza: editedRow.numero_poliza,
+      placa: editedRow.placa,
       fecha_inicio: editedRow.fecha_inicio,
       fecha_fin: editedRow.fecha_fin,
       monto_total: editedRow.monto_total,
@@ -104,7 +105,7 @@ export default function ModalCreate({
           </Toolbar>
         </AppBar>
         <Grid container spacing={2} sx={{ p: 20 }}>
-          <Grid item xs={6}>
+{/*           <Grid item xs={6}>
             <TextField
               fullWidth
               label="Número de Póliza"
@@ -120,7 +121,7 @@ export default function ModalCreate({
               }
               disabled
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <TextField
@@ -129,6 +130,16 @@ export default function ModalCreate({
               name="IdVehiculo"
               variant="outlined"
               value={editedRow ? editedRow?.id_vehiculo : ""}
+              disabled
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Placa"
+              name="Placa"
+              variant="outlined"
+              value={editedRow ? editedRow?.placa : ""}
               disabled
             />
           </Grid>

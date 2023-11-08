@@ -39,6 +39,10 @@ export default function DetailsPayments({ openDetail, closeDetail, rowEdit }) {
                     marginTop: "20px",
                   }}
                 >
+                  {/*  <Typography style={{ marginBottom: "20px" }}>
+                    Poliza: {editedRow.numero_poliza}
+                  </Typography> */}
+
                   <Typography style={{ marginBottom: "20px" }}>
                     Nombre:{" "}
                     {editedRow.nombre.charAt(0).toUpperCase() +
@@ -54,7 +58,7 @@ export default function DetailsPayments({ openDetail, closeDetail, rowEdit }) {
                   </Typography>
 
                   <Typography style={{ marginBottom: "20px" }}>
-                    Poliza: {editedRow.numero_poliza}
+                    Placa: {editedRow.placa}
                   </Typography>
 
                   <Typography style={{ marginBottom: "12px" }}>
