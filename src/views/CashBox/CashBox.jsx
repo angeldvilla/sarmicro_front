@@ -6,7 +6,6 @@ import style from "../Vehicles/vehicles.module.css";
 import formatNumber from "../../formatNumbers";
 const CashBox = () => {
   const rows = useSelector((state) => state?.cash?.pagosData);
-  console.log(rows);
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
@@ -30,18 +29,24 @@ const CashBox = () => {
   }, []);
 
   const rowsModified = () => {
-    return rows.transacciones.map((row) => {
-      return {
-        ...row,
-        id: row.id,
-        id_movil: row.id_movil,
-        recibo: `2023000${row.id}`,
-        concepto: row.concepto,
-        fecha_pago: row.fecha_pago,
-        monto: row.monto,
-        tipo: row.tipo,
-      };
+    const uniqueRows = {};
+
+    rows.transacciones.forEach((row) => {
+      const key = `${row.id}-${row.tipo}`;
+      if (!uniqueRows[key]) {
+        uniqueRows[key] = {
+          ...row,
+          id: key,
+          id_movil: row.id_movil,
+          recibo: `2023000${row.id}`,
+          concepto: row.concepto,
+          fecha_pago: row.fecha_pago,
+          monto: row.monto,
+          tipo: row.tipo,
+        };
+      }
     });
+    return Object.values(uniqueRows);
   };
 
   const columns = [
