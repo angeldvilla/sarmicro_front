@@ -25,21 +25,27 @@ export default function ModalEditVehicle({
   handleEdit,
   rowEdit,
 }) {
+  const [editedRow, setEditedRow] = useState(rowEdit);
+  const [editedOwnerId, setEditedOwnerId] = useState(null);
+  const [editedOwnerName, setEditedOwnerName] = useState("");
+
   useEffect(() => {
     if (rowEdit) {
       setEditedRow(rowEdit);
+      setEditedOwnerId(rowEdit.id_propietario);
+      setEditedOwnerName(rowEdit.propietario);
     }
   }, [open, rowEdit]);
 
-  const [editedRow, setEditedRow] = useState(rowEdit);
-
   const typePolicy = useSelector((state) => state?.values?.typesPolicys);
+  const propietary = useSelector((state) => state?.vehicles?.propietaryData);
 
   const handleEditVehiculo = () => {
     const data = {
       id_movil: editedRow.id_movil,
       id_marca: editedRow.id_marca,
-      propietario: editedRow.propietario,
+      propietario: editedOwnerName,
+      id_propietario: editedOwnerId,
       telefono: editedRow.telefono,
       clase: editedRow.clase,
       placa: editedRow.placa,
@@ -130,7 +136,35 @@ export default function ModalEditVehicle({
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
+            <FormControl fullWidth>
+              <InputLabel>Propietario</InputLabel>
+              <Select
+                label="Propietario"
+                variant="outlined"
+                value={editedOwnerName}
+                onChange={(e) => {
+                  const selectedPropietario = e.target.value;
+                  const foundPropietary = propietary.find(
+                    (propietary) =>
+                      propietary.nombreCompleto === selectedPropietario
+                  );
+
+                  setEditedOwnerId(foundPropietary.id_propietario);
+                  setEditedOwnerName(selectedPropietario);
+                }}
+              >
+                <MenuItem value="">
+                  <em>Ninguno</em>
+                </MenuItem>
+                {propietary &&
+                  propietary.map((p) => (
+                    <MenuItem key={p.id_propietario} value={p.nombreCompleto}>
+                      {p.nombreCompleto}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+            {/*    <TextField
               fullWidth
               label="Propietaro"
               margin="none"
@@ -143,7 +177,7 @@ export default function ModalEditVehicle({
                   propietario: e.target.value,
                 }))
               }
-            />
+            /> */}
           </Grid>
           <Grid item xs={6}>
             <TextField

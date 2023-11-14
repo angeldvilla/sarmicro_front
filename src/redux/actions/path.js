@@ -25,6 +25,8 @@ export const DETAIL_POLICYS_URL = "" /* -> RUTA PARA CONSULTAR LOS DETALLES DE U
 export const TIPO_POLIZA_URL = "/tipov-poliza";
 export const TIPO_EMPRESA_URL = "/tipo-empresa-poliza";
 export const NEW_COMPANY = "/compañia";
+export const BALANCE_URL = "/saldo-pago";
+export const PROPIETARY_URL = "/propietario";
 
 
 export const EXPORT_EXCEL_VINCULADO_URL = "https://poliza.transargelia.com.co/public/api/recibos/parque-automotor-vinculado-excel";

@@ -11,6 +11,8 @@ import CashBox from "../views/CashBox/CashBox.jsx";
 import Vehicles from "../views/Vehicles/Vehicles.jsx";
 import OffVehicles from "../views/Vehicles/VehiclesOff.jsx";
 import DetailPolicy from "../views/DetailPolicy/DetailPolicy.jsx";
+import Balance from "../views/Balance/Balance.jsx";
+import NotBalance from "../views/Balance/NotBalance.jsx";
 import Users from "../views/Users/Users.jsx";
 import Error404 from "../views/Error/Error.jsx";
 
@@ -87,6 +89,22 @@ const RoutesApp = () => {
         element={
           <RoutesProtected>
             <DetailPolicy />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/saldo-pago"
+        element={
+          <RoutesProtected>
+            <Balance />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/deudores-en-mora"
+        element={
+          <RoutesProtected>
+            <NotBalance />
           </RoutesProtected>
         }
       />
