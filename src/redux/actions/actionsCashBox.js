@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ENDPOINT, PAGOS_URL } from "./path.js";
-import { GET_PAGOS } from "./actionTypes.js";
+import { ENDPOINT, PAGOS_URL, BALANCE_URL } from "./path.js";
+import { GET_PAGOS, GET_BALANCES } from "./actionTypes.js";
 import { toast } from "sonner";
 
 // Acción para obtener datos de pagos
@@ -16,6 +16,21 @@ export const getPagos = () => {
     } catch (error) {
       console.error(error);
       toast.error("No hay datos de Pagos");
+    }
+  };
+};
+
+export const getBalances = () => {
+  return async (dispatch) => {
+    const pathBalance = `${ENDPOINT}${BALANCE_URL}`;
+    try {
+      const { data } = await axios.get(pathBalance);
+      return dispatch({
+        type: GET_BALANCES,
+        payload: data,
+      });
+    } catch (error) {
+      toast.error("Error al obtener los datos de saldos de polizas");
     }
   };
 };

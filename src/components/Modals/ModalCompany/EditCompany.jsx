@@ -134,53 +134,53 @@ const EditCompany = ({ open, handleClose, company, handleEditNameCompany }) => {
             alignItems: "center",
           }}
         >
-          <Grid item xs={2}>
-            <TextField
-              sx={{ width: "15em" }}
-              label="Compañia"
-              margin="none"
-              name="Compañia"
-              value={editedRow ? editedRow?.nombre : ""}
-              onChange={(e) => {
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  nombre: e.target.value,
-                }));
-              }}
-            />
-          </Grid>
+          {/* <Grid item xs={2}> */}
+          <TextField
+            sx={{ width: "20em", mb: 2 }}
+            label="Compañia"
+            margin="none"
+            name="Compañia"
+            value={editedRow ? editedRow?.nombre : ""}
+            onChange={(e) => {
+              setEditedRow((prevState) => ({
+                ...prevState,
+                nombre: e.target.value,
+              }));
+            }}
+          />
+          {/* </Grid> */}
 
-          <Grid item xs={2}>
-            <TextField
-              sx={{ width: "15em" }}
-              label="Nro Poliza"
-              margin="none"
-              name="NroPoliza"
-              value={editedRow ? editedRow?.numero_poliza : ""}
-              onChange={(e) => {
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  numero_poliza: e.target.value,
-                }));
-              }}
-            />
-          </Grid>
+          {/* <Grid item xs={2}> */}
+          <TextField
+            sx={{ width: "20em", mb: 2 }}
+            label="Nro Poliza"
+            margin="none"
+            name="NroPoliza"
+            value={editedRow ? editedRow?.numero_poliza : ""}
+            onChange={(e) => {
+              setEditedRow((prevState) => ({
+                ...prevState,
+                numero_poliza: e.target.value,
+              }));
+            }}
+          />
+          {/* </Grid> */}
 
-          <Grid item xs={2}>
-            <TextField
-              sx={{ width: "15em" }}
-              label="NIT"
-              margin="none"
-              name="NIT"
-              value={editedRow ? editedRow?.nit : ""}
-              onChange={(e) => {
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  nit: e.target.value,
-                }));
-              }}
-            />
-          </Grid>
+          {/*  <Grid item xs={2}> */}
+          <TextField
+            sx={{ width: "20em", mb: 2 }}
+            label="NIT"
+            margin="none"
+            name="NIT"
+            value={editedRow ? editedRow?.nit : ""}
+            onChange={(e) => {
+              setEditedRow((prevState) => ({
+                ...prevState,
+                nit: e.target.value,
+              }));
+            }}
+          />
+          {/* </Grid> */}
         </Grid>
       </Dialog>
     </div>
