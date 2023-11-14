@@ -14,12 +14,14 @@ import {
   getTipoEmpresas,
   getCompany,
 } from "../../redux/actions/actionsValues";
+import { getBalances } from "../../redux/actions/actionsDetails";
 import {
   CardPolicy,
   CardPayments,
   CardVehicles,
   CashBox,
-  /* DetailPolicy, */
+  DetailPolicy,
+  BalanceCard,
   CardUsers,
 } from "../../components/Cards/Cards";
 import ModalHome from "../../components/Modals/ModalHome/ModalHome";
@@ -30,7 +32,7 @@ import styles from "./home.module.css";
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const userLogged = useSelector((state) => state?.auth?.authUser);
-  /* const userRoles = useSelector((state) => state?.users?.userRoles); */
+  const userRoles = useSelector((state) => state?.users?.userRoles);
   const permissionRoles = useSelector((state) => state?.users?.permissionRoles);
   const dispatch = useDispatch();
 
@@ -45,6 +47,7 @@ const Home = () => {
     dispatch(getTipoPolizas());
     dispatch(getTipoEmpresas());
     dispatch(getCompany());
+    dispatch(getBalances());
 
     // Verifica si el modal ya se ha mostrado en la sesión actual
     const modalShown = sessionStorage.getItem("modalShown");
@@ -83,14 +86,14 @@ const Home = () => {
   };
 
   //Verifica si es administrador para mostrar la card de detalles polizas
-  /*   const loggedInUserId = userLogged.user.id;
+  const loggedInUserId = userLogged.user.id;
   const userRole = userRoles.find(
     (role) => Number(role.user_id) === loggedInUserId
   );
   const userRoleId = userRole ? Number(userRole.role_id) : null;
 
   const allowedEditRoles = [1];
-  const visibilityDeletePolizas = allowedEditRoles.includes(userRoleId); */
+  const visibilityDeletePolizas = allowedEditRoles.includes(userRoleId);
 
   return (
     <>
@@ -158,7 +161,7 @@ const Home = () => {
           )}
         </div>
 
-        {/*    <div
+        <div
           className={styles.cardStyle}
           style={{
             display: visibilityDeletePolizas ? "block" : "none",
@@ -167,7 +170,18 @@ const Home = () => {
           <div className={styles.scaleUpBottom6}>
             <DetailPolicy />
           </div>
-        </div> */}
+        </div>
+
+        <div
+          className={styles.cardStyle}
+          style={{
+            display: visibilityDeletePolizas ? "block" : "none",
+          }}
+        >
+          <div className={styles.scaleUpBottom6}>
+            <BalanceCard />
+          </div>
+        </div>
 
         <div
           className={styles.cardStyle}

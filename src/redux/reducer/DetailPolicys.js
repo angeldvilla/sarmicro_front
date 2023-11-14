@@ -1,7 +1,12 @@
-import { GET_DETAIL_POLICYS, LOGOUT } from "../actions/actionTypes";
+import {
+  GET_BALANCES,
+  GET_DETAIL_POLICYS,
+  LOGOUT,
+} from "../actions/actionTypes";
 
 const initialState = {
   detailPolicys: {},
+  balancesData: [],
 };
 
 export default function DetailPolicysReducer(state = initialState, action) {
@@ -10,6 +15,11 @@ export default function DetailPolicysReducer(state = initialState, action) {
       return {
         ...state,
         detailPolicys: action.payload,
+      };
+    case GET_BALANCES:
+      return {
+        ...state,
+        balancesData: action.payload,
       };
 
     case LOGOUT:

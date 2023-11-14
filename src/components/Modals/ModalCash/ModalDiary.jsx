@@ -19,12 +19,16 @@ const DataGridDiary = ({ open, handleClose, handleFecha }) => {
   const [valueDiary, setValueDiary] = useState({
     fecha_inicio: "",
     fecha_fin: "",
+    hora_inicio: "",
+    hora_fin: "",
   });
 
   const handleCreate = () => {
     const date = {
       fecha_inicio: valueDiary.fecha_inicio,
       fecha_fin: valueDiary.fecha_fin,
+      hora_inicio: valueDiary.hora_inicio,
+      hora_fin: valueDiary.hora_fin,
     };
     handleFecha(date);
   };
@@ -97,7 +101,7 @@ const DataGridDiary = ({ open, handleClose, handleFecha }) => {
               elevation={3}
               style={{
                 padding: "18px",
-                marginBottom: "-15%",
+                marginBottom: "-30em",
                 marginTop: "10%",
                 fontFamily: "sans-serif",
                 fontStyle: "italic",
@@ -106,14 +110,13 @@ const DataGridDiary = ({ open, handleClose, handleFecha }) => {
                 fontSize: "1.2em",
               }}
             >
-              Ingrese el rango de fecha para ver el informe
+              Ingrese el rango de fecha
             </Paper>
           </Grid>
         </div>
         <Grid container spacing={2} sx={{ p: 20 }}>
           <Grid item xs={6}>
             <TextField
-              /* sx={{ width: "20em" }} */
               fullWidth
               label="Fecha Inicio"
               margin="none"
@@ -132,7 +135,6 @@ const DataGridDiary = ({ open, handleClose, handleFecha }) => {
           </Grid>
           <Grid item xs={6}>
             <TextField
-              /* sx={{ width: "20em" }} */
               fullWidth
               label="Fecha Final"
               margin="none"
@@ -145,6 +147,69 @@ const DataGridDiary = ({ open, handleClose, handleFecha }) => {
                 setValueDiary((prevState) => ({
                   ...prevState,
                   fecha_fin: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+        </Grid>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Grid item xs={5}>
+            <Paper
+              elevation={3}
+              style={{
+                padding: "18px",
+                marginBottom: "-15%",
+                marginTop: "-40%",
+                fontFamily: "sans-serif",
+                fontStyle: "italic",
+                fontWeight: "bold",
+                color: "#0080ca",
+                fontSize: "1.2em",
+              }}
+            >
+              Ingrese el rango de hora
+            </Paper>
+          </Grid>
+        </div>
+        <Grid container spacing={2} sx={{ p: 20, mt: -18}}>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Hora Inicio"
+              margin="none"
+              name="HoraInicio"
+              type="time"
+              InputLabelProps={{ shrink: true }}
+              value={valueDiary ? valueDiary?.hora_inicio : ""}
+              placeholder="Ingrese el rango de hora inicio"
+              onChange={(e) =>
+                setValueDiary((prevState) => ({
+                  ...prevState,
+                  hora_inicio: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Hora Final"
+              margin="none"
+              name="HoraFinal"
+              type="time"
+              InputLabelProps={{ shrink: true }}
+              value={valueDiary ? valueDiary?.hora_fin : ""}
+              placeholder="Ingrese el rango de hora final"
+              onChange={(e) =>
+                setValueDiary((prevState) => ({
+                  ...prevState,
+                  hora_fin: e.target.value,
                 }))
               }
             />

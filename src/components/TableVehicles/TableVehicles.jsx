@@ -340,7 +340,6 @@ const DataGridVehicles = ({ rows, columns }) => {
                     quickFilterProps: { debounceMs: 250 },
                   },
                 }}
-                experimentalFeatures={{ newEditingApi: true }}
                 className={style.dataGrid}
               />
               {index < groupedRows.length - 1 && (

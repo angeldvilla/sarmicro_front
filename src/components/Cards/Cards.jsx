@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import styles from "./card.module.css";
+import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import valorPoliza from "../../assets/images/valorPolizas.jpg";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
@@ -46,8 +47,7 @@ export const CardPolicy = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <div className={styles.overlay}>
-        </div>
+        <div className={styles.overlay}></div>
       </NavLink>
     </div>
   );
@@ -86,8 +86,7 @@ export const CardPayments = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <div className={styles.overlay}>
-        </div>
+        <div className={styles.overlay}></div>
       </NavLink>
     </div>
   );
@@ -126,8 +125,7 @@ export const CardVehicles = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <div className={styles.overlay}>
-        </div>
+        <div className={styles.overlay}></div>
       </a>
     </div>
   );
@@ -166,8 +164,7 @@ export const CashBox = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <div className={styles.overlay}>
-        </div>
+        <div className={styles.overlay}></div>
       </a>
     </div>
   );
@@ -206,8 +203,7 @@ export const DetailPolicy = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <div className={styles.overlay}>
-        </div>
+        <div className={styles.overlay}></div>
       </a>
     </div>
   );
@@ -246,8 +242,46 @@ export const CardUsers = () => {
             </CardContent>
           </CardActionArea>
         </Card>
-        <div className={styles.overlay}>
-        </div>
+        <div className={styles.overlay}></div>
+      </a>
+    </div>
+  );
+};
+
+export const BalanceCard = () => {
+  return (
+    <div className={styles.cardContainer}>
+      <a href="/saldo-pago">
+        <Card style={{ borderRadius: "1.2em" }}>
+          <CardActionArea>
+            <CardMedia
+              className={styles.cardImage}
+              component="img"
+              height="140"
+              image={sarmicroLogo}
+              alt="Detalle Polizas"
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                className={styles.cardText}
+              >
+                Saldo - Pago
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className={styles.cardText}
+              >
+                Esta tarjeta muestra información de los saldos y pagos
+                actualizados
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        <div className={styles.overlay}></div>
       </a>
     </div>
   );

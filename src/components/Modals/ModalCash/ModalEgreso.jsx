@@ -27,6 +27,7 @@ const DataGridEgresos = ({ open, handleClose, handleCreateEgreso }) => {
       cuota_id: 0,
       monto: valueEgreso.monto,
       concepto: valueEgreso.concepto,
+      nombre: valueEgreso.nombre,
       estado: 1,
       pagada: 1,
     };
@@ -124,9 +125,9 @@ const DataGridEgresos = ({ open, handleClose, handleCreateEgreso }) => {
             alignItems: "center",
           }}
         >
-          <Grid item xs={6}>
+          {/* <Grid item xs={2}> */}
             <TextField
-              sx={{ width: "25em" }}
+              sx={{ width: "20em", mb: 2}}
               label="Valor"
               margin="none"
               name="ValorEgreso"
@@ -140,10 +141,10 @@ const DataGridEgresos = ({ open, handleClose, handleCreateEgreso }) => {
                 }))
               }
             />
-          </Grid>
-          <Grid item xs={6}>  
+          {/* </Grid> */}
+         {/*  <Grid item xs={2}>   */}
             <TextField
-              sx={{ width: "25em"}}
+             sx={{ width: "20em", mb: 2}}
               label="Concepto"
               margin="none"
               name="Concepto"
@@ -156,7 +157,23 @@ const DataGridEgresos = ({ open, handleClose, handleCreateEgreso }) => {
                 }))
               }
             />
-          </Grid>
+          {/* </Grid> */}
+          {/* <Grid item xs={2}>   */}
+            <TextField
+              sx={{ width: "20em"}}
+              label="Pagado a"
+              margin="none"
+              name="Pagado a "
+              value={valueEgreso ? valueEgreso?.nombre : ""}
+              placeholder="A quien va ser pagado?"
+              onChange={(e) =>
+                setValueEgreso((prevState) => ({
+                  ...prevState,
+                  nombre: e.target.value,
+                }))
+              }
+            />
+          {/* </Grid> */}
         </Grid>
       </Dialog>
     </div>
