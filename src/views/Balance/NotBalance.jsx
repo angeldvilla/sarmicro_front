@@ -6,9 +6,7 @@ import style from "../Vehicles/vehicles.module.css";
 import formatNumber from "../../formatNumbers";
 
 const NotBalance = () => {
-  const rows = useSelector((state) =>
-    state?.details?.balancesData.map((row, index) => ({ ...row, id: index }))
-  );
+  const rows = useSelector((state) => state?.details?.balancesData);
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
@@ -31,11 +29,13 @@ const NotBalance = () => {
     return () => window.removeEventListener("scroll", handleScrollUp);
   }, []);
 
+  const resultados_no_pagados = rows?.resultados_no_pagados || [];
+
   const allRows = useMemo(() => {
     const uniqueIds = new Set();
     const filteredRows = [];
 
-    for (const row of rows) {
+    for (const row of resultados_no_pagados) {
       if (!uniqueIds.has(row.max_vehiculo_id)) {
         uniqueIds.add(row.max_vehiculo_id);
         filteredRows.push(row);
@@ -84,6 +84,9 @@ const NotBalance = () => {
         {
           field: "cuotas_pagadas",
           headerName: "Cuotas",
+          renderCell: (params) => {
+            return <span>{params.value ? params.value : "-----"}</span>;
+          },
         },
         {
           field: "tipov",
@@ -96,7 +99,7 @@ const NotBalance = () => {
           width: 150,
           renderCell: (params) => {
             return (
-              <span style={{ color: "green" }}>
+              <span style={{ color: "red" }}>
                 {formatNumber(Number(params.value))}
               </span>
             );
@@ -107,17 +110,24 @@ const NotBalance = () => {
           headerName: "Fecha de Vencimiento",
           width: 170,
           renderCell: (params) => {
-            return <span style={{ color: "blue" }}>{params.value}</span>;
+            return (
+              <span style={{ color: "blue" }}>
+                {params.value ? params.value : "-----"}
+              </span>
+            );
           },
         },
       ],
     }));
-  }, [rows]);
+  }, [resultados_no_pagados]);
 
   return (
     <>
       <div style={{ width: "100%", maxWidth: "100%" }}>
-        <DataGridNotBalance rows={allRows} columns={allRows[0]?.columns || []} />
+        <DataGridNotBalance
+          rows={allRows}
+          columns={allRows[0]?.columns || []}
+        />
       </div>
       {scrollUp && (
         <button onClick={scrollToUp} className={style.scrollUpButton}>

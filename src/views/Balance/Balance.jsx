@@ -6,9 +6,7 @@ import style from "../Vehicles/vehicles.module.css";
 import formatNumber from "../../formatNumbers";
 
 const Balance = () => {
-  const rows = useSelector((state) =>
-    state?.details?.balancesData.map((row, index) => ({ ...row, id: index }))
-  );
+  const rows = useSelector((state) => state?.details?.balancesData);
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
@@ -31,11 +29,13 @@ const Balance = () => {
     return () => window.removeEventListener("scroll", handleScrollUp);
   }, []);
 
+  const resultados = rows?.resultados || [];
+
   const allRows = useMemo(() => {
     const uniqueIds = new Set();
     const filteredRows = [];
 
-    for (const row of rows) {
+    for (const row of resultados) {
       if (!uniqueIds.has(row.max_vehiculo_id)) {
         uniqueIds.add(row.max_vehiculo_id);
         filteredRows.push(row);
@@ -112,7 +112,7 @@ const Balance = () => {
         },
       ],
     }));
-  }, [rows]);
+  }, [resultados]);
 
   return (
     <>

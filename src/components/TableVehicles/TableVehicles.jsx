@@ -14,6 +14,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DownloadIcon from "@mui/icons-material/Download";
 import BusAlertIcon from "@mui/icons-material/BusAlert";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Paper from "@mui/material/Paper";
@@ -45,6 +47,7 @@ const DataGridVehicles = ({ rows, columns }) => {
   const [polizasRegistradas, setPolizasRegistradas] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [expandedGroups, setExpandedGroups] = useState({});
 
   const authUser = useSelector((state) => state?.auth?.authUser);
   const userRoles = useSelector((state) => state?.users?.userRoles);
@@ -140,7 +143,7 @@ const DataGridVehicles = ({ rows, columns }) => {
 
       // Se comprueba si el usuario logueado tiene permiso para editar o borrar
       const autorized = allowedEditRoles.includes(userRoleId);
-      
+
       return (
         <div
           style={{
@@ -218,6 +221,13 @@ const DataGridVehicles = ({ rows, columns }) => {
     } catch (error) {
       toast.error("Error al descargar el archivo excel, intente de nuevo");
     }
+  };
+
+  const toggleExpansion = (tipoVehiculo) => {
+    setExpandedGroups((prevExpandedGroups) => ({
+      ...prevExpandedGroups,
+      [tipoVehiculo]: !prevExpandedGroups[tipoVehiculo],
+    }));
   };
 
   return (
@@ -309,39 +319,55 @@ const DataGridVehicles = ({ rows, columns }) => {
               <Grid item xs={2}>
                 <Paper
                   elevation={3}
-                  style={{ color: "#0080ca" }}
+                  style={{ color: "#0080ca", marginTop: "3em" }}
                   className={style.paper}
                 >
-                  {group.tipoVehiculo}
+                  <div>
+                    <span>{group.tipoVehiculo}</span>
+                    <button
+                      onClick={() => toggleExpansion(group.tipoVehiculo)}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      {expandedGroups[group.tipoVehiculo] ? (
+                        <ExpandMoreIcon />
+                      ) : (
+                        <ExpandLessIcon />
+                      )}
+                    </button>
+                  </div>
                 </Paper>
               </Grid>
-              <DataGrid
-                rows={group.vehicles}
-                columns={[...columns, actionsColumn]}
-                initialState={{
-                  pagination: {
-                    paginationModel: { page: 0, pageSize: 25 },
-                  },
-                }}
-                pageSizeOptions={[25, 50, 100]}
-                autoHeight
-                loading={group.vehicles.length === 0}
-                virtualization
-                localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-                disableColumnSelector
-                disableDensitySelector
-                disableRowSelectionOnClick
-                components={{ Toolbar: GridToolbar }}
-                componentsProps={{
-                  toolbar: {
-                    csvOptions: { disableToolbarButton: true },
-                    printOptions: { disableToolbarButton: true },
-                    showQuickFilter: true,
-                    quickFilterProps: { debounceMs: 250 },
-                  },
-                }}
-                className={style.dataGrid}
-              />
+              {!expandedGroups[group.tipoVehiculo] && (
+                <DataGrid
+                  rows={group.vehicles}
+                  columns={[...columns, actionsColumn]}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 25 },
+                    },
+                  }}
+                  pageSizeOptions={[25, 50, 100]}
+                  autoHeight
+                  loading={group.vehicles.length === 0}
+                  virtualization
+                  localeText={
+                    esES.components.MuiDataGrid.defaultProps.localeText
+                  }
+                  disableColumnSelector
+                  disableDensitySelector
+                  disableRowSelectionOnClick
+                  components={{ Toolbar: GridToolbar }}
+                  componentsProps={{
+                    toolbar: {
+                      csvOptions: { disableToolbarButton: true },
+                      printOptions: { disableToolbarButton: true },
+                      showQuickFilter: true,
+                      quickFilterProps: { debounceMs: 250 },
+                    },
+                  }}
+                  className={style.dataGrid}
+                />
+              )}
               {index < groupedRows.length - 1 && (
                 <Divider
                   style={{

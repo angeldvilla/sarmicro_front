@@ -77,7 +77,7 @@ const DataGridNotBalance = ({ rows, columns }) => {
               <Grid item xs={2}>
                 <Paper
                   elevation={3}
-                  style={{ color: "#0080ca" }}
+                  style={{ color: "#0080ca", marginTop: "3em" }}
                   className={style.paper}
                 >
                   <div>
@@ -99,6 +99,7 @@ const DataGridNotBalance = ({ rows, columns }) => {
                 <DataGrid
                   rows={group.vehicles}
                   columns={columns}
+                  getRowId={(row) => row.max_vehiculo_id}
                   initialState={{
                     pagination: {
                       paginationModel: { page: 0, pageSize: 25 },

@@ -8,6 +8,7 @@ import {
   PARQUE_AUTOMOTOR_URL,
   EXPORT_EXCEL_VINCULADO_URL,
   EXPORT_EXCEL_DESVINCULADO_URL,
+  PROPIETARY_URL
 } from "./path.js";
 import {
   GET_VEHICULOS,
@@ -16,6 +17,7 @@ import {
   GET_OFF_VEHICULOS,
   GET_EXPORT_EXCEL_VINCULADOS,
   GET_EXPORT_EXCEL_DESVINCULADOS,
+  GET_PROPIETARY,
   LOADING,
 } from "./actionTypes.js";
 import { toast } from "sonner";
@@ -57,6 +59,23 @@ export const getOffVehiculos = () => {
     } catch (error) {
       console.error(error);
       toast.error("No hay datos de vehiculos");
+    }
+  };
+};
+
+// Acción para obtener datos de vehiculos desvinculados
+export const getPropietarys = () => {
+  return async (dispatch) => {
+    const propietaryPath = `${ENDPOINT}${PROPIETARY_URL}`;
+    try {
+      const { data } = await axios.get(propietaryPath);
+      return dispatch({
+        type: GET_PROPIETARY,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("No hay datos de propietarios");
     }
   };
 };

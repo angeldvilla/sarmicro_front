@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import { esES } from "@mui/x-data-grid";
 import Loader from "../Loader/Loader";
-import CreditCardOffIcon from '@mui/icons-material/CreditCardOff';
+import CreditCardOffIcon from "@mui/icons-material/CreditCardOff";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import style from "../TableVehicles/tablesVehicles.module.css";
@@ -92,7 +92,7 @@ const DataGridBalance = ({ rows, columns }) => {
               <Grid item xs={2}>
                 <Paper
                   elevation={3}
-                  style={{ color: "#0080ca" }}
+                  style={{ color: "#0080ca", marginTop: "3em" }}
                   className={style.paper}
                 >
                   <div>
@@ -114,6 +114,7 @@ const DataGridBalance = ({ rows, columns }) => {
                 <DataGrid
                   rows={group.vehicles}
                   columns={columns}
+                  getRowId={(row) => row.max_vehiculo_id}
                   initialState={{
                     pagination: {
                       paginationModel: { page: 0, pageSize: 25 },

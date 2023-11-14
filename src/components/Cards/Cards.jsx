@@ -6,12 +6,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import styles from "./card.module.css";
-import sarmicroLogo from "../../assets/images/sarmicroLogo.png";
 import valorPoliza from "../../assets/images/valorPolizas.jpg";
 import pagoPolizas from "../../assets/images/pagoPolizas.jpg";
 import parqueAutomotor from "../../assets/images/parqueAutomotor.jpg";
 import cuadreCaja from "../../assets/images/cuadreCaja.jpg";
 import deleted from "../../assets/images/deleted.png";
+import paymentClients from "../../assets/images/paymentClients.png";
 import users from "../../assets/images/users.png";
 
 export const CardPolicy = () => {
@@ -258,7 +258,7 @@ export const BalanceCard = () => {
               className={styles.cardImage}
               component="img"
               height="140"
-              image={sarmicroLogo}
+              image={paymentClients}
               alt="Detalle Polizas"
             />
             <CardContent>
@@ -268,7 +268,7 @@ export const BalanceCard = () => {
                 component="div"
                 className={styles.cardText}
               >
-                Saldo - Pago
+                Pago de Clientes
               </Typography>
               <Typography
                 variant="body2"
@@ -276,7 +276,7 @@ export const BalanceCard = () => {
                 className={styles.cardText}
               >
                 Esta tarjeta muestra información de los saldos y pagos
-                actualizados
+                de las polizas de clientes
               </Typography>
             </CardContent>
           </CardActionArea>
