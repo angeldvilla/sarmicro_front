@@ -14,7 +14,7 @@ import {
   getTipoEmpresas,
   getCompany,
 } from "../../redux/actions/actionsValues";
-import { getBalances } from "../../redux/actions/actionsDetails";
+import { getBalances } from "../../redux/actions/actionsCashBox";
 import {
   CardPolicy,
   CardPayments,

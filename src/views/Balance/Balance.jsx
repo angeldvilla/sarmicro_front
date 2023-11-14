@@ -6,7 +6,7 @@ import style from "../Vehicles/vehicles.module.css";
 import formatNumber from "../../formatNumbers";
 
 const Balance = () => {
-  const rows = useSelector((state) => state?.details?.balancesData);
+  const rows = useSelector((state) => state?.cash?.balancesData);
   const [scrollUp, setScrollUp] = useState(false);
 
   const handleScrollUp = () => {
