@@ -1,4 +1,4 @@
-# Proyecto de Gestión de Pólizas para TransArgelia y Cairo
+# Proyecto de Gestión de Valores de Pólizas
 
 ---
 
@@ -20,8 +20,8 @@ El objetivo de esta colaboración fue abordar las necesidades específicas de la
   - PHP
   - Larabel
 
-![PHP](https://img.icons8.com/?size=256&id=ew8X3wM9rXiK&format=png)
-![Laravel](https://img.icons8.com/?size=256&id=lRjcvhvtR81o&format=png)
+![PHP](https://img.icons8.com/?size=256&id=ew8X3wM9rXiK&format=png){:height="64px"}
+![Laravel](https://img.icons8.com/?size=256&id=lRjcvhvtR81o&format=png){:height="64px"}
 
 ---
 
@@ -30,9 +30,9 @@ El objetivo de esta colaboración fue abordar las necesidades específicas de la
   - Redux
   - Material-UI
 
-![React](https://img.icons8.com/?size=512&id=asWSSTBrDlTW&format=png)
-![Redux](https://img.icons8.com/?size=512&id=jD-fJzVguBmw&format=png)
-![Material-UI](https://img.icons8.com/?size=256&id=gFw7X5Tbl3ss&format=png)
+![React](https://img.icons8.com/?size=512&id=asWSSTBrDlTW&format=png){:height="64px"}
+![Redux](https://img.icons8.com/?size=512&id=jD-fJzVguBmw&format=png){:height="64px"}
+![Material-UI](https://img.icons8.com/?size=256&id=gFw7X5Tbl3ss&format=png){:height="64px"}
 
 ---
 
@@ -40,7 +40,7 @@ El objetivo de esta colaboración fue abordar las necesidades específicas de la
 
   - MySQL
 
-![MySQL](https://img.icons8.com/?size=256&id=UFXRpPFebwa2&format=png)
+![MySQL](https://img.icons8.com/?size=256&id=UFXRpPFebwa2&format=png){:height="64px"}
 
 ---
 
