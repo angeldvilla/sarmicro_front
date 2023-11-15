@@ -18,7 +18,7 @@ El objetivo de esta colaboración fue abordar las necesidades específicas de la
 
 - **Backend:**
   - PHP
-  - Larabel
+  - Laravel
 
 <div style="display: flex; justify-content: space-around;">
   <img src="https://img.icons8.com/?size=64&id=ew8X3wM9rXiK&format=png" alt="PHP" style="width: 64px; height: 64px;">
