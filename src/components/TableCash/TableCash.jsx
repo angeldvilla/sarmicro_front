@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import ModalCash from "../Modals/ModalCash/ModalCash";
 import ModalEgreso from "../Modals/ModalCash/ModalEgreso";
 import ModalDiary from "../Modals/ModalCash/ModalDiary";
-import { createPago } from "../../redux/actions/actionsCashBox";
+import { createPago, getPagos } from "../../redux/actions/actionsCashBox";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
 
@@ -23,6 +23,10 @@ const DataGridCash = ({ rows, columns }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPagos());
+  }, [dispatch])
 
   const backFunction = () => {
     navigate(-1);

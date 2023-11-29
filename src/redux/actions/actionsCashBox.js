@@ -46,7 +46,12 @@ export const createPago = (pagoData) => {
 
       toast.success("Pago creado con exito");
       dispatch(getPagos());
-      window.open("http://localhost:3000/recibo-de-egreso");
+
+      const currentPath = window.location.href;
+
+      const url = currentPath.replace(/\/[^/]*$/, "/recibo-de-egreso");
+
+      window.open(url);
     } catch (error) {
       console.error(error);
       toast.error("Error al crear el pago, intentar de nuevo");
