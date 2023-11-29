@@ -1,5 +1,6 @@
 import {
   CREATE_PAGO,
+  SAVE_PAGO,
   GET_PAGOS,
   LOGOUT,
   UPDATE_PAGO,
@@ -9,6 +10,7 @@ import {
 const initialState = {
   pagosData: [],
   balancesData: [],
+  egresoData: [],
 };
 
 export default function CuotasReducer(state = initialState, action) {
@@ -30,6 +32,12 @@ export default function CuotasReducer(state = initialState, action) {
       return {
         ...state,
         pagosData: newValuePago,
+      };
+
+    case SAVE_PAGO:
+      return {
+        ...state,
+        egresoData: action.payload,
       };
 
     case UPDATE_PAGO:

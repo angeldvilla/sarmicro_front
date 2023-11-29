@@ -13,6 +13,7 @@ import OffVehicles from "../views/Vehicles/VehiclesOff.jsx";
 import DetailPolicy from "../views/DetailPolicy/DetailPolicy.jsx";
 import Balance from "../views/Balance/Balance.jsx";
 import NotBalance from "../views/Balance/NotBalance.jsx";
+import ReciboEgreso from "../components/Modals/ModalCash/receiptEgress.jsx";
 import Users from "../views/Users/Users.jsx";
 import Error404 from "../views/Error/Error.jsx";
 
@@ -105,6 +106,14 @@ const RoutesApp = () => {
         element={
           <RoutesProtected>
             <NotBalance />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/recibo-de-egreso"
+        element={
+          <RoutesProtected>
+            <ReciboEgreso />
           </RoutesProtected>
         }
       />
