@@ -5,11 +5,11 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import FindInPageIcon from "@mui/icons-material/FindInPage";
 import MoneyOffCsredIcon from "@mui/icons-material/MoneyOffCsred";
 import ArchiveIcon from "@mui/icons-material/Archive";
-import PrintIcon from "@mui/icons-material/Print";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
+/* import PrintIcon from "@mui/icons-material/Print"; */
+/* import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip"; */
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ModalCash from "../Modals/ModalCash/ModalCash";
@@ -61,18 +61,15 @@ const DataGridCash = ({ rows, columns }) => {
     window.open(url);
   };
 
-  const handlePrint = (rowId) => {
-    /* const currentPath = window.location.href; */
-    /* const url = currentPath.replace(/\/[^/]*$/, "/recibo-caja"); */
-
+/*   const handlePrint = (rowId) => {
     const selectRow = rows.find((row) => row?.id === rowId);
 
     if (selectRow) {
       navigate(`/recibo-caja/${rowId}`, { state: { selectRow } });
     }
-  };
+  }; */
 
-  const actionsColumn = {
+/*   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
     width: 100,
@@ -97,7 +94,7 @@ const DataGridCash = ({ rows, columns }) => {
         </div>
       );
     },
-  };
+  }; */
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
@@ -205,7 +202,7 @@ const DataGridCash = ({ rows, columns }) => {
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={[...columns, actionsColumn]}
+          columns={columns}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 50 },
