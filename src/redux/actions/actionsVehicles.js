@@ -5,6 +5,7 @@ import {
   REGISTER_ALL_POLIZAS,
   REGISTER_OFF_VEHICULOS,
   VEHICULOS_OFF_URL,
+  DELETE_VEHICLE_DESVINCULATE_URL,
   PARQUE_AUTOMOTOR_URL,
   EXPORT_EXCEL_VINCULADO_URL,
   EXPORT_EXCEL_DESVINCULADO_URL,
@@ -163,6 +164,28 @@ export const deleteVehicle = (id) => {
     } catch (error) {
       console.error(error);
       toast.error("No hay datos de vehiculos");
+    }
+  };
+};
+
+
+//Acción para eliminar un vehiculo y todas sus polizas
+export const deleteVehicleAll = (vehicleData) => {
+  return async (dispatch) => {
+    const vehiculosPath = `${ENDPOINT}${DELETE_VEHICLE_DESVINCULATE_URL}`;
+    try {
+      /* const { data } = */ 
+      await axios.post(vehiculosPath, vehicleData);
+      toast.success("Vehiculo eliminado correctamente");
+      dispatch(getVehiculos());
+      dispatch(getOffVehiculos());
+      /* return dispatch({
+        type: DELETE_VEHICLE_ALL,
+        payload: data,
+      }) */
+    } catch (error) {
+      console.log(error);
+      toast.error("No se pudo borrar el vehiculo, intentar de nuevo");
     }
   };
 };

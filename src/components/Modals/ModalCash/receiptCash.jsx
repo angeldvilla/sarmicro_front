@@ -1,48 +1,53 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import formatNumber from "../../../formatNumbers";
 /* import { formatDate } from "../../../formatNumbers"; */
 import sarmicroLogo from "../../../assets/images/sarmicroLogo.png";
 import styles from "./receiptEgress.module.css";
 
-const ReciboEgreso = () => {
-  const egreso = useSelector((state) => state?.cash?.egresoData);
+const ReciboCaja = () => {
+  const location = useLocation();
+  const cash = location.state?.selectRow;
   let currentDate = new Date();
 
   useEffect(() => {
-    if (egreso) {
+    if (cash) {
       window.print();
     }
-  }, [egreso]);
+  }, [cash]);
 
-  if (!egreso) {
+  if (!cash) {
     return null;
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Recibo de Egreso</h1>
+        <h1>Recibo de Caja</h1>
         <img src={sarmicroLogo} alt="Sarmicro Logo" className={styles.logo} />
       </div>
 
       <table className={`${styles.table} ${styles.tableBordered}`}>
         <tbody>
           <tr>
-            <th>Fecha de creación:</th>
-            <td>{egreso?.fecha_creacion}</td>
+            <th>Fecha de pago:</th>
+            <td>{cash?.fecha_pago}</td>
           </tr>
           <tr>
-            <th>Número de Recibo:</th>
-            <td>{`# 000${egreso?.id}`}</td>
+            <th>Movil:</th>
+            <td>{`${cash?.id_movil}`}</td>
           </tr>
           <tr>
             <th>Concepto:</th>
-            <td>{egreso?.concepto}</td>
+            <td>{cash?.concepto}</td>
+          </tr>
+          <tr>
+            <th>Tipo de pago:</th>
+            <td>{cash?.tipo}</td>
           </tr>
           <tr>
             <th>Monto:</th>
-            <td>{formatNumber(egreso?.monto)}</td>
+            <td>{formatNumber(cash?.monto)}</td>
           </tr>
         </tbody>
       </table>
@@ -51,7 +56,7 @@ const ReciboEgreso = () => {
         <tbody>
           <tr>
             <th>Beneficiario:</th>
-            <td>{egreso?.nombre}</td>
+            <td>{cash?.nombre}</td>
           </tr>
           <tr>
             <th>CC:</th>
@@ -81,9 +86,11 @@ const ReciboEgreso = () => {
           </tr>
         </tbody>
       </table>
-      <p style={{ marginTop: "2em", marginBottom: "2em"}}>{`Fecha de Impresión: ${currentDate.toLocaleDateString()}`}</p>
+      <p
+        style={{ marginTop: "2em", marginBottom: "2em" }}
+      >{`Fecha de Impresión: ${currentDate.toLocaleDateString()}`}</p>
     </div>
   );
 };
 
-export default ReciboEgreso;
+export default ReciboCaja;

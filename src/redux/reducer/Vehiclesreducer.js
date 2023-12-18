@@ -41,12 +41,12 @@ export default function VehiclesReducer(state = initialState, action) {
         isLoading: false,
       };
 
-      case GET_PROPIETARY:
-        return {
-          ...state,
-          propietaryData: action.payload,
-          isLoading: false,
-        };
+    case GET_PROPIETARY:
+      return {
+        ...state,
+        propietaryData: action.payload,
+        isLoading: false,
+      };
 
     case CREATE_VEHICULO:
       const newValue = [...state.vechiculosData, action.payload];

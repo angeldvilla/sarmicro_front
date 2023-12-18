@@ -27,6 +27,7 @@ export const TIPO_EMPRESA_URL = "/tipo-empresa-poliza";
 export const NEW_COMPANY = "/compañia";
 export const BALANCE_URL = "/saldo-pago";
 export const PROPIETARY_URL = "/propietario";
+export const DELETE_VEHICLE_DESVINCULATE_URL = "/desvincular";
 
 
 export const EXPORT_EXCEL_VINCULADO_URL = "https://poliza.transargelia.com.co/public/api/recibos/parque-automotor-vinculado-excel";
