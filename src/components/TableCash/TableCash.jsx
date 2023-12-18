@@ -7,6 +7,9 @@ import MoneyOffCsredIcon from "@mui/icons-material/MoneyOffCsred";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavBar from "../NavBar/NavBar";
+/* import PrintIcon from "@mui/icons-material/Print"; */
+/* import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip"; */
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ModalCash from "../Modals/ModalCash/ModalCash";
@@ -26,7 +29,7 @@ const DataGridCash = ({ rows, columns }) => {
 
   useEffect(() => {
     dispatch(getPagos());
-  }, [dispatch])
+  }, [dispatch]);
 
   const backFunction = () => {
     navigate(-1);
@@ -57,6 +60,41 @@ const DataGridCash = ({ rows, columns }) => {
     const url = `https://poliza.transargelia.com.co/public/api/consulta-diaria/${date?.fecha_inicio} ${date?.hora_inicio}:00/${date?.fecha_fin} ${date?.hora_fin}:00`;
     window.open(url);
   };
+
+/*   const handlePrint = (rowId) => {
+    const selectRow = rows.find((row) => row?.id === rowId);
+
+    if (selectRow) {
+      navigate(`/recibo-caja/${rowId}`, { state: { selectRow } });
+    }
+  }; */
+
+/*   const actionsColumn = {
+    field: "actions",
+    headerName: "Acciones",
+    width: 100,
+    renderCell: (params) => {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            width: "95%",
+          }}
+        >
+          <Tooltip title="Imprimir">
+            <IconButton
+              aria-label="Imprimir"
+              onClick={() => handlePrint(params.id)}
+              color="warning"
+            >
+              <PrintIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+      );
+    },
+  }; */
 
   return (
     <div style={{ maxWidth: "100%", marginBottom: "20px" }}>
@@ -164,7 +202,7 @@ const DataGridCash = ({ rows, columns }) => {
         <DataGrid
           rows={rows}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-          columns={[...columns]}
+          columns={columns}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 50 },

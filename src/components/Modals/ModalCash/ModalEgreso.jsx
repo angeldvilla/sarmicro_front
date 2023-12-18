@@ -28,6 +28,7 @@ const DataGridEgresos = ({ open, handleClose, handleCreateEgreso }) => {
       monto: valueEgreso.monto,
       concepto: valueEgreso.concepto,
       nombre: valueEgreso.nombre,
+      fecha_creacion: valueEgreso.fecha_creacion,
       estado: 1,
       pagada: 1,
     };
@@ -160,7 +161,7 @@ const DataGridEgresos = ({ open, handleClose, handleCreateEgreso }) => {
           {/* </Grid> */}
           {/* <Grid item xs={2}>   */}
             <TextField
-              sx={{ width: "20em"}}
+              sx={{ width: "20em", mb: 2}}
               label="Pagado a"
               margin="none"
               name="Pagado a "
@@ -174,6 +175,36 @@ const DataGridEgresos = ({ open, handleClose, handleCreateEgreso }) => {
               }
             />
           {/* </Grid> */}
+          <TextField
+             sx={{ width: "20em", mb: 2}}
+              label="Fecha de creacion"
+              margin="none"
+              name="fechaCreacion"
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              value={valueEgreso ? valueEgreso?.fecha_creacion : ""}
+              placeholder="Fecha de creación del egreso"
+              onChange={(e) =>
+                setValueEgreso((prevState) => ({
+                  ...prevState,
+                  fecha_creacion: e.target.value,
+                }))
+              }
+            />
+       {/*      <TextField
+             sx={{ width: "20em", mb: 2}}
+              label="Concepto"
+              margin="none"
+              name="Concepto"
+              value={valueEgreso ? valueEgreso?.concepto : ""}
+              placeholder="Ingrese el concepto de egreso"
+              onChange={(e) =>
+                setValueEgreso((prevState) => ({
+                  ...prevState,
+                  concepto: e.target.value,
+                }))
+              }
+            /> */}
         </Grid>
       </Dialog>
     </div>

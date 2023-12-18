@@ -14,6 +14,7 @@ import DetailPolicy from "../views/DetailPolicy/DetailPolicy.jsx";
 import Balance from "../views/Balance/Balance.jsx";
 import NotBalance from "../views/Balance/NotBalance.jsx";
 import ReciboEgreso from "../components/Modals/ModalCash/receiptEgress.jsx";
+import ReciboCaja from "../components/Modals/ModalCash/receiptCash.jsx";
 import Users from "../views/Users/Users.jsx";
 import Error404 from "../views/Error/Error.jsx";
 
@@ -114,6 +115,14 @@ const RoutesApp = () => {
         element={
           <RoutesProtected>
             <ReciboEgreso />
+          </RoutesProtected>
+        }
+      />
+      <Route
+        path="/recibo-caja/:id"
+        element={
+          <RoutesProtected>
+            <ReciboCaja />
           </RoutesProtected>
         }
       />

@@ -16,6 +16,7 @@ import BusAlertIcon from "@mui/icons-material/BusAlert";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import NavBar from "../NavBar/NavBar";
 import Tooltip from "@mui/material/Tooltip";
 import Paper from "@mui/material/Paper";
@@ -23,12 +24,14 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import ModalCreateVehicle from "../Modals/ModalVehicles/ModalCreateVehicle";
 import ModalEditVehicle from "../Modals/ModalVehicles/ModalEditVehicle";
+import ModalFormDeleted from "../Modals/ModalFormDeleted/ModalFormDeleted";
 import {
   getVehiculos,
   createVehicle,
   updateVehicle,
   deleteVehicle,
   registerAllPolizas,
+  deleteVehicleAll,
 } from "../../redux/actions/actionsVehicles";
 import { esES } from "@mui/x-data-grid";
 import { Toaster, toast } from "sonner";
@@ -42,6 +45,7 @@ const DataGridVehicles = ({ rows, columns }) => {
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openDeleteAll, setOpenDeleteAll] = useState(false);
   const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [polizasRegistradas, setPolizasRegistradas] = useState(false);
@@ -126,10 +130,26 @@ const DataGridVehicles = ({ rows, columns }) => {
     setOpenDelete(false);
   };
 
+  const handleConfirmDeleteAll = (rowId) => {
+    const selectedRow = rows.find((row) => row.id === rowId);
+    setRowEdit(selectedRow);
+    setOpenDeleteAll(true);
+  };
+
+  const handleDeleteAll = (data) => {
+    try {
+      setOpenDeleteAll(false);
+      dispatch(deleteVehicleAll(data));
+    } catch (error) {
+      console.log(error);
+    }
+    
+  };
+
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 90,
+    width: 110,
     renderCell: (params) => {
       // Encuentra el role_id del usuario logueado
       const loggedInUserId = authUser.user.id;
@@ -167,10 +187,21 @@ const DataGridVehicles = ({ rows, columns }) => {
             <Tooltip title="Borrar">
               <IconButton
                 aria-label="Borrar"
-                style={{ color: "#dd0000" }}
+                style={{ color: "#dd000088" }}
                 onClick={() => handleConfirmDelete(params.id)}
               >
                 <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          {autorized && (
+            <Tooltip title="Eliminar Todo">
+              <IconButton
+                aria-label="Eliminar"
+                style={{ color: "#dd0000" }}
+                onClick={() => handleConfirmDeleteAll(params.id)}
+              >
+                <DeleteForeverIcon />
               </IconButton>
             </Tooltip>
           )}
@@ -382,6 +413,7 @@ const DataGridVehicles = ({ rows, columns }) => {
         </div>
       )}
       <Toaster richColors position="top-right" />
+      {/* Modal para eliminar un vehiculo */}
       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle
           style={{
@@ -408,6 +440,8 @@ const DataGridVehicles = ({ rows, columns }) => {
           </button>
         </DialogActions>
       </Dialog>
+
+      {/* // Modal para registrar todas las polizas */}
       <Dialog
         open={openRegisterPolizas}
         onClose={() => setOpenRegisterPolizas(false)}
@@ -446,6 +480,12 @@ const DataGridVehicles = ({ rows, columns }) => {
         open={openEdit}
         handleClose={() => setOpenEdit(false)}
         handleEdit={handleEdit}
+        rowEdit={rowEdit}
+      />
+      <ModalFormDeleted
+        open={openDeleteAll}
+        handleClose={() => setOpenDeleteAll(false)}
+        handleDelete={handleDeleteAll}
         rowEdit={rowEdit}
       />
     </div>

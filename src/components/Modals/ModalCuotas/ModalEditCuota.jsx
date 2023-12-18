@@ -149,7 +149,7 @@ export default function ModalEditCuota({
                   monto: e.target.value,
                 }))
               }
-              disabled
+              /* disabled */
             />
           </Grid>
 
