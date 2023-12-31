@@ -20,7 +20,7 @@ import Error404 from "../views/Error/Error.jsx";
 
 const RoutesApp = () => {
   //verificamos si el usuario ya esta logueado
-  const userAuth = useSelector((state) => state?.auth?.authUser.access_token);
+  const userAuth = useSelector((state) => state?.auth?.authUser?.access_token);
 
   return (
     <Routes>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -19,16 +24,20 @@ export default function ModalCreateVehicle({
   handleClose,
   handleCreate,
 }) {
+  const typePolicy = useSelector((state) => state?.values?.typesPolicys);
+
   const [newVehicle, setNewVehicle] = useState({
     id_movil: "",
     id_marca: "",
+    propietario: "",
     id_propietario: "",
+    telefono: "",
     modelo: "",
     placa: "",
     clase: "",
     grupo: "",
     motor: "",
-    poliza: "",
+    poliza: "0",
     referencia: "",
     serie: "",
     tipo: "",
@@ -134,6 +143,22 @@ export default function ModalCreateVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Propietario"
+              margin="none"
+              name="Propietario"
+              value={newVehicle ? newVehicle?.propietario : ""}
+              placeholder="Ingrese el nombre del propietario del vehiculo"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  propietario: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="ID Propietaro"
               margin="none"
               name="IdPropietario"
@@ -143,6 +168,22 @@ export default function ModalCreateVehicle({
                 setNewVehicle((prevState) => ({
                   ...prevState,
                   id_propietario: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Telefono"
+              margin="none"
+              name="Telefono"
+              value={newVehicle ? newVehicle?.telefono : ""}
+              placeholder="Ingrese el numero de telefono del propietario"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  telefono: e.target.value,
                 }))
               }
             />
@@ -228,23 +269,6 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Poliza"
-              margin="none"
-              name="Poliza"
-              value={newVehicle ? newVehicle?.poliza : ""}
-              placeholder="Ingrese el numero de poliza del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  poliza: e.target.value,
-                }))
-              }
-            />
-          </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -294,7 +318,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Tipo de Vehiculo"
@@ -309,6 +333,32 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
+          </Grid> */}
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Tipo de Vehiculo</InputLabel>
+              <Select
+                label="Tipo de Vehiculo"
+                variant="outlined"
+                value={newVehicle ? newVehicle?.tipov : ""}
+                onChange={(e) =>
+                  setNewVehicle((prevState) => ({
+                    ...prevState,
+                    tipov: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value="">
+                  <em className="uppercase">Ninguno</em>
+                </MenuItem>
+                {typePolicy &&
+                  typePolicy.map((policy) => (
+                    <MenuItem key={policy.id_tipov} value={policy.tipov}>
+                      {policy.tipov}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       </Dialog>

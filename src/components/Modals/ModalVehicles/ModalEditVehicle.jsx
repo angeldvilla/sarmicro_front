@@ -338,7 +338,7 @@ export default function ModalEditVehicle({
                 }
               >
                 <MenuItem value="">
-                  <em>Ninguno</em>
+                  <em className="uppercase">Ninguno</em>
                 </MenuItem>
                 {typePolicy &&
                   typePolicy.map((policy) => (
