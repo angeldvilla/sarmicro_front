@@ -25,12 +25,14 @@ export default function ModalCreateVehicle({
   handleCreate,
 }) {
   const typeVehicle = useSelector((state) => state?.values?.typesPolicys);
+  const propietary = useSelector((state) => state?.vehicles?.propietaryData);
+  const brandVehicle = useSelector((state) => state?.vehicles?.brandsData);
 
   const [newVehicle, setNewVehicle] = useState({
     id_movil: "",
     id_marca: "",
     propietario: "",
-    /* id_propietario: "", */
+    id_propietario: "",
     id_tipov: "",
     telefono: "",
     marca: "",
@@ -127,7 +129,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="ID Marca"
@@ -142,8 +144,8 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
-          </Grid>
-          <Grid item xs={6}>
+          </Grid> */}
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Propietario"
@@ -158,7 +160,47 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
+          </Grid> */}
+
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Propietario</InputLabel>
+              <Select
+                label="Propietario"
+                variant="outlined"
+                value={newVehicle ? newVehicle?.propietario : ""}
+                onChange={(e) => {
+                  const selectedPropietario = e.target.value;
+
+                  const foundPropietary = propietary.find(
+                    (propietary) =>
+                      propietary.nombreCompleto === selectedPropietario
+                  );
+
+                  const found_id_propietary = foundPropietary
+                    ? foundPropietary?.id_propietario
+                    : "";
+
+                  setNewVehicle((prevState) => ({
+                    ...prevState,
+                    id_propietario: found_id_propietary,
+                    propietario: selectedPropietario,
+                  }));
+                }}
+              >
+                <MenuItem value="">
+                  <em className="uppercase">Ninguno</em>
+                </MenuItem>
+                {propietary &&
+                  propietary.map((p) => (
+                    <MenuItem key={p.id_propietario} value={p.nombreCompleto}>
+                      {p.nombreCompleto}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
+
           {/* <Grid item xs={6}>
             <TextField
               fullWidth
@@ -191,7 +233,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Marca"
@@ -206,6 +248,43 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
+          </Grid> */}
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Marca</InputLabel>
+              <Select
+                label="Marca"
+                variant="outlined"
+                value={newVehicle ? newVehicle?.marca : ""}
+                onChange={(e) => {
+                  const selectedBrand = e.target.value;
+
+                  const foundBrand = brandVehicle.find(
+                    (brand) => brand.marca === selectedBrand
+                  );
+
+                  const found_id_marca = foundBrand
+                    ? String(foundBrand.id_marca)
+                    : "";
+
+                  setNewVehicle((prevState) => ({
+                    ...prevState,
+                    id_marca: String(found_id_marca),
+                    marca: selectedBrand,
+                  }));
+                }}
+              >
+                <MenuItem value="">
+                  <em className="uppercase">Ninguno</em>
+                </MenuItem>
+                {brandVehicle &&
+                  brandVehicle.map((brand) => (
+                    <MenuItem key={brand.id} value={brand.marca}>
+                      {brand.marca}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -266,12 +345,13 @@ export default function ModalCreateVehicle({
               onChange={(e) =>
                 setNewVehicle((prevState) => ({
                   ...prevState,
-                  clase: e.target.value,
+                  color: e.target.value,
                 }))
               }
             />
           </Grid>
-          <Grid item xs={6}>
+
+          {/*  <Grid item xs={6}>
             <TextField
               fullWidth
               label="Grupo"
@@ -286,6 +366,31 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
+          </Grid> */}
+
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Grupo</InputLabel>
+              <Select
+                label="Grupo"
+                variant="outlined"
+                value={newVehicle ? newVehicle?.grupo : ""}
+                onChange={(e) =>
+                  setNewVehicle((prevState) => ({
+                    ...prevState,
+                    grupo: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value="">
+                  <em className="uppercase">Ninguno</em>
+                </MenuItem>
+
+                <MenuItem value="TA">TA</MenuItem>
+                <MenuItem value="TC">TC</MenuItem>
+                <MenuItem value="TE">TE</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
 
           <Grid item xs={6}>
@@ -304,6 +409,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -353,6 +459,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
+
           {/*   <Grid item xs={6}>
             <TextField
               fullWidth

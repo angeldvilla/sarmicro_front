@@ -9,7 +9,8 @@ import {
   PARQUE_AUTOMOTOR_URL,
   EXPORT_EXCEL_VINCULADO_URL,
   EXPORT_EXCEL_DESVINCULADO_URL,
-  PROPIETARY_URL
+  PROPIETARY_URL,
+  BRANDS_URL
 } from "./path.js";
 import {
   GET_VEHICULOS,
@@ -19,6 +20,7 @@ import {
   GET_EXPORT_EXCEL_VINCULADOS,
   GET_EXPORT_EXCEL_DESVINCULADOS,
   GET_PROPIETARY,
+  GET_BRANDS,
   LOADING,
 } from "./actionTypes.js";
 import { toast } from "sonner";
@@ -64,7 +66,7 @@ export const getOffVehiculos = () => {
   };
 };
 
-// Acción para obtener datos de vehiculos desvinculados
+// Acción para obtener datos de propietarios de vehiculos
 export const getPropietarys = () => {
   return async (dispatch) => {
     const propietaryPath = `${ENDPOINT}${PROPIETARY_URL}`;
@@ -77,6 +79,23 @@ export const getPropietarys = () => {
     } catch (error) {
       console.error(error);
       toast.error("No hay datos de propietarios");
+    }
+  };
+};
+
+// Acción para obtener datos de marcas de los vehiculos
+export const getAllBrands = () => {
+  return async (dispatch) => {
+    const brandsPath = `${ENDPOINT}${BRANDS_URL}`;
+    try {
+      const { data } = await axios.get(brandsPath);
+      return dispatch({
+        type: GET_BRANDS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("No hay datos de marcas");
     }
   };
 };
@@ -174,7 +193,7 @@ export const deleteVehicleAll = (vehicleData) => {
   return async (dispatch) => {
     const vehiculosPath = `${ENDPOINT}${DELETE_VEHICLE_DESVINCULATE_URL}`;
     try {
-      /* const { data } = */ 
+      /* const { data } = */
       await axios.post(vehiculosPath, vehicleData);
       toast.success("Vehiculo eliminado correctamente");
       dispatch(getVehiculos());

@@ -27,6 +27,7 @@ export const TIPO_EMPRESA_URL = "/tipo-empresa-poliza";
 export const NEW_COMPANY = "/compañia";
 export const BALANCE_URL = "/saldo-pago";
 export const PROPIETARY_URL = "/propietario";
+export const BRANDS_URL = "/getMarcaAll";
 export const DELETE_VEHICLE_DESVINCULATE_URL = "/desvincular";
 
 
