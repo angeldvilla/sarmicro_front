@@ -255,6 +255,22 @@ export default function ModalEditVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Marca"
+              margin="none"
+              name="Marca"
+              value={editedRow ? editedRow?.marca : ""}
+              placeholder="Ingrese la marca del vehículo"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  marca: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="Clase"
               margin="none"
               name="Clase"
