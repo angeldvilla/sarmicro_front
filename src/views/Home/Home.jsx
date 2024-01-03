@@ -28,7 +28,7 @@ import ModalHome from "../../components/Modals/ModalHome/ModalHome";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import styles from "./home.module.css";
-import { getPropietarys } from "../../redux/actions/actionsVehicles";
+import { getPropietarys, getAllBrands } from "../../redux/actions/actionsVehicles";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -50,6 +50,7 @@ const Home = () => {
     dispatch(getCompany());
     dispatch(getBalances());
     dispatch(getPropietarys());
+    dispatch(getAllBrands());
 
     // Verifica si el modal ya se ha mostrado en la sesión actual
     const modalShown = sessionStorage.getItem("modalShown");

@@ -39,6 +39,7 @@ export default function ModalEditVehicle({
 
   const typePolicy = useSelector((state) => state?.values?.typesPolicys);
   const propietary = useSelector((state) => state?.vehicles?.propietaryData);
+  const brandVehicle = useSelector((state) => state?.vehicles?.brandsData);
 
   const handleEditVehiculo = () => {
     const data = {
@@ -167,7 +168,8 @@ export default function ModalEditVehicle({
                   ))}
               </Select>
             </FormControl>
-            {/*    <TextField
+          </Grid>
+          {/* <TextField
               fullWidth
               label="Propietaro"
               margin="none"
@@ -181,7 +183,6 @@ export default function ModalEditVehicle({
                 }))
               }
             /> */}
-          </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -198,7 +199,7 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/*  <Grid item xs={6}>
             <TextField
               fullWidth
               label="Marca"
@@ -213,7 +214,44 @@ export default function ModalEditVehicle({
                 }))
               }
             />
+          </Grid> */}
+
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Marca</InputLabel>
+              <Select
+                label="Marca"
+                variant="outlined"
+                value={editedRow ? editedRow?.marca : ""}
+                onChange={(e) => {
+                  const selectedBrand = e.target.value;
+
+                  const foundBrand = brandVehicle.find(
+                    (brand) => brand.marca === selectedBrand
+                  );
+
+                  const found_id_marca = foundBrand ? foundBrand.id_marca : "";
+
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    id_marca: found_id_marca,
+                    marca: selectedBrand,
+                  }));
+                }}
+              >
+                <MenuItem value="">
+                  <em className="uppercase">Ninguno</em>
+                </MenuItem>
+                {brandVehicle &&
+                  brandVehicle.map((brand) => (
+                    <MenuItem key={brand.id} value={brand.marca}>
+                      {brand.marca}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -294,7 +332,7 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Grupo"
@@ -309,6 +347,30 @@ export default function ModalEditVehicle({
                 }))
               }
             />
+          </Grid> */}
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Grupo</InputLabel>
+              <Select
+                label="Grupo"
+                variant="outlined"
+                value={editedRow ? editedRow?.grupo : ""}
+                onChange={(e) =>
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    grupo: e.target.value,
+                  }))
+                }
+              >
+                <MenuItem value="">
+                  <em className="uppercase">Ninguno</em>
+                </MenuItem>
+
+                <MenuItem value="TA">TA</MenuItem>
+                <MenuItem value="TC">TC</MenuItem>
+                <MenuItem value="TE">TE</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
             <TextField

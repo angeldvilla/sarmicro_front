@@ -8,12 +8,14 @@ import {
   LOGOUT,
   LOADING,
   GET_PROPIETARY,
+  GET_BRANDS
 } from "../actions/actionTypes";
 
 const initialState = {
   vechiculosData: [],
   offVehiculos: [],
   propietaryData: [],
+  brandsData: [],
   excelExportVinculados: [],
   excelExportDesvinculados: [],
   isLoading: null,
@@ -45,6 +47,13 @@ export default function VehiclesReducer(state = initialState, action) {
       return {
         ...state,
         propietaryData: action.payload,
+        isLoading: false,
+      };
+
+    case GET_BRANDS:
+      return {
+        ...state,
+        brandsData: action.payload,
         isLoading: false,
       };
 
