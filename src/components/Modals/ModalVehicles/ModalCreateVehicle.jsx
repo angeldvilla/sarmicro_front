@@ -24,17 +24,20 @@ export default function ModalCreateVehicle({
   handleClose,
   handleCreate,
 }) {
-  const typePolicy = useSelector((state) => state?.values?.typesPolicys);
+  const typeVehicle = useSelector((state) => state?.values?.typesPolicys);
 
   const [newVehicle, setNewVehicle] = useState({
     id_movil: "",
     id_marca: "",
     propietario: "",
-    id_propietario: "",
+    /* id_propietario: "", */
+    id_tipov: "",
     telefono: "",
+    marca: "",
     modelo: "",
     placa: "",
     clase: "",
+    color: "",
     grupo: "",
     motor: "",
     poliza: "0",
@@ -111,9 +114,9 @@ export default function ModalCreateVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="ID Movil"
+              label="Movil"
               margin="none"
-              name="IdMovil"
+              name="Movil"
               value={newVehicle ? newVehicle?.id_movil : ""}
               placeholder="Ingrese el identificador del movil"
               onChange={(e) =>
@@ -156,7 +159,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="ID Propietaro"
@@ -171,7 +174,7 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -184,6 +187,22 @@ export default function ModalCreateVehicle({
                 setNewVehicle((prevState) => ({
                   ...prevState,
                   telefono: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Marca"
+              margin="none"
+              name="Marca"
+              value={newVehicle ? newVehicle?.marca : ""}
+              placeholder="Ingrese la marca del vehiculo"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  marca: e.target.value,
                 }))
               }
             />
@@ -228,6 +247,22 @@ export default function ModalCreateVehicle({
               name="Clase"
               value={newVehicle ? newVehicle?.clase : ""}
               placeholder="Ingrese la clase del vehiculo"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  clase: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Color"
+              margin="none"
+              name="Color"
+              value={newVehicle ? newVehicle?.color : ""}
+              placeholder="Ingrese el color del vehiculo"
               onChange={(e) =>
                 setNewVehicle((prevState) => ({
                   ...prevState,
@@ -341,18 +376,27 @@ export default function ModalCreateVehicle({
                 label="Tipo de Vehiculo"
                 variant="outlined"
                 value={newVehicle ? newVehicle?.tipov : ""}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const selectedType = e.target.value;
+
+                  const foundType = typeVehicle.find(
+                    (policy) => policy.tipov === selectedType
+                  );
+
+                  const id_tipov = foundType ? foundType.id_tipov : null;
+
                   setNewVehicle((prevState) => ({
                     ...prevState,
-                    tipov: e.target.value,
-                  }))
-                }
+                    id_tipov: id_tipov,
+                    tipov: selectedType,
+                  }));
+                }}
               >
                 <MenuItem value="">
                   <em className="uppercase">Ninguno</em>
                 </MenuItem>
-                {typePolicy &&
-                  typePolicy.map((policy) => (
+                {typeVehicle &&
+                  typeVehicle.map((policy) => (
                     <MenuItem key={policy.id_tipov} value={policy.tipov}>
                       {policy.tipov}
                     </MenuItem>

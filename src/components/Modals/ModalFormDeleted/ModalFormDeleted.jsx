@@ -30,7 +30,6 @@ export default function ModalFormDeleted({
   }, [open, rowEdit]);
 
   const [editedRow, setEditedRow] = useState(rowEdit);
-  console.log(editedRow);
 
   const [openDelete, setOpenDelete] = useState(false);
   const [saldoCajaN, setSaldoCajaN] = useState("");
