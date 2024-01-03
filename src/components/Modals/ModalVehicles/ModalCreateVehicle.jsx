@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -19,16 +24,23 @@ export default function ModalCreateVehicle({
   handleClose,
   handleCreate,
 }) {
+  const typeVehicle = useSelector((state) => state?.values?.typesPolicys);
+
   const [newVehicle, setNewVehicle] = useState({
     id_movil: "",
     id_marca: "",
-    id_propietario: "",
+    propietario: "",
+    /* id_propietario: "", */
+    id_tipov: "",
+    telefono: "",
+    marca: "",
     modelo: "",
     placa: "",
     clase: "",
+    color: "",
     grupo: "",
     motor: "",
-    poliza: "",
+    poliza: "0",
     referencia: "",
     serie: "",
     tipo: "",
@@ -102,9 +114,9 @@ export default function ModalCreateVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
-              label="ID Movil"
+              label="Movil"
               margin="none"
-              name="IdMovil"
+              name="Movil"
               value={newVehicle ? newVehicle?.id_movil : ""}
               placeholder="Ingrese el identificador del movil"
               onChange={(e) =>
@@ -134,6 +146,22 @@ export default function ModalCreateVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Propietario"
+              margin="none"
+              name="Propietario"
+              value={newVehicle ? newVehicle?.propietario : ""}
+              placeholder="Ingrese el nombre del propietario del vehiculo"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  propietario: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          {/* <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="ID Propietaro"
               margin="none"
               name="IdPropietario"
@@ -143,6 +171,38 @@ export default function ModalCreateVehicle({
                 setNewVehicle((prevState) => ({
                   ...prevState,
                   id_propietario: e.target.value,
+                }))
+              }
+            />
+          </Grid> */}
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Telefono"
+              margin="none"
+              name="Telefono"
+              value={newVehicle ? newVehicle?.telefono : ""}
+              placeholder="Ingrese el numero de telefono del propietario"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  telefono: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Marca"
+              margin="none"
+              name="Marca"
+              value={newVehicle ? newVehicle?.marca : ""}
+              placeholder="Ingrese la marca del vehiculo"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  marca: e.target.value,
                 }))
               }
             />
@@ -198,6 +258,22 @@ export default function ModalCreateVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Color"
+              margin="none"
+              name="Color"
+              value={newVehicle ? newVehicle?.color : ""}
+              placeholder="Ingrese el color del vehiculo"
+              onChange={(e) =>
+                setNewVehicle((prevState) => ({
+                  ...prevState,
+                  clase: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="Grupo"
               margin="none"
               name="Grupo"
@@ -224,23 +300,6 @@ export default function ModalCreateVehicle({
                 setNewVehicle((prevState) => ({
                   ...prevState,
                   motor: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Poliza"
-              margin="none"
-              name="Poliza"
-              value={newVehicle ? newVehicle?.poliza : ""}
-              placeholder="Ingrese el numero de poliza del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  poliza: e.target.value,
                 }))
               }
             />
@@ -294,7 +353,7 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          <Grid item xs={6}>
+          {/*   <Grid item xs={6}>
             <TextField
               fullWidth
               label="Tipo de Vehiculo"
@@ -309,6 +368,41 @@ export default function ModalCreateVehicle({
                 }))
               }
             />
+          </Grid> */}
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel>Tipo de Vehiculo</InputLabel>
+              <Select
+                label="Tipo de Vehiculo"
+                variant="outlined"
+                value={newVehicle ? newVehicle?.tipov : ""}
+                onChange={(e) => {
+                  const selectedType = e.target.value;
+
+                  const foundType = typeVehicle.find(
+                    (policy) => policy.tipov === selectedType
+                  );
+
+                  const id_tipov = foundType ? foundType.id_tipov : null;
+
+                  setNewVehicle((prevState) => ({
+                    ...prevState,
+                    id_tipov: id_tipov,
+                    tipov: selectedType,
+                  }));
+                }}
+              >
+                <MenuItem value="">
+                  <em className="uppercase">Ninguno</em>
+                </MenuItem>
+                {typeVehicle &&
+                  typeVehicle.map((policy) => (
+                    <MenuItem key={policy.id_tipov} value={policy.tipov}>
+                      {policy.tipov}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       </Dialog>

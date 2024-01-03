@@ -46,10 +46,13 @@ export default function ModalEditVehicle({
       id_marca: editedRow.id_marca,
       propietario: editedOwnerName,
       id_propietario: editedOwnerId,
+      id_tipov: editedRow.id_tipov,
       telefono: editedRow.telefono,
+      marca: editedRow.marca,
       clase: editedRow.clase,
       placa: editedRow.placa,
       modelo: editedRow.modelo,
+      color: editedRow.color,
       motor: editedRow.motor,
       grupo: editedRow.grupo,
       poliza: editedRow.poliza,
@@ -198,6 +201,22 @@ export default function ModalEditVehicle({
           <Grid item xs={6}>
             <TextField
               fullWidth
+              label="Marca"
+              margin="none"
+              name="Marca"
+              value={editedRow ? editedRow?.marca : ""}
+              placeholder="Ingrese la marca del vehículo"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  marca: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
               label="Clase"
               margin="none"
               name="Clase"
@@ -207,6 +226,22 @@ export default function ModalEditVehicle({
                 setEditedRow((prevState) => ({
                   ...prevState,
                   clase: e.target.value,
+                }))
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Color"
+              margin="none"
+              name="Color"
+              value={editedRow ? editedRow?.color : ""}
+              placeholder="Ingrese el color del vehiculo"
+              onChange={(e) =>
+                setEditedRow((prevState) => ({
+                  ...prevState,
+                  color: e.target.value,
                 }))
               }
             />
@@ -330,15 +365,24 @@ export default function ModalEditVehicle({
                 label="Tipo de Vehiculo"
                 variant="outlined"
                 value={editedRow ? editedRow?.tipov : ""}
-                onChange={(e) =>
+                onChange={(e) => {
+                  const selectedType = e.target.value;
+
+                  const foundType = typePolicy.find(
+                    (policy) => policy.tipov === selectedType
+                  );
+
+                  const newIdTipoV = foundType ? foundType?.id_tipov : "";
+
                   setEditedRow((prevState) => ({
                     ...prevState,
-                    tipov: e.target.value,
-                  }))
-                }
+                    id_tipov: String(newIdTipoV),
+                    tipov: selectedType,
+                  }));
+                }}
               >
                 <MenuItem value="">
-                  <em>Ninguno</em>
+                  <em className="uppercase">Ninguno</em>
                 </MenuItem>
                 {typePolicy &&
                   typePolicy.map((policy) => (

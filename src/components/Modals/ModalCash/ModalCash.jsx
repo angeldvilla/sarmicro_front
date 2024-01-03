@@ -123,7 +123,7 @@ const DataGridForm = ({ open, handleClose, rows }) => {
               return (
                 <tr key={index}>
                   <td style={cellStyle}>{row?.id_movil}</td>
-                  <td style={cellStyle}>2023000{row?.id}</td>
+                  <td style={cellStyle}>000{row?.id}</td>
                   <td style={cellStyle}>{concepto}</td>
                   <td style={cellStyle}>{row?.fecha_pago}</td>
                   <td
