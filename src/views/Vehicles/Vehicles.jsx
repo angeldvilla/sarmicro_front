@@ -159,7 +159,7 @@ const Vehicles = () => {
         {
           field: "estado",
           headerName: "Estado",
-          width: 100,
+          width: 85,
           renderCell: (params) => (
             <Switch
               label={params}
