@@ -60,8 +60,6 @@ export default function ModalEditVehicle({
     handleEdit(data, rowEdit.id);
   };
 
-  console.log(editedRow);
-
   return (
     <div>
       <Dialog
