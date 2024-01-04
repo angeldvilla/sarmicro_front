@@ -10,10 +10,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Select from "react-select";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -26,14 +24,10 @@ export default function ModalEditVehicle({
   rowEdit,
 }) {
   const [editedRow, setEditedRow] = useState(rowEdit);
-  const [editedOwnerId, setEditedOwnerId] = useState(null);
-  const [editedOwnerName, setEditedOwnerName] = useState("");
 
   useEffect(() => {
     if (rowEdit) {
       setEditedRow(rowEdit);
-      setEditedOwnerId(rowEdit.id_propietario);
-      setEditedOwnerName(rowEdit.propietario);
     }
   }, [open, rowEdit]);
 
@@ -45,8 +39,8 @@ export default function ModalEditVehicle({
     const data = {
       id_movil: editedRow.id_movil,
       id_marca: editedRow.id_marca,
-      propietario: editedOwnerName,
-      id_propietario: editedOwnerId,
+      propietario: editedRow.propietario,
+      id_propietario: editedRow.id_propietario,
       id_tipov: editedRow.id_tipov,
       telefono: editedRow.telefono,
       marca: editedRow.marca,
@@ -65,6 +59,8 @@ export default function ModalEditVehicle({
     };
     handleEdit(data, rowEdit.id);
   };
+
+  console.log(editedRow);
 
   return (
     <div>
@@ -139,50 +135,59 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
+
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Propietario</InputLabel>
               <Select
-                label="Propietario"
-                variant="outlined"
-                value={editedOwnerName}
-                onChange={(e) => {
-                  const selectedPropietario = e.target.value;
+                options={[
+                  { label: "NINGUNO", value: null },
+                  ...propietary.map((p) => ({
+                    label: p?.nombreCompleto,
+                    value: p?.nombreCompleto,
+                  })),
+                ]}
+                value={
+                  editedRow?.propietario
+                    ? {
+                        label: editedRow?.propietario,
+                        value: editedRow?.propietario,
+                      }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontraron propietarios"}
+                onChange={(selectedOption) => {
+                  const selectedPropietario = selectedOption.value;
+
                   const foundPropietary = propietary.find(
                     (propietary) =>
-                      propietary.nombreCompleto === selectedPropietario
+                      propietary?.nombreCompleto === selectedPropietario
                   );
 
-                  setEditedOwnerId(foundPropietary.id_propietario);
-                  setEditedOwnerName(selectedPropietario);
+                  const found_id_propietary = foundPropietary
+                    ? foundPropietary?.id_propietario
+                    : "";
+
+                  setEditedRow((prevState) => ({
+                    ...prevState,
+                    id_propietario: found_id_propietary,
+                    propietario: selectedPropietario,
+                  }));
                 }}
-              >
-                <MenuItem value="">
-                  <em>Ninguno</em>
-                </MenuItem>
-                {propietary &&
-                  propietary.map((p) => (
-                    <MenuItem key={p.id_propietario} value={p.nombreCompleto}>
-                      {p.nombreCompleto}
-                    </MenuItem>
-                  ))}
-              </Select>
+                isSearchable
+                placeholder="Propietario"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
-          {/* <TextField
-              fullWidth
-              label="Propietaro"
-              margin="none"
-              name="Propietario"
-              value={editedRow ? editedRow?.propietario : ""}
-              placeholder="Ingrese datos del propietario"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  propietario: e.target.value,
-                }))
-              }
-            /> */}
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -199,75 +204,57 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          {/*  <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Marca"
-              margin="none"
-              name="Marca"
-              value={editedRow ? editedRow?.marca : ""}
-              placeholder="Ingrese la marca del vehículo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  marca: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
 
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Marca</InputLabel>
               <Select
-                label="Marca"
-                variant="outlined"
-                value={editedRow ? editedRow?.marca : ""}
-                onChange={(e) => {
-                  const selectedBrand = e.target.value;
+                options={[
+                  { label: "NINGUNO", value: null },
+                  ...brandVehicle.map((brand) => ({
+                    label: brand?.marca,
+                    value: brand?.marca,
+                  })),
+                ]}
+                value={
+                  editedRow?.marca
+                    ? { label: editedRow?.marca, value: editedRow?.marca }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontraron marcas"}
+                onChange={(selectedOption) => {
+                  const selectedBrand = selectedOption
+                    ? selectedOption.value
+                    : null;
 
                   const foundBrand = brandVehicle.find(
-                    (brand) => brand.marca === selectedBrand
+                    (brand) => brand?.marca === selectedBrand
                   );
 
-                  const found_id_marca = foundBrand ? foundBrand.id_marca : "";
+                  const found_id_marca = foundBrand
+                    ? String(foundBrand?.id_marca)
+                    : "";
 
                   setEditedRow((prevState) => ({
                     ...prevState,
-                    id_marca: found_id_marca,
+                    id_marca: String(found_id_marca),
                     marca: selectedBrand,
                   }));
                 }}
-              >
-                <MenuItem value="">
-                  <em className="uppercase">Ninguno</em>
-                </MenuItem>
-                {brandVehicle &&
-                  brandVehicle.map((brand) => (
-                    <MenuItem key={brand.id} value={brand.marca}>
-                      {brand.marca}
-                    </MenuItem>
-                  ))}
-              </Select>
+                isSearchable
+                placeholder="Marca"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Marca"
-              margin="none"
-              name="Marca"
-              value={editedRow ? editedRow?.marca : ""}
-              placeholder="Ingrese la marca del vehículo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  marca: e.target.value,
-                }))
-              }
-            />
-          </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -348,46 +335,43 @@ export default function ModalEditVehicle({
               }
             />
           </Grid>
-          {/*   <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Grupo"
-              margin="none"
-              name="Grupo"
-              value={editedRow ? editedRow?.grupo : ""}
-              placeholder="Ingrese el grupo del vehiculo"
-              onChange={(e) =>
-                setEditedRow((prevState) => ({
-                  ...prevState,
-                  grupo: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
+
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Grupo</InputLabel>
               <Select
-                label="Grupo"
-                variant="outlined"
-                value={editedRow ? editedRow?.grupo : ""}
-                onChange={(e) =>
+                options={[
+                  { label: "NINGUNO", value: null },
+                  { label: "TA", value: "TA" },
+                  { label: "TC", value: "TC" },
+                  { label: "TE", value: "TE" },
+                ]}
+                value={
+                  editedRow?.grupo
+                    ? { label: editedRow?.grupo, value: editedRow?.grupo }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontraron grupos"}
+                onChange={(selectedOption) =>
                   setEditedRow((prevState) => ({
                     ...prevState,
-                    grupo: e.target.value,
+                    grupo: selectedOption ? selectedOption.value : null,
                   }))
                 }
-              >
-                <MenuItem value="">
-                  <em className="uppercase">Ninguno</em>
-                </MenuItem>
-
-                <MenuItem value="TA">TA</MenuItem>
-                <MenuItem value="TC">TC</MenuItem>
-                <MenuItem value="TE">TE</MenuItem>
-              </Select>
+                isSearchable
+                placeholder="Grupo"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -438,37 +422,53 @@ export default function ModalEditVehicle({
           </Grid>
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Tipo de Vehiculo</InputLabel>
               <Select
                 label="Tipo de Vehiculo"
                 variant="outlined"
-                value={editedRow ? editedRow?.tipov : ""}
-                onChange={(e) => {
-                  const selectedType = e.target.value;
+                options={[
+                  { label: "NINGUNO", value: null },
+                  ...typePolicy.map((policy) => ({
+                    label: policy?.tipov,
+                    value: policy?.tipov,
+                  })),
+                ]}
+                value={
+                  editedRow?.tipov
+                    ? { label: editedRow?.tipov, value: editedRow?.tipov }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontró el tipo de vehículo"}
+                onChange={(selectedOption) => {
+                  const selectedType = selectedOption
+                    ? selectedOption.value
+                    : null;
 
-                  const foundType = typePolicy.find(
-                    (policy) => policy.tipov === selectedType
+                  const foundTypeVehicle = typePolicy.find(
+                    (policy) => policy?.tipov === selectedType
                   );
 
-                  const newIdTipoV = foundType ? foundType?.id_tipov : "";
+                  const found_id_tipov = foundTypeVehicle
+                    ? foundTypeVehicle?.id_tipov
+                    : "";
 
                   setEditedRow((prevState) => ({
                     ...prevState,
-                    id_tipov: String(newIdTipoV),
+                    id_tipov: found_id_tipov,
                     tipov: selectedType,
                   }));
                 }}
-              >
-                <MenuItem value="">
-                  <em className="uppercase">Ninguno</em>
-                </MenuItem>
-                {typePolicy &&
-                  typePolicy.map((policy) => (
-                    <MenuItem key={policy.id_tipov} value={policy.tipov}>
-                      {policy.tipov}
-                    </MenuItem>
-                  ))}
-              </Select>
+                isSearchable
+                placeholder="Tipo de Vehiculo"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
         </Grid>

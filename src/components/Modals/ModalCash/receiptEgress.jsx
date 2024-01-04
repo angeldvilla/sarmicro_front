@@ -29,7 +29,7 @@ const ReciboEgreso = () => {
       <table className={`${styles.table} ${styles.tableBordered}`}>
         <tbody>
           <tr>
-            <th>Fecha de creación:</th>
+            <th>Fecha de Pago:</th>
             <td>{egreso?.fecha_creacion}</td>
           </tr>
           <tr>

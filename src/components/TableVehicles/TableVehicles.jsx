@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+/* import DeleteIcon from "@mui/icons-material/Delete"; */
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DownloadIcon from "@mui/icons-material/Download";
 import BusAlertIcon from "@mui/icons-material/BusAlert";
@@ -29,7 +29,7 @@ import {
   getVehiculos,
   createVehicle,
   updateVehicle,
-  deleteVehicle,
+  /* deleteVehicle, */
   registerAllPolizas,
   deleteVehicleAll,
 } from "../../redux/actions/actionsVehicles";
@@ -44,10 +44,10 @@ const DataGridVehicles = ({ rows, columns }) => {
   const [rowEdit, setRowEdit] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
+  /* const [openDelete, setOpenDelete] = useState(false); */
   const [openDeleteAll, setOpenDeleteAll] = useState(false);
   const [openRegisterPolizas, setOpenRegisterPolizas] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
+  /* const [deleteId, setDeleteId] = useState(null); */
   const [polizasRegistradas, setPolizasRegistradas] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -103,32 +103,50 @@ const DataGridVehicles = ({ rows, columns }) => {
     }
   };
 
-  const handleUpdate = (rowId) => {
+  /* const handleUpdate = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
     setRowEdit(selectedRow);
     setOpenEdit(true);
-  };
+  }; */
 
+  const handleUpdate = (rowId) => {
+    // Extraer el tipoVehiculo y el índice del rowId
+    const [tipoVehiculo, indexStr] = rowId.split('_');
+    const index = parseInt(indexStr, 10);
+  
+    // Encontrar el grupo correspondiente
+    const group = groupedVehicles[tipoVehiculo];
+  
+    // Verificar si el grupo y el índice son válidos
+    if (group && !isNaN(index) && index >= 0 && index < group.length) {
+      const selectedRow = group[index];
+      setRowEdit(selectedRow);
+      setOpenEdit(true);
+    } else {
+      console.error('Error al obtener la información del registro para editar');
+    }
+  };
+  
   const handleEdit = (data, rowId) => {
     setOpenEdit(false);
     dispatch(updateVehicle(data, rowId));
   };
 
-  const handleConfirmDelete = (rowId) => {
+  /* const handleConfirmDelete = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
 
     if (selectedRow) {
       setDeleteId(selectedRow.id);
       setOpenDelete(true);
     }
-  };
+  }; */
 
-  const handleDelete = () => {
+  /* const handleDelete = () => {
     if (deleteId !== null) {
       dispatch(deleteVehicle(deleteId));
     }
     setOpenDelete(false);
-  };
+  }; */
 
   const handleConfirmDeleteAll = (rowId) => {
     const selectedRow = rows.find((row) => row.id === rowId);
@@ -143,13 +161,12 @@ const DataGridVehicles = ({ rows, columns }) => {
     } catch (error) {
       console.log(error);
     }
-    
   };
 
   const actionsColumn = {
     field: "actions",
     headerName: "Acciones",
-    width: 110,
+    width: 90,
     renderCell: (params) => {
       // Encuentra el role_id del usuario logueado
       const loggedInUserId = authUser.user.id;
@@ -183,7 +200,7 @@ const DataGridVehicles = ({ rows, columns }) => {
               </IconButton>
             </Tooltip>
           )}
-          {autorized && (
+          {/* {autorized && (
             <Tooltip title="Borrar">
               <IconButton
                 aria-label="Borrar"
@@ -193,9 +210,9 @@ const DataGridVehicles = ({ rows, columns }) => {
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
-          )}
+          )} */}
           {autorized && (
-            <Tooltip title="Eliminar Todo">
+            <Tooltip title="Excluir Vehículo">
               <IconButton
                 aria-label="Eliminar"
                 style={{ color: "#dd0000" }}
@@ -222,9 +239,15 @@ const DataGridVehicles = ({ rows, columns }) => {
 
   const groupedRows = [];
   for (const tipoVehiculo in groupedVehicles) {
+    const vehiclesWithId = groupedVehicles[tipoVehiculo].map(
+      (vehicle, index) => ({
+        ...vehicle,
+        id: `${tipoVehiculo}_${index}`,
+      })
+    );
     groupedRows.push({
       tipoVehiculo,
-      vehicles: groupedVehicles[tipoVehiculo],
+      vehicles: vehiclesWithId,
     });
   }
 
@@ -414,7 +437,7 @@ const DataGridVehicles = ({ rows, columns }) => {
       )}
       <Toaster richColors position="top-right" />
       {/* Modal para eliminar un vehiculo */}
-      <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
+      {/*       <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle
           style={{
             fontFamily: "sans-serif",
@@ -439,7 +462,7 @@ const DataGridVehicles = ({ rows, columns }) => {
             Si
           </button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
 
       {/* // Modal para registrar todas las polizas */}
       <Dialog

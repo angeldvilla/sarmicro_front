@@ -10,10 +10,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Select from "react-select";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -129,52 +127,32 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="ID Marca"
-              margin="none"
-              name="IdMarca"
-              value={newVehicle ? newVehicle?.id_marca : ""}
-              placeholder="Ingrese el identificador de la marca"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  id_marca: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
-          {/*   <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Propietario"
-              margin="none"
-              name="Propietario"
-              value={newVehicle ? newVehicle?.propietario : ""}
-              placeholder="Ingrese el nombre del propietario del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  propietario: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
 
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Propietario</InputLabel>
               <Select
-                label="Propietario"
-                variant="outlined"
-                value={newVehicle ? newVehicle?.propietario : ""}
-                onChange={(e) => {
-                  const selectedPropietario = e.target.value;
+                options={[
+                  { label: "NINGUNO", value: null },
+                  ...propietary.map((p) => ({
+                    label: p?.nombreCompleto,
+                    value: p?.nombreCompleto,
+                  })),
+                ]}
+                value={
+                  newVehicle?.propietario
+                    ? {
+                        label: newVehicle?.propietario,
+                        value: newVehicle?.propietario,
+                      }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontraron propietarios"}
+                onChange={(selectedOption) => {
+                  const selectedPropietario = selectedOption.value;
 
                   const foundPropietary = propietary.find(
                     (propietary) =>
-                      propietary.nombreCompleto === selectedPropietario
+                      propietary?.nombreCompleto === selectedPropietario
                   );
 
                   const found_id_propietary = foundPropietary
@@ -187,36 +165,21 @@ export default function ModalCreateVehicle({
                     propietario: selectedPropietario,
                   }));
                 }}
-              >
-                <MenuItem value="">
-                  <em className="uppercase">Ninguno</em>
-                </MenuItem>
-                {propietary &&
-                  propietary.map((p) => (
-                    <MenuItem key={p.id_propietario} value={p.nombreCompleto}>
-                      {p.nombreCompleto}
-                    </MenuItem>
-                  ))}
-              </Select>
+                isSearchable
+                placeholder="Propietario"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
 
-          {/* <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="ID Propietaro"
-              margin="none"
-              name="IdPropietario"
-              value={newVehicle ? newVehicle?.id_propietario : ""}
-              placeholder="Ingrese el identificador del propietario"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  id_propietario: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -233,38 +196,34 @@ export default function ModalCreateVehicle({
               }
             />
           </Grid>
-          {/*   <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Marca"
-              margin="none"
-              name="Marca"
-              value={newVehicle ? newVehicle?.marca : ""}
-              placeholder="Ingrese la marca del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  marca: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
+
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Marca</InputLabel>
               <Select
-                label="Marca"
-                variant="outlined"
-                value={newVehicle ? newVehicle?.marca : ""}
-                onChange={(e) => {
-                  const selectedBrand = e.target.value;
+                options={[
+                  { label: "NINGUNO", value: null },
+                  ...brandVehicle.map((brand) => ({
+                    label: brand?.marca,
+                    value: brand?.marca,
+                  })),
+                ]}
+                value={
+                  newVehicle?.marca
+                    ? { label: newVehicle?.marca, value: newVehicle?.marca }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontraron marcas"}
+                onChange={(selectedOption) => {
+                  const selectedBrand = selectedOption
+                    ? selectedOption.value
+                    : null;
 
                   const foundBrand = brandVehicle.find(
-                    (brand) => brand.marca === selectedBrand
+                    (brand) => brand?.marca === selectedBrand
                   );
 
                   const found_id_marca = foundBrand
-                    ? String(foundBrand.id_marca)
+                    ? String(foundBrand?.id_marca)
                     : "";
 
                   setNewVehicle((prevState) => ({
@@ -273,19 +232,21 @@ export default function ModalCreateVehicle({
                     marca: selectedBrand,
                   }));
                 }}
-              >
-                <MenuItem value="">
-                  <em className="uppercase">Ninguno</em>
-                </MenuItem>
-                {brandVehicle &&
-                  brandVehicle.map((brand) => (
-                    <MenuItem key={brand.id} value={brand.marca}>
-                      {brand.marca}
-                    </MenuItem>
-                  ))}
-              </Select>
+                isSearchable
+                placeholder="Marca"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
+
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -351,45 +312,39 @@ export default function ModalCreateVehicle({
             />
           </Grid>
 
-          {/*  <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Grupo"
-              margin="none"
-              name="Grupo"
-              value={newVehicle ? newVehicle?.grupo : ""}
-              placeholder="Ingrese el grupo del vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  grupo: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
-
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Grupo</InputLabel>
               <Select
-                label="Grupo"
-                variant="outlined"
-                value={newVehicle ? newVehicle?.grupo : ""}
-                onChange={(e) =>
+                options={[
+                  { label: "NINGUNO", value: null },
+                  { label: "TA", value: "TA" },
+                  { label: "TC", value: "TC" },
+                  { label: "TE", value: "TE" },
+                ]}
+                value={
+                  newVehicle?.grupo
+                    ? { label: newVehicle?.grupo, value: newVehicle?.grupo }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontraron grupos"}
+                onChange={(selectedOption) =>
                   setNewVehicle((prevState) => ({
                     ...prevState,
-                    grupo: e.target.value,
+                    grupo: selectedOption ? selectedOption.value : null,
                   }))
                 }
-              >
-                <MenuItem value="">
-                  <em className="uppercase">Ninguno</em>
-                </MenuItem>
-
-                <MenuItem value="TA">TA</MenuItem>
-                <MenuItem value="TC">TC</MenuItem>
-                <MenuItem value="TE">TE</MenuItem>
-              </Select>
+                isSearchable
+                placeholder="Grupo"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
 
@@ -460,55 +415,55 @@ export default function ModalCreateVehicle({
             />
           </Grid>
 
-          {/*   <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Tipo de Vehiculo"
-              margin="none"
-              name="TipoVehiculo"
-              value={newVehicle ? newVehicle?.tipov : ""}
-              placeholder="Ingrese el tipo de vehiculo"
-              onChange={(e) =>
-                setNewVehicle((prevState) => ({
-                  ...prevState,
-                  tipov: e.target.value,
-                }))
-              }
-            />
-          </Grid> */}
           <Grid item xs={6}>
             <FormControl fullWidth>
-              <InputLabel>Tipo de Vehiculo</InputLabel>
               <Select
                 label="Tipo de Vehiculo"
                 variant="outlined"
-                value={newVehicle ? newVehicle?.tipov : ""}
-                onChange={(e) => {
-                  const selectedType = e.target.value;
+                options={[
+                  { label: "NINGUNO", value: null },
+                  ...typeVehicle.map((policy) => ({
+                    label: policy?.tipov,
+                    value: policy?.tipov,
+                  })),
+                ]}
+                value={
+                  newVehicle?.tipov
+                    ? { label: newVehicle?.tipov, value: newVehicle?.tipov }
+                    : null
+                }
+                noOptionsMessage={() => "No se encontró el tipo de vehículo"}
+                onChange={(selectedOption) => {
+                  const selectedType = selectedOption
+                    ? selectedOption.value
+                    : null;
 
-                  const foundType = typeVehicle.find(
-                    (policy) => policy.tipov === selectedType
+                  const foundTypeVehicle = typeVehicle.find(
+                    (vehicle) => vehicle?.tipov === selectedType
                   );
 
-                  const id_tipov = foundType ? foundType.id_tipov : null;
+                  const found_id_tipov = foundTypeVehicle
+                    ? foundTypeVehicle?.id_tipov
+                    : "";
 
                   setNewVehicle((prevState) => ({
                     ...prevState,
-                    id_tipov: id_tipov,
+                    id_tipov: found_id_tipov,
                     tipov: selectedType,
                   }));
                 }}
-              >
-                <MenuItem value="">
-                  <em className="uppercase">Ninguno</em>
-                </MenuItem>
-                {typeVehicle &&
-                  typeVehicle.map((policy) => (
-                    <MenuItem key={policy.id_tipov} value={policy.tipov}>
-                      {policy.tipov}
-                    </MenuItem>
-                  ))}
-              </Select>
+                isSearchable
+                placeholder="Tipo de Vehiculo"
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    width: "100%",
+                    height: "55px",
+                  }),
+                }}
+              />
             </FormControl>
           </Grid>
         </Grid>
