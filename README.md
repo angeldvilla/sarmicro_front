@@ -99,4 +99,4 @@ El proyecto ha logrado ofrecer a TransArgelia y Cairo una solución efectiva par
 
 ---
 
-Este proyecto tiene una licencia solo para uso .
+Proyecto de uso privado — desarrollado exclusivamente para TransArgelia & Cairo © 2023
